@@ -104,6 +104,7 @@ response:
 				"light" : [ { song object }, { song object }, etc... ]
 				}
 }
+```
 #####update_station
 route '/songs/:id'  PUT
 request:
@@ -193,6 +194,45 @@ response:
 
 ### Commentaries
 #####create_commentary
+route: 'station/commentaries/'  POST
+request:
+```
+{
+	"audio_blob": audio_blob_here,
+	"station_id": 1234,
+	"current_position": 198 
+}
+```
+response:
+```
+{
+	"success": true,
+	"spin": { "current_position": 76,
+			  "audio_block_type": "commentary",
+			  "audio_block_id": 75,
+			  "estimated_air_time": time  // (number, secs since 1970)
+			  "duration": 1783920     // in milliseconds
+			}
+}
+```
+
+#####get_commentary
+'commentaries/:id'    GET
+response:           
+```
+// Since a commentary is always contained in a spin, this request
+// returns the enclosing spin
+
+{
+	"success": true,
+	"spin": { "current_position": 76,
+			  "audio_block_type": "commentary",
+			  "audio_block_id": 75,
+			  "estimated_air_time": time  // (number, secs since 1970)
+			  "duration": 1783920     // in milliseconds
+			}
+}
+```
 
 ### Spins
 #####get_playlist (station_id, start_time [,end_time])  (default 2 hrs of spins)
