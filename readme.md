@@ -12,7 +12,7 @@ route '/users/:id'   GET
 	"station_id": 1,
 	"email": "bob@bob.com",
 	"birth_year": "1919",
-	"gender": "Male",
+	"gender": "male",
 	"created_at": 1998332213
 }
 ```
