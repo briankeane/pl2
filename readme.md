@@ -19,11 +19,16 @@ request:
 response:
 ```
 {
-	"user_id": 123,
-	"twitter": "BrianKeaneTunes",
-	"email": "lonesomewhistle@gmail.com",
-	"birth_year": 1977,
-	"gender": "male"
+	"success": true,
+	"song": {
+			"user_id": 123,
+			"twitter": "BrianKeaneTunes",
+			"email": "lonesomewhistle@gmail.com",
+			"birth_year": 1977,
+			"gender": "male",
+			"created_at": datetime,
+			"updated_at": datetime
+			}
 }
 
 ```
@@ -49,7 +54,57 @@ route '/users/get_by_twitter_uid'   GET
 	* same info as above
 
 ### Stations
-#####update_commercial_seconds_per_hour (station_id, commercial_seconds_per_hour)
+#####create_station
+request:
+```
+{
+	"user_id": 123,
+	"seconds_of_commercial_per_hour": 180,
+	"heavy":[{
+				"artist": "Rachel Loy",
+				"title": "Stepladder",
+				"album": "Broken Machine",
+				"duration": 196555				
+			},
+			{
+				"artist": "Rachel Loy",d
+				"title": "Stepladder",
+				"album": "Broken Machine",
+				"duration": 196555	
+			},
+			{  .... 
+			}]
+	"medium": [ { song object }, { song object }, etc... ],
+	"light" : [ { song object }, { song object }, etc... ]
+}
+```
+response:
+```
+{
+	"success": true,
+	"station": {
+				"id": 500,
+				"seconds_of_commercial_per_hour": 180,
+				"user_id": 123,
+				"heavy":[{
+							"artist": "Rachel Loy",
+							"title": "Stepladder",
+							"album": "Broken Machine",
+							"duration": 196555				
+						},
+						{
+							"artist": "Rachel Loy",d
+							"title": "Stepladder",
+							"album": "Broken Machine",
+							"duration": 196555	
+						},
+						{  .... 
+						}]
+				"medium": [ { song object }, { song object }, etc... ],
+				"light" : [ { song object }, { song object }, etc... ]
+				}
+}
+#####update_station
 route '/songs/:id'  PUT
 request:
 ```
@@ -61,8 +116,28 @@ request:
 response:
 ```
 {
-	"success": false,
-	"error": ":no_station_found"
+	"success": true,
+	"station": {
+		"id": 500,
+		"seconds_of_commercial_per_hour": 180,
+		"user_id": 123,
+		"heavy":[{
+				"artist": "Rachel Loy",
+				"title": "Stepladder",
+				"album": "Broken Machine",
+				"duration": 196555				
+			},
+			{
+				"artist": "Rachel Loy",d
+				"title": "Stepladder",
+				"album": "Broken Machine",
+				"duration": 196555	
+			},
+			{  .... 
+			}]
+				"medium": [ { song object }, { song object }, etc... ],
+				"light" : [ { song object }, { song object }, etc... ]
+			}
 }
 ```
 #####get_station (station_id)
@@ -70,24 +145,29 @@ route: '/stations/:id'  GET
 response:
 ```
 {
-	"seconds_of_commercial_per_hour": 180,
-	"user_id": 123,
-	"heavy":[{
+	"success": true,
+	"station": {
+		"id": 500,
+		"seconds_of_commercial_per_hour": 180,
+		"user_id": 123,
+		"heavy":[{
 				"artist": "Rachel Loy",
 				"title": "Stepladder",
 				"album": "Broken Machine",
 				"duration": 196555				
 			},
 			{
-				"artist": "Rachel Loy",
+				"artist": "Rachel Loy",d
 				"title": "Stepladder",
 				"album": "Broken Machine",
 				"duration": 196555	
 			},
 			{  .... 
 			}]
-	"medium": [... another array of song objects] ...]
-	"light" : [... another array of song objects] ...]
+				"medium": [ { song object }, { song object }, etc... ],
+				"light" : [ { song object }, { song object }, etc... ]
+			}
+
 }
 
 ```
