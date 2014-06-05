@@ -6,41 +6,57 @@ This app is the back-end to PlayolaRadio.  It uses an HTTP interface and provide
 ### Users
 create_user  (twitter, email, twitter_uid)
 get_user (id)
-	* station_id
-
-	* email
-
-	* birth_year
-
-	* gender
-
-	* created_at
-
+route '/users/:id'   GET
+```
+{
+	"station_id": 1,
+	"email": "bob@bob.com",
+	"birth_year": "1919",
+	"gender": "Male",
+	"created_at": 1998332213
+}
+```
 get_user_by_twitter(twitter)
+route '/users/get_by_twitter'  GET
 
     * same info as above
 
 get_user_by_twitter_uid(twitter_uid)
-
+route '/users/get_by_twitter_uid'   GET
 	* same info as above
 
 ### Stations
 
-update_commercial_time (station_id, seconds_per_hour)
+update_commercial_seconds_per_hour (station_id, commercial_seconds_per_hour)
+route '/songs/:id'  PUT
+request:
+```
+{
+	"station_id": 12,
+	"commercial_seconds_per_hour": 180
+}
+```
+response:
+```
+{
+	"success": false,
+	"error": ":no_station_found"
+}
+```
 
-get_station_info (station_id)
+get_station (station_id)
+route: '/stations/:id'  GET
+response:
+```
+{
+	"seconds_of_commercial_per_hour": 180,
+	"user_id": 123
+}
 
-	* seconds_of_commercial_per_hour
-
-	* user_id
-
-	* heavy_rotation  (array of song objects w/out audio blob)
-
-	* medium_rotation  (array of song objects w/out audio blob)
-
-	* light_rotation  (array of song objects w/out audio blob)
-
+```
 ### Songs
+create_song (title, artist, album, duration, key)
+/songs/  POST
 
 ### log
 
