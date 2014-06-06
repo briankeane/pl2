@@ -278,7 +278,7 @@ response:
 	"current_position": 76,
 	"audio_block_type": "song",
 	"audio_block_id": 75,
-	"estimated_air_time": time  // (number, secs since 1970)
+	"estimated_air_time": datetime  // (number, secs since 1970)
 	"duration": 1783920     // in milliseconds
 }
 ```
@@ -289,8 +289,163 @@ route '/stations/:station_id/get_next_spin_with_audio'   GET
 	"current_position": 76,
 	"audio_block_type": "song",
 	"audio_block_id": 75,
-	"estimated_air_time": time  // (number, secs since 1970)
+	"estimated_air_time": datetime  // (number, secs since 1970)
 	"duration": 1783920     // in milliseconds
 	"audio_blob": "AUDIODATA HERE"
 }
 ```
+#####report_spin_played
+route '/log/create/'
+```
+{
+	"spin_id": 394,
+	"listeners_at_start": 3,
+	"listeners_at_finish": 2,
+	"current_position": 722,
+	"air_time": datetime,
+	"audio_block_id": 75,
+	"audio_block_type": "song"
+}
+```
+response:
+```
+{
+	"success":true,
+	"spin":{ 
+			"spin_id": 394,
+			"listeners_at_start": 3,
+			"listeners_at_finish": 2,
+			"current_position": 722,
+			"air_time": datetime,
+			"audio_block_id": 75,
+			"audio_block_type": "song"
+		}
+}
+
+```
+### Logs
+##### get_last_10_spins
+route '/logs/:station_id/' GET
+response:
+```
+{
+	"success": true,
+	"last_10_spins": 
+			[{ "current_position": 76,
+			  "audio_block_type": "song",
+			  "audio_block_id": 75,
+			  "played_at": datetime  // (number, secs since 1970)
+			  "duration": 1783920     // in milliseconds
+			},
+			{ "current_position": 77,
+			  "audio_block_type": "commercial",
+			  "audio_block_id": 75,
+			  "played_at": datetime  // (number, secs since 1970)
+			  "duration": 1783920     // in milliseconds
+			},
+			{ "current_position": 78,
+			  "audio_block_type": "commentary",
+			  "audio_block_id": 75,
+			  "played_at": datetime  // (number, secs since 1970)
+			  "duration": 1783920        // in milliseconds 
+			}]]
+}
+```
+
+#### get_full_station_log
+route 'logs/full_station_logs'  GET
+response:
+```
+{
+	"success": true,
+	"full_station_log": 
+			[{ "current_position": 76,
+			  "audio_block_type": "song",
+			  "audio_block_id": 75,
+			  "played_at": datetime  // (number, secs since 1970)
+			  "duration": 1783920     // in milliseconds
+			},
+			{ "current_position": 77,
+			  "audio_block_type": "commercial",
+			  "audio_block_id": 75,
+			  "played_at": datetime  // (number, secs since 1970)
+			  "duration": 1783920     // in milliseconds
+			},
+			{ "current_position": 78,
+			  "audio_block_type": "commentary",
+			  "audio_block_id": 75,
+			  "played_at": datetime  // (number, secs since 1970)
+			  "duration": 1783920        // in milliseconds 
+			}]]
+}
+```
+
+##SCHEMA
+```
+create_table "users", force: true do |t|
+    t.string   "twitter"
+    t.string   "email"
+    t.string   "password_digest"
+   t.string   "birth_year"
+    t.string  "gender"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "twitter_uid"
+  end
+
+ create_table "stations", force: true do |t|
+    t.integer  "seconds_of_commercial_per_hour"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+ end
+
+create_table "songs", force:true do |t|
+    t.integer "sing_start"
+    t.integer "sing_end"
+    t.string  "title"
+    t.string  "artist"
+    t.string  "album"
+    t.integer "duration"
+    t.string "key"
+end
+
+create_table "commentaries" do |t|
+    t.integer "audio_block_id"
+    t.integer "station_id"
+    t.datetime "created_at"
+end
+
+  create_table "commercials", force: true do |t|
+    t.integer "audio_block_id"
+    t.integer "sponsor_id"
+  end
+
+  create_table "sessions", force: true do |t|
+    t.string  "session_id"
+    t.integer "user_id"
+  end
+
+  create_table "logs", force: true do |t|
+    t.integer  "station_id"
+    t.datetime "played_at"
+    t.integer  "audio_block_id"
+    t.string   "audio_block_type"
+  end
+
+create_table "rules" force:true do |t|
+   t.integer "audio_block_id"
+   t.integer "station_id"
+   t.integer "rule_sequence"   
+   t.integer "rotation_level"
+end
+
+create_table "spins" force:true do |t|
+    t.integer "audio_block_id"
+    t.integer "station_id"
+    t.integer "current_position"
+end
+```
+
+
+
