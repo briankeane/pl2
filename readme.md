@@ -376,7 +376,7 @@ response:
 			  "audio_block_id": 75,
 			  "played_at": datetime  // (number, secs since 1970)
 			  "duration": 1783920        // in milliseconds 
-			}]]
+			}]
 }
 ```
 
