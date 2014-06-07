@@ -3,8 +3,8 @@ module PL
 		attr_accessor :id, :twitter, :twitter_uid, :email
 		attr_accessor :birth_year, :gender
 
-		def intialize
-			super.initialize
+		def intialize(attrs)
+			super(attrs)
 		end
 	end
 end

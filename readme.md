@@ -20,7 +20,7 @@ response:
 ```
 {
 	"success": true,
-	"song": {
+	"user": {
 			"user_id": 123,
 			"twitter": "BrianKeaneTunes",
 			"email": "lonesomewhistle@gmail.com",
