@@ -21,7 +21,7 @@ response:
 {
 	"success": true,
 	"user": {
-			"user_id": 123,
+			"id": 123,
 			"twitter": "BrianKeaneTunes",
 			"email": "lonesomewhistle@gmail.com",
 			"birth_year": 1977,
@@ -37,10 +37,17 @@ route '/users/:id'   GET
 response:
 ```
 {
-	"email": "bob@bob.com",
-	"birth_year": "1919",
-	"gender": "male",
-	"created_at": 1998332213
+	"success": true,
+	"user": {
+			"id": 123,
+			"twitter": "BrianKeaneTunes",
+			"email": "lonesomewhistle@gmail.com",
+			"birth_year": 1977,
+			"gender": "male",
+			"created_at": datetime,
+			"updated_at": datetime
+			}
+
 }
 ```
 #####get_user_by_twitter(twitter)
@@ -57,7 +64,16 @@ route '/users/:id/'   DELETE
 response:
 ```
 {
-
+	"success": true,
+	"user": {
+			"id": 123,
+			"twitter": "BrianKeaneTunes",
+			"email": "lonesomewhistle@gmail.com",
+			"birth_year": 1977,
+			"gender": "male",
+			"created_at": datetime,
+			"updated_at": datetime
+			}
 }
 ```
 ### Stations
