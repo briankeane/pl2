@@ -30,7 +30,7 @@ require_relative 'pl/entity.rb'
 # require_relative 'pl/entities/audio_block.rb'
 # require_relative 'pl/entities/commercial_block.rb'
 require_relative 'pl/entities/song.rb'
-# require_relative 'pl/entities/spin.rb'
+require_relative 'pl/entities/spin.rb'
 require_relative 'pl/entities/station.rb'
 require_relative 'pl/entities/user.rb'
 #Dir[File.dirname(__FILE__) + '/pl/use-cases/*.rb'].each {|file| require_relative file }
