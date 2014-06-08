@@ -25,7 +25,7 @@ end
 require 'ostruct'
 require_relative 'pl/entity.rb'
 # require_relative 'pl/use_case.rb'
-# require_relative 'pl/database/in_memory.rb'
+require_relative 'pl/database/in_memory.rb'
 # require_relative 'pl/database/postgres_database.rb'
 # require_relative 'pl/entities/audio_block.rb'
 # require_relative 'pl/entities/commercial_block.rb'
