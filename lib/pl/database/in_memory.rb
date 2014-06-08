@@ -24,7 +24,6 @@ module PL
       	attrs[:id] = id
       	attrs[:created_at] = Time.now
       	attrs[:updated_at] = Time.now
-
       	user = User.new(attrs)
       	@users[id] = user
       	user

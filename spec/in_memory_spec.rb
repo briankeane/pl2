@@ -64,8 +64,7 @@ describe 'a database' do
 			deleted = db.delete_user(999)
 			expect(deleted).to be_nil
 		end
-
-
+		
 
 	end
 end
