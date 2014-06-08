@@ -37,7 +37,6 @@ route '/users/:id'   GET
 response:
 ```
 {
-	"station_id": 1,
 	"email": "bob@bob.com",
 	"birth_year": "1919",
 	"gender": "male",
@@ -53,6 +52,14 @@ get_user_by_twitter_uid(twitter_uid)
 route '/users/get_by_twitter_uid'   GET
 	* same info as above
 
+#####delete_user_by_twitter(twitter)
+route '/users/:id/'   DELETE
+response:
+```
+{
+
+}
+```
 ### Stations
 #####create_station
 request:

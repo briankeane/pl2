@@ -9,12 +9,16 @@ describe 'a station' do
 		                       user_id: 2,
 		                         heavy: [song1, song2],
 		                        medium: [song1, song2],
-		                         light: [song1, song2] })
+		                         light: [song1, song2],
+		                         created_at: Time.new(1970),
+		                         updated_at: Time.new(1970, 1, 2) })
 		expect(station.id).to eq(1)
 		expect(station.secs_of_commercial_per_hour).to eq(3)
 		expect(station.user_id).to eq(2)
 		expect(station.heavy.size).to eq(2)
 		expect(station.medium.size).to eq(2)
 		expect(station.light[0].id).to eq(1)
+		expect(station.created_at).to eq(Time.new(1970))
+		expect(station.updated_at).to eq(Time.new(1970, 1, 2))
 	end
 end

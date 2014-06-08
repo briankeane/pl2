@@ -22,6 +22,9 @@ module PL
       def create_user(attrs)
       	id = (@user_id_counter += 1)
       	attrs[:id] = id
+      	attrs[:created_at] = Time.now
+      	attrs[:updated_at] = Time.now
+
       	user = User.new(attrs)
       	@users[id] = user
       	user
@@ -31,6 +34,27 @@ module PL
       	@users[id]
       end
 
+   		def get_user_by_twitter(twitter)
+   			@users.values.find { |user| user.twitter == twitter }
+   		end
+
+   		def update_user(attrs)
+        user = @users[attrs[:id]]
+        attrs.delete(:id)
+
+        # insert updated attributes
+        attrs.each do |attr_name, value|
+          setter = "#{attr_name}="
+          user.send(setter, value) if user.class.method_defined?(setter)
+        end
+
+        user
+      end
+
+      def delete_user(id)
+      	user = @users.delete(id)
+      	user
+      end
   	end
   end
 end
