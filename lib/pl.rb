@@ -1,4 +1,5 @@
 require 'dotenv'
+require 'pry-debugger'
 Dotenv.load
 
 module PL

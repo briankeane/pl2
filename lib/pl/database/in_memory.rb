@@ -14,6 +14,8 @@ module PL
       def clear_everything
       	@user_id_counter = 100
       	@users = {}
+        @song_id_counter = 200
+        @songs = {}
       end
 
       ##############
@@ -54,6 +56,38 @@ module PL
       	user = @users.delete(id)
       	user
       end
+      ##############
+      #   Songs    #
+      ##############
+      def create_song(attrs)
+        id = (@song_id_counter += 1)
+        attrs[:id] = id
+        song = PL::Song.new(attrs)
+        @songs[id] = song
+        song
+      end
+
+      def get_song(id)
+        @songs[id]
+      end
+
+      def update_song(attrs)
+        song = @songs[attrs.delete(:id)]
+        
+        # return false if song doesn't exist
+        return false unless song
+
+        #update values
+        attrs.each do |attr_name, value|
+          setter = "#{attr_name}="
+          song.send(setter, value) if song.class.method_defined?(setter)
+        end
+
+        song
+      end
+
+
+
   	end
   end
 end

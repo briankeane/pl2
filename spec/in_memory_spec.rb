@@ -64,7 +64,56 @@ describe 'a database' do
 			deleted = db.delete_user(999)
 			expect(deleted).to be_nil
 		end
-		
+	end
+	##############
+  #   Songs    #
+  ##############
+  describe 'a song' do
+  	before (:each) do
+  		@song = db.create_song({ artist: 'Brian Keane',
+  											title: 'Bar Lights',
+  											album: 'Coming Home',
+  											duration: 19000,
+  											key: 'ThisIsAKey.mp3' })
+  	end
 
+  	it 'is created with id, artist, title, album, duration, key' do
+  		expect(@song.artist).to eq('Brian Keane')
+  		expect(@song.title).to eq('Bar Lights')
+  		expect(@song.album).to eq('Coming Home')
+  		expect(@song.duration).to eq(19000)
+  		expect(@song.key).to eq('ThisIsAKey.mp3')
+  		expect(@song.id).to be_a(Fixnum)
+  	end
+
+  	it 'can be gotten by id' do
+  		gotten_song = db.get_song(@song.id)
+  		expect(gotten_song.artist).to eq('Brian Keane')
+  		expect(gotten_song.title).to eq('Bar Lights')
+  		expect(gotten_song.album).to eq('Coming Home')
+  		expect(gotten_song.duration).to eq(19000)
+  		expect(gotten_song.key).to eq('ThisIsAKey.mp3')
+  		expect(gotten_song.id).to be_a(Fixnum)
+  	end
+
+  	it 'can be updated' do
+  		db.update_song({ id: @song.id, artist: 'Bob' })
+  		db.update_song({ id: @song.id, title: 'Song By Bob' })
+  		db.update_song({ id: @song.id, album: 'Album By Bob' })
+  		db.update_song({ id: @song.id, duration: 20000 })
+  		db.update_song({ id: @song.id, key: 'BobsKey.mp3' })
+
+  		updated_song = db.get_song(@song.id)
+  		expect(updated_song.artist).to eq('Bob')
+  		expect(updated_song.title).to eq('Song By Bob')
+  		expect(updated_song.album).to eq('Album By Bob')
+  		expect(updated_song.duration).to eq(20000)
+  		expect(updated_song.key).to eq('BobsKey.mp3')
+  	end
+
+  	it "returns false if song-to-update doesn't exist" do
+  		result = db.update_song({ id: 9999999, artist: 'Bob' })
+  		expect(result).to eq(false)
+  	end
 	end
 end

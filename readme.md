@@ -210,7 +210,8 @@ response:
 		"artist": "Rachel Loy",
 		"title": "Stepladder",
 		"album": "Broken Machine",
-		"duration": 196555
+		"duration": 196555,
+		"key": 'ThisIsAKey.mp3'
 	}
 }
 ### log
