@@ -204,9 +204,11 @@ route: '/songs/'  POST
 }
 ```
 response:
+```
 {
 	"success": true,
 	"song": {
+		"id": 99,
 		"artist": "Rachel Loy",
 		"title": "Stepladder",
 		"album": "Broken Machine",
@@ -214,6 +216,52 @@ response:
 		"key": 'ThisIsAKey.mp3'
 	}
 }
+```
+#####get_song
+route: '/songs/:id' GET
+response:
+```
+same as above
+```
+
+#####update_song
+route: 'songs/:id'  PUT
+```
+{
+	"artist": 'Brian Keane'
+}
+```
+response:
+```
+{
+	"success": true,
+	"song": {
+		"id": 99,
+		"artist": "Brian Keane",
+		"title": "Stepladder",
+		"album": "Broken Machine",
+		"duration": 196555,
+		"key": 'ThisIsAKey.mp3'
+	}
+}
+```
+#####delete_song
+route: '/songs/:id' DELETE
+response:
+```
+{
+	"success": true,
+	"song": {
+		"id": 99,
+		"artist": "Brian Keane",
+		"title": "Stepladder",
+		"album": "Broken Machine",
+		"duration": 196555,
+		"key": 'ThisIsAKey.mp3'
+	}
+}
+```
+
 ### log
 
 ### Commentaries
