@@ -115,5 +115,12 @@ describe 'a database' do
   		result = db.update_song({ id: 9999999, artist: 'Bob' })
   		expect(result).to eq(false)
   	end
+
+  	it "deletes a song, returning the deleted song object" do
+  		id = @song.id
+  		result = db.delete_song(id)
+  		expect(result.id).to eq(id)
+  		expect(db.get_song(id)).to be_nil
+  	end
 	end
 end

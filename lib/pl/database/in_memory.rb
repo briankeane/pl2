@@ -86,6 +86,11 @@ module PL
         song
       end
 
+      def delete_song(id)
+        song = @songs.delete(id)
+        song
+      end
+
 
 
   	end
