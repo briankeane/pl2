@@ -49,6 +49,8 @@ module PL
           user.send(setter, value) if user.class.method_defined?(setter)
         end
 
+        user.updated_at = Time.now
+
         user
       end
 
@@ -90,9 +92,6 @@ module PL
         song = @songs.delete(id)
         song
       end
-
-
-
   	end
   end
 end

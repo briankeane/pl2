@@ -8,6 +8,10 @@ describe 'a database' do
 	before { db.clear_everything }
 
 	describe 'a database' do
+
+		##############
+    #   Users    #
+    ##############
 		before(:each) do
 			@user = db.create_user({ twitter: 'BrianKeaneTunes',
 							twitter_uid: 756,
@@ -40,6 +44,7 @@ describe 'a database' do
 		end
 
 		it 'can be updated' do
+			old_update_time = @user.updated_at
 			db.update_user({ id: @user.id,
 															birth_year: 1900,
 															twitter: 'bob',
@@ -52,6 +57,7 @@ describe 'a database' do
 			expect(user.twitter_uid).to eq(100)
 			expect(user.gender).to eq('unsure')
 			expect(user.email).to eq('bob@bob.com')
+			expect(user.updated_at > old_update_time).to eq(true)
 		end
 
 		it 'can be deleted' do
@@ -65,6 +71,7 @@ describe 'a database' do
 			expect(deleted).to be_nil
 		end
 	end
+
 	##############
   #   Songs    #
   ##############
@@ -122,5 +129,14 @@ describe 'a database' do
   		expect(result.id).to eq(id)
   		expect(db.get_song(id)).to be_nil
   	end
+
+  	it 'returns nil if attempting to delete a non-existent song' do
+  		result = db.delete_song(99999)
+  		expect(result).to be_nil
+  	end
 	end
+
+
+
+
 end
