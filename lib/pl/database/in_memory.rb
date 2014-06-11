@@ -101,15 +101,21 @@ module PL
       ##############
       def create_station(attrs)
         id = (@station_id_counter += 1)
+        attrs[:id] = id
+
         heavy = attrs.delete(:heavy)
         medium = attrs.delete(:medium)
         light = attrs.delete(:light)
 
+        heavy ||= {}
+        medium ||= {}
+        light ||= {}
+
         station = Station.new(attrs)
 
-        heavy.each { |rotation| station.rotation_levels[rotation] = HEAVY_ROTATION_LEVEL }
-        medium.each { |rotation| station.rotation_levels[rotation] = MEDIUM_ROTATION_LEVEL }
-        light.each { |rotation| station.rotation_levels[rotation] = LIGHT_ROTATION_LEVEL }
+        heavy.each { |rotation| station.rotation_levels[rotation] = PL::ROTATION_LEVEL_HEAVY }
+        medium.each { |rotation| station.rotation_levels[rotation] = PL::ROTATION_LEVEL_MEDIUM }
+        light.each { |rotation| station.rotation_levels[rotation] = PL::ROTATION_LEVEL_LIGHT }
 
         station
       end

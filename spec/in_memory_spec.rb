@@ -155,9 +155,9 @@ describe 'a database' do
 			expect(@station.id).to be_a(Fixnum)
 			expect(@station.user_id).to eq(1)
 			expect(@station.secs_of_commercial_per_hour).to eq(2)
-			expect(@station.rotation_levels[@song1.id].to eq(ROTATION_LEVEL_HEAVY))
-			expect(@station.rotation_levels[@song2.id]).to eq(ROTATION_LEVEL_MEDIUM)
-			expect(@station.rotation_levels[@song3.id]).to eq(ROTATION_LEVEL_LIGHT)
+			expect(@station.rotation_levels[@song1.id]).to eq(PL::ROTATION_LEVEL_HEAVY)
+			expect(@station.rotation_levels[@song2.id]).to eq(PL::ROTATION_LEVEL_MEDIUM)
+			expect(@station.rotation_levels[@song3.id]).to eq(PL::ROTATION_LEVEL_LIGHT)
 		end
 	end
 

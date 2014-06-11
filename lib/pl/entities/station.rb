@@ -5,9 +5,14 @@ module PL
 
 		def initialize(attrs)
 
+			
 			heavy = attrs.delete(:heavy)
 			medium = attrs.delete(:medium)
 			light = attrs.delete(:light)
+
+			heavy ||= {}
+			medium ||= {}
+			light ||= {}
 
 			#store rotation_levels
 			@rotation_levels = {}
