@@ -125,6 +125,21 @@ module PL
         @stations[id]
       end
 
+      def update_station(attrs)
+        station = @stations[attrs.delete(:id)]
+        
+        # return false if station doesn't exist
+        return false if station.nil?
+
+        #update values
+        attrs.each do |attr_name, value|
+          setter = "#{attr_name}="
+          station.send(setter, value) if station.class.method_defined?(setter)
+        end
+
+        station
+      end
+
       ##################################################################
       #     spin_frequency                                             #
       ##################################################################

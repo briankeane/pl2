@@ -52,14 +52,15 @@ response:
 ```
 #####get_user_by_twitter(twitter)
 route '/users/get_by_twitter'  GET
-
+```
     * same info as above
-
+```
 get_user_by_twitter_uid(twitter_uid)
 route '/users/get_by_twitter_uid'   GET
+```
 	* same info as above
-
-#####delete_user_by_twitter(twitter)
+```
+#####delete_user(id)
 route '/users/:id/'   DELETE
 response:
 ```
@@ -83,22 +84,15 @@ request:
 {
 	"user_id": 123,
 	"seconds_of_commercial_per_hour": 180,
-	"heavy":[{
-				"artist": "Rachel Loy",
-				"title": "Stepladder",
-				"album": "Broken Machine",
-				"duration": 196555				
-			},
-			{
-				"artist": "Rachel Loy",d
-				"title": "Stepladder",
-				"album": "Broken Machine",
-				"duration": 196555	
-			},
-			{  .... 
-			}]
-	"medium": [ { song object }, { song object }, etc... ],
-	"light" : [ { song object }, { song object }, etc... ]
+	"spins_per_week": {
+			#song_id: spins_per_week
+			15: 27,
+			27: 25,
+			84: 22,
+			19: 14,
+			12: 3,
+			11: 2
+	}
 }
 ```
 response:
@@ -109,23 +103,15 @@ response:
 				"id": 500,
 				"seconds_of_commercial_per_hour": 180,
 				"user_id": 123,
-				"heavy":[{
-							"artist": "Rachel Loy",
-							"title": "Stepladder",
-							"album": "Broken Machine",
-							"duration": 196555				
-						},
-						{
-							"artist": "Rachel Loy",d
-							"title": "Stepladder",
-							"album": "Broken Machine",
-							"duration": 196555	
-						},
-						{  .... 
-						}]
-				"medium": [ { song object }, { song object }, etc... ],
-				"light" : [ { song object }, { song object }, etc... ]
-				}
+		"spins_per_week": {     
+			#song_id: spins_per_week
+			15: 27,
+			27: 25,
+			84: 22,
+			19: 14,
+			12: 3,
+			11: 2
+	}				
 }
 ```
 #####update_station
@@ -145,23 +131,15 @@ response:
 		"id": 500,
 		"seconds_of_commercial_per_hour": 180,
 		"user_id": 123,
-		"heavy":[{
-				"artist": "Rachel Loy",
-				"title": "Stepladder",
-				"album": "Broken Machine",
-				"duration": 196555				
-			},
-			{
-				"artist": "Rachel Loy",d
-				"title": "Stepladder",
-				"album": "Broken Machine",
-				"duration": 196555	
-			},
-			{  .... 
-			}]
-				"medium": [ { song object }, { song object }, etc... ],
-				"light" : [ { song object }, { song object }, etc... ]
-			}
+		"spins_per_week": {     
+			#song_id: spins_per_week
+			15: 27,
+			27: 25,
+			84: 22,
+			19: 14,
+			12: 3,
+			11: 2
+	}
 }
 ```
 #####get_station (station_id)
@@ -183,7 +161,6 @@ response:
 			12: 3,
 			11: 2
 	}
-
 }
 
 ```

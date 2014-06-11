@@ -160,6 +160,13 @@ describe 'a database' do
 			expect(gotten_station.secs_of_commercial_per_hour).to eq(2)
 			expect(gotten_station.user_id).to eq(1)
 		end
+
+		it 'updates a station' do
+			updated_station = db.update_station({ id: @station.id,
+																						secs_of_commercial_per_hour: 3 })
+			expect(updated_station.secs_of_commercial_per_hour).to eq(3)
+			expect(db.get_station(@station.id).secs_of_commercial_per_hour).to eq(3)
+		end
 	end
 
   ###################
