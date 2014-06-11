@@ -174,23 +174,15 @@ response:
 		"id": 500,
 		"seconds_of_commercial_per_hour": 180,
 		"user_id": 123,
-		"heavy":[{
-				"artist": "Rachel Loy",
-				"title": "Stepladder",
-				"album": "Broken Machine",
-				"duration": 196555				
-			},
-			{
-				"artist": "Rachel Loy",d
-				"title": "Stepladder",
-				"album": "Broken Machine",
-				"duration": 196555	
-			},
-			{  .... 
-			}]
-				"medium": [ { song object }, { song object }, etc... ],
-				"light" : [ { song object }, { song object }, etc... ]
-			}
+		"spins_per_week": {     
+			#song_id: spins_per_week
+			15: 27,
+			27: 25,
+			84: 22,
+			19: 14,
+			12: 3,
+			11: 2
+	}
 
 }
 
@@ -259,6 +251,23 @@ response:
 		"duration": 196555,
 		"key": 'ThisIsAKey.mp3'
 	}
+}
+```
+### spin_frequencies
+route '/spin_frequencies/'  POST
+request:
+```
+{
+	"song_id": 2,
+	"station_id": 4,
+	"spins_per_week", 17
+}
+```
+response:
+```
+{
+	"success": true,
+	"updated_station": { updated station object }
 }
 ```
 
@@ -505,10 +514,10 @@ end
     t.string   "audio_block_type"
   end
 
-create_table "rotation_level" force:true do |t|
+create_table "spin_frequency" force:true do |t|
    t.integer "song_id"
    t.integer "station_id"   
-   t.integer "rotation_level"
+   t.integer "spins_per_week"
    t.integer "listeners_before"
    t.integer "listeners_after"
 end

@@ -150,9 +150,9 @@ describe 'a database' do
 			expect(@station.id).to be_a(Fixnum)
 			expect(@station.user_id).to eq(1)
 			expect(@station.secs_of_commercial_per_hour).to eq(2)
-			expect(@station.rotation_levels[@song1.id]).to eq(PL::ROTATION_LEVEL_HEAVY)
-			expect(@station.rotation_levels[@song2.id]).to eq(PL::ROTATION_LEVEL_MEDIUM)
-			expect(@station.rotation_levels[@song3.id]).to eq(PL::ROTATION_LEVEL_LIGHT)
+			expect(@station.spins_per_week[@song1.id]).to eq(PL::HEAVY_ROTATION)
+			expect(@station.spins_per_week[@song2.id]).to eq(PL::MEDIUM_ROTATION)
+			expect(@station.spins_per_week[@song3.id]).to eq(PL::LIGHT_ROTATION)
 		end
 
 		it 'gets a station' do
@@ -163,23 +163,23 @@ describe 'a database' do
 	end
 
   ###################
-  #  RotationLeveL  #
+  #  SpinFrequency  #
   ###################
-  describe 'a rotation_level' do
+  describe 'a rotation_spins_per_week' do
   	before(:each) do
   		@station = db.create_station({ user_id: 1 })
-  		@heavy_rl = db.create_rotation_level({ song_id: 1, station_id: @station.id, level: PL::ROTATION_LEVEL_HEAVY })
-  		@medium_rl = db.create_rotation_level({ song_id: 2, station_id: @station.id, level: PL::ROTATION_LEVEL_MEDIUM })
-  		@light_rl = db.create_rotation_level({ song_id: 3, station_id: @station.id, level: PL::ROTATION_LEVEL_LIGHT })
+  		@heavy_rl = db.create_spin_frequency({ song_id: 1, station_id: @station.id, spins_per_week: PL::HEAVY_ROTATION })
+  		@medium_rl = db.create_spin_frequency({ song_id: 2, station_id: @station.id, spins_per_week: PL::MEDIUM_ROTATION })
+  		@light_rl = db.create_spin_frequency({ song_id: 3, station_id: @station.id, spins_per_week: PL::LIGHT_ROTATION })
   	end
 
 
-  	it 'stores the rotation_level for each song' do
+  	it 'stores the rotation_spins_per_week for each song' do
   		updated_station = db.get_station(@station.id)
-  		expect(updated_station.rotation_levels.size).to eq(3)
-  		expect(updated_station.rotation_levels[1]).to eq(PL::ROTATION_LEVEL_HEAVY)
-  		expect(updated_station.rotation_levels[2]).to eq(PL::ROTATION_LEVEL_MEDIUM)
-  		expect(updated_station.rotation_levels[3]).to eq(PL::ROTATION_LEVEL_LIGHT)
+  		expect(updated_station.spins_per_week.size).to eq(3)
+  		expect(updated_station.spins_per_week[1]).to eq(PL::HEAVY_ROTATION)
+  		expect(updated_station.spins_per_week[2]).to eq(PL::MEDIUM_ROTATION)
+  		expect(updated_station.spins_per_week[3]).to eq(PL::LIGHT_ROTATION)
   	end
   end
 

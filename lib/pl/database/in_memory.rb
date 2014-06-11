@@ -113,9 +113,9 @@ module PL
 
         station = Station.new(attrs)
 
-        heavy.each { |rotation| station.rotation_levels[rotation] = PL::ROTATION_LEVEL_HEAVY }
-        medium.each { |rotation| station.rotation_levels[rotation] = PL::ROTATION_LEVEL_MEDIUM }
-        light.each { |rotation| station.rotation_levels[rotation] = PL::ROTATION_LEVEL_LIGHT }
+        heavy.each { |rotation| station.spins_per_week[rotation] = PL::HEAVY_ROTATION }
+        medium.each { |rotation| station.spins_per_week[rotation] = PL::MEDIUM_ROTATION }
+        light.each { |rotation| station.spins_per_week[rotation] = PL::LIGHT_ROTATION }
 
         @stations[id] = station
         station
@@ -126,16 +126,16 @@ module PL
       end
 
       ##################################################################
-      #     rotation_level                                             #
+      #     spin_frequency                                             #
       ##################################################################
-      #  A rotation_level stores the number of times a song should     #
-      #  be played in 1 week on the station.    (level)                #
+      #  A spin_frequency stores the number of times a song should     #
+      #  be played in 1 week on the station.    (spins_per_week)       #
       ##################################################################
-      #  values:    song_id, station_id, level (Integer)               #
+      #  values:    song_id, station_id, spins_per_week (Integer)      #
       ##################################################################
-      def create_rotation_level(attrs)
+      def create_spin_frequency(attrs)
         station = self.get_station(attrs[:station_id])
-        station.rotation_levels[attrs[:song_id]] = attrs[:level]
+        station.spins_per_week[attrs[:song_id]] = attrs[:spins_per_week]
       end
   	end
   end

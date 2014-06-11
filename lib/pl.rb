@@ -5,9 +5,9 @@ Dotenv.load
 module PL
 
   # Constants
-  ROTATION_LEVEL_HEAVY = 27
-  ROTATION_LEVEL_MEDIUM = 17
-  ROTATION_LEVEL_LIGHT = 1
+  HEAVY_ROTATION = 27
+  MEDIUM_ROTATION = 17
+  LIGHT_ROTATION = 1
 
   def self.db
     case ENV['RAILS_ENV']
