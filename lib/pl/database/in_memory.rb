@@ -117,7 +117,12 @@ module PL
         medium.each { |rotation| station.rotation_levels[rotation] = PL::ROTATION_LEVEL_MEDIUM }
         light.each { |rotation| station.rotation_levels[rotation] = PL::ROTATION_LEVEL_LIGHT }
 
+        @stations[id] = station
         station
+      end
+
+      def get_station(id)
+        @stations[id]
       end
 
       ##################################################################
@@ -126,8 +131,12 @@ module PL
       #  A rotation_level stores the number of times a song should     #
       #  be played in 1 week on the station.    (level)                #
       ##################################################################
-
-
+      #  values:    song_id, station_id, level (Integer)               #
+      ##################################################################
+      def create_rotation_level(attrs)
+        station = self.get_station(attrs[:station_id])
+        station.rotation_levels[attrs[:song_id]] = attrs[:level]
+      end
   	end
   end
 end

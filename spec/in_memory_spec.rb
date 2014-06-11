@@ -21,11 +21,6 @@ describe 'a database' do
 		end
 		
 		it 'creates a user' do
-			@user = db.create_user({ twitter: 'BrianKeaneTunes',
-									twitter_uid: 756,
-									email: 'lonesomewhistle_gmail.com',
-									birth_year: 1977,
-									gender: 'male' })
 			expect(@user.id).to_not be_nil
 			expect(@user.twitter).to eq('BrianKeaneTunes')
 			expect(@user.twitter_uid).to eq(756)
@@ -159,6 +154,12 @@ describe 'a database' do
 			expect(@station.rotation_levels[@song2.id]).to eq(PL::ROTATION_LEVEL_MEDIUM)
 			expect(@station.rotation_levels[@song3.id]).to eq(PL::ROTATION_LEVEL_LIGHT)
 		end
+
+		it 'gets a station' do
+			gotten_station = db.get_station(@station.id)
+			expect(gotten_station.secs_of_commercial_per_hour).to eq(2)
+			expect(gotten_station.user_id).to eq(1)
+		end
 	end
 
   ###################
@@ -167,17 +168,18 @@ describe 'a database' do
   describe 'a rotation_level' do
   	before(:each) do
   		@station = db.create_station({ user_id: 1 })
-  		@heavy_rl = db.create_rotation_level({ song_id: 1, station_id: @station_id, level: 21 })
-  		@medium_rl = db.create_rotation_level({ song_id: 2, station_id: @station_id, level: 15 })
-  		@light_rl = db.create_rotation_level({ song_id: 3, station_id: @station_id, level: 2 })
+  		@heavy_rl = db.create_rotation_level({ song_id: 1, station_id: @station.id, level: PL::ROTATION_LEVEL_HEAVY })
+  		@medium_rl = db.create_rotation_level({ song_id: 2, station_id: @station.id, level: PL::ROTATION_LEVEL_MEDIUM })
+  		@light_rl = db.create_rotation_level({ song_id: 3, station_id: @station.id, level: PL::ROTATION_LEVEL_LIGHT })
   	end
 
 
   	it 'stores the rotation_level for each song' do
-  		expect(@station.rotation_levels.size).to eq(3)
-  		expect(@station.rotation_levels[1]).to eq(21)
-  		expect(@station.rotation_levels[2]).to eq(15)
-  		expect(@station.rotation_levels[3]).to eq(2)
+  		updated_station = db.get_station(@station.id)
+  		expect(updated_station.rotation_levels.size).to eq(3)
+  		expect(updated_station.rotation_levels[1]).to eq(PL::ROTATION_LEVEL_HEAVY)
+  		expect(updated_station.rotation_levels[2]).to eq(PL::ROTATION_LEVEL_MEDIUM)
+  		expect(updated_station.rotation_levels[3]).to eq(PL::ROTATION_LEVEL_LIGHT)
   	end
   end
 
