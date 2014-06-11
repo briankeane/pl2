@@ -181,6 +181,20 @@ describe 'a database' do
   		expect(updated_station.spins_per_week[2]).to eq(PL::MEDIUM_ROTATION)
   		expect(updated_station.spins_per_week[3]).to eq(PL::LIGHT_ROTATION)
   	end
-  end
 
+  	it 'returns an updated version of the station' do
+  		expect(@heavy_rl.spins_per_week[1]).to eq(PL::HEAVY_ROTATION)
+  		expect(@heavy_rl.spins_per_week[2]).to eq(PL::MEDIUM_ROTATION)
+  	end
+
+  	it 'can update a spin frequency' do
+  		updated_station = db.update_spin_frequency({ song_id: 1, station_id: @station.id, spins_per_week: 1 })
+  		expect(db.get_station(@station.id).spins_per_week[1]).to eq(1)
+  	end
+
+  	it 'can delete a spin frequency' do
+  		updated_station = db.update_spin_frequency({ song_id: 1, station_id: @station.id, spins_per_week: 0 })
+  		expect(db.get_station(@station.id).spins_per_week[1]).to eq(nil)
+  	end
+  end
 end

@@ -132,10 +132,23 @@ module PL
       #  be played in 1 week on the station.    (spins_per_week)       #
       ##################################################################
       #  values:    song_id, station_id, spins_per_week (Integer)      #
+      #  returns:   updated version of the station                     #
       ##################################################################
       def create_spin_frequency(attrs)
         station = self.get_station(attrs[:station_id])
         station.spins_per_week[attrs[:song_id]] = attrs[:spins_per_week]
+        station
+      end
+
+      def update_spin_frequency(attrs)
+        station = self.get_station(attrs[:station_id])
+
+        if attrs[:spins_per_week] == 0
+          station.spins_per_week[attrs[:song_id]] = nil
+        else
+          station.spins_per_week[attrs[:song_id]] = attrs[:spins_per_week]
+        end
+        station
       end
   	end
   end

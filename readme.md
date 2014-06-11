@@ -254,6 +254,7 @@ response:
 }
 ```
 ### spin_frequencies
+##### create_spin_frequency
 route '/spin_frequencies/'  POST
 request:
 ```
@@ -269,6 +270,12 @@ response:
 	"success": true,
 	"updated_station": { updated station object }
 }
+```
+##### update_spin_frequency
+route 'spin_frequencies/' PUT
+request/response:
+```
+same as above. (update with spins_per_week:0 to delete)
 ```
 
 ### log
