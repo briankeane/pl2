@@ -130,6 +130,24 @@ describe 'a database' do
   		expect(result).to be_nil
   	end
 	end
+  #################
+  #  Commentaries #
+  #################
+  describe 'a commentary' do
+  	before(:each) do
+  		@commentary = db.create_commentary({ current_position: 2,
+  																					duration: 5000,
+  																					station_id: 3,
+  																					key: 'ThisIsAKey.mp3' })
+  	end
+
+  	it 'creates a commentary' do
+  		expect(@commentary.current_position).to eq(2)
+  		expect(@commentary.duration).to eq(5000)
+  		expect(@commentary.station_id).to eq(3)
+  		expect(@commentary.key).to eq('ThisIsAKey.mp3')
+  	end
+  end
 
 	##############
 	#  Stations  #

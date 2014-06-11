@@ -1,3 +1,5 @@
+require 'zlib'
+
 module PL
   module Database
 
@@ -96,6 +98,27 @@ module PL
         song
       end
 
+      #################
+      #  Commentaries #
+      #################
+
+      ##################################################################
+      #     create_commentary                                          #
+      ##################################################################
+      #  A Commentary is not created from the user's wav file until    #
+      #  it is added to the playlist, so create_commentary has to:     #                              #
+      #       1) create a commentary object and store info in db       #
+      #       2) schedule the commentary spin in the Database          #
+      ##################################################################
+      #  values:    song_id, station_id, spins_per_week (Integer)      #
+      #  returns:   updated version of the station                     #
+      ##################################################################
+      def create_commentary(attrs)
+
+      end
+
+
+
       ##############
       #  Stations  #
       ##############
@@ -165,6 +188,8 @@ module PL
         end
         station
       end
+
+
   	end
   end
 end

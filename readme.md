@@ -263,9 +263,10 @@ route: 'station/commentaries/'  POST
 request:
 ```
 {
-	"audio_blob": audio_blob_here,
 	"station_id": 1234,
-	"current_position": 198 
+	"current_position": 198,
+	"key": 'ThisIsAKey.wav'
+	"duration": 5000
 }
 ```
 response:
