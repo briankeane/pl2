@@ -505,11 +505,12 @@ end
     t.string   "audio_block_type"
   end
 
-create_table "rules" force:true do |t|
-   t.integer "audio_block_id"
-   t.integer "station_id"
-   t.integer "rule_sequence"   
+create_table "rotation_level" force:true do |t|
+   t.integer "song_id"
+   t.integer "station_id"   
    t.integer "rotation_level"
+   t.integer "listeners_before"
+   t.integer "listeners_after"
 end
 
 create_table "spins" force:true do |t|

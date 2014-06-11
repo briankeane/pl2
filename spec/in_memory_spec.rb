@@ -136,7 +136,49 @@ describe 'a database' do
   	end
 	end
 
+	##############
+	#  Stations  #
+	##############
+	describe 'a station' do
+		before(:each) do
+			@song1 = db.create_song({ artist: 'Brian Keane', title: 'Bar Lights' })
+			@song2 = db.create_song({ artist: 'Rachel Loy', title: 'Stepladder' })
+			@song3 = db.create_song({ artist: 'Donny Hathaway', title: "You've Got a Friend" })
+			@station = db.create_station({ user_id: 1,
+																			secs_of_commercial_per_hour: 2,
+																			heavy: [@song1.id],
+																			medium: [@song2.id],
+																			light: [@song3.id] })
+		end
+
+		it 'creates a station' do
+			expect(@station.id).to be_a(Fixnum)
+			expect(@station.user_id).to eq(1)
+			expect(@station.secs_of_commercial_per_hour).to eq(2)
+			expect(@station.rotation_levels[@song1.id].to eq(ROTATION_LEVEL_HEAVY))
+			expect(@station.rotation_levels[@song2.id]).to eq(ROTATION_LEVEL_MEDIUM)
+			expect(@station.rotation_levels[@song3.id]).to eq(ROTATION_LEVEL_LIGHT)
+		end
+	end
+
+  ###################
+  #  RotationLeveL  #
+  ###################
+  describe 'a rotation_level' do
+  	before(:each) do
+  		@station = db.create_station({ user_id: 1 })
+  		@heavy_rl = db.create_rotation_level({ song_id: 1, station_id: @station_id, level: 21 })
+  		@medium_rl = db.create_rotation_level({ song_id: 2, station_id: @station_id, level: 15 })
+  		@light_rl = db.create_rotation_level({ song_id: 3, station_id: @station_id, level: 2 })
+  	end
 
 
+  	it 'stores the rotation_level for each song' do
+  		expect(@station.rotation_levels.size).to eq(3)
+  		expect(@station.rotation_levels[1]).to eq(21)
+  		expect(@station.rotation_levels[2]).to eq(15)
+  		expect(@station.rotation_levels[3]).to eq(2)
+  	end
+  end
 
 end

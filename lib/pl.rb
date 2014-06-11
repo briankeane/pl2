@@ -3,6 +3,12 @@ require 'pry-debugger'
 Dotenv.load
 
 module PL
+
+  # Constants
+  ROTATION_LEVEL_HEAVY = 27
+  ROTATION_LEVEL_MEDIUM = 17
+  ROTATION_LEVEL_LIGHT = 1
+
   def self.db
     case ENV['RAILS_ENV']
     when 'test'

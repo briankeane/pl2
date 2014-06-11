@@ -16,6 +16,8 @@ module PL
       	@users = {}
         @song_id_counter = 200
         @songs = {}
+        @station_id_counter = 300
+        @stations = {}
       end
 
       ##############
@@ -58,6 +60,7 @@ module PL
       	user = @users.delete(id)
       	user
       end
+
       ##############
       #   Songs    #
       ##############
@@ -92,6 +95,33 @@ module PL
         song = @songs.delete(id)
         song
       end
+
+      ##############
+      #  Stations  #
+      ##############
+      def create_station(attrs)
+        id = (@station_id_counter += 1)
+        heavy = attrs.delete(:heavy)
+        medium = attrs.delete(:medium)
+        light = attrs.delete(:light)
+
+        station = Station.new(attrs)
+
+        heavy.each { |rotation| station.rotation_levels[rotation] = HEAVY_ROTATION_LEVEL }
+        medium.each { |rotation| station.rotation_levels[rotation] = MEDIUM_ROTATION_LEVEL }
+        light.each { |rotation| station.rotation_levels[rotation] = LIGHT_ROTATION_LEVEL }
+
+        station
+      end
+
+      ##################################################################
+      #     rotation_level                                             #
+      ##################################################################
+      #  A rotation_level stores the number of times a song should     #
+      #  be played in 1 week on the station.    (level)                #
+      ##################################################################
+
+
   	end
   end
 end
