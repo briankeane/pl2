@@ -169,7 +169,7 @@ response:
 route: '/songs/'  POST
 ```
 {
-	audio_file: AUDIOFILEHERE
+	"audio_file": audio_fileLEHERE
 }
 ```
 response:
@@ -515,7 +515,14 @@ create_table "commentaries" do |t|
 end
 
   create_table "commercials", force: true do |t|
-    t.integer "audio_block_id"
+    t.integer "duration"
+    t.string "key"
+    t.integer "sponsor_id"
+    t.timestamps
+  end
+
+   create_table "commercial_block", force: true do |t|
+    t.integer "commercials"
     t.integer "sponsor_id"
   end
 
