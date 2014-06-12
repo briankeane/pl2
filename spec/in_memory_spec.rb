@@ -376,10 +376,10 @@ describe 'a database' do
     end
 
     it "returns the current_playlist in the right order" do
-      expect(db.get_current_playlist(1).size).to eq(4)
+      expect(db.get_current_playlist(1).size).to eq(20)
       expect(db.get_current_playlist(1)[0].current_position).to eq(1)
-      expect(db.get_current_playlist(1)[2].current_position).to eq(2)
-      expect(db.get_current_playlist(1)[3].current_position).to eq(3)
+      expect(db.get_current_playlist(1)[2].current_position).to eq(3)
+      expect(db.get_current_playlist(1)[3].current_position).to eq(4)
     end
   end
 

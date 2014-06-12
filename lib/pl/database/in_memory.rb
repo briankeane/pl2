@@ -361,7 +361,7 @@ module PL
 
       def get_current_playlist(station_id)
         spins = @spins.values.select { |spin| spin.station_id == station_id }
-        spins.select { |spin| spin.played_at == nil }.sort_by { |x| x.current_position }
+        spins = spins.sort_by { |spin| spin.current_position }
       end
 
       ####################################
