@@ -192,7 +192,42 @@ response:
 ```
 same as above
 ```
-
+#####get_all_songs
+route: '/songs' GET
+response:
+```
+{
+		"all_songs": [
+		{
+		"id": 99,
+		"artist": "Rachel Loy",
+		"title": "Stepladder",
+		"album": "Broken Machine",
+		"duration": 196555,
+		"key": 'ThisIsAKey.mp3'
+		},
+		{ song 2 .... },
+		{ song 3 .... }
+		]
+}
+```
+#####get_songs_by_title
+route: '/songs_by_title' GET
+```
+{
+	"title": "Step"
+}
+```
+response:
+```
+same as above
+```
+#####get_songs_by_artist
+route: '/songs_by_artist' GET
+request and response:
+```
+same as above
+```
 #####update_song
 route: 'songs/:id'  PUT
 ```
