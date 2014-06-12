@@ -168,11 +168,25 @@ describe 'a database' do
   		expect(deleted_commentary.duration).to eq(5000)
   	end
   end
+  #################
+  # Commercials   #
+  #################
+  describe 'a commercial' do
+  	before(:each) do
+  		@commercial = db.create_commercial({ sponsor_id: 1, duration: 15000, key: 'ThisIsAKey.mp3' })
+  	end
+
+  	it 'creates a commercial' do
+  		expect(@commercial.id).to be_a(Fixnum)
+  		expect(@commercial.sponsor_id).to eq(1)
+  		expect(@commercial.key).to eq('ThisIsAKey.mp3')
+  	end
+  end
 
   #####################
   # Commercial_Blocks #
 	#####################
-	describe 'commercial_blocks' do
+	describe 'a commercial_block' do
 		before(:each) do
 			@commercial_block = db.create_commercial_block({ commercials: [1,2] })
 		end
@@ -198,10 +212,6 @@ describe 'a database' do
 			expect(db.get_commercial_block(deleted_cb.id)).to be_nil
 		end
 	end
-
-
-
-
 
 	##############
 	#  Stations  #

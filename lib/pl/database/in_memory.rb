@@ -24,6 +24,9 @@ module PL
         @commentaries = {}
         @commercial_block_counter = 500
         @commercial_blocks = {}
+        @commercial_counter = 600
+        @commercials = {}
+
 
       end
 
@@ -138,10 +141,37 @@ module PL
         deleted_commentary
       end
 
-      #####################
-      # Commercial_Blocks #
-      #####################
-      def create_commercial_block(attrs)
+      #################
+      # Commercials   #
+      #################
+      # created with: #
+      # ------------- #
+      # sponsor_id    #
+      # duration      #
+      # key           #
+      #################
+      def create_commercial(attrs)
+        id = (@commercial_counter += 1)
+        attrs[:id] = id
+        commercial = Commercial.new(attrs)
+        commercial
+      end
+
+
+      ##################################################################
+      #     commercial_blocks                                          #
+      ##################################################################
+      #  A commercial_block holds the commercials... it is the unit    #
+      #  that enters the playlist and the only commercial unit a dj    #
+      #  can change values for.                                        #
+      ##################################################################
+      #  values:    station_id, duration, commercials                  #
+      #    NOTE: 'commercials' goes in as an array of commercial_ids   #
+      #          but after input it exists as an array of commercial   #
+      #          objects
+      ##################################################################
+
+      def create_commercial_block(attrs)  #duration, commercials (input:array of ids, output: array of commercial objects)
         id = (@commercial_block_counter += 1)
         attrs[:id] = id
         commercial_block = CommercialBlock.new(attrs)
