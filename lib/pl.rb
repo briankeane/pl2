@@ -9,6 +9,7 @@ module PL
   MEDIUM_ROTATION = 17
   LIGHT_ROTATION = 1
   SPINS_WITHOUT_REPEAT = 35
+  DEFAULT_SECS_OF_COMMERCIAL_PER_HOUR = 360
 
   def self.db
     case ENV['RAILS_ENV']
@@ -35,6 +36,7 @@ require_relative 'pl/entity.rb'
 # require_relative 'pl/use_case.rb'
 require_relative 'pl/database/in_memory.rb'
 require_relative 'pl/entities/commentary.rb'
+require_relative 'pl/entities/log_entry.rb'
 # require_relative 'pl/database/postgres_database.rb'
 require_relative 'pl/entities/commercial_block.rb'
 require_relative 'pl/entities/commercial.rb'

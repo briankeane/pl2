@@ -1,7 +1,5 @@
-# Playola API
-This app is the back-end to PlayolaRadio.  It uses an HTTP interface and provides json-formatted responses.
-
-## REQUESTS
+# Playola
+This app makes creating and maintaining an internet radio station very easy.  Following is a description of the API interface (it's not functioning yet!)
 
 ### Users
 #####create_user
@@ -457,31 +455,26 @@ response:
 
 ```
 ### Logs
-##### get_last_10_spins
+##### get_last_10_plays
 route '/logs/:station_id/' GET
 response:
 ```
 {
 	"success": true,
 	"last_10_spins": 
-			[{ "current_position": 76,
-			  "audio_block_type": "song",
-			  "audio_block_id": 75,
-			  "played_at": datetime  // (number, secs since 1970)
-			  "duration": 1783920     // in milliseconds
+			[{ "id": 1,
+			   "station_id": 4,
+				 "current_position": 76,
+				 "audio_block_type": 'song',
+				 "audio_block_id": 375,
+				 "airtime": Time.new(1983, 4, 15, 18),   // (number, secs since 1970)
+				 "listeners_at_start": 55,       
+				 "listeners_at_finish": 57  
 			},
-			{ "current_position": 77,
-			  "audio_block_type": "commercial",
-			  "audio_block_id": 75,
-			  "played_at": datetime  // (number, secs since 1970)
-			  "duration": 1783920     // in milliseconds
-			},
-			{ "current_position": 78,
-			  "audio_block_type": "commentary",
-			  "audio_block_id": 75,
-			  "played_at": datetime  // (number, secs since 1970)
-			  "duration": 1783920        // in milliseconds 
-			}]]
+			{ log entry },
+			{ log entry },
+			.... 
+			]
 }
 ```
 
@@ -574,9 +567,11 @@ end
 
   create_table "logs", force: true do |t|
     t.integer  "station_id"
-    t.datetime "played_at"
+    t.datetime "airtime"
     t.integer  "audio_block_id"
     t.string   "audio_block_type"
+    t.integer  "listeners_at_start"
+    t.integer  "listeners_at_finish"
   end
 
 create_table "spin_frequency" force:true do |t|
@@ -593,6 +588,3 @@ create_table "spins" force:true do |t|
     t.integer "current_position"
 end
 ```
-
-
-

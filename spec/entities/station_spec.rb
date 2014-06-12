@@ -42,10 +42,19 @@ describe 'a station' do
       end
 
       @station = PL.db.create_station({ user_id: @user.id, 
-      	           heavy: (@songs[0..30].map { |x| x.id }) , medium: (@songs[31..65].map { |x| x.id }), light: (@songs[65..85].map { |x| x.id }) })
+      	           												heavy: (@songs[0..30].map { |x| x.id }),
+      	           												medium: (@songs[31..65].map { |x| x.id }),
+      	           												light: (@songs[65..85].map { |x| x.id }) 
+      	           												})
       @station.generate_playlist
     end
 
+
+    ##########################################################################################
+    # TODO: BUILD PLAYLIST TESTS! ############################################################
+    ##########################################################################################
+    # have to build logs out to make it work... just remember to come back & finish!  ########
+    ##########################################################################################
 		it 'creates a first playlist' do
 
 		end

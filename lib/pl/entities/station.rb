@@ -12,8 +12,7 @@ module PL
     SECONDS_IN_DAY = 86400
 
 		def initialize(attrs)
-
-			
+ 
 			heavy = attrs.delete(:heavy)
 			medium = attrs.delete(:medium)
 			light = attrs.delete(:light)
@@ -35,6 +34,8 @@ module PL
 			light.each do |song_id|
 				@spins_per_week[song_id] = PL::LIGHT_ROTATION
 			end
+
+			attrs[:secs_of_commercial_per_hour] ||= PL::DEFAULT_SECS_OF_COMMERCIAL_PER_HOUR
 			
 			super(attrs)
 		end
@@ -44,7 +45,8 @@ module PL
     ##################################################################
     #  This method creates an array of samples for the playlist      #
     #  generator to randomly select from.  It populates each song    #
-    #  in the correct ratio.                                         #
+    #  in the correct ratio. 																				 #
+    #  The values are stored in the array as song objects (not ids)  #
     ##################################################################
 
     def create_sample_array
@@ -52,7 +54,7 @@ module PL
 
       # add songs to sample-array in correct ratios
      	@spins_per_week.each do |k,v|
-     		v.times { sample_array << k }
+     		v.times { sample_array << PL::db.get_song(k) }
      	end
 
       sample_array
@@ -76,6 +78,7 @@ module PL
       this_thursday_midnight = Chronic.parse('this thursday midnight')
       next_thursday_midnight = this_thursday_midnight + SECONDS_IN_WEEK
       current_playlist = PL.db.get_current_playlist(@id)
+      time_tracker = nil
 
       # set max_position and time_tracker initial values
       if current_playlist.size == 0
@@ -99,7 +102,7 @@ module PL
 
         if (time_tracker.to_f/1800.0).floor > commercial_block_counter
           commercial_block_counter += 1
-          time_tracker += (@seconds_of_commercial_per_hour/2)
+          time_tracker += (@secs_of_commercial_per_hour/2)
         end
 
         song = sample_array.sample
