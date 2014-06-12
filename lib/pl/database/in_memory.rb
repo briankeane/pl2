@@ -154,8 +154,41 @@ module PL
         id = (@commercial_counter += 1)
         attrs[:id] = id
         commercial = Commercial.new(attrs)
+        @commercials[id] = commercial
         commercial
       end
+
+      def delete_commercial(id)
+        @commercials.delete(id)
+      end
+
+      def get_commercial(id)
+        @commercials[id]
+      end
+
+      ##########################################
+      #  update_commercial                     #
+      #  -----------------                     #
+      #  returns updated commercial object, or #
+      #  FALSE if commercial not found         #
+      ##########################################
+      def update_commercial(attrs)
+        commercial = @commercials[attrs.delete(:id)]
+        
+        # return false if commercial doesn't exist
+        return false unless commercial
+
+        #update values
+        attrs.each do |attr_name, value|
+          setter = "#{attr_name}="
+          commercial.send(setter, value) if commercial.class.method_defined?(setter)
+        end
+
+        commercial
+      end
+
+
+
 
 
       ##################################################################

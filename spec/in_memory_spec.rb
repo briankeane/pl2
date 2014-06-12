@@ -88,7 +88,7 @@ describe 'a database' do
   		expect(@song.id).to be_a(Fixnum)
   	end
 
-  	it 'can be gotten by id' do
+  	it 'can be retrieved by id' do
   		gotten_song = db.get_song(@song.id)
   		expect(gotten_song.artist).to eq('Brian Keane')
   		expect(gotten_song.title).to eq('Bar Lights')
@@ -118,7 +118,7 @@ describe 'a database' do
   		expect(result).to eq(false)
   	end
 
-  	it "deletes a song, returning the deleted song object" do
+  	it "can be deleted, returning the deleted song object" do
   		id = @song.id
   		result = db.delete_song(id)
   		expect(result.id).to eq(id)
@@ -143,7 +143,7 @@ describe 'a database' do
   																					key: 'ThisIsAKey.mp3' })
   	end
 
-  	it 'creates a commentary' do
+  	it 'can be created' do
   		# UNCOMMENT AFTER SPINS ARE CREATED
   		#expect(@commentary.current_position).to eq(2)
   		expect(@commentary.duration).to eq(5000)
@@ -151,18 +151,18 @@ describe 'a database' do
   		expect(@commentary.key).to eq('ThisIsAKey.mp3')
   	end
 
-  	it 'gets a commentary' do
+  	it 'can be retrieved' do
   		gotten_commentary = db.get_commentary(@commentary.id)
   		expect(gotten_commentary.duration).to eq(5000)
   		expect(gotten_commentary.station_id).to eq(3)
   	end
 
-  	it 'updates a commentary' do
+  	it 'can be updated' do
   		db.update_commentary({ id: @commentary.id, key: 'AnotherKey.mp3' })
   		expect(db.get_commentary(@commentary.id).key).to eq('AnotherKey.mp3')
   	end
 
-  	it 'deletes a commentary, returning the deleted commentary object' do
+  	it 'can be deleted, returning the deleted commentary object' do
   		deleted_commentary = db.delete_commentary(@commentary.id)
   		expect(db.get_commentary(@commentary.id)).to be_nil
   		expect(deleted_commentary.duration).to eq(5000)
@@ -176,11 +176,34 @@ describe 'a database' do
   		@commercial = db.create_commercial({ sponsor_id: 1, duration: 15000, key: 'ThisIsAKey.mp3' })
   	end
 
-  	it 'creates a commercial' do
+  	it 'can be created' do
   		expect(@commercial.id).to be_a(Fixnum)
   		expect(@commercial.sponsor_id).to eq(1)
   		expect(@commercial.key).to eq('ThisIsAKey.mp3')
   	end
+
+  	it 'can be deleted' do
+  		deleted_commercial = db.delete_commercial(@commercial.id)
+  		expect(deleted_commercial.duration).to eq(15000)
+  		#expect(db.get_commercial).to be_nil
+  	end
+
+  	it 'can be retrieved' do
+  		gotten_commercial = db.get_commercial(@commercial.id)
+  		expect(gotten_commercial.duration).to eq(15000)
+  		expect(gotten_commercial.id).to eq(@commercial.id)
+  	end
+
+  	it 'can be updated' do
+  		updated_commercial = db.update_commercial({ id: @commercial.id, key: 'AnotherKey.mp3', duration: 15001, sponsor_id: 2 })
+  		expect(updated_commercial.id).to eq(@commercial.id)
+  		expect(db.get_commercial(@commercial.id).key).to eq('AnotherKey.mp3')
+  		expect(updated_commercial.duration).to eq(15001)
+  		expect(updated_commercial.sponsor_id).to eq(2)
+  	end
+
+
+
   end
 
   #####################
