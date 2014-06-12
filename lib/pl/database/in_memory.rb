@@ -26,6 +26,8 @@ module PL
         @commercial_blocks = {}
         @commercial_counter = 600
         @commercials = {}
+        @spin_counter = 700
+        @spins = {}
 
 
       end
@@ -105,6 +107,32 @@ module PL
         song = @songs.delete(id)
         song
       end
+
+      def song_exists?(attrs)  #title, artist, album
+        songs = @songs.values.select { |song| song.title == attrs[:title] &&
+                                              song.album == attrs[:album] &&
+                                              song.artist == attrs[:artist] }
+
+        if songs.size > 0
+          return true
+        else
+          return false
+        end
+      end
+
+      def get_all_songs
+        all_songs = @songs.values.sort_by { |a| [a.artist, a.title] }
+        all_songs
+      end
+
+      def get_songs_by_title(title)
+        @songs.values.select { |song| song.title.match(/^#{title}/) }.sort_by { |x| x.title }
+      end
+
+      def get_songs_by_artist(artist)
+        @songs.values.select { |song| song.artist.match(/^#{artist}/) }.sort_by { |x| x.title }
+      end
+
 
       #################
       #  Commentaries #
@@ -187,10 +215,6 @@ module PL
         commercial
       end
 
-
-
-
-
       ##################################################################
       #     commercial_blocks                                          #
       ##################################################################
@@ -215,7 +239,14 @@ module PL
       def get_commercial_block(id)
         @commercial_blocks[id]
       end
+      
 
+      ###########################################
+      #  update_commercial_block                #
+      #  -----------------                      #
+      #  returns updated commercial_block       #           
+      #  object, or FALSE if block is not found #
+      ###########################################
       def update_commercial_block(attrs)
         commercial_block = @commercial_blocks[attrs.delete(:id)]
         
@@ -287,7 +318,6 @@ module PL
       #  be played in 1 week on the station.    (spins_per_week)       #
       ##################################################################
       #  values:    song_id, station_id, spins_per_week (Integer)      #
-      #  returns:   updated version of the station                     #
       ##################################################################
       def create_spin_frequency(attrs)
         station = self.get_station(attrs[:station_id])
@@ -305,6 +335,41 @@ module PL
         end
         station
       end
+
+      ########################
+      #        spins         #
+      # -------------------  #
+      # current_position     #
+      # audio_block_type     # 
+      # audio_block_id       #
+      # estimated_air_time   #
+      # duration             #
+      ########################
+      def schedule_spin(attrs)
+        id = (@spin_counter += 1)
+        attrs[:id] = id
+        spin = Spin.new(attrs)
+        @spins[spin.id] = spin
+        spin
+      end
+
+      def delete_spin(attrs)
+      end
+
+      def insert_spin(attrs)
+      end
+
+      ####################################
+      # move_spin                        #
+      # -------------------------------- #
+      # takes old_position, new_position #
+      # returns true for success, false  #
+      # for failure                      #
+      ####################################
+      def move_spin(attrs)
+      end
+
+
 
 
   	end

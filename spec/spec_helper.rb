@@ -2,7 +2,6 @@ require './lib/pl.rb'
 require 'rspec'
 #require_relative 'shared/shared_database.rb'
 
-
 # RSpec.configure do |config|
 #   # Configure each test to always use a new singleton instance
 #   config.before(:each) do

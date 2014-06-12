@@ -129,6 +129,53 @@ describe 'a database' do
   		result = db.delete_song(99999)
   		expect(result).to be_nil
   	end
+
+    it "finds out if a song exists" do
+      expect(db.song_exists?({ title: "Bar Lights", artist: "Brian Keane", album: "Coming Home"})).to eq(true)
+      expect(db.song_exists?({ title: "Bar Nights", artist: "Brian Keane", album: "Coming Home"})).to eq(false)
+      expect(db.song_exists?({ title: "Bar Lights", artist: "Krian Beane", album: "Coming Home"})).to eq(false)
+      expect(db.song_exists?({ title: "Bar Lights", artist: "Brian Keane", album: "Going falseHome"})).to eq(false)
+    end
+  end
+
+  describe 'song retrieval tests' do
+    before do
+      @song1 = db.create_song({ title: "Bar Lights", artist: "Brian Keane", duration: 226000, sing_start: 5000, sing_end: 208000,
+                                   audio_id: 2 })
+      @song2 = db.create_song({ title: "Bar Nights", artist: "Brian Keane", duration: 226000, sing_start: 5000, sing_end: 208000,
+                                   audio_id: 2 })
+      @song3 = db.create_song({ title: "Bar Brights", artist: "Brian Keane", duration: 226000, sing_start: 5000, sing_end: 208000,
+                                   audio_id: 2 })
+      @song4 = db.create_song({ title: "Bar First", artist: "Bob Dylan", duration: 226000, sing_start: 5000, sing_end: 208000,
+                                   audio_id: 2 })
+      @song5 = db.create_song({ title: "Hell", artist: "Bob Dylan", duration: 226000, sing_start: 5000, sing_end: 208000,
+                                   audio_id: 2 })
+    end
+
+    it "gets a list of songs by title" do
+      songlist = db.get_songs_by_title("Bar")
+      expect(songlist.size).to eq(4)
+      expect(songlist[0].title).to eq("Bar Brights")
+      expect(songlist[3].title).to eq("Bar Nights")
+    end
+
+    it "gets a list of songs by artist" do
+      songlist = db.get_songs_by_artist("Brian Keane")
+      expect(songlist.size).to eq(3)
+      expect(songlist[0].title).to eq("Bar Brights")
+      expect(songlist[2].title).to eq("Bar Nights")
+    end
+    
+    it "returns a list of all songs in the database in the proper order" do
+      all_songs = db.get_all_songs
+      expect(all_songs.size).to eq(5)
+      expect(all_songs[0].title).to eq("Bar First")
+      expect(all_songs[1].title).to eq("Hell")
+      expect(all_songs[2].title).to eq("Bar Brights")
+      expect(all_songs[3].title).to eq("Bar Lights")
+      expect(all_songs[4].title).to eq("Bar Nights")
+    end
+
 	end
 
 
@@ -201,9 +248,6 @@ describe 'a database' do
   		expect(updated_commercial.duration).to eq(15001)
   		expect(updated_commercial.sponsor_id).to eq(2)
   	end
-
-
-
   end
 
   #####################
@@ -309,4 +353,23 @@ describe 'a database' do
   		expect(db.get_station(@station.id).spins_per_week[1]).to eq(nil)
   	end
   end
+
+  ###############
+  #   spins     #
+  ###############
+  describe 'a spin' do
+    before(:each) do
+      @spin = db.schedule_spin({ current_position: 1,
+                                  audio_block_type: 'song',
+                                  audio_block_id: 2 })
+    end
+
+    it 'is created' do
+      expect(@spin.current_position).to eq(1)
+      expect(@spin.audio_block_type).to eq('song')
+      expect(@spin.audio_block_id).to eq(2)
+      expect(@spin.id).to be_a(Fixnum)
+    end
+  end
+
 end

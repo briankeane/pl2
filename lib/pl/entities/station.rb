@@ -2,6 +2,8 @@ module PL
 	class Station < Entity
 		attr_accessor :id, :secs_of_commercial_per_hour, :user_id
 		attr_accessor	:spins_per_week, :created_at, :updated_at
+		attr_accessor :current_playlist_end_time, :original_playlist_end_time
+		
 
 		def initialize(attrs)
 
