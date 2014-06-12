@@ -7,6 +7,7 @@ group :development, :test do
   gem 'timecop'
 end
 
+gem 'chronic'
 gem 'dotenv'
 gem 'ruby-mp3info', '~> 0.8.4'
 gem 'aws-sdk'

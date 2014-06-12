@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'Timecop'
 
 describe 'a station' do
 	before(:each) do
@@ -29,6 +30,29 @@ describe 'a station' do
 	it "allows editing of the spins_per_week hash" do
 		@station.spins_per_week[5] = 10
 		expect(@station.spins_per_week[5]).to eq(10)
+	end
+
+	describe 'playlist functions' do
+		before (:all) do
+      Timecop.freeze(Time.local(2014, 5, 9, 10))
+      @user = PL.db.create_user({ twitter: "Bob", password: "password" })
+      @songs = []
+      100.times do |i|
+      	@songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 226000 })
+      end
+
+      @station = PL.db.create_station({ user_id: @user.id, 
+      	           heavy: (@songs[0..30].map { |x| x.id }) , medium: (@songs[31..65].map { |x| x.id }), light: (@songs[65..85].map { |x| x.id }) })
+      @station.generate_playlist
+    end
+
+		it 'creates a first playlist' do
+
+		end
+
+		after (:all) do
+			Timecop.return
+		end
 	end
 
 end

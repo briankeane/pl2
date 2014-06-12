@@ -359,16 +359,27 @@ describe 'a database' do
   ###############
   describe 'a spin' do
     before(:each) do
-      @spin = db.schedule_spin({ current_position: 1,
+      @spins = []
+      20.times do |i|
+        @spins[i] = db.schedule_spin({ station_id: 1,
+                                  current_position: (i+1),
                                   audio_block_type: 'song',
-                                  audio_block_id: 2 })
+                                  audio_block_id: (i+2) })
+      end
     end
 
     it 'is created' do
-      expect(@spin.current_position).to eq(1)
-      expect(@spin.audio_block_type).to eq('song')
-      expect(@spin.audio_block_id).to eq(2)
-      expect(@spin.id).to be_a(Fixnum)
+      expect(@spins[0].current_position).to eq(1)
+      expect(@spins[0].audio_block_type).to eq('song')
+      expect(@spins[0].audio_block_id).to eq(2)
+      expect(@spins[0].id).to be_a(Fixnum)
+    end
+
+    it "returns the current_playlist in the right order" do
+      expect(db.get_current_playlist(1).size).to eq(4)
+      expect(db.get_current_playlist(1)[0].current_position).to eq(1)
+      expect(db.get_current_playlist(1)[2].current_position).to eq(2)
+      expect(db.get_current_playlist(1)[3].current_position).to eq(3)
     end
   end
 

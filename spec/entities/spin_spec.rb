@@ -3,6 +3,7 @@ require 'spec_helper'
 describe 'a spin' do
 	it 'is created with an id, current_position, audio_block_type, audio_block_id' do
 		spin = PL::Spin.new({ id: 1, 
+													station_id: 3,
 													current_position: 2, 
 													audio_block_type: 'song', 
 													audio_block_id: 4,
@@ -14,5 +15,6 @@ describe 'a spin' do
 		expect(spin.audio_block_id).to eq(4)
 		expect(spin.created_at).to eq(Time.new(1970))
 		expect(spin.updated_at).to eq(Time.new(1970, 1, 2))
+		expect(spin.station_id).to eq(3)
 	end
 end

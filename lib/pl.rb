@@ -8,6 +8,7 @@ module PL
   HEAVY_ROTATION = 27
   MEDIUM_ROTATION = 17
   LIGHT_ROTATION = 1
+  SPINS_WITHOUT_REPEAT = 35
 
   def self.db
     case ENV['RAILS_ENV']
@@ -15,8 +16,8 @@ module PL
       @db_class ||= Database::InMemory
     else
       @db_class ||= Database::PostgresDatabase
-      @__db_instance ||= @db_class.new(ENV['RAILS_ENV'] || 'test')
     end
+    @__db_instance ||= @db_class.new(ENV['RAILS_ENV'] || 'test')
   end
 
   def self.db_class=(db_class)
@@ -35,7 +36,6 @@ require_relative 'pl/entity.rb'
 require_relative 'pl/database/in_memory.rb'
 require_relative 'pl/entities/commentary.rb'
 # require_relative 'pl/database/postgres_database.rb'
-# require_relative 'pl/entities/audio_block.rb'
 require_relative 'pl/entities/commercial_block.rb'
 require_relative 'pl/entities/commercial.rb'
 require_relative 'pl/entities/song.rb'
