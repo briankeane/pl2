@@ -169,6 +169,40 @@ describe 'a database' do
   	end
   end
 
+  #####################
+  # Commercial_Blocks #
+	#####################
+	describe 'commercial_blocks' do
+		before(:each) do
+			@commercial_block = db.create_commercial_block({ commercials: [1,2] })
+		end
+
+		it 'is created' do
+			expect(@commercial_block.id).to be_a(Fixnum)
+			expect(@commercial_block.commercials).to eq([1,2])
+		end
+
+		it 'can be gotten' do
+			expect(db.get_commercial_block(@commercial_block.id).id).to eq(@commercial_block.id)
+		end
+
+		it 'can be edited' do
+			updated_cb = db.update_commercial_block({ id: @commercial_block.id, commercials: [3,4,5] })
+			expect(updated_cb.id).to eq(@commercial_block.id)
+			expect(db.get_commercial_block(@commercial_block.id).commercials).to eq([3,4,5])
+		end
+
+		it 'can be deleted' do
+			deleted_cb = db.delete_commercial_block(@commercial_block.id)
+			expect(deleted_cb.commercials).to eq([1,2])
+			expect(db.get_commercial_block(deleted_cb.id)).to be_nil
+		end
+	end
+
+
+
+
+
 	##############
 	#  Stations  #
 	##############

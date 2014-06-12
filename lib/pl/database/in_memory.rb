@@ -22,6 +22,9 @@ module PL
         @stations = {}
         @commentary_id_counter = 400
         @commentaries = {}
+        @commercial_block_counter = 500
+        @commercial_blocks = {}
+
       end
 
       ##############
@@ -135,6 +138,39 @@ module PL
         deleted_commentary
       end
 
+      #####################
+      # Commercial_Blocks #
+      #####################
+      def create_commercial_block(attrs)
+        id = (@commercial_block_counter += 1)
+        attrs[:id] = id
+        commercial_block = CommercialBlock.new(attrs)
+        @commercial_blocks[id] = commercial_block
+        commercial_block
+      end
+
+      def get_commercial_block(id)
+        @commercial_blocks[id]
+      end
+
+      def update_commercial_block(attrs)
+        commercial_block = @commercial_blocks[attrs.delete(:id)]
+        
+        # return false if commercial_block doesn't exist
+        return false unless commercial_block
+
+        #update values
+        attrs.each do |attr_name, value|
+          setter = "#{attr_name}="
+          commercial_block.send(setter, value) if commercial_block.class.method_defined?(setter)
+        end
+
+        commercial_block
+      end
+
+      def delete_commercial_block(id)
+        @commercial_blocks.delete(id)
+      end
 
 
       ##############
