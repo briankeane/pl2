@@ -522,8 +522,14 @@ end
   end
 
    create_table "commercial_block", force: true do |t|
-    t.integer "commercials"
-    t.integer "sponsor_id"
+    t.integer "duration"
+    t.integer "station_id"
+    t.datetime "estimated_air_time"
+  end
+
+  create_table "commercial_commercial_block_join"
+  	t.integer "commercial_block_id"
+  	t.integer "commercial_id"
   end
 
   create_table "sessions", force: true do |t|
