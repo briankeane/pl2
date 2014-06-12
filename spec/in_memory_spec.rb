@@ -130,6 +130,8 @@ describe 'a database' do
   		expect(result).to be_nil
   	end
 	end
+
+
   #################
   #  Commentaries #
   #################
@@ -142,10 +144,28 @@ describe 'a database' do
   	end
 
   	it 'creates a commentary' do
-  		expect(@commentary.current_position).to eq(2)
+  		# UNCOMMENT AFTER SPINS ARE CREATED
+  		#expect(@commentary.current_position).to eq(2)
   		expect(@commentary.duration).to eq(5000)
   		expect(@commentary.station_id).to eq(3)
   		expect(@commentary.key).to eq('ThisIsAKey.mp3')
+  	end
+
+  	it 'gets a commentary' do
+  		gotten_commentary = db.get_commentary(@commentary.id)
+  		expect(gotten_commentary.duration).to eq(5000)
+  		expect(gotten_commentary.station_id).to eq(3)
+  	end
+
+  	it 'updates a commentary' do
+  		db.update_commentary({ id: @commentary.id, key: 'AnotherKey.mp3' })
+  		expect(db.get_commentary(@commentary.id).key).to eq('AnotherKey.mp3')
+  	end
+
+  	it 'deletes a commentary, returning the deleted commentary object' do
+  		deleted_commentary = db.delete_commentary(@commentary.id)
+  		expect(db.get_commentary(@commentary.id)).to be_nil
+  		expect(deleted_commentary.duration).to eq(5000)
   	end
   end
 

@@ -20,6 +20,8 @@ module PL
         @songs = {}
         @station_id_counter = 300
         @stations = {}
+        @commentary_id_counter = 400
+        @commentaries = {}
       end
 
       ##############
@@ -101,21 +103,39 @@ module PL
       #################
       #  Commentaries #
       #################
-
-      ##################################################################
-      #     create_commentary                                          #
-      ##################################################################
-      #  A Commentary is not created from the user's wav file until    #
-      #  it is added to the playlist, so create_commentary has to:     #                              #
-      #       1) create a commentary object and store info in db       #
-      #       2) schedule the commentary spin in the Database          #
-      ##################################################################
-      #  values:    song_id, station_id, spins_per_week (Integer)      #
-      #  returns:   updated version of the station                     #
-      ##################################################################
       def create_commentary(attrs)
-
+        id = (@commentary_id_counter += 1)
+        attrs[:id] = id
+        commentary = PL::Commentary.new(attrs)
+        @commentaries[id] = commentary
+        commentary
       end
+
+      def get_commentary(id)
+        @commentaries[id]
+      end
+
+      def update_commentary(attrs)
+        commentary = @commentaries[attrs.delete(:id)]
+        
+        # return false if commentary doesn't exist
+        return false unless commentary
+
+        #update values
+        attrs.each do |attr_name, value|
+          setter = "#{attr_name}="
+          commentary.send(setter, value) if commentary.class.method_defined?(setter)
+        end
+
+        commentary
+      end
+
+      def delete_commentary(id)
+        deleted_commentary = @commentaries.delete(id)
+        deleted_commentary
+      end
+
+
 
 
 
