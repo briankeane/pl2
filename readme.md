@@ -273,11 +273,11 @@ response:
 ```
 {
 	"success": true,
-	"spin": { "current_position": 76,
-			  "audio_block_type": "commentary",
-			  "audio_block_id": 75,
-			  "estimated_air_time": time  // (number, secs since 1970)
-			  "duration": 1783920     // in milliseconds
+	"commentary": { 
+			  "id": 4,
+			  "station_id": 5, 
+			  "duration": 5000,
+			  "key": 'ThisIsAKey.mp3'
 			}
 }
 ```
@@ -286,17 +286,49 @@ response:
 'commentaries/:id'    GET
 response:           
 ```
-// Since a commentary is always contained in a spin, this request
-// returns the enclosing spin
-
 {
 	"success": true,
-	"spin": { "current_position": 76,
-			  "audio_block_type": "commentary",
-			  "audio_block_id": 75,
-			  "estimated_air_time": time  // (number, secs since 1970)
-			  "duration": 1783920     // in milliseconds
-			}
+	"commentary": { 
+			  "id": 4,
+			  "station_id": 5, 
+			  "duration": 5000,
+			  "key": 'ThisIsAKey.mp3'
+				}
+}
+```
+#####update_commentary
+route '/commetaries/:id' PUT
+request:
+```
+{
+	"id": 4,
+	"key": "AnotherKey.mp3"
+}
+```
+response:
+```
+{
+	"success": true,
+	"commentary": { 
+			  "id": 4,
+			  "station_id": 5, 
+			  "duration": 5000,
+			  "key": 'AnotherKey.mp3'
+				}
+}
+```
+#####delete_commentary
+route '/commentaries/:id' DELETE
+response:
+```
+{
+	"success": true,
+	"commentary": { 
+			  "id": 4,
+			  "station_id": 5, 
+			  "duration": 5000,
+			  "key": 'AnotherKey.mp3'
+				}
 }
 ```
 
