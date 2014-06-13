@@ -395,6 +395,15 @@ module PL
         log_entry
       end
 
+      def get_recent_log_entries(attrs)  #station_id, count (how many entries to return)
+        entries = @log_entries.values.select { |entry| entry.station_id == attrs[:station_id]}
+        entries = entries.sort_by { |entry| entry.current_position }
+        entries = entries.last(attrs[:count]).reverse
+        entries
+      end
+
+
+
   	end
   end
 end
