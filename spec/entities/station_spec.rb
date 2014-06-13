@@ -37,7 +37,7 @@ describe 'a station' do
       Timecop.freeze(Time.local(2014, 5, 9, 10))
       @user = PL.db.create_user({ twitter: "Bob", password: "password" })
       @songs = []
-      100.times do |i|
+      86.times do |i|
       	@songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 226000 })
       end
 

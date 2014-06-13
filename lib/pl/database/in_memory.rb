@@ -28,6 +28,8 @@ module PL
         @commercials = {}
         @spin_counter = 700
         @spins = {}
+        @log_entry_counter = 800
+        @log_entries = {}
 
 
       end
@@ -372,6 +374,25 @@ module PL
       # for failure                      #
       ####################################
       def move_spin(attrs)
+      end
+
+      ########################
+      #       log_entries    #
+      #      ------------    #
+      # station_id           #
+      # current_position     #
+      # audio_block_type     #
+      # audio_block_id       #
+      # airtime.to_s         #
+      # listeners_at_start   #
+      # listeners_at_finish  #
+      ########################
+      def create_log_entry(attrs)
+        id = (@log_entry_counter += 1)
+        attrs[:id] = id
+        log_entry = PL::LogEntry.new(attrs)
+        @log_entries[id] = log_entry
+        log_entry
       end
 
   	end

@@ -167,7 +167,7 @@ response:
 route: '/songs/'  POST
 ```
 {
-	"audio_file": audio_fileLEHERE
+	"audio_file": audio_fileHERE
 }
 ```
 response:
@@ -425,8 +425,9 @@ route '/stations/:station_id/get_next_spin_with_audio'   GET
 	"audio_blob": "AUDIODATA HERE"
 }
 ```
-#####report_spin_played
-route '/log/create/'
+#####report_spin
+This UseCase also deletes the play from the current_playlist
+route '/log/create/' POST
 ```
 {
 	"spin_id": 394,
@@ -454,9 +455,11 @@ response:
 }
 
 ```
-### Logs
+### 
+##### create_log_entry
+route: '/log_entries/' PUT
 ##### get_last_10_plays
-route '/logs/:station_id/' GET
+route '/log_entries/:station_id/' GET
 response:
 ```
 {

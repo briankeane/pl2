@@ -128,7 +128,6 @@ module PL
         time_tracker += (song.duration/1000)
 
       end  # endwhile
-      binding.pry
 
       #if it's the first playlist, start the station
       if PL.db.get_current_playlist(@id).size == PL.db.get_full_playlist(@id).size
