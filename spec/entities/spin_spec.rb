@@ -8,7 +8,8 @@ describe 'a spin' do
 													audio_block_type: 'song', 
 													audio_block_id: 4,
 													created_at: Time.new(1970),
-													updated_at: Time.new(1970, 1, 2) })
+													updated_at: Time.new(1970, 1, 2),
+													estimated_airtime: 4000 })
 		expect(spin.id).to eq(1)
 		expect(spin.current_position).to eq(2)
 		expect(spin.audio_block_type).to eq('song')
@@ -16,5 +17,6 @@ describe 'a spin' do
 		expect(spin.created_at).to eq(Time.new(1970))
 		expect(spin.updated_at).to eq(Time.new(1970, 1, 2))
 		expect(spin.station_id).to eq(3)
+		expect(spin.estimated_airtime).to eq(4000)
 	end
 end

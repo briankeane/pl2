@@ -56,6 +56,10 @@ describe 'a station' do
     # have to build logs out to make it work... just remember to come back & finish!  ########
     ##########################################################################################
 		it 'creates a first playlist' do
+			binding.pry
+			generated_playlist = PL.db.get_current_playlist(@station.id)
+			expect(generated_playlist.size).to eq(1)
+			#expect(PL.db.get_full_station_log(@station.id).size).to eq(1)
 
 		end
 
