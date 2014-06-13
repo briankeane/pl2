@@ -344,7 +344,7 @@ module PL
       # current_position     #
       # audio_block_type     # 
       # audio_block_id       #
-      # estimated_air_time   #
+      # estimated_airtime   #
       # duration             #
       ########################
       def schedule_spin(attrs)
@@ -399,6 +399,12 @@ module PL
         entries = @log_entries.values.select { |entry| entry.station_id == attrs[:station_id]}
         entries = entries.sort_by { |entry| entry.current_position }
         entries = entries.last(attrs[:count]).reverse
+        entries
+      end
+
+      def get_full_station_log(station_id)
+        entries = @log_entries.values.select { |entry| entry.station_id == station_id }
+        entries = entries.sort_by { |entry| entry.current_position}.reverse
         entries
       end
 

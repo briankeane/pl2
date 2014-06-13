@@ -33,7 +33,7 @@ describe 'a station' do
 	end
 
 	describe 'playlist functions' do
-		before (:all) do
+		before (:each) do
       Timecop.freeze(Time.local(2014, 5, 9, 10))
       @user = PL.db.create_user({ twitter: "Bob", password: "password" })
       @songs = []
@@ -56,7 +56,6 @@ describe 'a station' do
     # have to build logs out to make it work... just remember to come back & finish!  ########
     ##########################################################################################
 		it 'creates a first playlist' do
-			binding.pry
 			generated_playlist = PL.db.get_current_playlist(@station.id)
 			expect(generated_playlist.size).to eq(1)
 			#expect(PL.db.get_full_station_log(@station.id).size).to eq(1)

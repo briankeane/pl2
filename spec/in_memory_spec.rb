@@ -418,5 +418,12 @@ describe 'a database' do
       expect(gotten_entries[0].current_position).to eq(105)
       expect(gotten_entries[14].current_position).to eq(91)
     end
+
+    it 'can get a full station log' do
+      gotten_log = db.get_full_station_log(4)
+      expect(gotten_log.size).to eq(30)
+      expect(gotten_log[0].current_position).to eq(105)
+      expect(gotten_log[29].current_position).to eq(76)
+    end
   end
 end

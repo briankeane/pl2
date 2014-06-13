@@ -126,12 +126,12 @@ module PL
         														 audio_block_type: 'song',
                                      audio_block_id: song.id,
                                      current_position: (max_position += 1),
-                                     estimated_air_time: time_tracker })
+                                     estimated_airtime: time_tracker })
 
         time_tracker += (song.duration/1000)
 
       end  # endwhile
-      
+
       #if it's the first playlist, start the station
       if PL.db.get_recent_log_entries({ station_id: @id, count: 1 }).size == 0
         first_spin = PL.db.get_current_playlist(@id).first
@@ -139,7 +139,7 @@ module PL
         												 current_position: first_spin.current_position,
         												 audio_block_type: 'song',
         												 audio_block_id: song.id,
-        												 airtime: first_spin.estimated_air_time
+        												 airtime: first_spin.estimated_airtime
         												 })
         PL.db.delete_spin(first_spin.id)
       end
