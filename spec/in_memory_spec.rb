@@ -381,6 +381,10 @@ describe 'a database' do
       expect(db.get_current_playlist(1)[2].current_position).to eq(3)
       expect(db.get_current_playlist(1)[3].current_position).to eq(4)
     end
+
+    it 'gets a spin by current_position' do
+      expect(db.get_spin_by_current_position({ station_id: 1, current_position: 4 }).audio_block_id).to eq(5)
+    end
   end
 
   ##################

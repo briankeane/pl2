@@ -366,6 +366,12 @@ module PL
         spins = spins.sort_by { |spin| spin.current_position }
       end
 
+      def get_spin_by_current_position(attrs)
+        spin = @spins.values.find { |spin| (spin.station_id == attrs[:station_id]) && 
+                                    (spin.current_position == attrs[:current_position]) }
+        spin
+      end
+
       ####################################
       # move_spin                        #
       # -------------------------------- #

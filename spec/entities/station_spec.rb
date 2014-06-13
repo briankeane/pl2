@@ -63,11 +63,10 @@ describe 'a station' do
 			it 'returns the currently playing spin' do
 				expect(@station.now_playing.current_position).to eq(1)			
 			end
-
+		end
 
 		after (:all) do
 			Timecop.return
 		end
 	end
-
 end
