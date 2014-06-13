@@ -121,19 +121,26 @@ module PL
 					recently_played.shift
 				end
 
+
         spin = PL.db.schedule_spin({ station_id: @id,
-                                              audio_block: song,
-                                         current_position: (max_position += 1) })
+        														 audi_block_type: 'song',
+                                     audio_block_id: song.id,
+                                     current_position: (max_position += 1),
+                                     estimated_air_time: time_tracker })
 
         time_tracker += (song.duration/1000)
 
       end  # endwhile
 
       #if it's the first playlist, start the station
-      if PL.db.get_current_playlist(@id).size == PL.db.get_full_playlist(@id).size
+      if PL.db.get_recent_log_entries({ station_id: @id, count: 1 }).size == 0
         first_spin = PL.db.get_current_playlist(@id).first
-        PL.db.record_spin_time({ spin_id: first_spin.id,
-                                         played_at: Time.now })
+        PL.db.create_log_entry({ station_id: @id,
+        												 current_position: first_spin.current_position,
+        												 audio_block_type: 'song',
+        												 audio_block_id: song.id,
+        												 airtime: Time.now
+        												 })
       end
     end
 
