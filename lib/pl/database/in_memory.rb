@@ -383,7 +383,8 @@ module PL
       # current_position     #
       # audio_block_type     #
       # audio_block_id       #
-      # airtime.to_s         #
+      # airtime              #
+      # duration             #
       # listeners_at_start   #
       # listeners_at_finish  #
       ########################

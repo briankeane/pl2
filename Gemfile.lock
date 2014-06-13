@@ -1,7 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    aws-sdk (1.42.0)
+    aws-sdk (1.43.0)
       json (~> 1.4)
       nokogiri (>= 1.4.4)
     chronic (0.10.2)
@@ -49,10 +49,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk
-  chronic
-  dotenv
+  aws-sdk (~> 1.43.0)
+  chronic (~> 0.10.2)
+  dotenv (~> 0.11.1)
   pry-debugger
   rspec
   ruby-mp3info (~> 0.8.4)
-  timecop
+  timecop (~> 0.7.1)

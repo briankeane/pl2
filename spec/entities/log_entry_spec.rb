@@ -9,7 +9,8 @@ describe 'a log entry' do
 														  audio_block_id: 375,
 														  airtime: Time.new(1983, 4, 15, 18),
 														  listeners_at_start: 55,
-														  listeners_at_finish: 57 })
+														  listeners_at_finish: 57,
+														  duration: 100 })
 	end
 
 	it 'can be created' do
@@ -20,6 +21,7 @@ describe 'a log entry' do
 		expect(@log.airtime.to_s).to eq(Time.new(1983, 4, 15, 18).to_s)
 		expect(@log.listeners_at_start).to eq(55)
 		expect(@log.listeners_at_finish).to eq(57)
+		expect(@log.duration).to eq(100)
 	end
 
 end

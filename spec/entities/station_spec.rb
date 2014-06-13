@@ -49,18 +49,21 @@ describe 'a station' do
       @station.generate_playlist
     end
 
-
-    ##########################################################################################
-    # TODO: BUILD PLAYLIST TESTS! ############################################################
-    ##########################################################################################
-    # have to build logs out to make it work... just remember to come back & finish!  ########
-    ##########################################################################################
 		it 'creates a first playlist' do
 			generated_playlist = PL.db.get_current_playlist(@station.id)
-			expect(generated_playlist.size).to eq(1)
-			#expect(PL.db.get_full_station_log(@station.id).size).to eq(1)
-
+			expect(generated_playlist.size).to eq(4675)
+			expect(PL.db.get_full_station_log(@station.id).size).to eq(1)
 		end
+
+		it 'ends at the correct time' do
+			expect(@station.original_playlist_end_time.to_s).to eq('2014-05-23 00:02:10 -0500')
+		end
+
+		describe 'now_playing' do
+			it 'returns the currently playing spin' do
+				expect(@station.now_playing.current_position).to eq(1)			
+			end
+
 
 		after (:all) do
 			Timecop.return

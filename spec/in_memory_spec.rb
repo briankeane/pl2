@@ -396,7 +396,8 @@ describe 'a database' do
                                          audio_block_id: 375 + i,
                                          airtime: Time.new(1983, 4, 15, 18) + (i*360),
                                          listeners_at_start: 55 + i,
-                                         listeners_at_finish: 57 + i
+                                         listeners_at_finish: 57 + i,
+                                         duration: 500
                                          })
       end
     end
@@ -410,6 +411,7 @@ describe 'a database' do
       expect(@log_entries[0].airtime.to_s).to eq(Time.new(1983, 4, 15, 18).to_s)
       expect(@log_entries[0].listeners_at_start).to eq(55)
       expect(@log_entries[0].listeners_at_finish).to eq(57)
+      expect(@log_entries[0].duration).to eq(500)
     end
 
     it 'can get recent entries' do

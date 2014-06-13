@@ -60,6 +60,10 @@ module PL
       sample_array
     end
 
+    def now_playing
+    end
+
+
     ##################################################################
     #     generate_playlist                                          #
     ##################################################################
@@ -69,7 +73,7 @@ module PL
     #  blocks or placeholders.  Currently it gets the ratios correct #
     #  but later it should be ammended to account for:               #
     #                                                                #
-    #     1) no repeats (spacing between same artist/song)           #
+    #     1) proper hourly scheduling                                #
     #     2) station ids                                             #
     ##################################################################
 
@@ -131,6 +135,8 @@ module PL
         time_tracker += (song.duration/1000)
 
       end  # endwhile
+
+      @original_playlist_end_time = time_tracker
 
       #if it's the first playlist, start the station
       if PL.db.get_recent_log_entries({ station_id: @id, count: 1 }).size == 0
