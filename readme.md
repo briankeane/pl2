@@ -458,6 +458,8 @@ response:
 ### 
 ##### create_log_entry
 route: '/log_entries/' PUT
+
+
 ##### get_last_10_plays
 route '/log_entries/:station_id/' GET
 response:
@@ -478,6 +480,22 @@ response:
 			{ log entry },
 			.... 
 			]
+}
+```
+##### get_log_entry
+route: '/log_entries/:id' GET
+```
+{ 	"log_entry":		 
+				{
+				 "id": 1,
+			   "station_id": 4,
+				 "current_position": 76,
+				 "audio_block_type": 'song',
+				 "audio_block_id": 375,
+				 "airtime": Time.new(1983, 4, 15, 18),   // (number, secs since 1970)
+				 "listeners_at_start": 55,       
+				 "listeners_at_finish": 57  
+				}
 }
 ```
 

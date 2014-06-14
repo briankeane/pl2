@@ -43,12 +43,12 @@ module PL
 		def make_log_current
 
 			playlist = PL.db.get_current_playlist(@id)
-
+      binding.pry
 			last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
 
 			max_position = last_spin_played.current_position
 
-			last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration
+			last_spin_ended = last_spin_played.airtime + last_spin_played.duration
 			
 			# IF the station's been off
 			if last_spin_ended < Time.now

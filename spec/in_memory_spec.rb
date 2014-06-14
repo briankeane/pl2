@@ -431,5 +431,9 @@ describe 'a database' do
       expect(gotten_log[0].current_position).to eq(105)
       expect(gotten_log[29].current_position).to eq(76)
     end
+
+    it 'gets a log entry' do
+      expect(db.get_log_entry(@log_entries[0].id).current_position).to eq(76)
+    end
   end
 end

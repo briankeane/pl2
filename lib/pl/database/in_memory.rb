@@ -415,6 +415,10 @@ module PL
         entries
       end
 
+      def get_log_entry(id)
+        @log_entries[id]
+      end
+
 
 
   	end
