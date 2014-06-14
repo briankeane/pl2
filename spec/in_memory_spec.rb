@@ -66,7 +66,25 @@ describe 'a database' do
 			expect(deleted).to be_nil
 		end
 	end
+  ################
+  # Audio_Blocks #
+  ################
+  describe 'audio_block' do
+    before(:each) do
+      @song = db.create_song({ artist: 'Brian Keane',
+                          title: 'Bar Lights',
+                          album: 'Coming Home',
+                          duration: 19000,
+                          key: 'ThisIsAKey.mp3' })
+    end
 
+    it 'returns the audio_block' do
+      ab = db.get_audio_block(@song.id)
+      expect(ab.artist).to eq('Brian Keane')
+      expect(ab.title).to eq('Bar Lights')
+    end
+  end
+ 
 	##############
   #   Songs    #
   ##############
@@ -370,7 +388,6 @@ describe 'a database' do
 
     it 'is created' do
       expect(@spins[0].current_position).to eq(1)
-      expect(@spins[0].audio_block_type).to eq('song')
       expect(@spins[0].audio_block_id).to eq(2)
       expect(@spins[0].id).to be_a(Fixnum)
     end
@@ -410,7 +427,6 @@ describe 'a database' do
       expect(@log_entries[0].id).to be_a(Fixnum)
       expect(@log_entries[0].station_id).to eq(4)
       expect(@log_entries[0].current_position).to eq(76)
-      expect(@log_entries[0].audio_block_type).to eq('song')
       expect(@log_entries[0].audio_block_id).to eq(375)
       expect(@log_entries[0].airtime.to_s).to eq(Time.new(1983, 4, 15, 18).to_s)
       expect(@log_entries[0].listeners_at_start).to eq(55)

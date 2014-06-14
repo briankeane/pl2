@@ -1,22 +1,17 @@
 module PL
 	class Spin < Entity
-		attr_accessor :id, :current_position, :audio_block_type, :audio_block_id, :created_at, :updated_at
+		attr_accessor :id, :current_position, :created_at, :updated_at
 		attr_accessor :station_id, :estimated_airtime
+		attr_reader :audio_block_id, :audio_block
 
 		def initialize(attrs)
 			super(attrs)
+			@audio_block = PL.db.get_audio_block(audio_block_id)
 		end
 
-
-		def audio_block
-			case @audio_block_type
-			when 'song'
-				return PL.db.get_song(audio_block_id)
-			when 'commercial'
-				return PL.db.get_commercial(audio_block_id)
-			when 'commentary'
-				return PL.db.get_commentary(audio_block_id)
-			end
+		def audio_block_id=(new_id)
+			@audio_block_id = new_id
+			@audio_block = PL.db.get_audio_block(audio_block_id)
 		end
 
 		###############################################

@@ -56,6 +56,7 @@ describe 'a station' do
 		end
 
 		it 'ends at the correct time' do
+			Timecop.freeze(Time.local(2014, 5,9, 12))
 			expect(@station.original_playlist_end_time.to_s).to eq('2014-05-23 00:02:10 -0500')
 		end
 

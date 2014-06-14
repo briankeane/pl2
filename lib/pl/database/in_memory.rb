@@ -24,9 +24,6 @@ module PL
         @log_entries = {}
         @audio_block_counter = 900
         @audio_blocks = {}
-
-
-
       end
 
       ##############
@@ -68,6 +65,12 @@ module PL
       def delete_user(id)
       	user = @users.delete(id)
       	user
+      end
+      ################
+      # Audio_Blocks #
+      ################
+      def get_audio_block(id)
+        @audio_blocks[id]
       end
 
       ##############
@@ -340,9 +343,8 @@ module PL
       #        spins         #
       # -------------------  #
       # current_position     #
-      # audio_block_type     # 
       # audio_block_id       #
-      # estimated_airtime   #
+      # estimated_airtime    #
       # duration             #
       ########################
       def schedule_spin(attrs)
@@ -385,7 +387,6 @@ module PL
       #      ------------    #
       # station_id           #
       # current_position     #
-      # audio_block_type     #
       # audio_block_id       #
       # airtime              #
       # duration             #

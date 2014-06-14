@@ -159,6 +159,13 @@ module PL
     end
 
     def now_playing
+      if !self.active?
+        self.make_log_current
+      end
+
+      binding.pry
+
+      return PL.db.get_recent_log_entries(1)[0]
     end
 
 
