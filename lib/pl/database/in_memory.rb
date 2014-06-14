@@ -149,16 +149,16 @@ module PL
         id = (@commentary_id_counter += 1)
         attrs[:id] = id
         commentary = PL::Commentary.new(attrs)
-        @commentaries[id] = commentary
+        @audio_blocks[id] = commentary
         commentary
       end
 
       def get_commentary(id)
-        @commentaries[id]
+        @audio_blocks[id]
       end
 
       def update_commentary(attrs)
-        commentary = @commentaries[attrs.delete(:id)]
+        commentary = @audio_blocks[attrs.delete(:id)]
         
         # return false if commentary doesn't exist
         return false unless commentary
@@ -173,7 +173,7 @@ module PL
       end
 
       def delete_commentary(id)
-        deleted_commentary = @commentaries.delete(id)
+        deleted_commentary = @audio_blocks.delete(id)
         deleted_commentary
       end
 
