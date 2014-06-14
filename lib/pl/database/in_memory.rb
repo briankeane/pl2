@@ -146,7 +146,7 @@ module PL
       #  Commentaries #
       #################
       def create_commentary(attrs)
-        id = (@commentary_id_counter += 1)
+        id = (@audio_block_counter += 1)
         attrs[:id] = id
         commentary = PL::Commentary.new(attrs)
         @audio_blocks[id] = commentary
@@ -187,19 +187,19 @@ module PL
       # key           #
       #################
       def create_commercial(attrs)
-        id = (@commercial_counter += 1)
+        id = (@audio_block_counter += 1)
         attrs[:id] = id
         commercial = Commercial.new(attrs)
-        @commercials[id] = commercial
+        @audio_blocks[id] = commercial
         commercial
       end
 
       def delete_commercial(id)
-        @commercials.delete(id)
+        @audio_blocks.delete(id)
       end
 
       def get_commercial(id)
-        @commercials[id]
+        @audio_blocks[id]
       end
 
       ##########################################
@@ -209,7 +209,7 @@ module PL
       #  FALSE if commercial not found         #
       ##########################################
       def update_commercial(attrs)
-        commercial = @commercials[attrs.delete(:id)]
+        commercial = @audio_blocks[attrs.delete(:id)]
         
         # return false if commercial doesn't exist
         return false unless commercial
@@ -237,15 +237,15 @@ module PL
       ##################################################################
 
       def create_commercial_block(attrs)  #duration, commercials (input:array of ids, output: array of commercial objects)
-        id = (@commercial_block_counter += 1)
+        id = (@audio_block_counter += 1)
         attrs[:id] = id
         commercial_block = CommercialBlock.new(attrs)
-        @commercial_blocks[id] = commercial_block
+        @audio_blocks[id] = commercial_block
         commercial_block
       end
 
       def get_commercial_block(id)
-        @commercial_blocks[id]
+        @audio_blocks[id]
       end
       
 
@@ -256,7 +256,7 @@ module PL
       #  object, or FALSE if block is not found #
       ###########################################
       def update_commercial_block(attrs)
-        commercial_block = @commercial_blocks[attrs.delete(:id)]
+        commercial_block = @audio_blocks[attrs.delete(:id)]
         
         # return false if commercial_block doesn't exist
         return false unless commercial_block
@@ -271,7 +271,7 @@ module PL
       end
 
       def delete_commercial_block(id)
-        @commercial_blocks.delete(id)
+        @audio_blocks.delete(id)
       end
 
 
