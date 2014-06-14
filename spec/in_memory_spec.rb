@@ -381,7 +381,6 @@ describe 'a database' do
       20.times do |i|
         @spins[i] = db.schedule_spin({ station_id: 1,
                                   current_position: (i+1),
-                                  audio_block_type: 'song',
                                   audio_block_id: (i+2) })
       end
     end
@@ -413,7 +412,6 @@ describe 'a database' do
       30.times do |i|
         @log_entries << db.create_log_entry({station_id: 4,
                                          current_position: 76 + i,
-                                         audio_block_type: 'song',
                                          audio_block_id: 375 + i,
                                          airtime: Time.new(1983, 4, 15, 18) + (i*360),
                                          listeners_at_start: 55 + i,

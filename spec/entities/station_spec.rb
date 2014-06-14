@@ -77,25 +77,21 @@ describe 'a station' do
 			@song = PL.db.create_song({ duration: 180000 })
 			@spin1 = PL.db.schedule_spin({ current_position: 15,
 																			station_id: @station.id,
-																			audio_block_type: 'song',
 																			audio_block_id: @song.id,
 																			estimated_airtime: Time.new(2014, 4, 15, 11, 25) 
 																			})
 			@spin2 = PL.db.schedule_spin({ current_position: 16,
 																			station_id: @station.id,
-																			audio_block_type: 'song',
 																			audio_block_id: @song.id,																			
 																			estimated_airtime: Time.new(2014, 4, 15, 11, 28) 
 																			})
 			@spin3 = PL.db.schedule_spin({ current_position: 17,
 																			station_id: @station.id,
-																			audio_block_type: 'song',
 																			audio_block_id: @song.id,																			
 																			estimated_airtime: Time.new(2014, 4, 15, 12, 31) 
 																			})
 			@spin4 = PL.db.schedule_spin({ current_position: 18,
 																			station_id: @station.id,
-																			audio_block_type: 'song',
 																			audio_block_id: @song.id,
 																			estimated_airtime: Time.new(2014, 4, 15, 12, 38) 
 																			})
