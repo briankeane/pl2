@@ -470,7 +470,6 @@ response:
 			[{ "id": 1,
 			   "station_id": 4,
 				 "current_position": 76,
-				 "audio_block_type": 'song',
 				 "audio_block_id": 375,
 				 "airtime": Time.new(1983, 4, 15, 18),   // (number, secs since 1970)
 				 "listeners_at_start": 55,       
@@ -490,7 +489,6 @@ route: '/log_entries/:id' GET
 				 "id": 1,
 			   "station_id": 4,
 				 "current_position": 76,
-				 "audio_block_type": 'song',
 				 "audio_block_id": 375,
 				 "airtime": Time.new(1983, 4, 15, 18),   // (number, secs since 1970)
 				 "listeners_at_start": 55,       
@@ -507,19 +505,16 @@ response:
 	"success": true,
 	"full_station_log": 
 			[{ "current_position": 76,
-			  "audio_block_type": "song",
 			  "audio_block_id": 75,
 			  "played_at": datetime  // (number, secs since 1970)
 			  "duration": 1783920     // in milliseconds
 			},
 			{ "current_position": 77,
-			  "audio_block_type": "commercial",
 			  "audio_block_id": 75,
 			  "played_at": datetime  // (number, secs since 1970)
 			  "duration": 1783920     // in milliseconds
 			},
 			{ "current_position": 78,
-			  "audio_block_type": "commentary",
 			  "audio_block_id": 75,
 			  "played_at": datetime  // (number, secs since 1970)
 			  "duration": 1783920        // in milliseconds 
@@ -590,7 +585,6 @@ end
     t.integer  "station_id"
     t.datetime "airtime"
     t.integer  "audio_block_id"
-    t.string   "audio_block_type"
     t.integer  "listeners_at_start"
     t.integer  "listeners_at_finish"
   end
@@ -608,4 +602,10 @@ create_table "spins" force:true do |t|
     t.integer "station_id"
     t.integer "current_position"
 end
+
+create_table "audio_blocks" force:true do|t|
+		t.integer "id"
+		t.integer "duration"
+end
+
 ```
