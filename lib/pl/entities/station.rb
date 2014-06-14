@@ -212,23 +212,23 @@ module PL
 
         song = sample_array.sample
 
-        # if it's been played recently, pick a new song
-				while recently_played.include?(song)
-					song = sample_array.sample
-				end
+        # IF it's been played recently, pick a new song
+        while recently_played.include?(song)
+          song = sample_array.sample
+        end
 
-				# Push the new song to the recently_played array
-				recently_played << song
+        # Push the new song to the recently_played array
+        recently_played << song
 
-				# If the array is at max size, remove the earliest element
-				if ((recently_played.size >= PL::SPINS_WITHOUT_REPEAT) ||
-								(recently_played.size >= @spins_per_week.size - 1))
-					recently_played.shift
-				end
+        # If the array is at max size, delete the first song
+        if ((recently_played.size >= PL::SPINS_WITHOUT_REPEAT) ||
+                (recently_played.size >= @spins_per_week.size - 1))
+          recently_played.shift
+        end
 
 
         spin = PL.db.schedule_spin({ station_id: @id,
-        														 audio_block_type: 'song',
+                                     audio_block_type: 'song',
                                      audio_block_id: song.id,
                                      current_position: (max_position += 1),
                                      estimated_airtime: time_tracker })
@@ -237,17 +237,17 @@ module PL
 
       end  # endwhile
 
-      
+      @original_playlist_end_time = time_tracker
 
       #if it's the first playlist, start the station
       if PL.db.get_recent_log_entries({ station_id: @id, count: 1 }).size == 0
         first_spin = PL.db.get_current_playlist(@id).first
         PL.db.create_log_entry({ station_id: @id,
-        												 current_position: first_spin.current_position,
-        												 audio_block_type: 'song',
-        												 audio_block_id: song.id,
-        												 airtime: first_spin.estimated_airtime
-        												 })
+                                 current_position: first_spin.current_position,
+                                 audio_block_type: 'song',
+                                 audio_block_id: song.id,
+                                 airtime: first_spin.estimated_airtime
+                                 })
         PL.db.delete_spin(first_spin.id)
       end
     end

@@ -383,19 +383,19 @@ response:
 			{ "current_position": 76,
 			  "audio_block_type": "song",
 			  "audio_block_id": 75,
-			  "estimated_air_time": time  // (number, secs since 1970)
+			  "estimated_airtime": time  // (number, secs since 1970)
 			  "duration": 1783920     // in milliseconds
 			},
 			{ "current_position": 77,
 			  "audio_block_type": "commercial",
 			  "audio_block_id": 75,
-			  "estimated_air_time": time  // (number, secs since 1970)
+			  "estimated_airtime": time  // (number, secs since 1970)
 			  "duration": 1783920     // in milliseconds
 			},
 			{ "current_position": 78,
 			  "audio_block_type": "commentary",
 			  "audio_block_id": 75,
-			  "estimated_air_time": time  // (number, secs since 1970)
+			  "estimated_airtime": time  // (number, secs since 1970)
 			  "duration": 1783920        // in milliseconds 
 			}]
 }
@@ -409,7 +409,7 @@ response:
 	"current_position": 76,
 	"audio_block_type": "song",
 	"audio_block_id": 75,
-	"estimated_air_time": datetime  // (number, secs since 1970)
+	"estimated_airtime": datetime  // (number, secs since 1970)
 	"duration": 1783920     // in milliseconds
 }
 ```
@@ -420,7 +420,7 @@ route '/stations/:station_id/get_next_spin_with_audio'   GET
 	"current_position": 76,
 	"audio_block_type": "song",
 	"audio_block_id": 75,
-	"estimated_air_time": datetime  // (number, secs since 1970)
+	"estimated_airtime": datetime  // (number, secs since 1970)
 	"duration": 1783920     // in milliseconds
 	"audio_blob": "AUDIODATA HERE"
 }
@@ -555,7 +555,7 @@ end
    create_table "commercial_block", force: true do |t|
     t.integer "duration"
     t.integer "station_id"
-    t.datetime "estimated_air_time"
+    t.datetime "estimated_airtime"
   end
 
   create_table "commercial_commercial_block_join"
