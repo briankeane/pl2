@@ -44,15 +44,12 @@ module PL
 
 			playlist = PL.db.get_current_playlist(@id)
 
-
-      max_position = last_spin_played.current_position
-
-			last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
-			last_spin_ended = last_spin_played.airtime + last_spin_played.duration
+      # grab the last current_position in the log
+			max_position = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0].current_position
 			
 			# IF the station's been off
 			if !self.active?
-				time_tracker = last_spin_ended
+				time_tracker = self.log_end_time
 
 				# calibrate commercial_block_counter for start-time
     		commercial_block_counter = (time_tracker.to_f/1800.0).floor
@@ -259,14 +256,7 @@ module PL
     #  returns TRUE or FALSE                                         #
     ##################################################################
     def active?
-      last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
-      last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
-      
-      if last_spin_ended < Time.now
-        return false
-      else
-        return true
-      end
+      (self.log_end_time < Time.now) ? false : true
     end
 
     def log_end_time

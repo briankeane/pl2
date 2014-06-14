@@ -30,6 +30,9 @@ module PL
         @spins = {}
         @log_entry_counter = 800
         @log_entries = {}
+        @audio_block_counter = 900
+        @audio_blocks = {}
+
 
 
       end
@@ -79,19 +82,19 @@ module PL
       #   Songs    #
       ##############
       def create_song(attrs)
-        id = (@song_id_counter += 1)
+        id = (@audio_block_counter += 1)
         attrs[:id] = id
         song = PL::Song.new(attrs)
-        @songs[id] = song
+        @audio_blocks[id] = song
         song
       end
 
       def get_song(id)
-        @songs[id]
+        @audio_blocks[id]
       end
 
       def update_song(attrs)
-        song = @songs[attrs.delete(:id)]
+        song = @audio_blocks[attrs.delete(:id)]
         
         # return false if song doesn't exist
         return false unless song
@@ -106,12 +109,13 @@ module PL
       end
 
       def delete_song(id)
-        song = @songs.delete(id)
+        song = @audio_blocks.delete(id)
         song
       end
 
       def song_exists?(attrs)  #title, artist, album
-        songs = @songs.values.select { |song| song.title == attrs[:title] &&
+        songs = @audio_blocks.values.select { |song| song.is_a?(PL::Song) && 
+                                              song.title == attrs[:title] &&
                                               song.album == attrs[:album] &&
                                               song.artist == attrs[:artist] }
 
@@ -123,16 +127,18 @@ module PL
       end
 
       def get_all_songs
-        all_songs = @songs.values.sort_by { |a| [a.artist, a.title] }
+        all_songs = @audio_blocks.values.select { |ab| ab.is_a?(PL::Song) }.sort_by { |a| [a.artist, a.title] }
         all_songs
       end
 
       def get_songs_by_title(title)
-        @songs.values.select { |song| song.title.match(/^#{title}/) }.sort_by { |x| x.title }
+        @audio_blocks.values.select { |ab| ab.is_a?(PL::Song) && 
+                                      ab.title.match(/^#{title}/) }.sort_by { |x| x.title }
       end
 
       def get_songs_by_artist(artist)
-        @songs.values.select { |song| song.artist.match(/^#{artist}/) }.sort_by { |x| x.title }
+        @audio_blocks.values.select { |ab| ab.is_a?(PL::Song) &&
+                                        ab.artist.match(/^#{artist}/) }.sort_by { |x| x.title }
       end
 
 
@@ -418,8 +424,6 @@ module PL
       def get_log_entry(id)
         @log_entries[id]
       end
-
-
 
   	end
   end
