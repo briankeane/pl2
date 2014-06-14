@@ -117,6 +117,18 @@ describe 'a station' do
 			end
 		end
 
+		describe 'log_end_time' do
+			it 'returns the time the log ends' do
+				expect(@station.log_end_time.to_s).to eq('2014-04-14 11:57:00 -0500')
+				log2 = PL.db.create_log_entry({ station_id: @station.id,
+																			current_position: 14,
+																			airtime: Time.new(2014, 4, 14, 11, 57),
+																			duration: 180000 
+																			})
+				expect(@station.log_end_time.to_s).to eq('2014-04-14 12:00:00 -0500')
+			end
+		end
+
 
 		it 'does nothing if the station has been running' do
 			Timecop.freeze(Time.local(2014, 4, 14, 11, 55))
