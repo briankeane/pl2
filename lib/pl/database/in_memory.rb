@@ -16,16 +16,8 @@ module PL
       def clear_everything
       	@user_id_counter = 100
       	@users = {}
-        @song_id_counter = 200
-        @songs = {}
         @station_id_counter = 300
         @stations = {}
-        @commentary_id_counter = 400
-        @commentaries = {}
-        @commercial_block_counter = 500
-        @commercial_blocks = {}
-        @commercial_counter = 600
-        @commercials = {}
         @spin_counter = 700
         @spins = {}
         @log_entry_counter = 800
