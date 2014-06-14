@@ -69,4 +69,42 @@ describe 'a station' do
 			Timecop.return
 		end
 	end
+
+	describe 'make_log_current' do
+		before (:each) do
+			@station = PL.db.create_station({ user_id: 1 })
+			@song = PL.db.create_song({ duration: 180000 })
+			@spin1 = PL.db.schedule_spin({ current_position: 15,
+																			audio_block_type: 'song',
+																			audio_block_id: @song.id,
+																			estimated_airtime: Time.new(2014, 4, 15, 11, 25) 
+																			})
+			@spin2 = PL.db.schedule_spin({ current_position: 16,
+																			audio_block_type: 'song',
+																			audio_block_id: @song.id,																			
+																			estimated_airtime: Time.new(2014, 4, 15, 11, 28) 
+																			})
+			@spin3 = PL.db.schedule_spin({ current_position: 17,
+																			audio_block_type: 'song',
+																			audio_block_id: @song.id,																			
+																			estimated_airtime: Time.new(2014, 4, 15, 12, 31) 
+																			})
+			@spin4 = PL.db.schedule_spin({ current_position: 18,
+																			audio_block_type: 'song',
+																			audio_block_id: @song.id,
+																			estimated_airtime: Time.new(2014, 4, 15, 12, 38) 
+																			})
+			@log = PL.db.create_log_entry({ current_position: 14,
+																			airtime: Time.new(2014, 4, 14, 11, 54) 
+																			})
+		end
+
+		it 'does nothing if the station has been running' do
+			Timecop.freeze(Time.local(2014, 4, 14, 11, 55))
+			@station.make_log_current
+			expect(PL.db.get_log_entry(@log.id).airtime.to_s).to eq(Time.new(2014, 4, 14, 11, 54).to_s)
+			expect(PL.db.get_current_playlist.size).to eq(4)
+		end
+	end
+
 end

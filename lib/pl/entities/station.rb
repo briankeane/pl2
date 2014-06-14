@@ -40,6 +40,107 @@ module PL
 			super(attrs)
 		end
 
+		def make_log_current
+
+			playlist = PL.db.get_current_playlist(@id)
+
+			last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
+
+			max_position = last_spin_played.current_position
+
+			last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration
+			
+			# IF the station's been off
+			if last_spin_ended < Time.now
+				time_tracker = last_spin_ended
+
+				# calibrate commercial_block_counter for start-time
+    		commercial_block_counter = (time_tracker.to_f/1800.0).floor
+
+    		#adjust commercial_block_counter for cases where 1st spin should be a commercial_block
+    		if (playlist[first_spin_index].estimated_airtime.to_f/1800.0).floor != commercial_block_counter
+    			commercial_block_counter -= 1
+    		end
+
+    		# set up an index to go through playlist array
+    		index = 0
+				# get the log & playlist caught up
+				while time_tracker < Time.now
+
+					# add a commercial block if it's time
+	        if (time_tracker.to_f/1800.0).floor > commercial_block_counter
+	          commercial_block_counter += 1
+	          commercial_block = PL.db.create_commercial_block({ station_id: @id, 
+	          																										duration: (@secs_of_commercial_per_hour/2) })
+	          PL.db.create_log_entry({ station_id: @id,
+	          													current_position: (max_position += 1),
+	          													audio_block_type: 'commercial',
+	          													audio_block_id: commercial_block.id,
+	          													airtime: time_tracker,
+	          													duration: commercial_block.duration,
+	          													listeners_at_start: 0,
+	          													listeners_at_finish: 0 })
+	          time_tracker += (@secs_of_commercial_per_hour/2)
+
+	        # ELSE record the next scheduled spin
+	      	else
+	      		spin = playlist[index]
+	          log = PL.db.create_log_entry({ station_id: @id,
+																			current_position: (max_position += 1),
+																			audio_block_type: spin.audio_block_type,
+																			audio_block_id: spin.audio_block_id,
+																			airtime: time_tracker,
+																			duration: spin.duration,
+																			listeners_at_start: 0,
+																			listeners_at_finish: 0 })
+	          PL.db.delete_spin(spin.id)
+	          time_tracker += log.duration
+	          index += 1
+					end
+				end
+      end  # end 'if station was asleep'
+    end
+
+    def update_estimated_airtimes
+    	last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
+
+
+			last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration
+
+			# if the station has been asleep
+			if last_spin_ended < Time.now
+				self.make_log_current
+				last_spin_played = PL.db.get_recent_log_entries(1)[0]
+				last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration
+			end
+
+			max_position = last_spin_played.current_position
+      playlist = PL.db.get_current_playlist(@id)
+      time_tracker = last_spin_ended
+
+			# calibrate commercial_block_counter for start-time
+  		commercial_block_counter = (time_tracker.to_f/1800.0).floor
+
+  		#adjust commercial_block_counter for cases where 1st spin should be a commercial_block
+  		if (playlist[first_spin_index].estimated_airtime.to_f/1800.0).floor != commercial_block_counter
+  			commercial_block_counter -= 1
+  		end
+
+      # iterate through the playlist and fix times
+      playlist.each do |spin|
+
+    		# add a space for a commercial block if it's time
+        if (time_tracker.to_f/1800.0).floor > commercial_block_counter
+          commercial_block_counter += 1
+          time_tracker += (@secs_of_commercial_per_hour/2)
+        end
+
+        spin = PL.db.update_spin({ id: @id,
+																	estimated_airtime: time_tracker })
+        time_tracker += spin.duration
+      end
+		end
+
 		##################################################################
     #     create_sample_array                                        #
     ##################################################################
@@ -111,7 +212,7 @@ module PL
 
         song = sample_array.sample
 
-        # IF it's been played recently, pick a new song
+        # if it's been played recently, pick a new song
 				while recently_played.include?(song)
 					song = sample_array.sample
 				end
@@ -119,7 +220,7 @@ module PL
 				# Push the new song to the recently_played array
 				recently_played << song
 
-				# If the array is at max size, delete the first song
+				# If the array is at max size, remove the earliest element
 				if ((recently_played.size >= PL::SPINS_WITHOUT_REPEAT) ||
 								(recently_played.size >= @spins_per_week.size - 1))
 					recently_played.shift
@@ -136,7 +237,7 @@ module PL
 
       end  # endwhile
 
-      @original_playlist_end_time = time_tracker
+      
 
       #if it's the first playlist, start the station
       if PL.db.get_recent_log_entries({ station_id: @id, count: 1 }).size == 0
