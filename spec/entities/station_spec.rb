@@ -105,11 +105,24 @@ describe 'a station' do
 																			})
 		end
 
+		describe 'active?' do
+			it 'returns true if the station has been running' do
+				Timecop.freeze(Time.local(2014, 4,14, 11,55))
+				expect(@station.active?).to eq(true)
+			end
+
+			it 'returns false if the station needs updating' do
+				Timecop.freeze(Time.local(2014, 4,14, 13,05))
+				expect(@station.active?).to eq(false)
+			end
+		end
+
+
 		it 'does nothing if the station has been running' do
 			Timecop.freeze(Time.local(2014, 4, 14, 11, 55))
 			@station.make_log_current
 			expect(PL.db.get_log_entry(@log.id).airtime.to_s).to eq(Time.new(2014, 4, 14, 11, 54).to_s)
-			expect(PL.db.get_current_playlist.size).to eq(4)
+			expect(PL.db.get_current_playlist(@station.id).size).to eq(4)
 		end
 	end
 

@@ -43,7 +43,7 @@ module PL
 		def make_log_current
 
 			playlist = PL.db.get_current_playlist(@id)
-      binding.pry
+
 			last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
 
 			max_position = last_spin_played.current_position
@@ -251,5 +251,23 @@ module PL
         PL.db.delete_spin(first_spin.id)
       end
     end
+    ##################################################################
+    #     active?                                                    #
+    ##################################################################
+    #  checks whether or not the station is currently active         #
+    #  -----------------------------------------------------         #
+    #  returns TRUE or FALSE                                         #
+    ##################################################################
+    def active?
+      last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
+      last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
+      
+      if last_spin_ended < Time.now
+        return false
+      else
+        return true
+      end
+    end
+
 	end
 end
