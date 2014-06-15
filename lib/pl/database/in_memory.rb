@@ -359,7 +359,9 @@ module PL
         @spins[id]
       end
 
-      def delete_spin(attrs)
+      def delete_spin(id)
+        deleted_spin = @spins.delete(id)
+        deleted_spin
       end
 
       def insert_spin(attrs)

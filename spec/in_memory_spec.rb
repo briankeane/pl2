@@ -405,6 +405,14 @@ describe 'a database' do
     it 'gets a spin by current_position' do
       expect(db.get_spin_by_current_position({ station_id: 1, current_position: 4 }).audio_block_id).to eq(5)
     end
+
+    it 'can be deleted' do
+      id = @spins[0].id
+      deleted_spin = db.delete_spin(@spins[0].id)
+
+      expect(deleted_spin.id).to eq(id)
+      expect(db.get_spin(id)).to eq(nil)
+    end
   end
 
   ##################
