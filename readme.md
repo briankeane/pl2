@@ -381,19 +381,16 @@ response:
 {
 	"spins": [
 			{ "current_position": 76,
-			  "audio_block_type": "song",
 			  "audio_block_id": 75,
 			  "estimated_airtime": time  // (number, secs since 1970)
 			  "duration": 1783920     // in milliseconds
 			},
 			{ "current_position": 77,
-			  "audio_block_type": "commercial",
 			  "audio_block_id": 75,
 			  "estimated_airtime": time  // (number, secs since 1970)
 			  "duration": 1783920     // in milliseconds
 			},
 			{ "current_position": 78,
-			  "audio_block_type": "commentary",
 			  "audio_block_id": 75,
 			  "estimated_airtime": time  // (number, secs since 1970)
 			  "duration": 1783920        // in milliseconds 
@@ -407,7 +404,6 @@ response:
 ```
 {
 	"current_position": 76,
-	"audio_block_type": "song",
 	"audio_block_id": 75,
 	"estimated_airtime": datetime  // (number, secs since 1970)
 	"duration": 1783920     // in milliseconds
@@ -418,7 +414,6 @@ route '/stations/:station_id/get_next_spin_with_audio'   GET
 ```
 {
 	"current_position": 76,
-	"audio_block_type": "song",
 	"audio_block_id": 75,
 	"estimated_airtime": datetime  // (number, secs since 1970)
 	"duration": 1783920     // in milliseconds
@@ -435,8 +430,7 @@ route '/log/create/' POST
 	"listeners_at_finish": 2,
 	"current_position": 722,
 	"air_time": datetime,
-	"audio_block_id": 75,
-	"audio_block_type": "song"
+	"audio_block_id": 75
 }
 ```
 response:
@@ -449,8 +443,7 @@ response:
 			"listeners_at_finish": 2,
 			"current_position": 722,
 			"air_time": datetime,
-			"audio_block_id": 75,
-			"audio_block_type": "song"
+			"audio_block_id": 75
 		}
 }
 

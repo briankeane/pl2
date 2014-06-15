@@ -71,7 +71,6 @@ module PL
 	          																										duration: (@secs_of_commercial_per_hour/2) })
 	          PL.db.create_log_entry({ station_id: @id,
 	          													current_position: (max_position += 1),
-	          													audio_block_type: 'commercial',
 	          													audio_block_id: commercial_block.id,
 	          													airtime: time_tracker,
 	          													duration: commercial_block.duration,
@@ -84,7 +83,6 @@ module PL
 	      		spin = playlist[index]
 	          log = PL.db.create_log_entry({ station_id: @id,
 																			current_position: (max_position += 1),
-																			audio_block_type: spin.audio_block_type,
 																			audio_block_id: spin.audio_block_id,
 																			airtime: time_tracker,
 																			duration: spin.duration,
@@ -143,7 +141,7 @@ module PL
     ##################################################################
     #  This method creates an array of samples for the playlist      #
     #  generator to randomly select from.  It populates each song    #
-    #  in the correct ratio. 																				 #
+    #  in the correct ratio.                                         #
     #  The values are stored in the array as song objects (not ids)  #
     ##################################################################
 
@@ -151,9 +149,9 @@ module PL
       sample_array = []
 
       # add songs to sample-array in correct ratios
-     	@spins_per_week.each do |k,v|
-     		v.times { sample_array << PL::db.get_song(k) }
-     	end
+      @spins_per_week.each do |k,v|
+        v.times { sample_array << PL::db.get_song(k) }
+      end
 
       sample_array
     end
@@ -163,9 +161,7 @@ module PL
         self.make_log_current
       end
 
-      binding.pry
-
-      return PL.db.get_recent_log_entries(1)[0]
+      return PL.db.get_recent_log_entries({station_id: @id, count: 1 })[0]
     end
 
 
@@ -232,7 +228,6 @@ module PL
 
 
         spin = PL.db.schedule_spin({ station_id: @id,
-                                     audio_block_type: 'song',
                                      audio_block_id: song.id,
                                      current_position: (max_position += 1),
                                      estimated_airtime: time_tracker })
@@ -248,9 +243,9 @@ module PL
         first_spin = PL.db.get_current_playlist(@id).first
         PL.db.create_log_entry({ station_id: @id,
                                  current_position: first_spin.current_position,
-                                 audio_block_type: 'song',
                                  audio_block_id: song.id,
-                                 airtime: first_spin.estimated_airtime
+                                 airtime: first_spin.estimated_airtime,
+                                 duration: first_spin.duration
                                  })
         PL.db.delete_spin(first_spin.id)
       end
