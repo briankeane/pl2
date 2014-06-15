@@ -55,7 +55,7 @@ module PL
     		commercial_block_counter = (time_tracker.to_f/1800.0).floor
 
     		#adjust commercial_block_counter for cases where 1st spin should be a commercial_block
-    		if (playlist[first_spin_index].estimated_airtime.to_f/1800.0).floor != commercial_block_counter
+    		if (playlist[max_position + 1].estimated_airtime.to_f/1800.0).floor != commercial_block_counter
     			commercial_block_counter -= 1
     		end
 
@@ -89,10 +89,11 @@ module PL
 																			listeners_at_start: 0,
 																			listeners_at_finish: 0 })
 	          PL.db.delete_spin(spin.id)
-	          time_tracker += log.duration
+	          time_tracker += log.duration/1000
 	          index += 1
 					end
 				end
+        binding.pry
       end  # end 'if station was asleep'
     end
 
@@ -100,13 +101,13 @@ module PL
     	last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
 
 
-			last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration
+			last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration/1000
 
 			# if the station has been asleep
 			if last_spin_ended < Time.now
 				self.make_log_current
 				last_spin_played = PL.db.get_recent_log_entries(1)[0]
-				last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration
+				last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration/1000
 			end
 
 			max_position = last_spin_played.current_position
@@ -117,7 +118,7 @@ module PL
   		commercial_block_counter = (time_tracker.to_f/1800.0).floor
 
   		#adjust commercial_block_counter for cases where 1st spin should be a commercial_block
-  		if (playlist[first_spin_index].estimated_airtime.to_f/1800.0).floor != commercial_block_counter
+  		if (playlist[max_position + 1].estimated_airtime.to_f/1800.0).floor != commercial_block_counter
   			commercial_block_counter -= 1
   		end
 
@@ -132,7 +133,7 @@ module PL
 
         spin = PL.db.update_spin({ id: @id,
 																	estimated_airtime: time_tracker })
-        time_tracker += spin.duration
+        time_tracker += spin.duration/1000
       end
 		end
 
@@ -160,7 +161,7 @@ module PL
       if !self.active?
         self.make_log_current
       end
-
+      binding.pry
       return PL.db.get_recent_log_entries({station_id: @id, count: 1 })[0]
     end
 
@@ -250,6 +251,7 @@ module PL
         PL.db.delete_spin(first_spin.id)
       end
     end
+
     ##################################################################
     #     active?                                                    #
     ##################################################################

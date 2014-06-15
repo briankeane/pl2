@@ -38,7 +38,7 @@ describe 'a station' do
       @user = PL.db.create_user({ twitter: "Bob", password: "password" })
       @songs = []
       86.times do |i|
-      	@songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 226000 })
+      	@songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
       end
 
       @station = PL.db.create_station({ user_id: @user.id, 
@@ -51,18 +51,23 @@ describe 'a station' do
 
 		it 'creates a first playlist' do
 			generated_playlist = PL.db.get_current_playlist(@station.id)
-			expect(generated_playlist.size).to eq(4675)
+			expect(generated_playlist.size).to eq(5561)
 			expect(PL.db.get_full_station_log(@station.id).size).to eq(1)
 		end
 
 		it 'ends at the correct time' do
 			Timecop.travel(Time.local(2014, 5,9, 12))
-			expect(@station.original_playlist_end_time.to_s).to eq('2014-05-23 00:02:10 -0500')
+			expect(@station.original_playlist_end_time.to_s).to eq('2014-05-23 00:02:50 -0500')
 		end
 
 		describe 'now_playing' do
 			it 'returns the currently playing spin' do
 				expect(@station.now_playing.current_position).to eq(1)			
+			end
+
+			it 'still returns the current playing spin later' do
+				Timecop.travel(2014,5,9, 11, 12)
+				expect(@station.now_playing.current_position).to eq(3)
 			end
 		end
 

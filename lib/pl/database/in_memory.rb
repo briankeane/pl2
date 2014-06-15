@@ -355,6 +355,10 @@ module PL
         spin
       end
 
+      def get_spin(id)
+        @spins[id]
+      end
+
       def delete_spin(attrs)
       end
 

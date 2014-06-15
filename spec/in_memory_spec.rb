@@ -391,6 +391,10 @@ describe 'a database' do
       expect(@spins[0].id).to be_a(Fixnum)
     end
 
+    it 'can be gotten by id' do
+      expect(db.get_spin(@spins[0].id).audio_block_id).to eq(@spins[0].audio_block_id)
+    end
+
     it "returns the current_playlist in the right order" do
       expect(db.get_current_playlist(1).size).to eq(20)
       expect(db.get_current_playlist(1)[0].current_position).to eq(1)
