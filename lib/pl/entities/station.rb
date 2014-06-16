@@ -55,7 +55,7 @@ module PL
     		commercial_block_counter = (time_tracker.to_f/1800.0).floor
 
     		#adjust commercial_block_counter for cases where 1st spin should be a commercial_block
-    		if (playlist[0].estimated_airtime.to_f/1800.0).floor != commercial_block_counter
+    		if (self.last_log_entry.airtime.to_f/1800.0).floor != commercial_block_counter
     			commercial_block_counter -= 1
     		end
 
@@ -160,6 +160,7 @@ module PL
       if !self.active?
         self.make_log_current
       end
+
       return PL.db.get_recent_log_entries({station_id: @id, count: 1 })[0]
     end
 
@@ -264,6 +265,10 @@ module PL
     def log_end_time
       last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
       last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
+    end
+
+    def last_log_entry
+      PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
     end
 
 	end

@@ -67,7 +67,6 @@ describe 'a station' do
 
 			it 'still returns the current playing spin later' do
 				Timecop.travel(2014,5,9, 11, 12)
-				binding.pry
 				expect(@station.now_playing.current_position).to eq(23)
 			end
 		end
@@ -108,6 +107,18 @@ describe 'a station' do
 																			})
 		end
 
+		describe 'last_log_entry' do
+			it 'gets the last log entry' do
+				expect(@station.last_log_entry.current_position).to eq(14)
+			end
+
+			it 'still gets the last log entry' do
+				new_log = PL.db.create_log_entry({ station_id: @station.id,
+																						current_position: 999 })
+				expect(@station.last_log_entry.current_position).to eq(999)
+			end
+		end
+
 		it 'does nothing if the station has been running' do
 			Timecop.travel(Time.local(2014, 4, 14, 11, 55))
 			@station.make_log_current
@@ -131,7 +142,7 @@ describe 'a station' do
 			@station.make_log_current
 
 			log = PL.db.get_full_station_log(@station.id)
-			
+
 			binding.pry
 			expect(log.size).to eq(4)
 		end
