@@ -66,9 +66,13 @@ module PL
       	user = @users.delete(id)
       	user
       end
-      ################
-      # Audio_Blocks #
-      ################
+
+      ###############################################
+      # Audio_Blocks                                #
+      ###############################################
+      # songs, commercial_blocks, and commentaries  #
+      # are all types of audio_blocks               #
+      ###############################################
       def get_audio_block(id)
         @audio_blocks[id]
       end
@@ -138,7 +142,7 @@ module PL
 
 
       #################
-      #  Commentaries #
+      # Commentaries  #
       #################
       def create_commentary(attrs)
         id = (@audio_block_counter += 1)
@@ -172,15 +176,16 @@ module PL
         deleted_commentary
       end
 
-      #################
-      # Commercials   #
-      #################
-      # created with: #
-      # ------------- #
-      # sponsor_id    #
-      # duration      #
-      # key           #
-      #################
+      ####################
+      # Commercials      #
+      ####################
+      # created with:    #
+      # -------------    #
+      # sponsor_id       #
+      # duration (in ms) #
+      # key              #
+      ####################
+
       def create_commercial(attrs)
         id = (@audio_block_counter += 1)
         attrs[:id] = id
@@ -385,6 +390,13 @@ module PL
         spin
       end
 
+      ################################################################
+      #                        insert spin                           #
+      ################################################################
+      # insert_spin inserts a spin into the playlist.                #
+      # it also deletes the 1st song after 3am (or 2am the following #
+      # day) to counterbalance the inserted song                     #
+      ################################################################
       def insert_spin(attrs)
         station = self.get_station(attrs[:station_id])
         station.update_estimated_airtimes
