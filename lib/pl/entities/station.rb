@@ -40,6 +40,11 @@ module PL
 			super(attrs)
 		end
 
+    #####################################################################
+    #     make_log_current                                              #
+    #####################################################################
+    #  updates the logs if the station has been inactive                #
+    #####################################################################
 		def make_log_current
 
 			playlist = PL.db.get_current_playlist(@id)
@@ -277,6 +282,13 @@ module PL
     def last_log_entry
       PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
     end
+
+    def station_end_time
+      self.update_estimated_airtimes
+      last_scheduled_spin = PL.db.get_last_spin(@id)
+      last_scheduled_spin.estimated_airtime + last_scheduled_spin.duration/1000
+    end
+
 
 	end
 end

@@ -71,6 +71,20 @@ describe 'a station' do
 			end
 		end
 
+		describe 'station_end_time' do
+			it 'returns the proper station_end_time' do
+				expect(@station.station_end_time.to_s).to eq('2014-05-23 00:02:50 -0500')
+			end
+
+			it 'still returns the proper station_end_time' do
+				PL.db.schedule_spin({ station_id: @station.id,
+															audio_block_id: @songs[0].id,
+															current_position: 5562 })
+				expect(@station.station_end_time.to_s).to eq('2014-05-23 00:09:00 -0500')
+			end
+
+		end
+
 		after (:all) do
 			Timecop.return
 		end
@@ -156,9 +170,6 @@ describe 'a station' do
 			expect(log.size).to eq(5)
 			expect(log[2].duration).to eq(150000)
 		end
-		############################################
-		# WRITE TESTS FOR UPDATE_ESTIMATED_AIRTIMES
-		############################################
 
 		describe 'active?' do
 			it 'returns true if the station has been running' do
