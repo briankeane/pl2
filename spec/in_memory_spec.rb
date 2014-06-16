@@ -379,7 +379,7 @@ describe 'a database' do
     before(:each) do
       @spins = []
       20.times do |i|
-        @spins[i] = db.schedule_spin({ station_id: 1,
+        @spins[i] = db.create_spin({ station_id: 1,
                                   current_position: (i+1),
                                   audio_block_id: (i+2) })
       end
@@ -415,7 +415,7 @@ describe 'a database' do
     end
 
     it 'can be updated' do
-      spin = db.schedule_spin({ station_id: 1,
+      spin = db.create_spin({ station_id: 1,
                               current_position: 2,
                               audio_block_id: 3,
                               estimated_airtime: Time.new(2014),
@@ -441,7 +441,9 @@ describe 'a database' do
     end
 
     it 'can insert a spin' do
-
+      ###################################
+      # WRITE THIS TEST!!!
+      ###################################
     end
 
   end

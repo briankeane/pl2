@@ -239,7 +239,7 @@ module PL
         end
 
 
-        spin = PL.db.schedule_spin({ station_id: @id,
+        spin = PL.db.create_spin({ station_id: @id,
                                      audio_block_id: song.id,
                                      current_position: (max_position += 1),
                                      estimated_airtime: time_tracker })
@@ -293,7 +293,17 @@ module PL
       @original_playlist_end_time - self.end_time
     end
 
-    def adjust_offset
+    def adjust_offset  #UNFINISHED -- HAVE TO REWRITE create_spin FIRST
+      offset = self.offset
+
+
+      if offset.abs < -180.0
+        # search for a song to add
+        songs_in_rotation = @spins_per_week.keys.map { |id| PL.db.get_spin(id) }
+        songs_in_rotation.each do |song|
+        end
+      end
+
     end
 	end
 end

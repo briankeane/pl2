@@ -353,7 +353,7 @@ module PL
       # estimated_airtime    #
       # duration             #
       ########################
-      def schedule_spin(attrs)
+      def create_spin(attrs)
         id = (@spin_counter += 1)
         attrs[:id] = id
         spin = Spin.new(attrs)
@@ -424,7 +424,7 @@ module PL
         self.delete_spin(playlist[index].id)
 
         # insert the new spin into the newly emptied slot
-        self.schedule_spin({ station_id: attrs[:station_id],
+        self.create_spin({ station_id: attrs[:station_id],
                        current_position: attrs[:insert_position],
                        audio_block_id: attrs[:audio_block_id] })
 
