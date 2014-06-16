@@ -62,7 +62,7 @@ module PL
     		# set up an index to go through playlist array
     		index = 0
 				# get the log & playlist caught up
-				while time_tracker < Time.now
+				while (time_tracker < Time.now) && (index < playlist.size)
 
 					# add a commercial block if it's time
 	        if (time_tracker.to_f/1800.0).floor > commercial_block_counter
@@ -100,13 +100,13 @@ module PL
     	last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
 
 
-			last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration/1000
+			last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
 
 			# if the station has been asleep
 			if !self.active?
 				self.make_log_current
-				last_spin_played = PL.db.get_recent_log_entries(1)[0]
-				last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration/1000
+				last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
+				last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
 			end
 
 			max_position = last_spin_played.current_position
@@ -120,7 +120,7 @@ module PL
         if (self.last_log_entry.airtime.to_f/1800.0).floor != commercial_block_counter
           commercial_block_counter -= 1
         end
-
+      binding.pry
       # iterate through the playlist and fix times
       playlist.each do |spin|
 

@@ -159,7 +159,7 @@ describe 'a station' do
 		############################################
 		# WRITE TESTS FOR UPDATE_ESTIMATED_AIRTIMES
 		############################################
-		
+
 		describe 'active?' do
 			it 'returns true if the station has been running' do
 				Timecop.travel(Time.local(2014, 4,14, 11,55))
@@ -181,6 +181,22 @@ describe 'a station' do
 																			duration: 180000 
 																			})
 				expect(@station.log_end_time.to_s).to eq('2014-04-14 12:00:00 -0500')
+			end
+
+			describe 'estimated_airtime' do
+				it 'updates airtimes correctly' do
+					Timecop.travel(Time.local(2014, 4, 14, 11, 56))
+					@station.update_estimated_airtimes
+					expect(@spin1.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 57).to_s)
+					expect(@spin1.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 57).to_s)
+					expect(@spin1.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 57).to_s)
+					expect(@spin1.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 57).to_s)
+
+				end
+
+				it 'works if it starts on a commercial' do
+				end
+
 			end
 		end
 

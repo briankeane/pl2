@@ -342,6 +342,7 @@ module PL
       ########################
       #        spins         #
       # -------------------  #
+      # station_id           #
       # current_position     #
       # audio_block_id       #
       # estimated_airtime    #
@@ -364,8 +365,25 @@ module PL
         deleted_spin
       end
 
+      def update_spin(attrs)
+        spin = @spins[attrs[:id]]
+
+        # return false if spin doesn't exist
+        return false unless spin
+
+        #update values
+        attrs.each do |attr_name, value|
+          setter = "#{attr_name}="
+          spin.send(setter, value) if spin.class.method_defined?(setter)
+        end
+
+        spin
+      end
+
       def insert_spin(attrs)
       end
+
+
 
       def get_current_playlist(station_id)
         spins = @spins.values.select { |spin| spin.station_id == station_id }

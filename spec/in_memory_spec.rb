@@ -413,6 +413,29 @@ describe 'a database' do
       expect(deleted_spin.id).to eq(id)
       expect(db.get_spin(id)).to eq(nil)
     end
+
+    it 'can be updated' do
+      spin = db.schedule_spin({ station_id: 1,
+                              current_position: 2,
+                              audio_block_id: 3,
+                              estimated_airtime: Time.new(2014),
+                            })
+      updated_spin = db.update_spin({ id: spin.id,
+                                      station_id: 10,
+                                      current_position: 20,
+                                      audio_block_id: 30,
+                                      estimated_airtime: Time.new(2015) 
+                                    })
+      expect(spin.id).to eq(updated_spin.id)
+      expect(db.get_spin(spin.id).current_position).to eq(20)
+      expect(db.get_spin(spin.id).audio_block_id).to eq(30)
+      expect(updated_spin.estimated_airtime.to_s).to eq(Time.new(2015).to_s)
+    end
+
+    it "returns false if spin to be updated doesn't exist" do
+      expect(db.update_spin({ id: 9999 })).to eq(false)
+    end
+
   end
 
   ##################
