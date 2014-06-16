@@ -82,7 +82,18 @@ describe 'a station' do
 															current_position: 5562 })
 				expect(@station.station_end_time.to_s).to eq('2014-05-23 00:09:00 -0500')
 			end
+		end
 
+		describe 'station_offset' do
+			it 'returns the proper station offset' do
+				new_spin = PL.db.schedule_spin({ station_id: @station.id,
+											audio_block_id: @songs[0].id,
+											current_position: 5562 })
+				expect(@station.station_offset).to eq(-370.0)
+
+				PL.db.delete_spin(new_spin.id)
+				expect(@station.station_offset).to eq(0)
+			end
 		end
 
 		after (:all) do

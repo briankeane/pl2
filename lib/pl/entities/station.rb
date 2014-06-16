@@ -289,6 +289,10 @@ module PL
       last_scheduled_spin.estimated_airtime + last_scheduled_spin.duration/1000
     end
 
+    def station_offset
+      @original_playlist_end_time - station_end_time
+    end
+
 
 	end
 end
