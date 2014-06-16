@@ -103,7 +103,7 @@ module PL
 			last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration/1000
 
 			# if the station has been asleep
-			if last_spin_ended < Time.now
+			if !self.active?
 				self.make_log_current
 				last_spin_played = PL.db.get_recent_log_entries(1)[0]
 				last_spin_ended = last_spin_played.estimated_airtime + last_spin_played.duration/1000
