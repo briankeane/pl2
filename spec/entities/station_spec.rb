@@ -187,14 +187,26 @@ describe 'a station' do
 				it 'updates airtimes correctly' do
 					Timecop.travel(Time.local(2014, 4, 14, 11, 56))
 					@station.update_estimated_airtimes
-					expect(@spin1.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 57).to_s)
-					expect(@spin1.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 57).to_s)
-					expect(@spin1.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 57).to_s)
-					expect(@spin1.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 57).to_s)
-
+					expect(@spin1.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 59).to_s)
+					expect(@spin2.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 04,30).to_s)
+					expect(@spin3.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
+					expect(@spin4.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
 				end
 
-				it 'works if it starts on a commercial' do
+				it 'works if it starts just before a commercial' do
+					Timecop.travel(Time.local(2014, 4, 14, 12, 00))
+					@station.update_estimated_airtimes
+					expect(@spin2.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 04,30).to_s)
+					expect(@spin3.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
+					expect(@spin4.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
+				end
+
+				it 'works if it starts mid-commercial' do
+					Timecop.travel(Time.local(2014, 4, 14, 12, 03))
+					@station.update_estimated_airtimes
+					expect(@spin2.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 04,30).to_s)
+					expect(@spin3.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
+					expect(@spin4.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
 				end
 
 			end

@@ -120,7 +120,7 @@ module PL
         if (self.last_log_entry.airtime.to_f/1800.0).floor != commercial_block_counter
           commercial_block_counter -= 1
         end
-      binding.pry
+
       # iterate through the playlist and fix times
       playlist.each do |spin|
 
@@ -130,10 +130,11 @@ module PL
           time_tracker += (@secs_of_commercial_per_hour/2)
         end
 
-        spin = PL.db.update_spin({ id: @id,
+        updated_spin = PL.db.update_spin({ id: spin.id,
 																	estimated_airtime: time_tracker })
-        time_tracker += spin.duration/1000
+        time_tracker += updated_spin.duration/1000
       end
+      binding.pry
 		end
 
 		##################################################################
