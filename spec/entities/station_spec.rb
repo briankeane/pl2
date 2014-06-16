@@ -156,7 +156,9 @@ describe 'a station' do
 			expect(log.size).to eq(5)
 			expect(log[2].duration).to eq(150000)
 		end
-
+		############################################
+		# WRITE TESTS FOR UPDATE_ESTIMATED_AIRTIMES
+		############################################
 		
 		describe 'active?' do
 			it 'returns true if the station has been running' do

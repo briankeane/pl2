@@ -117,9 +117,9 @@ module PL
   		commercial_block_counter = (time_tracker.to_f/1800.0).floor
 
   		#adjust commercial_block_counter for cases where 1st spin should be a commercial_block
-  		if (playlist[max_position + 1].estimated_airtime.to_f/1800.0).floor != commercial_block_counter
-  			commercial_block_counter -= 1
-  		end
+        if (self.last_log_entry.airtime.to_f/1800.0).floor != commercial_block_counter
+          commercial_block_counter -= 1
+        end
 
       # iterate through the playlist and fix times
       playlist.each do |spin|
