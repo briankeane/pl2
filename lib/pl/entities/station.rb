@@ -55,7 +55,7 @@ module PL
     		commercial_block_counter = (time_tracker.to_f/1800.0).floor
 
     		#adjust commercial_block_counter for cases where 1st spin should be a commercial_block
-    		if (playlist[max_position + 1].estimated_airtime.to_f/1800.0).floor != commercial_block_counter
+    		if (playlist[0].estimated_airtime.to_f/1800.0).floor != commercial_block_counter
     			commercial_block_counter -= 1
     		end
 
@@ -68,7 +68,7 @@ module PL
 	        if (time_tracker.to_f/1800.0).floor > commercial_block_counter
 	          commercial_block_counter += 1
 	          commercial_block = PL.db.create_commercial_block({ station_id: @id, 
-	          																										duration: (@secs_of_commercial_per_hour/2) })
+	          																										duration: (@secs_of_commercial_per_hour/2) * 1000 })
 	          PL.db.create_log_entry({ station_id: @id,
 	          													current_position: (max_position += 1),
 	          													audio_block_id: commercial_block.id,
@@ -93,7 +93,6 @@ module PL
 	          index += 1
 					end
 				end
-        binding.pry
       end  # end 'if station was asleep'
     end
 
@@ -161,7 +160,6 @@ module PL
       if !self.active?
         self.make_log_current
       end
-      binding.pry
       return PL.db.get_recent_log_entries({station_id: @id, count: 1 })[0]
     end
 

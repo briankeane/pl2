@@ -51,7 +51,7 @@ describe 'a station' do
 
 		it 'creates a first playlist' do
 			generated_playlist = PL.db.get_current_playlist(@station.id)
-			expect(generated_playlist.size).to eq(5561)
+			expect(generated_playlist.size).to eq(5560)
 			expect(PL.db.get_full_station_log(@station.id).size).to eq(1)
 		end
 
@@ -67,7 +67,8 @@ describe 'a station' do
 
 			it 'still returns the current playing spin later' do
 				Timecop.travel(2014,5,9, 11, 12)
-				expect(@station.now_playing.current_position).to eq(3)
+				binding.pry
+				expect(@station.now_playing.current_position).to eq(23)
 			end
 		end
 
@@ -78,7 +79,7 @@ describe 'a station' do
 
 	describe 'make_log_current' do
 		before (:each) do
-			@station = PL.db.create_station({ user_id: 1 })
+			@station = PL.db.create_station({ user_id: 1, secs_of_commercial_per_hour: 300 })
 			@song = PL.db.create_song({ duration: 180000 })
 			@spin1 = PL.db.schedule_spin({ current_position: 15,
 																			station_id: @station.id,
@@ -102,11 +103,40 @@ describe 'a station' do
 																			})
 			@log = PL.db.create_log_entry({ station_id: @station.id,
 																			current_position: 14,
-																			airtime: Time.new(2014, 4, 14, 11, 54),
+																			airtime: Time.new(2014, 4, 14, 11, 56),
 																			duration: 180000 
 																			})
 		end
 
+		it 'does nothing if the station has been running' do
+			Timecop.travel(Time.local(2014, 4, 14, 11, 55))
+			@station.make_log_current
+			expect(PL.db.get_log_entry(@log.id).airtime.to_s).to eq(Time.new(2014, 4, 14, 11, 56).to_s)
+			expect(PL.db.get_current_playlist(@station.id).size).to eq(4)
+		end
+
+		it 'updates if the station has been off' do
+			Timecop.travel(Time.local(2014, 4, 14, 11, 59))
+			@station.make_log_current
+			log = PL.db.get_full_station_log(@station.id)
+			expect(log[1].airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 56).to_s)
+			expect(log[0].airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 59).to_s)
+			expect(log.size).to eq(2)
+			expect(log[0].current_position).to eq(15)
+			expect(log[1].current_position).to eq(14)
+		end
+
+		it 'accounts for commercials properly' do
+			Timecop.travel(Time.local(2014,4,14, 12,9))
+			@station.make_log_current
+
+			log = PL.db.get_full_station_log(@station.id)
+			
+			binding.pry
+			expect(log.size).to eq(4)
+		end
+
+		
 		describe 'active?' do
 			it 'returns true if the station has been running' do
 				Timecop.travel(Time.local(2014, 4,14, 11,55))
@@ -121,7 +151,7 @@ describe 'a station' do
 
 		describe 'log_end_time' do
 			it 'returns the time the log ends' do
-				expect(@station.log_end_time.to_s).to eq('2014-04-14 11:57:00 -0500')
+				expect(@station.log_end_time.to_s).to eq('2014-04-14 11:59:00 -0500')
 				log2 = PL.db.create_log_entry({ station_id: @station.id,
 																			current_position: 14,
 																			airtime: Time.new(2014, 4, 14, 11, 57),
@@ -132,12 +162,6 @@ describe 'a station' do
 		end
 
 
-		it 'does nothing if the station has been running' do
-			Timecop.travel(Time.local(2014, 4, 14, 11, 55))
-			@station.make_log_current
-			expect(PL.db.get_log_entry(@log.id).airtime.to_s).to eq(Time.new(2014, 4, 14, 11, 54).to_s)
-			expect(PL.db.get_current_playlist(@station.id).size).to eq(4)
-		end
 
 		after (:all) do
 			Timecop.return
