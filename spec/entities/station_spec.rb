@@ -140,11 +140,21 @@ describe 'a station' do
 		it 'accounts for commercials properly' do
 			Timecop.travel(Time.local(2014,4,14, 12,9))
 			@station.make_log_current
-
 			log = PL.db.get_full_station_log(@station.id)
 
-			binding.pry
-			expect(log.size).to eq(4)
+			expect(log.size).to eq(5)
+			expect(log[2].duration).to eq(150000)
+		end
+
+		it "doesn't mess up when 1st log is a commercial" do
+			Timecop.travel(Time.local(2014,4,14, 12))
+			@station.make_log_current
+			Timecop.travel(Time.local(2014,4,14, 12,9))
+			@station.make_log_current
+			log = PL.db.get_full_station_log(@station.id)
+
+			expect(log.size).to eq(5)
+			expect(log[2].duration).to eq(150000)
 		end
 
 		
