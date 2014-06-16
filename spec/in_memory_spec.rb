@@ -436,6 +436,11 @@ describe 'a database' do
       expect(db.update_spin({ id: 9999 })).to eq(false)
     end
 
+    it 'returns the last scheduled spin for a station' do
+      expect(db.get_last_spin(1).current_position).to eq(20)
+    end
+
+
   end
 
   ##################

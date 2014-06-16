@@ -360,6 +360,11 @@ module PL
         @spins[id]
       end
 
+      ################################################
+      # delete_spin just deletes the spin, whereas   #
+      # remove_spin pulls it out of the playlist and #
+      # adjusts the rest of the playlist accordingly #
+      ################################################
       def delete_spin(id)
         deleted_spin = @spins.delete(id)
         deleted_spin
@@ -383,8 +388,6 @@ module PL
       def insert_spin(attrs)
       end
 
-
-
       def get_current_playlist(station_id)
         spins = @spins.values.select { |spin| spin.station_id == station_id }
         spins = spins.sort_by { |spin| spin.current_position }
@@ -393,6 +396,11 @@ module PL
       def get_spin_by_current_position(attrs)
         spin = @spins.values.find { |spin| (spin.station_id == attrs[:station_id]) && 
                                     (spin.current_position == attrs[:current_position]) }
+        spin
+      end
+
+      def get_last_spin(station_id)
+        spin = @spins.values.select { |spin| (spin.station_id == station_id) }.max_by { |spin| spin.current_position }
         spin
       end
 

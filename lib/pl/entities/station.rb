@@ -96,6 +96,13 @@ module PL
       end  # end 'if station was asleep'
     end
 
+
+    #####################################################################
+    #     updated_estimated_airtimes                                    #
+    #####################################################################
+    #  updates the estimated airtimes, accounting for commercial blocks #
+    #####################################################################
+
     def update_estimated_airtimes
     	last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
 
@@ -134,7 +141,6 @@ module PL
 																	estimated_airtime: time_tracker })
         time_tracker += updated_spin.duration/1000
       end
-      binding.pry
 		end
 
 		##################################################################
