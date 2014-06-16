@@ -283,16 +283,17 @@ module PL
       PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
     end
 
-    def station_end_time
+    def end_time
       self.update_estimated_airtimes
       last_scheduled_spin = PL.db.get_last_spin(@id)
       last_scheduled_spin.estimated_airtime + last_scheduled_spin.duration/1000
     end
 
-    def station_offset
-      @original_playlist_end_time - station_end_time
+    def offset   # measurement of shift in end_time
+      @original_playlist_end_time - self.end_time
     end
 
-
+    def adjust_offset
+    end
 	end
 end

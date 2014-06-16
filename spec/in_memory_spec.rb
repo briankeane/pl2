@@ -440,6 +440,9 @@ describe 'a database' do
       expect(db.get_last_spin(1).current_position).to eq(20)
     end
 
+    it 'can insert a spin' do
+
+    end
 
   end
 

@@ -71,28 +71,28 @@ describe 'a station' do
 			end
 		end
 
-		describe 'station_end_time' do
-			it 'returns the proper station_end_time' do
-				expect(@station.station_end_time.to_s).to eq('2014-05-23 00:02:50 -0500')
+		describe 'end_time' do
+			it 'returns the proper end_time' do
+				expect(@station.end_time.to_s).to eq('2014-05-23 00:02:50 -0500')
 			end
 
-			it 'still returns the proper station_end_time' do
+			it 'still returns the proper end_time' do
 				PL.db.schedule_spin({ station_id: @station.id,
 															audio_block_id: @songs[0].id,
 															current_position: 5562 })
-				expect(@station.station_end_time.to_s).to eq('2014-05-23 00:09:00 -0500')
+				expect(@station.end_time.to_s).to eq('2014-05-23 00:09:00 -0500')
 			end
 		end
 
-		describe 'station_offset' do
+		describe 'offset' do
 			it 'returns the proper station offset' do
 				new_spin = PL.db.schedule_spin({ station_id: @station.id,
 											audio_block_id: @songs[0].id,
 											current_position: 5562 })
-				expect(@station.station_offset).to eq(-370.0)
+				expect(@station.offset).to eq(-370.0)
 
 				PL.db.delete_spin(new_spin.id)
-				expect(@station.station_offset).to eq(0)
+				expect(@station.offset).to eq(0)
 			end
 		end
 

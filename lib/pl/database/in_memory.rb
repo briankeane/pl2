@@ -386,6 +386,38 @@ module PL
       end
 
       def insert_spin(attrs)
+        station = self.get_station(attrs[:station_id])
+        station.update_estimated_airtimes
+        playlist = self.get_current_playlist(station.id)
+        index = playlist.find_index { |spin| spin.current_position == attrs[:insert_position] }
+        current_position_tracker = attrs[:insert_position]
+
+
+        # if insert happens in the 3am hour, set marker to the following 1am
+        if time_tracker.hour == 3
+          change_hour = 2
+        else
+          change_hour = 3
+        end
+
+        # adjust current_position until change_hour
+        while (playlist[index].estimated_airtime.hour != change_hour) && (index < playlist.size)
+          self.update_spin({ id: playlist[index].id, 
+                            current_position: (playlist[index].current_position + 1) 
+                          })
+          index += 1
+        end
+
+        # delete that spin
+        self.delete_spin(playlist[index].id)
+
+        # insert the new spin into the newly emptied slot
+        self.schedule_spin({ station_id: attrs[:station_id],
+                       current_position: attrs[:insert_position],
+                       audio_block_id: attrs[:audio_block_id] })
+
+        # adjust the station offset
+        station.adjust_offset
       end
 
       def get_current_playlist(station_id)
