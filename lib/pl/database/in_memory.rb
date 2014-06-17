@@ -396,6 +396,8 @@ module PL
       # insert_spin inserts a spin into the playlist.                #
       # it also deletes the 1st song after 3am (or 2am the following #
       # day) to counterbalance the inserted song                     #
+      #  ----------------------------------------------------------- #
+      # takes: station_id, insert_position, audio_block_id           #
       ################################################################
       def insert_spin(attrs)
         station = self.get_station(attrs[:station_id])
@@ -404,9 +406,8 @@ module PL
         index = playlist.find_index { |spin| spin.current_position == attrs[:insert_position] }
         current_position_tracker = attrs[:insert_position]
 
-
         # if insert happens in the 3am hour, set marker to the following 1am
-        if time_tracker.hour == 3
+        if playlist[index].estimated_airtime.hour == 3
           change_hour = 2
         else
           change_hour = 3
@@ -424,12 +425,10 @@ module PL
         self.delete_spin(playlist[index].id)
 
         # insert the new spin into the newly emptied slot
-        self.create_spin({ station_id: attrs[:station_id],
+        spin = self.create_spin({ station_id: attrs[:station_id],
                        current_position: attrs[:insert_position],
                        audio_block_id: attrs[:audio_block_id] })
-
-        # adjust the station offset
-        station.adjust_offset
+        spin
       end
 
       def get_current_playlist(station_id)

@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'Timecop'
 
 describe 'a database' do
 
@@ -439,14 +440,48 @@ describe 'a database' do
     it 'returns the last scheduled spin for a station' do
       expect(db.get_last_spin(1).current_position).to eq(20)
     end
+  end
 
-    it 'can insert a spin' do
-      ###################################
-      # WRITE THIS TEST!!!
-      ###################################
+  describe 'insert_spin' do
+    before(:each) do
+      Timecop.travel(Time.local(2014,5,9, 20,30))
+
+      # force station to use same db as these tests
+      expect(PL).to receive(:db).at_least(:once).and_return(db) 
+      @user = db.create_user({ twitter: "Bob", password: "password" })
+      @songs = []
+      86.times do |i|
+        @songs << db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
+      end
+      @station = db.create_station({ user_id: @user.id, 
+                                          heavy: (@songs[0..30].map { |x| x.id }),
+                                          medium: (@songs[31..65].map { |x| x.id }),
+                                          light: (@songs[65..85].map { |x| x.id }) 
+                                          })
+      @station.generate_playlist
+
+      @old_playlist_ab_ids = PL.db.get_current_playlist(@station.id).map { |spin| spin.audio_block_id }
     end
 
+    it 'inserts a spin' do
+      inserted_audio_block = db.create_song({ duration: 50000 })
+      spin = db.insert_spin({ station_id: @station.id,
+                         insert_position: 15,
+                          audio_block_id: inserted_audio_block.id })
+      new_playlist = db.get_current_playlist(@station.id)
+      first_spin_after_3am = new_playlist.find_index { |spin| spin.estimated_airtime.hour > 3 }
+
+
+
+      expect(new_playlist[12].audio_block_id).to eq(@old_playlist_ab_ids[12])
+      expect(new_playlist[13].audio_block_id).to_not eq(@old_playlist_ab_ids[13])
+      expect(new_playlist[14].audio_block_id).to eq(@old_playlist_ab_ids[13])
+      expect(new_playlist[95].audio_block_id).to eq(@old_playlist_ab_ids[94])
+      expect(new_playlist[first_spin_after_3am + 2].audio_block_id).to eq(@old_playlist_ab_ids[first_spin_after_3am + 2])
+
+    end
   end
+  
 
   ##################
   #   log_entries  #   

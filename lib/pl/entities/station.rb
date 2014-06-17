@@ -202,9 +202,9 @@ module PL
         max_position = 0
         time_tracker = Time.now
       else
+        binding.pry
         max_position = current_playlist.last.current_position
-        current_spin = PL.db.get_current_spin(@id)
-        time_tracker = self.playlist_estimated_end_time
+        time_tracker = self.end_time
       end
 
       # calibrate commercial_block_counter for start-time
@@ -222,6 +222,7 @@ module PL
           time_tracker += (@secs_of_commercial_per_hour/2)
         end
 
+
         song = sample_array.sample
 
         # IF it's been played recently, pick a new song
@@ -237,7 +238,9 @@ module PL
                 (recently_played.size >= @spins_per_week.size - 1))
           recently_played.shift
         end
-
+        if !song.id
+          binding.pry
+        end
 
         spin = PL.db.create_spin({ station_id: @id,
                                      audio_block_id: song.id,
