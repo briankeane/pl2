@@ -390,8 +390,36 @@ module PL
         spin
       end
 
+      #################################################################
+      #                       add_spin                                #
+      #################################################################
+      # add_spin adds a spin to the playlist, but instead of deleting #
+      # a spin to counterbalance it, it shifts all following spins    #
+      # for the rest of the entire playlist                           #
+      #################################################################
+      def add_spin(attrs)
+        station = self.get_station(attrs[:station_id])
+        playlist = self.get_current_playlist(station.id)
+        index = playlist.find_index { |spin| spin.current_position == attrs[:add_position] }
+        current_position_tracker = attrs[:add_position]
+
+        # adjust current_position until change_hour
+        while (index < playlist.size)
+          self.update_spin({ id: playlist[index].id, 
+                            current_position: (playlist[index].current_position + 1) 
+                          })
+          index += 1
+        end
+
+        # add the new spin into the newly emptied slot
+        spin = self.create_spin({ station_id: attrs[:station_id],
+                       current_position: attrs[:add_position],
+                       audio_block_id: attrs[:audio_block_id] })
+        spin
+      end
+
       ################################################################
-      #                        insert spin                           #
+      #                        insert_spin                           #
       ################################################################
       # insert_spin inserts a spin into the playlist.                #
       # it also deletes the 1st song after 3am (or 2am the following #
@@ -479,6 +507,7 @@ module PL
         # return false if nothing was moved
         return false
       end
+
       ########################
       #       log_entries    #
       #      ------------    #
@@ -499,7 +528,6 @@ module PL
       end
 
       def get_recent_log_entries(attrs)  #station_id, count (how many entries to return)
-
         entries = @log_entries.values.select { |entry| entry.station_id == attrs[:station_id]}
         entries = entries.sort_by { |entry| entry.current_position }
         entries = entries.last(attrs[:count]).reverse

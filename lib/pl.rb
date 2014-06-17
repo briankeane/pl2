@@ -33,7 +33,7 @@ end
 
 require 'ostruct'
 require_relative 'pl/entity.rb'
-# require_relative 'pl/use_case.rb'
+require_relative 'pl/use_case.rb'
 require_relative 'pl/database/in_memory.rb'
 require_relative 'pl/entities/commentary.rb'
 require_relative 'pl/entities/log_entry.rb'
@@ -44,5 +44,5 @@ require_relative 'pl/entities/song.rb'
 require_relative 'pl/entities/spin.rb'
 require_relative 'pl/entities/station.rb'
 require_relative 'pl/entities/user.rb'
-#Dir[File.dirname(__FILE__) + '/pl/use-cases/*.rb'].each {|file| require_relative file }
+Dir[File.dirname(__FILE__) + '/pl/use-cases/*.rb'].each {|file| require_relative file }
 

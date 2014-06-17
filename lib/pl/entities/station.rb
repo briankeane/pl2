@@ -238,9 +238,6 @@ module PL
                 (recently_played.size >= @spins_per_week.size - 1))
           recently_played.shift
         end
-        if !song.id
-          binding.pry
-        end
 
         spin = PL.db.create_spin({ station_id: @id,
                                      audio_block_id: song.id,
@@ -296,15 +293,29 @@ module PL
       @original_playlist_end_time - self.end_time
     end
 
-    def adjust_offset  #UNFINISHED -- HAVE TO REWRITE create_spin FIRST
+    def adjust_offset(adjustment_date)  #UNFINISHED -- HAVE TO REWRITE create_spin FIRST
       offset = self.offset
 
 
-      if offset.abs < -180.0
+      if offset < 0
         # search for a song to add
-        songs_in_rotation = @spins_per_week.keys.map { |id| PL.db.get_spin(id) }
-        songs_in_rotation.each do |song|
+        closest_in_duration = @spins_per_week.keys.min_by { |id| (offset.abs - PL.db.get_spin(id).duration/1000).abs }
+        current_playlist = PL.db.get_current_playlist(@id)
+        first_spin_after_3am = current_playlist.find_by { |spin| (spin.estimated_airtime.day == adjustment_date.day + 1) &&
+                                                                  (spin.estimated_airtime.hour == 3) }
+
+        # if it's close enough to reduce the offset, add it
+        if (offset.abs - closest_in_length.duration/1000).abs < offset.abs
+          
+          PL.db.add_spin({  station_id: @id,
+                               current_position: (PL.first_spin_after_3am.current_position),
+                               audio_block_id: closest_in_duration.id,
+                               airtime: first_spin.estimated_airtime,
+                               duration: first_spin.duration
+                              })
         end
+      else # if offset > 0
+
       end
 
     end

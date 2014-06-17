@@ -460,7 +460,18 @@ describe 'a database' do
                                           })
       @station.generate_playlist
 
-      @old_playlist_ab_ids = PL.db.get_current_playlist(@station.id).map { |spin| spin.audio_block_id }
+      @old_playlist_ab_ids = db.get_current_playlist(@station.id).map { |spin| spin.audio_block_id }
+    end
+    
+    it 'adds a spin' do
+      added_audio_block = db.create_song({ duration: 50000 })
+      added_spin = db.add_spin({ station_id: @station.id,
+                                 audio_block_id: added_audio_block.id,
+                                 add_position: 15 })
+      new_playlist = db.get_current_playlist(@station.id)
+      expect(new_playlist.size).to eq(@old_playlist_ab_ids.size + 1)
+      expect(@old_playlist_ab_ids.last).to eq(new_playlist.last.audio_block_id)
+      expect(new_playlist[13].audio_block_id).to eq(added_audio_block.id)
     end
 
     it 'inserts a spin' do
@@ -478,6 +489,10 @@ describe 'a database' do
       expect(new_playlist[14].audio_block_id).to eq(@old_playlist_ab_ids[13])
       expect(new_playlist[95].audio_block_id).to eq(@old_playlist_ab_ids[94])
       expect(new_playlist[first_spin_after_3am + 2].audio_block_id).to eq(@old_playlist_ab_ids[first_spin_after_3am + 2])
+    end
+
+    after(:all) do
+      Timecop.return
     end
   end
 
