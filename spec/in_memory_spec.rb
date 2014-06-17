@@ -478,7 +478,27 @@ describe 'a database' do
       expect(new_playlist[14].audio_block_id).to eq(@old_playlist_ab_ids[13])
       expect(new_playlist[95].audio_block_id).to eq(@old_playlist_ab_ids[94])
       expect(new_playlist[first_spin_after_3am + 2].audio_block_id).to eq(@old_playlist_ab_ids[first_spin_after_3am + 2])
+    end
+  end
 
+  describe 'move_spin' do
+    before(:each) do
+      @spin1 = db.create_spin({ station_id: 1, audio_block_id: 1, current_position: 7 })
+      @spin2 = db.create_spin({ station_id: 1, audio_block_id: 2, current_position: 8 })
+      @spin3 = db.create_spin({ station_id: 1, audio_block_id: 3, current_position: 9 })
+      @spin4 = db.create_spin({ station_id: 1, audio_block_id: 4, current_position: 10 })
+    end
+
+    it "moves a song backwards and adjusts the playlist around it" do
+      db.move_spin({ old_position: 9, new_position: 7, station_id: 1 })
+      new_playlist = db.get_current_playlist(1)
+      expect(new_playlist.map { |spin| spin.audio_block_id }).to eq([3,1,2,4])
+    end
+
+    it "moves a song forwards and adjusts the playlist around it" do
+      db.move_spin({ old_position: 7, new_position: 9, station_id: 1 })
+      new_playlist = db.get_current_playlist(1)
+      expect(new_playlist.map { |spin| spin.audio_block_id }).to eq([2,3,1,4])
     end
   end
   

@@ -454,9 +454,31 @@ module PL
       # returns true for success, false  #
       # for failure                      #
       ####################################
-      def move_spin(attrs)
-      end
+      def move_spin(attrs)   #old_position, new_position, station_id
+        #if moving backwards
+        if attrs[:old_position] > attrs[:new_position]
+          playlist_slice = self.get_current_playlist(attrs[:station_id]).select { |spin| (spin.current_position >= attrs[:new_position]) && (spin.current_position <= attrs[:old_position]) }
 
+          playlist_slice.each { |spin| spin.current_position += 1 }
+
+          playlist_slice.last.current_position = attrs[:new_position]
+
+          # return true for successful move
+          return true
+        elsif attrs[:old_position] < attrs[:new_position]
+          playlist_slice = self.get_current_playlist(attrs[:station_id]).select { |spin| (spin.current_position >= attrs[:old_position]) && (spin.current_position <= attrs[:new_position]) }
+
+          playlist_slice.each { |spin| spin.current_position -= 1 }
+
+          playlist_slice.first.current_position = attrs[:new_position]
+
+          # return true for successful move
+          return true
+        end
+
+        # return false if nothing was moved
+        return false
+      end
       ########################
       #       log_entries    #
       #      ------------    #
