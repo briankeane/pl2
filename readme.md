@@ -21,6 +21,7 @@ response:
 	"user": {
 			"id": 123,
 			"twitter": "BrianKeaneTunes",
+			"twitter_uid": 10,
 			"email": "lonesomewhistle@gmail.com",
 			"birth_year": 1977,
 			"gender": "male",
