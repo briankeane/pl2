@@ -292,7 +292,7 @@ module PL
       @original_playlist_end_time - self.end_time
     end
 
-    def adjust_offset(adjustment_date)  #UNFINISHED -- HAVE TO REWRITE create_spin FIRST
+    def adjust_offset(adjustment_date)  
       offset = self.offset
       current_playlist = PL.db.get_current_playlist(@id)
       first_spin_after_3am = current_playlist.find_by { |spin| (spin.estimated_airtime.day == adjustment_date.day + 1) &&
@@ -322,13 +322,13 @@ module PL
             index += 1
           end
         end
+        
+        # if removing the spin will reduce the offset, remove the spin
         closest_in_duration = current_playlist.min_by { |spin| (offset.abs - spin.duration).abs }
-        if (offset.abs - closest_in_length.duration/1000).abs < offset.abs
+        if (offset.abs - closest_in_duration.duration/1000).abs < offset.abs
+          PL.db.remove_spin({ station_id: @id, current_position: closest_in_duration.current_position })
         end
-
-
       end
-
     end
 	end
 end

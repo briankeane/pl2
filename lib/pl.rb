@@ -16,7 +16,9 @@ module PL
     when 'test'
       @db_class ||= Database::InMemory
     else
-      @db_class ||= Database::PostgresDatabase
+      # change this once Postgres DB is installed
+      #@db_class ||= Database::PostgresDatabase
+      @db_class ||= Database::InMemory
     end
     @__db_instance ||= @db_class.new(ENV['RAILS_ENV'] || 'test')
   end
@@ -45,4 +47,3 @@ require_relative 'pl/entities/spin.rb'
 require_relative 'pl/entities/station.rb'
 require_relative 'pl/entities/user.rb'
 Dir[File.dirname(__FILE__) + '/pl/use-cases/*.rb'].each {|file| require_relative file }
-

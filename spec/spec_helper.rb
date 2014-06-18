@@ -1,6 +1,9 @@
+ENV['RAILS_ENV'] = 'test'
+
 require './lib/pl.rb'
 require 'rspec'
 #require_relative 'shared/shared_database.rb'
+
 
 RSpec.configure do |config|
   # Configure each test to always use a new singleton instance
@@ -8,7 +11,6 @@ RSpec.configure do |config|
     PL::Database.instance_variable_set(:@__db_instance, nil)
   end
 end
-ENV['RAILS_ENV'] = 'test'
 
 RSpec.configure do |config|
  # Use color in STDOUT
