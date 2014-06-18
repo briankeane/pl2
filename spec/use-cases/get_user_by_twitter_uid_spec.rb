@@ -25,7 +25,6 @@ describe 'GetUserByTwitter' do
 		expect(result.user.gender).to eq('male')
 		expect(result.user.created_at).to be_a(Time)
 		expect(result.user.updated_at).to be_a(Time)
-
 	end
 
 end
