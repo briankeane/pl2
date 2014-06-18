@@ -39,6 +39,11 @@ describe 'a database' do
 			expect(user.id).to eq(@user.id)
 		end
 
+    it 'can be gotten by twitter_uid' do
+      user = db.get_user_by_twitter_uid(756)
+      expect(user.id).to eq(@user.id)
+    end
+
 		it 'can be updated' do
 			old_update_time = @user.updated_at
 			db.update_user({ id: @user.id,

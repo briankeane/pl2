@@ -47,6 +47,10 @@ module PL
    			@users.values.find { |user| user.twitter == twitter }
    		end
 
+      def get_user_by_twitter_uid(uid)
+        @users.values.find { |user| user.twitter_uid == uid }
+      end
+      
    		def update_user(attrs)
         user = @users[attrs[:id]]
         attrs.delete(:id)
