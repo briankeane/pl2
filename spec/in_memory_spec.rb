@@ -396,6 +396,19 @@ describe 'a database' do
       expect(db.get_spin(@spins[0].id).audio_block_id).to eq(@spins[0].audio_block_id)
     end
 
+    it 'can be removed' do
+      old_playlist = db.get_current_playlist(1)
+      removed_spin = db.remove_spin({ station_id: 1, current_position: 10 })
+      new_playlist = db.get_current_playlist(1)
+      new_current_positions = new_playlist.map { |spin| spin.current_position }
+      expect(new_playlist.size).to eq(19)
+      expect(new_current_positions).to eq([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19])
+      expect(new_playlist[18].audio_block_id).to eq(old_playlist[19].audio_block_id)
+      expect(new_playlist[10].id).to eq(old_playlist[11].id)
+      expect(new_playlist[8].id).to eq(old_playlist[8].id)
+    end
+
+
     it "returns the current_playlist in the right order" do
       expect(db.get_current_playlist(1).size).to eq(20)
       expect(db.get_current_playlist(1)[0].current_position).to eq(1)

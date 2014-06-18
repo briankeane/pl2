@@ -202,7 +202,6 @@ module PL
         max_position = 0
         time_tracker = Time.now
       else
-        binding.pry
         max_position = current_playlist.last.current_position
         time_tracker = self.end_time
       end
@@ -295,14 +294,13 @@ module PL
 
     def adjust_offset(adjustment_date)  #UNFINISHED -- HAVE TO REWRITE create_spin FIRST
       offset = self.offset
-
+      current_playlist = PL.db.get_current_playlist(@id)
+      first_spin_after_3am = current_playlist.find_by { |spin| (spin.estimated_airtime.day == adjustment_date.day + 1) &&
+                                                                (spin.estimated_airtime.hour == 3) }
 
       if offset < 0
         # search for a song to add
         closest_in_duration = @spins_per_week.keys.min_by { |id| (offset.abs - PL.db.get_spin(id).duration/1000).abs }
-        current_playlist = PL.db.get_current_playlist(@id)
-        first_spin_after_3am = current_playlist.find_by { |spin| (spin.estimated_airtime.day == adjustment_date.day + 1) &&
-                                                                  (spin.estimated_airtime.hour == 3) }
 
         # if it's close enough to reduce the offset, add it
         if (offset.abs - closest_in_length.duration/1000).abs < offset.abs
@@ -315,6 +313,19 @@ module PL
                               })
         end
       else # if offset > 0
+        # grab the 10 songs after 3am
+        first_ten_songs = []
+        index = current_playlist.index { |spin| spin.id == first_spin_after_3am }
+        while first_ten_songs.size < 10
+          if PL.db.get_audio_block(current_playlist[index].audio_block_id).is_a?(PL::Song)
+            first_ten_songs << current_playlist[index]
+            index += 1
+          end
+        end
+        closest_in_duration = current_playlist.min_by { |spin| (offset.abs - spin.duration).abs }
+        if (offset.abs - closest_in_length.duration/1000).abs < offset.abs
+        end
+
 
       end
 

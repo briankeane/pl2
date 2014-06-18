@@ -459,6 +459,20 @@ module PL
         spin
       end
 
+      def remove_spin(attrs) # station_id, current_position
+        playlist = self.get_current_playlist(attrs[:station_id])
+        spin = self.get_spin_by_current_position({ station_id: attrs[:station_id], current_position: attrs[:current_position] })
+        removed_spin = self.delete_spin(spin.id)
+
+        index = playlist.find_index { |spin| spin.current_position == (attrs[:current_position] + 1) }
+        while index < playlist.size
+          self.update_spin({ id: playlist[index].id, current_position: (playlist[index].current_position - 1) })
+          index += 1
+        end
+
+        removed_spin
+      end
+
       def get_current_playlist(station_id)
         spins = @spins.values.select { |spin| spin.station_id == station_id }
         spins = spins.sort_by { |spin| spin.current_position }
