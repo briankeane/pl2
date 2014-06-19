@@ -76,7 +76,6 @@ describe 'CreateUser' do
 		expect(result.user.birth_year).to eq(1977)
 		expect(result.user.created_at).to be_a(Time)
 		expect(result.user.updated_at).to be_a(Time)
-		binding.pry
 		expect(result.user.gender).to eq('male')
 	end
 

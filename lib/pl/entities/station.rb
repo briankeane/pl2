@@ -36,7 +36,7 @@ module PL
 			end
 
 			attrs[:secs_of_commercial_per_hour] ||= PL::DEFAULT_SECS_OF_COMMERCIAL_PER_HOUR
-			
+
 			super(attrs)
 		end
 

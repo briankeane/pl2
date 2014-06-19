@@ -323,6 +323,10 @@ module PL
         station
       end
 
+      def get_station_by_user_id(user_id)
+        @stations.values.find { |station| station.user_id == user_id }
+      end
+
       ##################################################################
       #     spin_frequency                                             #
       ##################################################################

@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 describe 'GetUserByTwitter' do
+	before(:each) do
+		PL.db.clear_everything
+	end
+
 	it 'calls bullshit if the user is not found' do
 		result = PL::GetUserByTwitter.run('bob')
 		expect(result.success?).to eq(false)
@@ -15,7 +19,6 @@ describe 'GetUserByTwitter' do
 												gender: 'male'
 												})
 		result = PL::GetUserByTwitter.run('bob')
-
 		expect(result.success?).to eq(true)
 		expect(result.user.id).to eq(user.id)
 		expect(result.user.twitter).to eq('bob')
@@ -25,7 +28,5 @@ describe 'GetUserByTwitter' do
 		expect(result.user.gender).to eq('male')
 		expect(result.user.created_at).to be_a(Time)
 		expect(result.user.updated_at).to be_a(Time)
-
 	end
-
 end
