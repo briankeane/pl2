@@ -1,7 +1,7 @@
 module PL
   class UseCase
 
-    def self.run(inputs)
+    def self.run(inputs=nil)
       self.new.run(inputs)
     end
 
