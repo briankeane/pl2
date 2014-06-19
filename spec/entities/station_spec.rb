@@ -230,7 +230,6 @@ describe 'a station' do
 					expect(@spin3.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
 					expect(@spin4.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
 				end
-
 			end
 		end
 

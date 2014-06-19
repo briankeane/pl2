@@ -1,9 +1,14 @@
 require 'dotenv'
+require 'aws'
 require 'pry-debugger'
 Dotenv.load
 
 module PL
 
+  # set up AWS
+  AWS.config(access_key_id: ENV['S3_ACCESS_KEY_ID'], secret_access_key: ENV['S3_SECRET_KEY'], region: 'us-west-2')
+
+  
   # Constants
   HEAVY_ROTATION = 27
   MEDIUM_ROTATION = 17
@@ -50,3 +55,4 @@ require_relative 'pl/entities/spin.rb'
 require_relative 'pl/entities/station.rb'
 require_relative 'pl/entities/user.rb'
 Dir[File.dirname(__FILE__) + '/pl/use-cases/*.rb'].each {|file| require_relative file }
+Dir[File.dirname(__FILE__) + '/pl/processors/*.rb'].each {|file| require_relative file }

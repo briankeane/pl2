@@ -2,7 +2,14 @@ ENV['RAILS_ENV'] = 'test'
 
 require './lib/pl.rb'
 require 'rspec'
+require 'vcr'
 #require_relative 'shared/shared_database.rb'
+
+VCR.configure do |c|
+	c.allow_http_connections_when_no_cassette = true
+  c.cassette_library_dir = 'spec/vcr_cassettes'
+  c.hook_into :webmock
+end
 
 
 RSpec.configure do |config|

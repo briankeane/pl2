@@ -167,7 +167,7 @@ response:
 route: '/songs/'  POST
 ```
 {
-	"audio_file": audio_fileHERE
+	"key": 'www.amazons3.blablabla...'
 }
 ```
 response:
