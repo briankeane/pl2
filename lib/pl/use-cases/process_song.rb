@@ -2,8 +2,8 @@ require 'aws-sdk'
 require 'mp3info'
 
 module PL
-	class ProcessSong < UseCase
-		def run(key)
+      class ProcessSong < UseCase
+	     def run(key)
 
 			# set up s3
 			s3 = AWS::S3.new
