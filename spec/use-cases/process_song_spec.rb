@@ -2,9 +2,6 @@ require 'spec_helper'
 require 'aws-sdk'
 
 describe 'process_song' do
-	before(:each) do
-		PL.db.clear_everything
-	end
 
 	it 'calls bullshit if no title found' do
 		VCR.use_cassette('process_song/no_title') do

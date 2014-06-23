@@ -1,9 +1,6 @@
 require 'spec_helper'
 
 describe 'GetUserByTwitter' do
-	before(:each) do
-		PL.db.clear_everything
-	end
 
 	it 'calls bullshit if the user is not found' do
 		result = PL::GetUserByTwitter.run('bob')

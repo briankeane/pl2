@@ -50,7 +50,7 @@ describe 'a station' do
     end
 
 		it 'creates a first playlist' do
-			generated_playlist = PL.db.get_current_playlist(@station.id)
+			generated_playlist = PL.db.get_full_playlist(@station.id)
 			expect(generated_playlist.size).to eq(5560)
 			expect(PL.db.get_full_station_log(@station.id).size).to eq(1)
 		end
@@ -148,7 +148,7 @@ describe 'a station' do
 			Timecop.travel(Time.local(2014, 4, 14, 11, 55))
 			@station.make_log_current
 			expect(PL.db.get_log_entry(@log.id).airtime.to_s).to eq(Time.new(2014, 4, 14, 11, 56).to_s)
-			expect(PL.db.get_current_playlist(@station.id).size).to eq(4)
+			expect(PL.db.get_full_playlist(@station.id).size).to eq(4)
 		end
 
 		it 'updates if the station has been off' do

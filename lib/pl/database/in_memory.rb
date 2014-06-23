@@ -407,7 +407,7 @@ module PL
       #################################################################
       def add_spin(attrs)
         station = self.get_station(attrs[:station_id])
-        playlist = self.get_current_playlist(station.id)
+        playlist = self.get_full_playlist(station.id)
         index = playlist.find_index { |spin| spin.current_position == attrs[:add_position] }
         current_position_tracker = attrs[:add_position]
 
@@ -438,7 +438,7 @@ module PL
       def insert_spin(attrs)
         station = self.get_station(attrs[:station_id])
         station.update_estimated_airtimes
-        playlist = self.get_current_playlist(station.id)
+        playlist = self.get_full_playlist(station.id)
         index = playlist.find_index { |spin| spin.current_position == attrs[:insert_position] }
         current_position_tracker = attrs[:insert_position]
 
@@ -468,7 +468,7 @@ module PL
       end
 
       def remove_spin(attrs) # station_id, current_position
-        playlist = self.get_current_playlist(attrs[:station_id])
+        playlist = self.get_full_playlist(attrs[:station_id])
         spin = self.get_spin_by_current_position({ station_id: attrs[:station_id], current_position: attrs[:current_position] })
         removed_spin = self.delete_spin(spin.id)
 
@@ -481,7 +481,7 @@ module PL
         removed_spin
       end
 
-      def get_current_playlist(station_id)
+      def get_full_playlist(station_id)
         spins = @spins.values.select { |spin| spin.station_id == station_id }
         spins = spins.sort_by { |spin| spin.current_position }
       end
@@ -507,7 +507,7 @@ module PL
       def move_spin(attrs)   #old_position, new_position, station_id
         #if moving backwards
         if attrs[:old_position] > attrs[:new_position]
-          playlist_slice = self.get_current_playlist(attrs[:station_id]).select { |spin| (spin.current_position >= attrs[:new_position]) && (spin.current_position <= attrs[:old_position]) }
+          playlist_slice = self.get_full_playlist(attrs[:station_id]).select { |spin| (spin.current_position >= attrs[:new_position]) && (spin.current_position <= attrs[:old_position]) }
 
           playlist_slice.each { |spin| spin.current_position += 1 }
 
@@ -516,7 +516,7 @@ module PL
           # return true for successful move
           return true
         elsif attrs[:old_position] < attrs[:new_position]
-          playlist_slice = self.get_current_playlist(attrs[:station_id]).select { |spin| (spin.current_position >= attrs[:old_position]) && (spin.current_position <= attrs[:new_position]) }
+          playlist_slice = self.get_full_playlist(attrs[:station_id]).select { |spin| (spin.current_position >= attrs[:old_position]) && (spin.current_position <= attrs[:new_position]) }
 
           playlist_slice.each { |spin| spin.current_position -= 1 }
 

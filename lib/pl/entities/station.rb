@@ -47,7 +47,7 @@ module PL
     #####################################################################
 		def make_log_current
 
-			playlist = PL.db.get_current_playlist(@id)
+			playlist = PL.db.get_full_playlist(@id)
 
       # grab the last current_position in the log
 			max_position = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0].current_position
@@ -122,7 +122,7 @@ module PL
 			end
 
 			max_position = last_spin_played.current_position
-      playlist = PL.db.get_current_playlist(@id)
+      playlist = PL.db.get_full_playlist(@id)
       time_tracker = last_spin_ended
 
 			# calibrate commercial_block_counter for start-time
@@ -194,7 +194,7 @@ module PL
       # set up beginning and ending dates for comparison
       this_thursday_midnight = Chronic.parse('this thursday midnight')
       next_thursday_midnight = this_thursday_midnight + SECONDS_IN_WEEK
-      current_playlist = PL.db.get_current_playlist(@id)
+      current_playlist = PL.db.get_full_playlist(@id)
       time_tracker = nil
 
       # set max_position and time_tracker initial values
@@ -251,7 +251,7 @@ module PL
 
       #if it's the first playlist, start the station
       if PL.db.get_recent_log_entries({ station_id: @id, count: 1 }).size == 0
-        first_spin = PL.db.get_current_playlist(@id).first
+        first_spin = PL.db.get_full_playlist(@id).first
         PL.db.create_log_entry({ station_id: @id,
                                  current_position: first_spin.current_position,
                                  audio_block_id: song.id,
@@ -294,7 +294,7 @@ module PL
 
     def adjust_offset(adjustment_date)  
       offset = self.offset
-      current_playlist = PL.db.get_current_playlist(@id)
+      current_playlist = PL.db.get_full_playlist(@id)
       first_spin_after_3am = current_playlist.find_by { |spin| (spin.estimated_airtime.day == adjustment_date.day + 1) &&
                                                                 (spin.estimated_airtime.hour == 3) }
 

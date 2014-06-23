@@ -18,5 +18,4 @@ describe 'CreateCommentary' do
 		expect(result.commentary.duration).to eq(10)
 		expect(result.commentary.key).to eq('ThisIsAKey.mp3')
 	end
-
 end

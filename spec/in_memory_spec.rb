@@ -407,9 +407,9 @@ describe 'a database' do
     end
 
     it 'can be removed' do
-      old_playlist = db.get_current_playlist(1)
+      old_playlist = db.get_full_playlist(1)
       removed_spin = db.remove_spin({ station_id: 1, current_position: 10 })
-      new_playlist = db.get_current_playlist(1)
+      new_playlist = db.get_full_playlist(1)
       new_current_positions = new_playlist.map { |spin| spin.current_position }
       expect(new_playlist.size).to eq(19)
       expect(new_current_positions).to eq([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19])
@@ -420,10 +420,10 @@ describe 'a database' do
 
 
     it "returns the current_playlist in the right order" do
-      expect(db.get_current_playlist(1).size).to eq(20)
-      expect(db.get_current_playlist(1)[0].current_position).to eq(1)
-      expect(db.get_current_playlist(1)[2].current_position).to eq(3)
-      expect(db.get_current_playlist(1)[3].current_position).to eq(4)
+      expect(db.get_full_playlist(1).size).to eq(20)
+      expect(db.get_full_playlist(1)[0].current_position).to eq(1)
+      expect(db.get_full_playlist(1)[2].current_position).to eq(3)
+      expect(db.get_full_playlist(1)[3].current_position).to eq(4)
     end
 
     it 'gets a spin by current_position' do
@@ -465,6 +465,27 @@ describe 'a database' do
     end
   end
 
+  describe 'playlist db functions' do
+    before (:each) do
+      Timecop.travel(Time.local(2014, 5, 9, 10))
+      @user = PL.db.create_user({ twitter: "Bob", password: "password" })
+      @songs = []
+      86.times do |i|
+        @songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
+      end
+
+      @station = PL.db.create_station({ user_id: @user.id, 
+                                          heavy: (@songs[0..30].map { |x| x.id }),
+                                          medium: (@songs[31..65].map { |x| x.id }),
+                                          light: (@songs[65..85].map { |x| x.id }) 
+                                          })
+      @station.generate_playlist
+    end
+
+    it 'gets a playlist for now' do
+    end
+  end
+
   describe 'insert_spin' do
     before(:each) do
       Timecop.travel(Time.local(2014,5,9, 20,30))
@@ -483,7 +504,7 @@ describe 'a database' do
                                           })
       @station.generate_playlist
 
-      @old_playlist_ab_ids = db.get_current_playlist(@station.id).map { |spin| spin.audio_block_id }
+      @old_playlist_ab_ids = db.get_full_playlist(@station.id).map { |spin| spin.audio_block_id }
     end
     
     it 'adds a spin' do
@@ -491,7 +512,7 @@ describe 'a database' do
       added_spin = db.add_spin({ station_id: @station.id,
                                  audio_block_id: added_audio_block.id,
                                  add_position: 15 })
-      new_playlist = db.get_current_playlist(@station.id)
+      new_playlist = db.get_full_playlist(@station.id)
       expect(new_playlist.size).to eq(@old_playlist_ab_ids.size + 1)
       expect(@old_playlist_ab_ids.last).to eq(new_playlist.last.audio_block_id)
       expect(new_playlist[13].audio_block_id).to eq(added_audio_block.id)
@@ -502,7 +523,7 @@ describe 'a database' do
       spin = db.insert_spin({ station_id: @station.id,
                          insert_position: 15,
                           audio_block_id: inserted_audio_block.id })
-      new_playlist = db.get_current_playlist(@station.id)
+      new_playlist = db.get_full_playlist(@station.id)
       first_spin_after_3am = new_playlist.find_index { |spin| spin.estimated_airtime.hour > 3 }
 
 
@@ -529,13 +550,13 @@ describe 'a database' do
 
     it "moves a song backwards and adjusts the playlist around it" do
       db.move_spin({ old_position: 9, new_position: 7, station_id: 1 })
-      new_playlist = db.get_current_playlist(1)
+      new_playlist = db.get_full_playlist(1)
       expect(new_playlist.map { |spin| spin.audio_block_id }).to eq([3,1,2,4])
     end
 
     it "moves a song forwards and adjusts the playlist around it" do
       db.move_spin({ old_position: 7, new_position: 9, station_id: 1 })
-      new_playlist = db.get_current_playlist(1)
+      new_playlist = db.get_full_playlist(1)
       expect(new_playlist.map { |spin| spin.audio_block_id }).to eq([2,3,1,4])
     end
   end

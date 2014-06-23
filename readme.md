@@ -163,11 +163,11 @@ response:
 
 ```
 ### Songs
-#####create_song
+#####process_song
 route: '/songs/'  POST
 ```
 {
-	"key": 'www.amazons3.blablabla...'
+	"key": 'stepladder.mp3'  // uploaded to amazon s3
 }
 ```
 response:
@@ -291,7 +291,7 @@ same as above. (update with spins_per_week:0 to delete)
 ### log
 
 ### Commentaries
-#####create_commentary
+#####create_commentary           //(NOT BUILT YET)
 route: 'station/commentaries/'  POST
 request:
 ```
@@ -329,7 +329,7 @@ response:
 				}
 }
 ```
-#####update_commentary
+#####update_commentary   // (NOT BUILT YET)
 route '/commetaries/:id' PUT
 request:
 ```
@@ -366,7 +366,7 @@ response:
 ```
 
 ### Spins
-#####get_playlist (station_id, start_time [,end_time])  (default 2 hrs of spins)
+#####get_playlist (station_id, start_time [end_time])  (default 2 hrs of spins)
 request:
 ```
 {
