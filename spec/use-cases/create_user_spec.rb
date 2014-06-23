@@ -11,7 +11,6 @@ describe 'CreateUser' do
 												 })
 		expect(result.success?).to eq(false)
 		expect(result.error).to eq(:user_already_exists)
-		PL.db.clear_everything
 	end
 
 	it 'calls bullshit if no twitter is provided' do

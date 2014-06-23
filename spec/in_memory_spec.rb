@@ -72,6 +72,7 @@ describe 'a database' do
 			expect(deleted).to be_nil
 		end
 	end
+
   ################
   # Audio_Blocks #
   ################
@@ -239,6 +240,7 @@ describe 'a database' do
   		expect(deleted_commentary.duration).to eq(5000)
   	end
   end
+
   #################
   # Commercials   #
   #################
@@ -462,27 +464,6 @@ describe 'a database' do
 
     it 'returns the last scheduled spin for a station' do
       expect(db.get_last_spin(1).current_position).to eq(20)
-    end
-  end
-
-  describe 'playlist db functions' do
-    before (:each) do
-      Timecop.travel(Time.local(2014, 5, 9, 10))
-      @user = PL.db.create_user({ twitter: "Bob", password: "password" })
-      @songs = []
-      86.times do |i|
-        @songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
-      end
-
-      @station = PL.db.create_station({ user_id: @user.id, 
-                                          heavy: (@songs[0..30].map { |x| x.id }),
-                                          medium: (@songs[31..65].map { |x| x.id }),
-                                          light: (@songs[65..85].map { |x| x.id }) 
-                                          })
-      @station.generate_playlist
-    end
-
-    it 'gets a playlist for now' do
     end
   end
 
