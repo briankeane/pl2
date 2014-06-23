@@ -21,6 +21,7 @@ response:
 	"user": {
 			"id": 123,
 			"twitter": "BrianKeaneTunes",
+			"twitter_uid": 10,
 			"email": "lonesomewhistle@gmail.com",
 			"birth_year": 1977,
 			"gender": "male",
@@ -39,6 +40,7 @@ response:
 	"user": {
 			"id": 123,
 			"twitter": "BrianKeaneTunes",
+			"twitter_uid": 10,
 			"email": "lonesomewhistle@gmail.com",
 			"birth_year": 1977,
 			"gender": "male",
@@ -82,14 +84,9 @@ request:
 {
 	"user_id": 123,
 	"seconds_of_commercial_per_hour": 180,
-	"spins_per_week": {
-			#song_id: spins_per_week
-			15: 27,
-			27: 25,
-			84: 22,
-			19: 14,
-			12: 3,
-			11: 2
+	"heavy": [23, 43, 25, 26, 37, 58, 14, 26, 15... ],  // (song_ids)
+	"medium": [14, 65, 943, 234...],
+	"light": [12, 4, 6, 1, 3] 
 	}
 }
 ```
@@ -102,13 +99,16 @@ response:
 				"seconds_of_commercial_per_hour": 180,
 				"user_id": 123,
 		"spins_per_week": {     
-			#song_id: spins_per_week
+			// song_id: spins_per_week
+			[
 			15: 27,
-			27: 25,
-			84: 22,
-			19: 14,
-			12: 3,
-			11: 2
+			27: 27,
+			84: 27,
+			19: 17,
+			12: 17,
+			11: 17,
+			...
+			]
 	}				
 }
 ```
@@ -117,7 +117,7 @@ route '/songs/:id'  PUT
 request:
 ```
 {
-	"station_id": 12,
+	"id": 12,
 	"commercial_seconds_per_hour": 180
 }
 ```
@@ -167,7 +167,7 @@ response:
 route: '/songs/'  POST
 ```
 {
-	"audio_file": audio_fileHERE
+	"key": 'www.amazons3.blablabla...'
 }
 ```
 response:

@@ -1,6 +1,16 @@
+ENV['RAILS_ENV'] = 'test'
+
 require './lib/pl.rb'
 require 'rspec'
+require 'vcr'
 #require_relative 'shared/shared_database.rb'
+
+VCR.configure do |c|
+	c.allow_http_connections_when_no_cassette = true
+  c.cassette_library_dir = 'spec/vcr_cassettes'
+  c.hook_into :webmock
+end
+
 
 RSpec.configure do |config|
   # Configure each test to always use a new singleton instance
@@ -8,7 +18,6 @@ RSpec.configure do |config|
     PL::Database.instance_variable_set(:@__db_instance, nil)
   end
 end
-ENV['RAILS_ENV'] = 'test'
 
 RSpec.configure do |config|
  # Use color in STDOUT

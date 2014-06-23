@@ -1,22 +1,32 @@
 require 'dotenv'
+require 'aws'
 require 'pry-debugger'
 Dotenv.load
 
 module PL
 
+  # set up AWS
+  AWS.config(access_key_id: ENV['S3_ACCESS_KEY_ID'], secret_access_key: ENV['S3_SECRET_KEY'], region: 'us-west-2')
+
+  
   # Constants
   HEAVY_ROTATION = 27
   MEDIUM_ROTATION = 17
   LIGHT_ROTATION = 1
   SPINS_WITHOUT_REPEAT = 35
   DEFAULT_SECS_OF_COMMERCIAL_PER_HOUR = 360
+  MIN_HEAVY_COUNT = 10
+  MIN_MEDIUM_COUNT = 10
+  MIN_LIGHT_COUNT = 5
 
   def self.db
     case ENV['RAILS_ENV']
     when 'test'
       @db_class ||= Database::InMemory
     else
-      @db_class ||= Database::PostgresDatabase
+      # change this once Postgres DB is installed
+      #@db_class ||= Database::PostgresDatabase
+      @db_class ||= Database::InMemory
     end
     @__db_instance ||= @db_class.new(ENV['RAILS_ENV'] || 'test')
   end
@@ -33,7 +43,7 @@ end
 
 require 'ostruct'
 require_relative 'pl/entity.rb'
-# require_relative 'pl/use_case.rb'
+require_relative 'pl/use_case.rb'
 require_relative 'pl/database/in_memory.rb'
 require_relative 'pl/entities/commentary.rb'
 require_relative 'pl/entities/log_entry.rb'
@@ -44,5 +54,5 @@ require_relative 'pl/entities/song.rb'
 require_relative 'pl/entities/spin.rb'
 require_relative 'pl/entities/station.rb'
 require_relative 'pl/entities/user.rb'
-#Dir[File.dirname(__FILE__) + '/pl/use-cases/*.rb'].each {|file| require_relative file }
-
+Dir[File.dirname(__FILE__) + '/pl/use-cases/*.rb'].each {|file| require_relative file }
+Dir[File.dirname(__FILE__) + '/pl/processors/*.rb'].each {|file| require_relative file }

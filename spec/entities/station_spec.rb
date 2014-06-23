@@ -77,7 +77,7 @@ describe 'a station' do
 			end
 
 			it 'still returns the proper end_time' do
-				PL.db.schedule_spin({ station_id: @station.id,
+				PL.db.create_spin({ station_id: @station.id,
 															audio_block_id: @songs[0].id,
 															current_position: 5562 })
 				expect(@station.end_time.to_s).to eq('2014-05-23 00:09:00 -0500')
@@ -86,7 +86,7 @@ describe 'a station' do
 
 		describe 'offset' do
 			it 'returns the proper station offset' do
-				new_spin = PL.db.schedule_spin({ station_id: @station.id,
+				new_spin = PL.db.create_spin({ station_id: @station.id,
 											audio_block_id: @songs[0].id,
 											current_position: 5562 })
 				expect(@station.offset).to eq(-370.0)
@@ -105,22 +105,22 @@ describe 'a station' do
 		before (:each) do
 			@station = PL.db.create_station({ user_id: 1, secs_of_commercial_per_hour: 300 })
 			@song = PL.db.create_song({ duration: 180000 })
-			@spin1 = PL.db.schedule_spin({ current_position: 15,
+			@spin1 = PL.db.create_spin({ current_position: 15,
 																			station_id: @station.id,
 																			audio_block_id: @song.id,
 																			estimated_airtime: Time.new(2014, 4, 15, 11, 25) 
 																			})
-			@spin2 = PL.db.schedule_spin({ current_position: 16,
+			@spin2 = PL.db.create_spin({ current_position: 16,
 																			station_id: @station.id,
 																			audio_block_id: @song.id,																			
 																			estimated_airtime: Time.new(2014, 4, 15, 11, 28) 
 																			})
-			@spin3 = PL.db.schedule_spin({ current_position: 17,
+			@spin3 = PL.db.create_spin({ current_position: 17,
 																			station_id: @station.id,
 																			audio_block_id: @song.id,																			
 																			estimated_airtime: Time.new(2014, 4, 15, 12, 31) 
 																			})
-			@spin4 = PL.db.schedule_spin({ current_position: 18,
+			@spin4 = PL.db.create_spin({ current_position: 18,
 																			station_id: @station.id,
 																			audio_block_id: @song.id,
 																			estimated_airtime: Time.new(2014, 4, 15, 12, 38) 
@@ -230,7 +230,6 @@ describe 'a station' do
 					expect(@spin3.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
 					expect(@spin4.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
 				end
-
 			end
 		end
 

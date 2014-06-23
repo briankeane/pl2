@@ -36,7 +36,7 @@ module PL
 			end
 
 			attrs[:secs_of_commercial_per_hour] ||= PL::DEFAULT_SECS_OF_COMMERCIAL_PER_HOUR
-			
+
 			super(attrs)
 		end
 
@@ -203,8 +203,7 @@ module PL
         time_tracker = Time.now
       else
         max_position = current_playlist.last.current_position
-        current_spin = PL.db.get_current_spin(@id)
-        time_tracker = self.playlist_estimated_end_time
+        time_tracker = self.end_time
       end
 
       # calibrate commercial_block_counter for start-time
@@ -222,6 +221,7 @@ module PL
           time_tracker += (@secs_of_commercial_per_hour/2)
         end
 
+
         song = sample_array.sample
 
         # IF it's been played recently, pick a new song
@@ -238,8 +238,7 @@ module PL
           recently_played.shift
         end
 
-
-        spin = PL.db.schedule_spin({ station_id: @id,
+        spin = PL.db.create_spin({ station_id: @id,
                                      audio_block_id: song.id,
                                      current_position: (max_position += 1),
                                      estimated_airtime: time_tracker })
@@ -293,7 +292,43 @@ module PL
       @original_playlist_end_time - self.end_time
     end
 
-    def adjust_offset
+    def adjust_offset(adjustment_date)  
+      offset = self.offset
+      current_playlist = PL.db.get_current_playlist(@id)
+      first_spin_after_3am = current_playlist.find_by { |spin| (spin.estimated_airtime.day == adjustment_date.day + 1) &&
+                                                                (spin.estimated_airtime.hour == 3) }
+
+      if offset < 0
+        # search for a song to add
+        closest_in_duration = @spins_per_week.keys.min_by { |id| (offset.abs - PL.db.get_spin(id).duration/1000).abs }
+
+        # if it's close enough to reduce the offset, add it
+        if (offset.abs - closest_in_length.duration/1000).abs < offset.abs
+          
+          PL.db.add_spin({  station_id: @id,
+                               current_position: (PL.first_spin_after_3am.current_position),
+                               audio_block_id: closest_in_duration.id,
+                               airtime: first_spin.estimated_airtime,
+                               duration: first_spin.duration
+                              })
+        end
+      else # if offset > 0
+        # grab the 10 songs after 3am
+        first_ten_songs = []
+        index = current_playlist.index { |spin| spin.id == first_spin_after_3am }
+        while first_ten_songs.size < 10
+          if PL.db.get_audio_block(current_playlist[index].audio_block_id).is_a?(PL::Song)
+            first_ten_songs << current_playlist[index]
+            index += 1
+          end
+        end
+        
+        # if removing the spin will reduce the offset, remove the spin
+        closest_in_duration = current_playlist.min_by { |spin| (offset.abs - spin.duration).abs }
+        if (offset.abs - closest_in_duration.duration/1000).abs < offset.abs
+          PL.db.remove_spin({ station_id: @id, current_position: closest_in_duration.current_position })
+        end
+      end
     end
 	end
 end
