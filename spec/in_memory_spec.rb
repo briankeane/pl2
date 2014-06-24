@@ -390,11 +390,13 @@ describe 'a database' do
   ###############
   describe 'a spin' do
     before(:each) do
+      starting_airtime = Time.local(2014,1,1, 10)
       @spins = []
       20.times do |i|
         @spins[i] = db.create_spin({ station_id: 1,
                                   current_position: (i+1),
-                                  audio_block_id: (i+2) })
+                                  audio_block_id: (i+2),
+                                  estimated_airtime: starting_airtime += 180 })
       end
     end
 
@@ -426,6 +428,23 @@ describe 'a database' do
       expect(db.get_full_playlist(1)[0].current_position).to eq(1)
       expect(db.get_full_playlist(1)[2].current_position).to eq(3)
       expect(db.get_full_playlist(1)[3].current_position).to eq(4)
+    end
+
+    it "gets a partial playlist" do
+      playlist = db.get_partial_playlist({ station_id: 1,
+                                            start_time: Time.local(2014,1,1, 10,5),
+                                            end_time: Time.local(2014,1,1, 10,15) })
+      expect(playlist.size).to eq(4)
+      expect(playlist.first.current_position).to eq(2)
+      expect(playlist.last.current_position).to eq(5)
+
+      playlist = db.get_partial_playlist({ station_id: 1,
+                                            start_time: Time.local(2014,1,1, 10,10,),
+                                            end_time: Time.local(2014,1,1, 10,15) })
+      expect(playlist.size).to eq(2)
+      expect(playlist.first.current_position).to eq(4)
+      expect(playlist.last.current_position).to eq(5)
+
     end
 
     it 'gets a spin by current_position' do

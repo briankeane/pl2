@@ -84,6 +84,40 @@ describe 'a station' do
 			end
 		end
 
+		describe 'get_program' do
+			xit 'gets the current program' do
+				Timecop.travel(Time.local(2014, 5, 9, 11))
+				program = @station.get_program({})
+				expect(program.size).to eq(1)
+				expect(program.first.estimated_airtime.to_str).to eq(Time.now.to_str)
+				expect(program.last.estimated_airtime.to_str).to eq(Time.now.to_str)
+			end
+
+			xit 'gets a future program' do
+				program = @station.get_program({ start_time: Time.local(2014,5,9, 11) })
+				expect(program.size).to eq(1)
+				expect(program.first.estimated_airtime.to_str).to eq(Time.now.to_str)
+				expect(program.last.estimated_airtime.to_str).to eq(Time.now.to_str)
+			end
+
+			xit 'gets variable lengths of time' do
+				program = @station.get_program({ start_time: Time.local(2014, 5, 9, 11),
+																					end_time: Time.local(2014, 5, 9, 4) })
+				expect(program.size).to eq(1)
+				expect(program.first.estimated_airtime.to_str).to eq(Time.now.to_str)
+				expect(program.last.estimated_airtime.to_str).to eq(Time.now.to_str)
+			end
+
+			xit 'puts commercial blocks in the right place' do
+				program = @station.get_program({ start_time: Time.local(2014, 5, 9, 11),
+																						end_time: Time.local(2014, 5, 9, 4) })
+				expect(program[4]).to be_a(PL::CommercialBlock)
+				expect(program[4]).to be_a(PL::CommercialBlock)
+				expect(program[4]).to be_a(PL::CommercialBlock)
+			end
+
+		end
+
 		describe 'offset' do
 			it 'returns the proper station offset' do
 				new_spin = PL.db.create_spin({ station_id: @station.id,
@@ -232,8 +266,6 @@ describe 'a station' do
 				end
 			end
 		end
-
-
 
 		after (:all) do
 			Timecop.return

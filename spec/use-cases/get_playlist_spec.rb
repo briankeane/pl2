@@ -9,7 +9,7 @@ describe 'GetPlaylist' do
 		expect(result.error).to eq(:station_not_found)
 	end
 
-	it 'calls bullshit if requested time does not exist' do
+	xit 'calls bullshit if requested time does not exist' do
 		Timecop.travel(Time.local(2014,10,10, 10,30))
 		station = PL.db.create_station({ user_id: 1 })
 		result = PL::GetPlaylist.run({ station_id: station.id,
@@ -19,6 +19,6 @@ describe 'GetPlaylist' do
 		Timecop.return
 	end
 
-	it 'gets a playlist' do
+	xit 'gets a playlist' do
 	end
 end

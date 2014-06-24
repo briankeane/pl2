@@ -486,6 +486,14 @@ module PL
         spins = spins.sort_by { |spin| spin.current_position }
       end
 
+      def get_partial_playlist(attrs)
+        spins = @spins.values.select { |spin| (spin.station_id == attrs[:station_id]) &&
+                                              (spin.estimated_airtime >= attrs[:start_time]) &&
+                                              (spin.estimated_airtime <= attrs[:end_time]) }
+        spins = spins.sort_by { |spin| spin.current_position }
+        spins
+      end
+
       def get_spin_by_current_position(attrs)
         spin = @spins.values.find { |spin| (spin.station_id == attrs[:station_id]) && 
                                     (spin.current_position == attrs[:current_position]) }
