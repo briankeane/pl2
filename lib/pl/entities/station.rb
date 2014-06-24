@@ -285,13 +285,16 @@ module PL
                                               end_time: attrs[:end_time] })
       
       # return an empty array if no spins found
-      if !playlist
+      if playlist.size == 0
         return []
       end
 
       leading_spin = PL.db.get_spin({ station_id: @id,
-                                      current_position: playlist[0].current_position })
-  
+                                      current_position: (playlist[0].current_position - 1) })
+
+      if !leading_spin
+        leading_spin = now_playing
+      end
 
       # calibrate commercial_block_counter for start-time
       commercial_block_counter = (playlist[0].estimated_airtime.to_f/1800.0).floor

@@ -6,5 +6,10 @@ module PL
     def initialize(attrs)
       super(attrs)
     end
+
+    def estimated_end_time
+    	airtime + @duration/1000
+    end
+
   end
 end

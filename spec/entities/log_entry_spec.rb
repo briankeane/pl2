@@ -9,7 +9,7 @@ describe 'a log entry' do
                               airtime: Time.new(1983, 4, 15, 18),
                               listeners_at_start: 55,
                               listeners_at_finish: 57,
-                              duration: 100 })
+                              duration: 1000 })
   end
 
   it 'can be created' do
@@ -19,7 +19,11 @@ describe 'a log entry' do
     expect(@log.airtime.to_s).to eq(Time.new(1983, 4, 15, 18).to_s)
     expect(@log.listeners_at_start).to eq(55)
     expect(@log.listeners_at_finish).to eq(57)
-    expect(@log.duration).to eq(100)
+    expect(@log.duration).to eq(1000)
+  end
+
+  it 'calculates estimated_end_time' do
+    expect(@log.estimated_end_time.to_s).to eq(Time.new(1983,4,15, 18,00,01).to_s)
   end
 
 end

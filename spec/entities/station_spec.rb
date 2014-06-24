@@ -85,7 +85,7 @@ describe 'a station' do
     end
 
     describe 'get_program' do
-      xit 'gets the current program' do
+      it 'gets the current program' do
         Timecop.travel(Time.local(2014, 5, 9, 11))
         program = @station.get_program({})
         expect(program.size).to eq(1)
