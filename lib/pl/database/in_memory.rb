@@ -14,8 +14,8 @@ module PL
       end
 
       def clear_everything
-      	@user_id_counter = 100
-      	@users = {}
+        @user_id_counter = 100
+        @users = {}
         @station_id_counter = 300
         @stations = {}
         @spin_counter = 700
@@ -30,28 +30,28 @@ module PL
       #   Users    #
       ##############
       def create_user(attrs)
-      	id = (@user_id_counter += 1)
-      	attrs[:id] = id
-      	attrs[:created_at] = Time.now
-      	attrs[:updated_at] = Time.now
-      	user = User.new(attrs)
-      	@users[id] = user
-      	user
+        id = (@user_id_counter += 1)
+        attrs[:id] = id
+        attrs[:created_at] = Time.now
+        attrs[:updated_at] = Time.now
+        user = User.new(attrs)
+        @users[id] = user
+        user
       end
 
       def get_user(id)
-      	@users[id]
+        @users[id]
       end
 
-   		def get_user_by_twitter(twitter)
-   			@users.values.find { |user| user.twitter == twitter }
-   		end
+      def get_user_by_twitter(twitter)
+        @users.values.find { |user| user.twitter == twitter }
+      end
 
       def get_user_by_twitter_uid(uid)
         @users.values.find { |user| user.twitter_uid == uid }
       end
       
-   		def update_user(attrs)
+      def update_user(attrs)
         user = @users[attrs[:id]]
         attrs.delete(:id)
 
@@ -67,8 +67,8 @@ module PL
       end
 
       def delete_user(id)
-      	user = @users.delete(id)
-      	user
+        user = @users.delete(id)
+        user
       end
 
       ###############################################
@@ -574,6 +574,6 @@ module PL
         @log_entries[id]
       end
 
-  	end
+    end
   end
 end

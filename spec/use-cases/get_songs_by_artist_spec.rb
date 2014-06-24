@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe 'song retrieval tests' do
 
-	it 'returns an empty array if no songs in db' do
-		result = PL::GetSongsByArtist.run("Brian Keane")
-		expect(result.success?).to eq(true)
-		expect(result.songs_by_artist).to eq([])
-	end
+    it 'returns an empty array if no songs in db' do
+        result = PL::GetSongsByArtist.run("Brian Keane")
+        expect(result.success?).to eq(true)
+        expect(result.songs_by_artist).to eq([])
+    end
 
-	it 'returns an array of songs by artist' do
+    it 'returns an array of songs by artist' do
     @song1 = PL.db.create_song({ title: "Bar Lights", artist: "Brian Keane", duration: 226000, sing_start: 5000, sing_end: 208000,
                                  audio_id: 2 })
     @song2 = PL.db.create_song({ title: "Bar Nights", artist: "Brian Keane", duration: 226000, sing_start: 5000, sing_end: 208000,
