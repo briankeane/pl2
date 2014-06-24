@@ -100,6 +100,11 @@ describe 'a station' do
 				expect(program.last.estimated_airtime.to_str).to eq(Time.now.to_str)
 			end
 
+			it 'returns an empty array if there is no program scheduled' do
+				program = @station.get_program({ start_time: Time.local(2015,1,1) })
+				expect(program).to eq([])
+			end
+
 			xit 'gets variable lengths of time' do
 				program = @station.get_program({ start_time: Time.local(2014, 5, 9, 11),
 																					end_time: Time.local(2014, 5, 9, 4) })
@@ -107,6 +112,11 @@ describe 'a station' do
 				expect(program.first.estimated_airtime.to_str).to eq(Time.now.to_str)
 				expect(program.last.estimated_airtime.to_str).to eq(Time.now.to_str)
 			end
+
+			xit 'works if 1st spin is a commercial_block' do
+			end
+
+			xit 'works if previous spin was a commercial_block'
 
 			xit 'puts commercial blocks in the right place' do
 				program = @station.get_program({ start_time: Time.local(2014, 5, 9, 11),

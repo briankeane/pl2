@@ -13,7 +13,7 @@ describe 'a spin' do
 													audio_block_id: @song.id,
 													created_at: Time.new(1970),
 													updated_at: Time.new(1970, 1, 2),
-													estimated_airtime: 4000 })
+													estimated_airtime: Time.new(2014,1,1, 12) })
 		@spin2 = PL::Spin.new({ id: 1, 
 													station_id: 3,
 													current_position: 3, 
@@ -37,7 +37,7 @@ describe 'a spin' do
 		expect(@spin.created_at).to eq(Time.new(1970))
 		expect(@spin.updated_at).to eq(Time.new(1970, 1, 2))
 		expect(@spin.station_id).to eq(3)
-		expect(@spin.estimated_airtime).to eq(4000)
+		expect(@spin.estimated_airtime.to_s).to eq('2014-01-01 12:00:00 -0600')
 	end
 
 	it "grabs the audio_block if it's a song" do
@@ -57,5 +57,9 @@ describe 'a spin' do
 		expect(@spin.duration).to eq(2000)
 		expect(@spin2.duration).to eq(1000)
 		expect(@spin3.duration).to eq(3000)
+	end
+
+	it 'calculates the proper estimated_end_time' do
+		expect(@spin.estimated_end_time.to_s).to eq('2014-01-01 12:00:02 -0600')
 	end
 end

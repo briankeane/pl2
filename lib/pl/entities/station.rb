@@ -261,6 +261,61 @@ module PL
         PL.db.delete_spin(first_spin.id)
       end
     end
+    ##################################################################
+    #     get_program                                                #
+    ##################################################################
+    #  returns an array representing a piece of the playlist         #
+    #  as it currently exists.                                       #
+    #  if no start_time is given, it returns the current playlist    #
+    #  default length is 2 hours                                     #
+    ##################################################################
+    def get_program(attrs)
+
+      # set default values if necessary
+      attrs[:start_time] ||= Time.now
+      attrs[:end_time] ||= (start_time + (2*60*60))
+
+      # give 5 min padding on either side of program
+      start_time -= (5*60)
+      end_time += (5*60)
+
+      self.update_estimated_airtimes
+      playlist = PL.db.get_partial_playlist({ station_id: @id,
+                                              start_time: attrs[:start_time],
+                                              end_time: attrs[:end_time] })
+      if !playlist
+        return []
+      end
+
+      leading_spin = PL.db.get_spin({ station_id: @id,
+                                      current_position: playlist[0].current_position })
+  
+
+      # calibrate commercial_block_counter for start-time
+      commercial_block_counter = (playlist[0].estimated_airtime.to_f/1800.0).floor
+
+      #adjust commercial_block_counter for cases where 1st spin should be a commercial_block
+      if (start_time.to_f/1800.0).floor != commercial_block_counter
+        commercial_block_counter -= 1
+      end
+
+      # iterate through the playlist and create the program
+      program = []
+      time_tracker = playlist[0].estimated_airtime
+      playlist.each do |spin|
+
+        # add a commercial block if it's time
+        if (time_tracker.to_f/1800.0).floor > commercial_block_counter
+          program << PL::CommerciaLBlock.new({ station_id: @id,
+                                                 duration: (@secs_of_commercial_per_hour * 1000),
+                                                 estimated_airtime: time_tracker })
+        end
+
+        updated_spin = PL.db.update_spin({ id: spin.id,
+                                  estimated_airtime: time_tracker })
+        time_tracker += updated_spin.duration/1000
+      end
+    end
 
     ##################################################################
     #     active?                                                    #
@@ -304,7 +359,6 @@ module PL
 
         # if it's close enough to reduce the offset, add it
         if (offset.abs - closest_in_length.duration/1000).abs < offset.abs
-          
           PL.db.add_spin({  station_id: @id,
                                current_position: (PL.first_spin_after_3am.current_position),
                                audio_block_id: closest_in_duration.id,
