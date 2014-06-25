@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'CreateCommentary' do
+describe 'GetCommentary' do
   it 'calls bullshit if commentary not found' do
     result = PL::GetCommentary.run(9999)
     expect(result.success?).to eq(false)
