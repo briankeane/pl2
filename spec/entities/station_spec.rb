@@ -71,6 +71,15 @@ describe 'a station' do
       end
     end
 
+    describe 'next_spin' do
+      xit 'returns the next_spin' do
+        expect(@station.next_spin.current_position).to eq(2)
+      end
+
+      xit 'returns a CommercialBlock if the next spin should be one' do
+      end
+    end
+
     describe 'end_time' do
       it 'returns the proper end_time' do
         expect(@station.end_time.to_s).to eq('2014-05-23 00:02:50 -0500')
