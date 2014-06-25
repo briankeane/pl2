@@ -289,37 +289,29 @@ module PL
         return []
       end
 
-      leading_spin = PL.db.get_spin({ station_id: @id,
-                                      current_position: (playlist[0].current_position - 1) })
+      previous_spin = PL.db.get_spin_by_current_position({ station_id: @id,
+                                                      current_position: (playlist[0].current_position - 1) })
 
-      if !leading_spin
-        leading_spin = now_playing
-      end
-
-      # calibrate commercial_block_counter for start-time
-      commercial_block_counter = (playlist[0].estimated_airtime.to_f/1800.0).floor
-
-      #adjust commercial_block_counter for cases where 1st spin should be a commercial_block
-      if (start_time.to_f/1800.0).floor != commercial_block_counter
-        commercial_block_counter -= 1
+      if !previous_spin
+        previous_spin = now_playing
       end
 
       # iterate through the playlist and create the program
       program = []
-      time_tracker = playlist[0].estimated_airtime
       playlist.each do |spin|
-
-        # add a commercial block if it's time
-        if (time_tracker.to_f/1800.0).floor > commercial_block_counter
-          program << PL::CommerciaLBlock.new({ station_id: @id,
-                                                 duration: (@secs_of_commercial_per_hour * 1000),
-                                                 estimated_airtime: time_tracker })
+        # add a commercial block if there's a space provided
+        if previous_spin.estimated_end_time != spin.estimated_airtime
+          commercial_block = PL::CommercialBlock.new({ station_id: @id,
+                                                 duration: (@secs_of_commercial_per_hour/2 * 1000),
+                                                 estimated_airtime: previous_spin.estimated_end_time })
+          program << commercial_block
         end
 
-        updated_spin = PL.db.update_spin({ id: spin.id,
-                                  estimated_airtime: time_tracker })
-        time_tracker += updated_spin.duration/1000
+        program << spin
+        previous_spin = spin
       end
+
+      program
     end
 
     ##################################################################

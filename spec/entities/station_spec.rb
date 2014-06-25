@@ -88,16 +88,17 @@ describe 'a station' do
       it 'gets the current program' do
         Timecop.travel(Time.local(2014, 5, 9, 11))
         program = @station.get_program({})
-        expect(program.size).to eq(1)
-        expect(program.first.estimated_airtime.to_str).to eq(Time.now.to_str)
-        expect(program.last.estimated_airtime.to_str).to eq(Time.now.to_str)
+        expect(program.size).to eq(38)
+        expect(program.first.estimated_airtime.to_s).to eq(Time.local(2014,5,9, 11,3).to_s)
+        expect(program.last.estimated_airtime.to_s).to eq(Time.local(2014,5,9, 12,59,40).to_s)
+        expect(program[9]).to be_a(PL::CommercialBlock)
       end
 
-      xit 'gets a future program' do
-        program = @station.get_program({ start_time: Time.local(2014,5,9, 11) })
-        expect(program.size).to eq(1)
-        expect(program.first.estimated_airtime.to_str).to eq(Time.now.to_str)
-        expect(program.last.estimated_airtime.to_str).to eq(Time.now.to_str)
+      it 'gets a future program' do
+        program = @station.get_program({ start_time: Time.local(2014,5,10, 11,20) })
+        expect(program.size).to eq(41)
+        expect(program.first.estimated_airtime.to_s).to eq(Time.local(2014,5,10, 11,18).to_s)
+        expect(program.last.estimated_airtime.to_s).to eq(Time.local(2014,5,10, 13,24).to_s)
       end
 
       it 'returns an empty array if there is no program scheduled' do
@@ -105,25 +106,35 @@ describe 'a station' do
         expect(program).to eq([])
       end
 
-      xit 'gets variable lengths of time' do
-        program = @station.get_program({ start_time: Time.local(2014, 5, 9, 11),
-                                          end_time: Time.local(2014, 5, 9, 4) })
-        expect(program.size).to eq(1)
-        expect(program.first.estimated_airtime.to_str).to eq(Time.now.to_str)
-        expect(program.last.estimated_airtime.to_str).to eq(Time.now.to_str)
+      it 'gets variable lengths of time' do
+        program = @station.get_program({ start_time: Time.local(2014,5,10, 4,20),
+                                          end_time: Time.local(2014,5,10, 11,20) })
+        expect(program.size).to eq(137)
+        expect(program.first.estimated_airtime.to_s).to eq(Time.local(2014,5,10, 4,16).to_s)
+        expect(program.last.estimated_airtime.to_s).to eq(Time.local(2014,5,10, 11,24,20).to_s)
       end
 
-      xit 'works if 1st spin is a commercial_block' do
+      it 'works if 1st spin is a commercial_block' do
+        program = @station.get_program({ start_time: Time.local(2014,5,10, 4,5) })
+        expect(program.first.estimated_airtime.to_s).to eq(Time.local(2014,5,10, 4,0,20).to_s)
+        expect(program.first).to be_a(PL::CommercialBlock)
       end
 
-      xit 'works if previous spin was a commercial_block'
+      it 'works if previous spin was a commercial_block' do
+        program = @station.get_program({ start_time: Time.local(2014,5,10, 4,6) })
+        expect(program[1].estimated_airtime.to_s).to eq(Time.local(2014,5,10, 4,3,20).to_s)
+        expect(program[1]).to be_a(PL::Spin)
+        expect(program[0]).to be_a(PL::CommercialBlock)
+        expect(program[0].estimated_airtime.to_s).to eq(Time.local(2014,5,10, 4,0,20).to_s)
+      end
 
-      xit 'puts commercial blocks in the right place' do
-        program = @station.get_program({ start_time: Time.local(2014, 5, 9, 11),
-                                            end_time: Time.local(2014, 5, 9, 4) })
-        expect(program[4]).to be_a(PL::CommercialBlock)
-        expect(program[4]).to be_a(PL::CommercialBlock)
-        expect(program[4]).to be_a(PL::CommercialBlock)
+      it 'puts commercial blocks in the right place' do
+        program = @station.get_program({ start_time: Time.local(2014, 5, 9, 10),
+                                            end_time: Time.local(2014, 5, 9, 15) })
+
+        expect(program[9]).to be_a(PL::CommercialBlock)
+        expect(program[18]).to be_a(PL::CommercialBlock)
+        expect(program[28]).to be_a(PL::CommercialBlock)
       end
 
     end
@@ -249,7 +260,7 @@ describe 'a station' do
         expect(@station.log_end_time.to_s).to eq('2014-04-14 12:00:00 -0500')
       end
 
-      describe 'estimated_airtime' do
+      describe 'update_estimated_airtimes' do
         it 'updates airtimes correctly' do
           Timecop.travel(Time.local(2014, 4, 14, 11, 56))
           @station.update_estimated_airtimes
@@ -274,6 +285,7 @@ describe 'a station' do
           expect(@spin3.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
           expect(@spin4.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
         end
+
       end
     end
 
