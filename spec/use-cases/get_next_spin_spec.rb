@@ -7,4 +7,7 @@ describe 'GetNextSpin' do
 		expect(result.error).to eq(:station_not_found)
 	end
 
+  xit 'grabs the next spin' do
+  end
+
 end
