@@ -6,6 +6,8 @@ module PL
       if !station
         return failure :station_not_found
       end
+
+      return success :next_spin => station.next_spin
 		end
 	end
 end
