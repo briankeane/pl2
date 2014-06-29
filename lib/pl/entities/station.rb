@@ -7,6 +7,7 @@ module PL
     attr_accessor :id, :secs_of_commercial_per_hour, :user_id
     attr_accessor :spins_per_week, :created_at, :updated_at
     attr_accessor :current_playlist_end_time, :original_playlist_end_time
+    attr_accessor :next_commercial_block
 
     # Station-specific constants
     MS_IN_WEEK = 604.8e+6
@@ -177,6 +178,47 @@ module PL
 
       return PL.db.get_recent_log_entries({station_id: @id, count: 1 })[0]
     end
+
+    def now_playing_with_audio_file
+      if !self.active?
+        self.make_log_current
+      end
+
+      log_entry = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
+      
+      grabber = PL::AudioGrabber.new
+
+      log_entry.audio_file = grabber.grab_audio(log_entry)
+
+      return log_entry
+    end
+
+    def next_spin
+      if !self.active?
+        self.make_log_current
+      end
+
+
+      # if it should be a commercial (now_playing straddles the hour or the 1/2 hour)
+      if (now_playing.airtime.to_f/1800.0).floor != (now_playing.estimated_end_time.to_f/1800.0).floor
+        return next_commercial_block
+      else
+        return PL.db.get_spin_by_current_position({ station_id: @id,
+                                                    current_position: (now_playing.current_position + 1) })
+      end
+    end
+
+    def next_commercial_block
+      if @next_commercial_block
+        return @next_commercial_block
+      else
+        cf = PL::CommercialBlockFactory.new
+        @next_commercial_block = cf.construct_block(self)
+        return @next_commercial_block
+      end
+    end
+
+
 
     ##################################################################
     #     generate_playlist                                          #

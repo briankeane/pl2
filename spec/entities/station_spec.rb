@@ -71,12 +71,25 @@ describe 'a station' do
       end
     end
 
+    describe 'now_playing_with_audio_file' do
+      xit 'returns the current spin with its audio file' do
+      end
+    end
+
+
     describe 'next_spin' do
-      xit 'returns the next_spin' do
+      it 'returns the next_spin' do
         expect(@station.next_spin.current_position).to eq(2)
       end
 
-      xit 'returns a CommercialBlock if the next spin should be one' do
+      it 'returns a CommercialBlock if the next spin should be one' do
+        Timecop.travel(2014,5,9, 13)
+        expect(@station.next_spin).to be_a(PL::CommercialBlock)
+      end
+    end
+
+    describe 'next_spin_with_audio' do
+      xit 'returns the next_spin with its audio' do
       end
     end
 
