@@ -26,7 +26,5 @@ describe 'GetNextSpin' do
     result = PL::GetNextSpin.run(@station.id)
     expect(result.success?).to eq(true)
     expect(result.next_spin.current_position).to eq(2)
-
   end
-
 end
