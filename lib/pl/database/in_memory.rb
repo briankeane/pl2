@@ -574,6 +574,17 @@ module PL
         @log_entries[id]
       end
 
+      def update_log_entry(attrs)
+        entry = @log_entries[attrs[:id]]
+
+        #update values
+        attrs.each do |attr_name, value|
+          setter = "#{attr_name}="
+          entry.send(setter, value) if entry.class.method_defined?(setter)
+        end
+        entry
+      end
+
     end
   end
 end

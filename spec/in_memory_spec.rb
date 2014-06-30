@@ -608,5 +608,16 @@ describe 'a database' do
     it 'gets a log entry' do
       expect(db.get_log_entry(@log_entries[0].id).current_position).to eq(76)
     end
+
+    it 'can be updated' do
+      updated_entry = db.update_log_entry({ id: @log_entries[0].id,
+                                          listeners_at_start: 0,
+                                          listeners_at_finish: 0,
+                                          })
+      entry = db.get_log_entry(@log_entries[0].id)
+      expect(entry.id).to eq(updated_entry.id)
+      expect(entry.listeners_at_finish).to eq(0)
+      expect(entry.listeners_at_start).to eq(0)
+    end
   end
 end
