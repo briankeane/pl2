@@ -36,7 +36,7 @@ module PL
 
       class CommercialBlock < AudioBlock
         has_many :spins
-        has_and_belongs_to_many :commercials
+        has_many :commercial_links
       end
 
       class Spin < ActiveRecord::Base
@@ -60,8 +60,15 @@ module PL
       end
 
       class Commercial < ActiveRecord::Base
-        has__and_belongs_to_many :commercial_blocks
+        has_many :commercial_links
+        has_many :commercial_blocks, :through => :commercial_links
       end
+
+      class CommercialLink < ActiveRecord::Base
+        belongs_to :commercials
+        belongs_to :commercial_blocks
+      end
+
 
 
       #################
@@ -305,8 +312,34 @@ module PL
       # Commercial_Blocks #
       #####################
       def create_commercial_block(attrs)
+        commercials = attrs.delete(:commercials)
+        ar_cb = CommercialBlock.create(attrs)
+        ar_cb.save
 
+        if commercials
+          commercials.each do |commercial|
+            CommercialLink.create({ audio_block_id: ar_cb.id, commercial_id: commercial.id })
+          end
+        end
 
+        cb = self.get_commercial_block(ar_cb.id)
+        cb
+      end
+
+      def get_commercial_block(id)
+        if CommercialBlock.exists?(id)
+          ar_cb = CommercialBlock.find(id)
+
+          links = CommercialLink.where('audio_block_id = ?', id)
+          commercials = links.map { |link| self.get_commercial(link.commercial_id) }
+          attrs = ar_cb.attributes
+          attrs[:commercials] = commercials 
+          cb = PL::CommercialBlock.new(attrs)
+          cb
+        else
+          return nil
+        end
+      end
     end
   end
 end

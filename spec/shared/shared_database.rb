@@ -283,10 +283,10 @@ shared_examples 'a badass database' do
       @commercial1 = db.create_commercial({ })
       @commercial2 = db.create_commercial({ })
       @commercial3 = db.create_commercial({ })
-      @commercial_block = db.create_commercial_block({ commercials: [@commercial1.id, @commercial2.id, @commercial3.id] })
+      @commercial_block = db.create_commercial_block({ commercials: [@commercial1, @commercial2, @commercial3] })
     end
 
-    xit 'is created' do
+    it 'is created' do
       expect(@commercial_block.id).to be_a(Fixnum)
       expect(@commercial_block.commercials.map { |c| c.id }).to eq([@commercial1.id, @commercial2.id, @commercial3.id])
     end

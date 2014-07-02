@@ -36,17 +36,17 @@ ActiveRecord::Schema.define(version: 20140702163118) do
     t.datetime "updated_at"
   end
 
+  create_table "commercial_links", force: true do |t|
+    t.integer "commercial_id"
+    t.integer "audio_block_id"
+  end
+
   create_table "commercials", force: true do |t|
     t.integer  "sponsor_id"
     t.integer  "duration"
     t.string   "key"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "commercials_commercial_blocks", id: false, force: true do |t|
-    t.integer "commercials_id"
-    t.integer "commercial_blocks_id"
   end
 
   create_table "log_entries", force: true do |t|
