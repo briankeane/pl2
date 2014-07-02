@@ -517,89 +517,78 @@ response:
 
 ##SCHEMA
 ```
-create_table "users", force: true do |t|
+ create_table "audio_blocks", force: true do |t|
+    t.string   "type"
+    t.string   "key"
+    t.integer  "duration"
+    t.datetime "estimated_airtime"
+    t.integer  "commentary_preceding_overlap"
+    t.integer  "song_preceding_overlap"
+    t.integer  "commercial_preceding_overlap"
+    t.integer  "commentary_following_overlap"
+    t.integer  "commercial_following_overlap"
+    t.integer  "song_following_overlap"
+    t.integer  "cb_position"
+    t.string   "artist"
+    t.string   "title"
+    t.string   "album"
+    t.integer  "station_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "commercials", force: true do |t|
+    t.integer  "sponsor_id"
+    t.integer  "duration"
+    t.string   "key"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "log_entries", force: true do |t|
+    t.string   "type"
+    t.integer  "station_id"
+    t.integer  "current_position"
+    t.integer  "audio_block_id"
+    t.datetime "airtime"
+    t.integer  "listeners_at_start"
+    t.integer  "listeners_at_finish"
+    t.integer  "duration"
+  end
+
+  create_table "spin_frequencies", force: true do |t|
+    t.integer "song_id"
+    t.integer "station_id"
+    t.integer "spins_per_week"
+  end
+
+  create_table "spins", force: true do |t|
+    t.integer  "current_position"
+    t.integer  "station_id"
+    t.datetime "estimated_airtime"
+    t.integer  "audio_block_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "stations", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "secs_of_commercial_per_hour"
+    t.integer  "spins_per_week"
+    t.datetime "current_playlist_end_time"
+    t.datetime "original_playlist_end_time"
+    t.integer  "next_commercial_block_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
     t.string   "twitter"
     t.integer  "twitter_uid"
     t.string   "email"
-    t.string   "password_digest"
     t.integer  "birth_year"
     t.string   "gender"
-  end
-
-create_table :stations do |t|
-  t.integer :user_id
-  t.integer :secs_of_commercial_per_hour
-  t.integer :spins_per_week
-  t.datetime :current_playlist_end_time
-  t.datetime :original_playlist_end_time
-  t.integer :next_commercial_block_id
-  t.timestamps
-end
-
-create_table "songs", force:true do |t|
-    t.integer "sing_start"
-    t.integer "sing_end"
-    t.string  "title"
-    t.string  "artist"
-    t.string  "album"
-    t.integer "duration"
-    t.string "key"
-end
-
-create_table "commentaries" do |t|
-    t.integer "audio_block_id"
-    t.integer "station_id"
     t.datetime "created_at"
-end
-
-  create_table "commercials", force: true do |t|
-    t.integer "duration"
-    t.string "key"
-    t.integer "sponsor_id"
-    t.timestamps
+    t.datetime "updated_at"
   end
-
-   create_table "commercial_block", force: true do |t|
-    t.integer "duration"
-    t.integer "station_id"
-    t.datetime "estimated_airtime"
-  end
-
-  create_table "commercial_commercial_block_join"
-    t.integer "commercial_block_id"
-    t.integer "commercial_id"
-  end
-
-  create_table "sessions", force: true do |t|
-    t.string  "session_id"
-    t.integer "user_id"
-  end
-
-  create_table "logs", force: true do |t|
-    t.integer  "station_id"
-    t.datetime "airtime"
-    t.integer  "audio_block_id"
-    t.integer  "listeners_at_start"
-    t.integer  "listeners_at_finish"
-  end
-
-create_table "spin_frequency" force:true do |t|
-   t.integer "song_id"
-   t.integer "station_id"   
-   t.integer "spins_per_week"
-   t.integer "listeners_before"
-   t.integer "listeners_after"
-end
-
-create_table "spins" force:true do |t|
-    t.integer "audio_block_id"
-    t.integer "station_id"
-    t.integer "current_position"
-end
-
-create_table "audio_blocks" force:true do|t|
-    t.integer "id"
-    t.integer "duration"
-end
-
 ```

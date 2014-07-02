@@ -36,6 +36,7 @@ module PL
 
       class CommercialBlock < AudioBlock
         has_many :spins
+        has_many :commercials
       end
 
       class Spin < ActiveRecord::Base
@@ -56,6 +57,10 @@ module PL
       class SpinFrequency < ActiveRecord::Base
         belongs_to :station
         belongs_to :song
+      end
+
+      class Commercial < ActiveRecord::Base
+        has_many :commercial_blocks
       end
 
 
@@ -117,6 +122,187 @@ module PL
           return nil
         end
       end
+
+      ###############################################
+      # Audio_Blocks                                #
+      ###############################################
+      # songs, commercial_blocks, and commentaries  #
+      # are all types of audio_blocks               #
+      ###############################################
+      def get_audio_block(id)
+        if AudioBlock.exists?(id)
+          ar_audio_block = AudioBlock.find(id)
+          case ar_audio_block.type
+          when 'commercial_block'
+            return self.get_commercial_block(id)
+          when 'song'
+            return self.get_song(id)
+          when 'commentary'
+            return self.get_commentary(id)
+          end
+        end
+      end
+
+      ##############
+      #   Songs    #
+      ##############
+      def create_song(attrs)
+        ar_song = Song.create(attrs)
+        song = PL::Song.new(ar_song.attributes)
+        song
+      end
+
+      def get_song(id)
+        if Song.exists?(id)
+          ar_song = Song.find(id)
+          song = PL::Song.new(ar_song.attributes)
+        else
+          return nil
+        end
+      end
+
+      def update_song(attrs)
+        if Song.exists?(attrs[:id])
+          ar_song = Song.find(attrs.delete(:id))
+          ar_song.update_attributes(attrs)
+          song = PL::Song.new(ar_song.attributes)
+          return song
+        else
+          return false
+        end
+      end
+
+      def delete_song(id)
+        if Song.exists?(id)
+          ar_song = Song.find(id)
+          song = PL::Song.new(ar_song.attributes)
+          ar_song.delete
+          return song
+        else
+          return nil
+        end
+      end
+
+      def song_exists?(attrs)
+        if Song.where(["title = ? and artist = ? and album = ?", attrs[:title], attrs[:artist], attrs[:album]]).size > 0
+          return true
+        else
+          return false
+        end
+      end
+
+      def get_songs_by_title(title)
+        ar_songs = Song.where('title LIKE ?', title + "%").order('title ASC')
+
+        songs = []
+        ar_songs.each do |song|
+          song = PL::Song.new(song.attributes)
+          songs << song
+        end
+        songs
+      end
+
+      def get_songs_by_artist(artist)
+        ar_songs = Song.where('artist LIKE ?', artist + "%").order('title ASC')
+        songs = []
+        ar_songs.each do |song|
+          song = PL::Song.new(song.attributes)
+          songs << song
+        end
+        songs
+      end
+
+      def get_all_songs
+        ar_songs = Song.all.order('artist ASC, title ASC')
+
+        songs = ar_songs.map { |song| PL::Song.new(song.attributes) }
+          
+        songs
+      end
+
+      #################
+      # Commentaries  #
+      #################
+      def create_commentary(attrs)
+        ar_commentary = Commentary.create(attrs)
+        commentary = PL::Commentary.new(ar_commentary.attributes)
+      end
+
+      def get_commentary(id)
+        if Commentary.exists?(id)
+          ar_commentary = Commentary.find(id)
+          commentary = PL::Commentary.new(ar_commentary.attributes)
+          return commentary
+        else
+          return nil
+        end
+      end
+
+      def update_commentary(attrs)
+        if Commentary.exists?(attrs[:id])
+          ar_commentary = Commentary.find(attrs.delete(:id))
+          ar_commentary.update_attributes(attrs)
+          commentary = PL::Commentary.new(ar_commentary.attributes)
+        else
+          return nil
+        end
+      end
+
+      def delete_commentary(id)
+        if Commentary.exists?(id)
+          ar_commentary = Commentary.find(id)
+          commentary = PL::Commentary.new(ar_commentary.attributes)
+          ar_commentary.delete
+          return commentary
+        else
+          return nil
+        end
+      end
+
+      #################
+      # Commercials   #
+      #################
+      def create_commercial(attrs)
+        ar_commercial = Commercial.create(attrs)
+        ar_commercial.save
+        commercial = PL::Commercial.new(ar_commercial.attributes)
+        commercial
+      end
+
+      def delete_commercial(id)
+        if Commercial.exists?(id)
+          ar_commercial = Commercial.find(id)
+          commercial = PL::Commercial.new(ar_commercial.attributes)
+          ar_commercial.delete
+          return commercial
+        else
+          return nil
+        end
+      end
+
+      def get_commercial(id)
+        if Commercial.exists?(id)
+          ar_commercial = Commercial.find(id)
+          commercial = PL::Commercial.new(ar_commercial.attributes)
+          return commercial
+        else
+          return nil
+        end
+      end
+
+      def update_commercial(attrs)
+        if Commercial.exists?(attrs[:id])
+          ar_commercial = Commercial.find(attrs.delete(:id))
+          ar_commercial.update_attributes(attrs)
+          commercial = PL::Commercial.new(ar_commercial.attributes)
+          return commercial
+        else
+          return false
+        end
+      end
+
+
+
     end
   end
 end

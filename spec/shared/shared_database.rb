@@ -85,7 +85,7 @@ shared_examples 'a badass database' do
                           key: 'ThisIsAKey.mp3' })
     end
 
-    it 'returns the audio_block' do
+    xit 'returns the audio_block' do
       ab = db.get_audio_block(@song.id)
       expect(ab.artist).to eq('Brian Keane')
       expect(ab.title).to eq('Bar Lights')
@@ -165,16 +165,16 @@ shared_examples 'a badass database' do
 
   describe 'song retrieval tests' do
     before do
-      @song1 = db.create_song({ title: "Bar Lights", artist: "Brian Keane", duration: 226000, sing_start: 5000, sing_end: 208000,
-                                   audio_id: 2 })
-      @song2 = db.create_song({ title: "Bar Nights", artist: "Brian Keane", duration: 226000, sing_start: 5000, sing_end: 208000,
-                                   audio_id: 2 })
-      @song3 = db.create_song({ title: "Bar Brights", artist: "Brian Keane", duration: 226000, sing_start: 5000, sing_end: 208000,
-                                   audio_id: 2 })
-      @song4 = db.create_song({ title: "Bar First", artist: "Bob Dylan", duration: 226000, sing_start: 5000, sing_end: 208000,
-                                   audio_id: 2 })
-      @song5 = db.create_song({ title: "Hell", artist: "Bob Dylan", duration: 226000, sing_start: 5000, sing_end: 208000,
-                                   audio_id: 2 })
+      @song1 = db.create_song({ title: "Bar Lights", artist: "Brian Keane", duration: 226000,
+                                   key: 'ThisIsAKey.mp3' })
+      @song2 = db.create_song({ title: "Bar Nights", artist: "Brian Keane", duration: 226000,
+                                   key: 'ThisIsAKey.mp3' })
+      @song3 = db.create_song({ title: "Bar Brights", artist: "Brian Keane", duration: 226000,
+                                   key: 'ThisIsAKey.mp3' })
+      @song4 = db.create_song({ title: "Bar First", artist: "Bob Dylan", duration: 226000,
+                                   key: 'ThisIsAKey.mp3' })
+      @song5 = db.create_song({ title: "Hell", artist: "Bob Dylan", duration: 226000,
+                                   key: 'ThisIsAKey.mp3' })
     end
 
     it "gets a list of songs by title" do
@@ -209,8 +209,7 @@ shared_examples 'a badass database' do
   #################
   describe 'a commentary' do
     before(:each) do
-      @commentary = db.create_commentary({ current_position: 2,
-                                            duration: 5000,
+      @commentary = db.create_commentary({ duration: 5000,
                                             station_id: 3,
                                             key: 'ThisIsAKey.mp3' })
     end
@@ -284,22 +283,22 @@ shared_examples 'a badass database' do
       @commercial_block = db.create_commercial_block({ commercials: [1,2] })
     end
 
-    it 'is created' do
+    xit 'is created' do
       expect(@commercial_block.id).to be_a(Fixnum)
       expect(@commercial_block.commercials).to eq([1,2])
     end
 
-    it 'can be gotten' do
+    xit 'can be gotten' do
       expect(db.get_commercial_block(@commercial_block.id).id).to eq(@commercial_block.id)
     end
 
-    it 'can be edited' do
+    xit 'can be edited' do
       updated_cb = db.update_commercial_block({ id: @commercial_block.id, commercials: [3,4,5] })
       expect(updated_cb.id).to eq(@commercial_block.id)
       expect(db.get_commercial_block(@commercial_block.id).commercials).to eq([3,4,5])
     end
 
-    it 'can be deleted' do
+    xit 'can be deleted' do
       deleted_cb = db.delete_commercial_block(@commercial_block.id)
       expect(deleted_cb.commercials).to eq([1,2])
       expect(db.get_commercial_block(deleted_cb.id)).to be_nil
@@ -321,7 +320,7 @@ shared_examples 'a badass database' do
                                       light: [@song3.id] })
     end
 
-    it 'creates a station' do
+    xit 'creates a station' do
       expect(@station.id).to be_a(Fixnum)
       expect(@station.user_id).to eq(1)
       expect(@station.secs_of_commercial_per_hour).to eq(2)
@@ -330,20 +329,20 @@ shared_examples 'a badass database' do
       expect(@station.spins_per_week[@song3.id]).to eq(PL::LIGHT_ROTATION)
     end
 
-    it 'gets a station' do
+    xit 'gets a station' do
       gotten_station = db.get_station(@station.id)
       expect(gotten_station.secs_of_commercial_per_hour).to eq(2)
       expect(gotten_station.user_id).to eq(1)
     end
 
-    it 'updates a station' do
+    xit 'updates a station' do
       updated_station = db.update_station({ id: @station.id,
                                             secs_of_commercial_per_hour: 3 })
       expect(updated_station.secs_of_commercial_per_hour).to eq(3)
       expect(db.get_station(@station.id).secs_of_commercial_per_hour).to eq(3)
     end
 
-    it 'gets a station by user_id' do
+    xit 'gets a station by user_id' do
       gotten_station = db.get_station_by_user_id(1)
       expect(gotten_station.id).to eq(@station.id)
     end
@@ -361,7 +360,7 @@ shared_examples 'a badass database' do
     end
 
 
-    it 'stores the rotation_spins_per_week for each song' do
+    xit 'stores the rotation_spins_per_week for each song' do
       updated_station = db.get_station(@station.id)
       expect(updated_station.spins_per_week.size).to eq(3)
       expect(updated_station.spins_per_week[1]).to eq(PL::HEAVY_ROTATION)
@@ -369,17 +368,17 @@ shared_examples 'a badass database' do
       expect(updated_station.spins_per_week[3]).to eq(PL::LIGHT_ROTATION)
     end
 
-    it 'returns an updated version of the station' do
+    xit 'returns an updated version of the station' do
       expect(@heavy_rl.spins_per_week[1]).to eq(PL::HEAVY_ROTATION)
       expect(@heavy_rl.spins_per_week[2]).to eq(PL::MEDIUM_ROTATION)
     end
 
-    it 'can update a spin frequency' do
+    xit 'can update a spin frequency' do
       updated_station = db.update_spin_frequency({ song_id: 1, station_id: @station.id, spins_per_week: 1 })
       expect(db.get_station(@station.id).spins_per_week[1]).to eq(1)
     end
 
-    it 'can delete a spin frequency' do
+    xit 'can delete a spin frequency' do
       updated_station = db.update_spin_frequency({ song_id: 1, station_id: @station.id, spins_per_week: 0 })
       expect(db.get_station(@station.id).spins_per_week[1]).to eq(nil)
     end
@@ -400,17 +399,17 @@ shared_examples 'a badass database' do
       end
     end
 
-    it 'is created' do
+    xit 'is created' do
       expect(@spins[0].current_position).to eq(1)
       expect(@spins[0].audio_block_id).to eq(2)
       expect(@spins[0].id).to be_a(Fixnum)
     end
 
-    it 'can be gotten by id' do
+    xit 'can be gotten by id' do
       expect(db.get_spin(@spins[0].id).audio_block_id).to eq(@spins[0].audio_block_id)
     end
 
-    it 'can be removed' do
+    xit 'can be removed' do
       old_playlist = db.get_full_playlist(1)
       removed_spin = db.remove_spin({ station_id: 1, current_position: 10 })
       new_playlist = db.get_full_playlist(1)
@@ -423,14 +422,14 @@ shared_examples 'a badass database' do
     end
 
 
-    it "returns the current_playlist in the right order" do
+    xit "returns the current_playlist in the right order" do
       expect(db.get_full_playlist(1).size).to eq(20)
       expect(db.get_full_playlist(1)[0].current_position).to eq(1)
       expect(db.get_full_playlist(1)[2].current_position).to eq(3)
       expect(db.get_full_playlist(1)[3].current_position).to eq(4)
     end
 
-    it "gets a partial playlist" do
+    xit "gets a partial playlist" do
       playlist = db.get_partial_playlist({ station_id: 1,
                                             start_time: Time.local(2014,1,1, 10,5),
                                             end_time: Time.local(2014,1,1, 10,15) })
@@ -447,11 +446,11 @@ shared_examples 'a badass database' do
 
     end
 
-    it 'gets a spin by current_position' do
+    xit 'gets a spin by current_position' do
       expect(db.get_spin_by_current_position({ station_id: 1, current_position: 4 }).audio_block_id).to eq(5)
     end
 
-    it 'can be deleted' do
+    xit 'can be deleted' do
       id = @spins[0].id
       deleted_spin = db.delete_spin(@spins[0].id)
 
@@ -459,7 +458,7 @@ shared_examples 'a badass database' do
       expect(db.get_spin(id)).to eq(nil)
     end
 
-    it 'can be updated' do
+    xit 'can be updated' do
       spin = db.create_spin({ station_id: 1,
                               current_position: 2,
                               audio_block_id: 3,
@@ -477,11 +476,11 @@ shared_examples 'a badass database' do
       expect(updated_spin.estimated_airtime.to_s).to eq(Time.new(2015).to_s)
     end
 
-    it "returns false if spin to be updated doesn't exist" do
+    xit "returns false if spin to be updated doesn't exist" do
       expect(db.update_spin({ id: 9999 })).to eq(false)
     end
 
-    it 'returns the last scheduled spin for a station' do
+    xit 'returns the last scheduled spin for a station' do
       expect(db.get_last_spin(1).current_position).to eq(20)
     end
   end
@@ -507,7 +506,7 @@ shared_examples 'a badass database' do
       @old_playlist_ab_ids = db.get_full_playlist(@station.id).map { |spin| spin.audio_block_id }
     end
     
-    it 'adds a spin' do
+    xit 'adds a spin' do
       added_audio_block = db.create_song({ duration: 50000 })
       added_spin = db.add_spin({ station_id: @station.id,
                                  audio_block_id: added_audio_block.id,
@@ -518,7 +517,7 @@ shared_examples 'a badass database' do
       expect(new_playlist[13].audio_block_id).to eq(added_audio_block.id)
     end
 
-    it 'inserts a spin' do
+    xit 'inserts a spin' do
       inserted_audio_block = db.create_song({ duration: 50000 })
       spin = db.insert_spin({ station_id: @station.id,
                          insert_position: 15,
@@ -548,13 +547,13 @@ shared_examples 'a badass database' do
       @spin4 = db.create_spin({ station_id: 1, audio_block_id: 4, current_position: 10 })
     end
 
-    it "moves a song backwards and adjusts the playlist around it" do
+    xit "moves a song backwards and adjusts the playlist around it" do
       db.move_spin({ old_position: 9, new_position: 7, station_id: 1 })
       new_playlist = db.get_full_playlist(1)
       expect(new_playlist.map { |spin| spin.audio_block_id }).to eq([3,1,2,4])
     end
 
-    it "moves a song forwards and adjusts the playlist around it" do
+    xit "moves a song forwards and adjusts the playlist around it" do
       db.move_spin({ old_position: 7, new_position: 9, station_id: 1 })
       new_playlist = db.get_full_playlist(1)
       expect(new_playlist.map { |spin| spin.audio_block_id }).to eq([2,3,1,4])
@@ -580,7 +579,7 @@ shared_examples 'a badass database' do
       end
     end
 
-    it 'can be created' do
+    xit 'can be created' do
       expect(@log_entries[0].id).to be_a(Fixnum)
       expect(@log_entries[0].station_id).to eq(4)
       expect(@log_entries[0].current_position).to eq(76)
@@ -591,25 +590,25 @@ shared_examples 'a badass database' do
       expect(@log_entries[0].duration).to eq(500)
     end
 
-    it 'can get recent entries' do
+    xit 'can get recent entries' do
       gotten_entries = db.get_recent_log_entries({ station_id: 4, count: 15})
       expect(gotten_entries.size).to eq(15)
       expect(gotten_entries[0].current_position).to eq(105)
       expect(gotten_entries[14].current_position).to eq(91)
     end
 
-    it 'can get a full station log' do
+    xit 'can get a full station log' do
       gotten_log = db.get_full_station_log(4)
       expect(gotten_log.size).to eq(30)
       expect(gotten_log[0].current_position).to eq(105)
       expect(gotten_log[29].current_position).to eq(76)
     end
 
-    it 'gets a log entry' do
+    xit 'gets a log entry' do
       expect(db.get_log_entry(@log_entries[0].id).current_position).to eq(76)
     end
 
-    it 'can be updated' do
+    xit 'can be updated' do
       updated_entry = db.update_log_entry({ id: @log_entries[0].id,
                                           listeners_at_start: 0,
                                           listeners_at_finish: 0,
