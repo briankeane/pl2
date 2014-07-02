@@ -25,8 +25,8 @@ module PL
       @db_class ||= Database::InMemory
     else
       # change this once Postgres DB is installed
-      #@db_class ||= Database::PostgresDatabase
-      @db_class ||= Database::InMemory
+      @db_class ||= Database::PostgresDatabase
+      #@db_class ||= Database::InMemory
     end
     @__db_instance ||= @db_class.new(ENV['RAILS_ENV'] || 'test')
   end

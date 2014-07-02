@@ -1,0 +1,11 @@
+test:
+  adapter: postgresql
+  database: playola_test
+  encoding: unicode
+  host: localhost
+
+development:
+  adapter: postgresql
+  database: playola_development
+  encoding: unicode
+  host: localhost

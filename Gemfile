@@ -9,6 +9,7 @@ group :development, :test do
   gem 'webmock', '~> 1.18.0'
 end
 
+gem 'pg', '~> 0.17.1'
 gem 'chronic', '~> 0.10.2'
 gem 'dotenv', '~> 0.11.1'
 gem 'ruby-mp3info', '~> 0.8.4'
