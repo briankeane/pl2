@@ -19,6 +19,23 @@ module PL
       def clear_everything
         ActiveRecord::Base.subclasses.each(&:delete_all)
       end
+
+      #######################
+      # ActiveRecord Models #
+      #######################
+      class AudioBlock < ActiveRecord::Base
+        belongs_to :spin
+      end
+
+      class Commentary < AudioBlock
+      end
+
+      class Song < AudioBlock
+        has_many :rotation_levels
+      end
+
+
+
     end
   end
 end
