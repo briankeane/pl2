@@ -3,9 +3,9 @@ require 'zlib'
 module PL
   module Database
 
-    # def self.db
-    #   @__db_instance ||= InMemory.new
-    # end
+    def self.db
+      @__db_instance ||= InMemory.new
+    end
 
     class InMemory
 

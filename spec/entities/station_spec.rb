@@ -88,7 +88,7 @@ describe 'a station' do
       end
     end
 
-    describe 'next_spin_with_audio' do
+    describe 'next_spin_with_audio_file' do
       xit 'returns the next_spin with its audio' do
       end
     end

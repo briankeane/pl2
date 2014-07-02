@@ -3,8 +3,8 @@ require 'Timecop'
 
 shared_examples 'a badass database' do
 
-  #let(:db) { described_class.new("test") }
-  db = PL::Database::InMemory.new
+  let(:db) { described_class.new("test") }
+  #db = PL::Database::InMemory.new
 
   before { db.clear_everything }
 

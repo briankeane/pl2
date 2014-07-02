@@ -519,21 +519,22 @@ response:
 ```
 create_table "users", force: true do |t|
     t.string   "twitter"
+    t.integer  "twitter_uid"
     t.string   "email"
     t.string   "password_digest"
-   t.string   "birth_year"
-    t.string  "gender"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "twitter_uid"
+    t.integer  "birth_year"
+    t.string   "gender"
   end
 
- create_table "stations", force: true do |t|
-    t.integer  "seconds_of_commercial_per_hour"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "user_id"
- end
+create_table :stations do |t|
+  t.integer :user_id
+  t.integer :secs_of_commercial_per_hour
+  t.integer :spins_per_week
+  t.datetime :current_playlist_end_time
+  t.datetime :original_playlist_end_time
+  t.integer :next_commercial_block_id
+  t.timestamps
+end
 
 create_table "songs", force:true do |t|
     t.integer "sing_start"
