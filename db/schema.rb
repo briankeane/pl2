@@ -11,10 +11,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140702114401) do
+ActiveRecord::Schema.define(version: 20140702114833) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "audio_blocks", force: true do |t|
+    t.string   "type"
+    t.string   "key"
+    t.integer  "duration"
+    t.datetime "estimated_airtime"
+    t.integer  "commentary_preceding_overlap"
+    t.integer  "song_preceding_overlap"
+    t.integer  "commercial_preceding_overlap"
+    t.integer  "commentary_following_overlap"
+    t.integer  "commercial_following_overlap"
+    t.integer  "song_following_overlap"
+    t.integer  "cb_position"
+    t.string   "artist"
+    t.string   "title"
+    t.string   "album"
+    t.integer  "station_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "commercials", force: true do |t|
     t.integer  "sponsor_id"
