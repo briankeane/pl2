@@ -280,12 +280,15 @@ shared_examples 'a badass database' do
   #####################
   describe 'a commercial_block' do
     before(:each) do
-      @commercial_block = db.create_commercial_block({ commercials: [1,2] })
+      @commercial1 = db.create_commercial({ })
+      @commercial2 = db.create_commercial({ })
+      @commercial3 = db.create_commercial({ })
+      @commercial_block = db.create_commercial_block({ commercials: [@commercial1.id, @commercial2.id, @commercial3.id] })
     end
 
     xit 'is created' do
       expect(@commercial_block.id).to be_a(Fixnum)
-      expect(@commercial_block.commercials).to eq([1,2])
+      expect(@commercial_block.commercials.map { |c| c.id }).to eq([@commercial1.id, @commercial2.id, @commercial3.id])
     end
 
     xit 'can be gotten' do
@@ -293,9 +296,9 @@ shared_examples 'a badass database' do
     end
 
     xit 'can be edited' do
-      updated_cb = db.update_commercial_block({ id: @commercial_block.id, commercials: [3,4,5] })
+      updated_cb = db.update_commercial_block({ id: @commercial_block.id, commercials: [@commercial1.id, @commercial3.id] })
       expect(updated_cb.id).to eq(@commercial_block.id)
-      expect(db.get_commercial_block(@commercial_block.id).commercials).to eq([3,4,5])
+      expect(db.get_commercial_block(@commercial_block.id).commercials.map { |c| c.id }).to eq([@commercial1.id, @commercial3.id])
     end
 
     xit 'can be deleted' do
