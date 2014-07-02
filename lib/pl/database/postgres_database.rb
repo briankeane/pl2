@@ -36,7 +36,7 @@ module PL
 
       class CommercialBlock < AudioBlock
         has_many :spins
-        has_many :commercials
+        has_and_belongs_to_many :commercials
       end
 
       class Spin < ActiveRecord::Base
@@ -60,7 +60,7 @@ module PL
       end
 
       class Commercial < ActiveRecord::Base
-        has_many :commercial_blocks
+        has__and_belongs_to_many :commercial_blocks
       end
 
 
@@ -301,6 +301,10 @@ module PL
         end
       end
 
+      #####################
+      # Commercial_Blocks #
+      #####################
+      def create_commercial_block(attrs)
 
 
     end
