@@ -291,19 +291,19 @@ shared_examples 'a badass database' do
       expect(@commercial_block.commercials.map { |c| c.id }).to eq([@commercial1.id, @commercial2.id, @commercial3.id])
     end
 
-    xit 'can be gotten' do
+    it 'can be gotten' do
       expect(db.get_commercial_block(@commercial_block.id).id).to eq(@commercial_block.id)
     end
 
-    xit 'can be edited' do
-      updated_cb = db.update_commercial_block({ id: @commercial_block.id, commercials: [@commercial1.id, @commercial3.id] })
+    it 'can be edited' do
+      updated_cb = db.update_commercial_block({ id: @commercial_block.id, duration: 1, estimated_airtime: Time.new(1985,1,1), cb_position: 7 })
       expect(updated_cb.id).to eq(@commercial_block.id)
-      expect(db.get_commercial_block(@commercial_block.id).commercials.map { |c| c.id }).to eq([@commercial1.id, @commercial3.id])
+      expect(db.get_commercial_block(@commercial_block.id).cb_position).to eq(7)
     end
 
-    xit 'can be deleted' do
+    it 'can be deleted' do
       deleted_cb = db.delete_commercial_block(@commercial_block.id)
-      expect(deleted_cb.commercials).to eq([1,2])
+      expect(deleted_cb.commercials.map { |c| c.id }).to eq([@commercial1.id, @commercial2.id, @commercial3.id])
       expect(db.get_commercial_block(deleted_cb.id)).to be_nil
     end
   end

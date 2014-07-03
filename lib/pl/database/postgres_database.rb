@@ -340,6 +340,41 @@ module PL
           return nil
         end
       end
+
+      def update_commercial_block(attrs)   # for updating commercials use add_commercial_to_block or delete_commercial_from_block
+        if CommercialBlock.exists?(attrs[:id])
+          ar_cb = CommercialBlock.find(attrs.delete(:id))
+          ar_cb.update_attributes(attrs)
+
+          return self.get_commercial_block(ar_cb.id)
+        else
+          return nil
+        end
+      end
+
+      def delete_commercial_block(id)
+        if CommercialBlock.exists?(id)
+          ar_cb = CommercialBlock.find(id)
+          cb = self.get_commercial_block(id)
+
+          # if there are commercials, delete commercial_links
+          if cb.commercials.size > 0
+            commercial_links = CommercialLink.where('audio_block_id = ?', id)
+            commercial_links.each { |link| link.delete }
+          end
+
+          ar_cb.delete
+
+          return cb
+        else
+          return nil
+        end
+      end
+
+
+
+
+
     end
   end
 end
