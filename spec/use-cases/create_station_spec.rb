@@ -1,13 +1,22 @@
 require 'spec_helper'
 
 describe 'CreateStation' do
+  before(:each) do
+    @songs = []
+    30.times do |i| 
+      @songs << PL.db.create_song({ artist: i })
+    end
+    @spins_per_week = {}
+    heavy = @songs[0..9]
+    medium = @songs[10..19]
+    light = @songs[20..29]
+    heavy.each { |song| @spins_per_week[song.id] = PL::HEAVY_ROTATION }
+    medium.each { |song| @spins_per_week[song.id] = PL::MEDIUM_ROTATION }
+    light.each { |song| @spins_per_week[song.id] = PL::LIGHT_ROTATION }
+  end
 
   it 'calls bullshit if the user is not found' do
-    result = PL::CreateStation.run({ user_id: 1,
-                                   heavy: [1,2,3,4,5,6,7,8,9,10],
-                                   medium: [11,12,13,14,15,16,17,18,19,20],
-                                   light: [21,22,23,24,25,26,27,28,29,30] 
-                                    })
+    result = PL::CreateStation.run({ user_id: 1, spins_per_week: @spins_per_week })
     expect(result.success?).to eq(false)
     expect(result.error).to eq(:user_not_found)
   end
@@ -15,62 +24,18 @@ describe 'CreateStation' do
   it 'calls bullshit if the user already has a station' do
     user = PL.db.create_user({ twitter: 'bob' })
     station = PL.db.create_station({ user_id: user.id })
-    result = PL::CreateStation.run({ user_id: user.id,
-                                   heavy: [1,2,3,4,5,6,7,8,9,10],
-                                   medium: [11,12,13,14,15,16,17,18,19,20],
-                                   light: [21,22,23,24,25,26,27,28,29,30] 
-                                    })
+    result = PL::CreateStation.run({ user_id: user.id, spins_per_week: @spins_per_week })
     expect(result.success?).to eq(false)
     expect(result.error).to eq(:station_already_exists)
     expect(result.station.id).to eq(station.id)
   end
 
-  it 'calls bullshit if the heavy songlist is not long enough' do
-    user = PL.db.create_user({ twitter: 'bob' })
-    result = PL::CreateStation.run({ user_id: user.id,
-                                   heavy: [1,2,3,4,5,6,7,8,9],
-                                   medium: [11,12,13,14,15,16,17,18,19,20],
-                                   light: [21,22,23,24,25,26,27,28,29,30] 
-                                    })
-    expect(result.success?).to eq(false)
-    expect(result.error).to eq(:not_enough_heavy_rotation_songs)
-    expect(result.minimum_required).to eq(PL::MIN_HEAVY_COUNT)
-  end
-
-  it 'calls bullshit if the medium songlist is not long enough' do
-    user = PL.db.create_user({ twitter: 'bob' })
-    result = PL::CreateStation.run({ user_id: user.id,
-                                   heavy: [1,2,3,4,5,6,7,8,9,10],
-                                   medium: [11,12,13,14,15,16,17,18,19],
-                                   light: [21,22,23,24,25,26,27,28,29,30] 
-                                    })  
-    expect(result.success?).to eq(false)
-    expect(result.error).to eq(:not_enough_medium_rotation_songs)
-    expect(result.minimum_required).to eq(PL::MIN_MEDIUM_COUNT)
-  end
-
-  it 'calls bullshit if the light songlist is not long enough' do
-    user = PL.db.create_user({ twitter: 'bob' })
-    result = PL::CreateStation.run({ user_id: user.id,
-                                   heavy: [1,2,3,4,5,6,7,8,9,10],
-                                   medium: [11,12,13,14,15,16,17,18,19,20],
-                                   light: [21,22,23] 
-                                    })
-    expect(result.success?).to eq(false)
-    expect(result.error).to eq(:not_enough_light_rotation_songs)
-    expect(result.minimum_required).to eq(PL::MIN_LIGHT_COUNT)
-  end
-
   it 'creates a station' do
     user = PL.db.create_user({ twitter: 'bob' })
-    result = PL::CreateStation.run({ user_id: user.id,
-                                   heavy: [1,2,3,4,5,6,7,8,9,10],
-                                   medium: [11,12,13,14,15,16,17,18,19,20],
-                                   light: [21,22,23,24,25,26,27] 
-                                    })
+    result = PL::CreateStation.run({ user_id: user.id, spins_per_week: @spins_per_week })
     expect(result.success?).to eq(true)
     expect(result.station.id).to be_a(Fixnum)
-    expect(result.station.spins_per_week.size).to eq(27)
+    expect(result.station.spins_per_week.size).to eq(30)
     expect(result.station.user_id).to eq(user.id)
   end
 
