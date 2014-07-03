@@ -2,16 +2,21 @@ module PL
   class Spin < Entity
     attr_accessor :id, :current_position, :created_at, :updated_at
     attr_accessor :station_id, :estimated_airtime
-    attr_reader :audio_block_id, :audio_block
+    attr_reader :audio_block_id
 
     def initialize(attrs)
       super(attrs)
       @audio_block = PL.db.get_audio_block(audio_block_id)
     end
 
+    # if audio_block_id is updated, update audio_block, too
     def audio_block_id=(new_id)
       @audio_block_id = new_id
       @audio_block = PL.db.get_audio_block(audio_block_id)
+    end
+
+    def audio_block
+      @audio_block ||= PL.db.get_audio_block(audio_block_id)
     end
 
     ###############################################

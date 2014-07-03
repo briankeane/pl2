@@ -16,6 +16,7 @@ module PL
 
     def initialize(attrs)
       attrs[:secs_of_commercial_per_hour] ||= PL::DEFAULT_SECS_OF_COMMERCIAL_PER_HOUR
+      attrs[:spins_per_week] ||= {}
       super(attrs)
     end
 

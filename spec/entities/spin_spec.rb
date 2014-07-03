@@ -33,7 +33,7 @@ describe 'a spin' do
   it 'is created with an id, current_position, audio_block_id' do
     expect(@spin.id).to eq(1)
     expect(@spin.current_position).to eq(2)
-    expect(@spin.audio_block_id).to eq(@song.id)
+    expect(@spin.audio_block.id).to eq(@song.id)
     expect(@spin.created_at).to eq(Time.new(1970))
     expect(@spin.updated_at).to eq(Time.new(1970, 1, 2))
     expect(@spin.station_id).to eq(3)

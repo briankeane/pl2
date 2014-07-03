@@ -372,8 +372,200 @@ module PL
       end
 
 
+      ##############
+      #  Stations  #
+      ##############
+      def create_station(attrs)
+        ar_station = Station.create(attrs)
+        ar_station.save
+
+        if attrs[:spins_per_week]
+          attrs[:spins_per_week].each do |k,v|
+            SpinFrequency.create({ station_id: ar_station.id, 
+                                    song_id: k,
+                                    spins_per_week: v })
+          end
+        end
+
+        station = self.get_station(ar_station.id)
+        station
+      end
+
+      def get_station(id)
+        if Station.exists?(id)
+          ar_station = Station.find(id)
+
+          # collect the attributes, converting keys from strings to symbols
+          attrs = Hash[ar_station.attributes.map{ |k, v| [k.to_sym, v] }]
+          
+          spins_per_week = {}
+          spin_frequencies = SpinFrequency.where('station_id = ?', id)
+          if spin_frequencies
+            spin_frequencies.each do |sf|
+              spins_per_week[sf.song_id] = sf.spins_per_week
+            end
+          end
+
+          if spins_per_week.size > 0
+            attrs[:spins_per_week] = spins_per_week
+          end
+
+          station = PL::Station.new(attrs)
+          return station
+        else
+          return nil
+        end
+      end
+
+      def update_station(attrs)   # for updating spinfrequencies use update_spin_frequency
+        if Station.exists?(attrs[:id])
+          ar_station = Station.find(attrs.delete(:id))
+          ar_station.update_attributes(attrs)
+
+          return self.get_station(ar_station.id)
+        else
+          return nil
+        end
+      end
+
+      def get_station_by_user_id(user_id)
+        station = Station.find_by('user_id = ?', user_id)
+        if station
+          return self.get_station(station.id)
+        else
+          return nil
+        end
+      end
+
+      ###################
+      #  SpinFrequency  #
+      ###################
+      def record_spin_frequency(attrs)
+        spin_frequency = SpinFrequency.find_by(:station_id =>  attrs[:station_id], :song_id => attrs[:song_id])
+        if spin_frequency
+          spin_frequency.update_attributes(attrs)
+        else
+          spin_frequency = SpinFrequency.create(attrs)
+          spin_frequency.save
+        end
+        return self.get_station(attrs[:station_id])
+      end
+
+      def delete_spin_frequency(attrs)
+        spin_frequency = SpinFrequency.find_by(:station_id =>  attrs[:station_id], :song_id => attrs[:song_id])
+        if spin_frequency
+          spin_frequency.delete
+        end
+        return self.get_station(attrs[:station_id])
+      end
+
+      ###############
+      #   spins     #
+      ###############
+      def create_spin(attrs)
+        ar_spin = Spin.create(attrs)
+        ar_spin.save
+        spin = self.get_spin(ar_spin.id)
+        spin
+      end
+
+      def get_spin(id)
+        if Spin.exists?(id)
+          ar_spin = Spin.find(id)
+
+          # collect the attributes, converting keys from strings to symbols
+          attrs = Hash[ar_spin.attributes.map{ |k, v| [k.to_sym, v] }]
+          
+          spin = PL::Spin.new(attrs)
+          return spin
+        else
+          return nil
+        end
+      end
+
+      def delete_spin(id)
+        ar_spin = Spin.find(id)
+        spin = self.get_spin(id)
+        ar_spin.delete
+        spin
+      end
+
+      def update_spin(attrs)
+        if Spin.exists?(attrs[:id])
+          ar_spin = Spin.find(attrs.delete(:id))
+
+          ar_spin.update_attributes(attrs)
+          ar_spin.save
+
+          spin = self.get_spin(ar_spin.id)
+          return spin
+        else
+          return false
+        end
+      end
 
 
+      #################################################################
+      #                       add_spin                                #
+      #################################################################
+      # add_spin adds a spin to the playlist, but instead of deleting #
+      # a spin to counterbalance it, it shifts all following spins    #
+      # for the rest of the entire playlist                           #
+      #################################################################
+      def add_spin(attrs)
+        station = self.get_station(attrs[:station_id])
+        playlist = self.get_full_playlist(station.id)
+        index = playlist.find_index { |spin| spin.current_position == attrs[:add_position] }
+        current_position_tracker = attrs[:add_position]
+
+        # adjust current_position until change_hour
+        while (index < playlist.size)
+          self.update_spin({ id: playlist[index].id, 
+                            current_position: (playlist[index].current_position + 1) 
+                          })
+          index += 1
+        end
+
+        # add the new spin into the newly emptied slot
+        spin = self.create_spin({ station_id: attrs[:station_id],
+                       current_position: attrs[:add_position],
+                       audio_block_id: attrs[:audio_block_id] })
+        spin
+      end
+
+      def get_full_playlist(station_id)
+        ar_spins = Spin.where(:station_id => station_id).order(:current_position)
+        spins = []
+        ar_spins.each { |ar_spin| spins << self.get_spin(ar_spin.id) }
+        spins
+      end
+
+      def get_partial_playlist(attrs)
+        ar_spins = Spin.where('station_id = ? and estimated_airtime >= ? and estimated_airtime <= ?', attrs[:station_id], attrs[:start_time], attrs[:end_time]).order(:current_position)
+        spins = []
+        ar_spins.each { |ar_spin| spins << self.get_spin(ar_spin.id) }
+        spins
+      end
+
+      def remove_spin(attrs) # station_id, current_position
+        playlist = self.get_full_playlist(attrs[:station_id])
+        spin = self.get_spin_by_current_position({ station_id: attrs[:station_id], current_position: attrs[:current_position] })
+        removed_spin = self.delete_spin(spin.id)
+
+        index = playlist.find_index { |spin| spin.current_position == (attrs[:current_position] + 1) }
+        while index < playlist.size
+          self.update_spin({ id: playlist[index].id, current_position: (playlist[index].current_position - 1) })
+          index += 1
+        end
+
+        removed_spin
+      end
+
+      def get_spin_by_current_position(attrs)
+        ar_spin = Spin.find_by(:station_id => attrs[:station_id], :current_position => attrs[:current_position])
+        spin = self.get_spin(ar_spin.id)
+        return spin
+      end
 
     end
   end
