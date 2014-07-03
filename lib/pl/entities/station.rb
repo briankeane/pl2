@@ -15,31 +15,7 @@ module PL
     SECONDS_IN_DAY = 86400
 
     def initialize(attrs)
- 
-      heavy = attrs.delete(:heavy)
-      medium = attrs.delete(:medium)
-      light = attrs.delete(:light)
-
-      heavy ||= {}
-      medium ||= {}
-      light ||= {}
-
-      #store spins_per_week
-      @spins_per_week = {}
-      heavy.each do |song_id|
-        @spins_per_week[song_id] = PL::HEAVY_ROTATION
-      end
-
-      medium.each do |song_id|
-        @spins_per_week[song_id] = PL::MEDIUM_ROTATION
-      end
-
-      light.each do |song_id|
-        @spins_per_week[song_id] = PL::LIGHT_ROTATION
-      end
-
       attrs[:secs_of_commercial_per_hour] ||= PL::DEFAULT_SECS_OF_COMMERCIAL_PER_HOUR
-
       super(attrs)
     end
 

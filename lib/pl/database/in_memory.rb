@@ -285,21 +285,7 @@ module PL
       def create_station(attrs)
         id = (@station_id_counter += 1)
         attrs[:id] = id
-
-        heavy = attrs.delete(:heavy)
-        medium = attrs.delete(:medium)
-        light = attrs.delete(:light)
-
-        heavy ||= {}
-        medium ||= {}
-        light ||= {}
-
         station = Station.new(attrs)
-
-        heavy.each { |rotation| station.spins_per_week[rotation] = PL::HEAVY_ROTATION }
-        medium.each { |rotation| station.spins_per_week[rotation] = PL::MEDIUM_ROTATION }
-        light.each { |rotation| station.spins_per_week[rotation] = PL::LIGHT_ROTATION }
-
         @stations[id] = station
         station
       end

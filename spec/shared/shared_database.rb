@@ -318,12 +318,13 @@ shared_examples 'a badass database' do
       @song3 = db.create_song({ artist: 'Donny Hathaway', title: "You've Got a Friend" })
       @station = db.create_station({ user_id: 1,
                                       secs_of_commercial_per_hour: 2,
-                                      heavy: [@song1.id],
-                                      medium: [@song2.id],
-                                      light: [@song3.id] })
+                                      spins_per_week: { @song1.id => PL::HEAVY_ROTATION,
+                                                      @song2.id => PL::MEDIUM_ROTATION,
+                                                      @song3.id => PL::LIGHT_ROTATION}
+                                   })
     end
 
-    xit 'creates a station' do
+    it 'creates a station' do
       expect(@station.id).to be_a(Fixnum)
       expect(@station.user_id).to eq(1)
       expect(@station.secs_of_commercial_per_hour).to eq(2)
@@ -332,7 +333,7 @@ shared_examples 'a badass database' do
       expect(@station.spins_per_week[@song3.id]).to eq(PL::LIGHT_ROTATION)
     end
 
-    xit 'gets a station' do
+    it 'gets a station' do
       gotten_station = db.get_station(@station.id)
       expect(gotten_station.secs_of_commercial_per_hour).to eq(2)
       expect(gotten_station.user_id).to eq(1)

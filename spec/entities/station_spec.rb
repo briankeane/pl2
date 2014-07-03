@@ -9,9 +9,9 @@ describe 'a station' do
     @station = PL::Station.new({ id: 1,
        secs_of_commercial_per_hour: 3,
                            user_id: 2,
-                             heavy: [@song1.id],
-                            medium: [@song2.id],
-                             light: [@song3.id],
+                             spins_per_week: {  @song1.id => PL::HEAVY_ROTATION,
+                                                @song2.id => PL::MEDIUM_ROTATION, 
+                                                @song3.id => PL::LIGHT_ROTATION },
                              created_at: Time.new(1970),
                              updated_at: Time.new(1970, 1, 2) })
   end
@@ -41,11 +41,18 @@ describe 'a station' do
         @songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
       end
 
+      # build spins_per_week
+      heavy = @songs[0..30]
+      medium = @songs[31..65]
+      light = @songs[66..85]
+
+      spins_per_week = {}
+      heavy.each { |song| spins_per_week[song.id] = PL::HEAVY_ROTATION }
+      medium.each { |song| spins_per_week[song.id] = PL::MEDIUM_ROTATION }
+      light.each { |song| spins_per_week[song.id] = PL::LIGHT_ROTATION }
       @station = PL.db.create_station({ user_id: @user.id, 
-                                          heavy: (@songs[0..30].map { |x| x.id }),
-                                          medium: (@songs[31..65].map { |x| x.id }),
-                                          light: (@songs[65..85].map { |x| x.id }) 
-                                          })
+                                          spins_per_week: spins_per_week 
+                                       })
       @station.generate_playlist
     end
 
