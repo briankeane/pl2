@@ -485,7 +485,7 @@ shared_examples 'a badass database' do
       expect(db.update_spin({ id: 9999 })).to eq(false)
     end
 
-    xit 'returns the last scheduled spin for a station' do
+    it 'returns the last scheduled spin for a station' do
       expect(db.get_last_spin(1).current_position).to eq(20)
     end
   end
@@ -496,16 +496,26 @@ shared_examples 'a badass database' do
 
       # force station to use same db as these tests
       expect(PL).to receive(:db).at_least(:once).and_return(db) 
-      @user = db.create_user({ twitter: "Bob", password: "password" })
+
+      Timecop.travel(Time.local(2014, 5, 9, 10))
+      @user = PL.db.create_user({ twitter: "Bob" })
       @songs = []
       86.times do |i|
-        @songs << db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
+        @songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
       end
-      @station = db.create_station({ user_id: @user.id, 
-                                          heavy: (@songs[0..30].map { |x| x.id }),
-                                          medium: (@songs[31..65].map { |x| x.id }),
-                                          light: (@songs[65..85].map { |x| x.id }) 
-                                          })
+
+      # build spins_per_week
+      heavy = @songs[0..30]
+      medium = @songs[31..65]
+      light = @songs[66..85]
+
+      spins_per_week = {}
+      heavy.each { |song| spins_per_week[song.id] = PL::HEAVY_ROTATION }
+      medium.each { |song| spins_per_week[song.id] = PL::MEDIUM_ROTATION }
+      light.each { |song| spins_per_week[song.id] = PL::LIGHT_ROTATION }
+      @station = PL.db.create_station({ user_id: @user.id, 
+                                          spins_per_week: spins_per_week 
+                                       })
       @station.generate_playlist
 
       @old_playlist_ab_ids = db.get_full_playlist(@station.id).map { |spin| spin.audio_block_id }
@@ -584,19 +594,20 @@ shared_examples 'a badass database' do
       end
     end
 
-    xit 'can be created' do
+    it 'can be created' do
       expect(@log_entries[0].id).to be_a(Fixnum)
       expect(@log_entries[0].station_id).to eq(4)
       expect(@log_entries[0].current_position).to eq(76)
       expect(@log_entries[0].audio_block_id).to eq(375)
-      expect(@log_entries[0].airtime.to_s).to eq(Time.new(1983, 4, 15, 18).to_s)
+      expect(@log_entries[0].airtime.to_f.floor).to eq(Time.new(1983, 4, 15, 18).to_f.floor)
       expect(@log_entries[0].listeners_at_start).to eq(55)
       expect(@log_entries[0].listeners_at_finish).to eq(57)
       expect(@log_entries[0].duration).to eq(500)
     end
 
-    xit 'can get recent entries' do
+    it 'can get recent entries' do
       gotten_entries = db.get_recent_log_entries({ station_id: 4, count: 15})
+      binding.pry
       expect(gotten_entries.size).to eq(15)
       expect(gotten_entries[0].current_position).to eq(105)
       expect(gotten_entries[14].current_position).to eq(91)
@@ -609,7 +620,7 @@ shared_examples 'a badass database' do
       expect(gotten_log[29].current_position).to eq(76)
     end
 
-    xit 'gets a log entry' do
+    it 'gets a log entry' do
       expect(db.get_log_entry(@log_entries[0].id).current_position).to eq(76)
     end
 

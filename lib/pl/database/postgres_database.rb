@@ -69,6 +69,11 @@ module PL
         belongs_to :commercial_blocks
       end
 
+      class LogEntry < ActiveRecord::Base
+        has_one :station
+        has_one :audio_block
+      end
+
 
 
       #################
@@ -139,12 +144,12 @@ module PL
       def get_audio_block(id)
         if AudioBlock.exists?(id)
           ar_audio_block = AudioBlock.find(id)
-          case ar_audio_block.type
-          when 'commercial_block'
+          case 
+          when ar_audio_block.type.include?('CommercialBlock')
             return self.get_commercial_block(id)
-          when 'song'
+          when ar_audio_block.type.include?('Song')
             return self.get_song(id)
-          when 'commentary'
+          when ar_audio_block.type.include?('Commentary')
             return self.get_commentary(id)
           end
         end
@@ -504,6 +509,56 @@ module PL
         end
       end
 
+      def get_last_spin(station_id)
+        if Spin.exists?(:station_id => station_id)
+          ar_spin = Spin.where(:station_id == station_id).order(:current_position).last
+          return self.get_spin(ar_spin.id)
+        else
+          return nil
+        end
+      end
+
+      ################################################################
+      #                        insert_spin                           #
+      ################################################################
+      # insert_spin inserts a spin into the playlist.                #
+      # it also deletes the 1st song after 3am (or 2am the following #
+      # day) to counterbalance the inserted song                     #
+      #  ----------------------------------------------------------- #
+      # takes: station_id, insert_position, audio_block_id           #
+      ################################################################
+      def insert_spin(attrs)
+        station = self.get_station(attrs[:station_id])
+        station.update_estimated_airtimes
+        playlist = self.get_full_playlist(station.id)
+        index = playlist.find_index { |spin| spin.current_position == attrs[:insert_position] }
+        current_position_tracker = attrs[:insert_position]
+
+        # if insert happens in the 3am hour, set marker to the following 1am
+        if playlist[index].estimated_airtime.hour == 3
+          change_hour = 2
+        else
+          change_hour = 3
+        end
+
+        # adjust current_position until change_hour
+        while (playlist[index].estimated_airtime.hour != change_hour) && (index < playlist.size)
+          self.update_spin({ id: playlist[index].id, 
+                            current_position: (playlist[index].current_position + 1) 
+                          })
+          index += 1
+        end
+
+        # delete that spin
+        self.delete_spin(playlist[index].id)
+
+        # insert the new spin into the newly emptied slot
+        spin = self.create_spin({ station_id: attrs[:station_id],
+                       current_position: attrs[:insert_position],
+                       audio_block_id: attrs[:audio_block_id] })
+        spin
+      end
+
 
       #################################################################
       #                       add_spin                                #
@@ -565,6 +620,36 @@ module PL
         ar_spin = Spin.find_by(:station_id => attrs[:station_id], :current_position => attrs[:current_position])
         spin = self.get_spin(ar_spin.id)
         return spin
+      end
+
+      ##################
+      #   log_entries  #   
+      ##################
+      def create_log_entry(attrs)
+        ar_log_entry = LogEntry.create(attrs)
+        log_entry = self.get_log_entry(ar_log_entry.id)
+        log_entry
+      end
+
+      def get_log_entry(id)
+        if LogEntry.exists?(id)
+          ar_log_entry = LogEntry.find(id)
+          # collect the attributes, converting keys from strings to symbols
+          attrs = Hash[ar_log_entry.attributes.map{ |k, v| [k.to_sym, v] }]
+
+          log_entry = PL::LogEntry.new(attrs)
+          return log_entry
+        else
+          return nil
+        end
+      end
+
+      def get_recent_log_entries(attrs)
+        ar_entries = LogEntry.where('station_id = ?', attrs[:station_id]).order('current_position DESC').last(attrs[:count]).reverse
+        entries = []
+        ar_entries.each { |entry| entries.push(PL.db.get_log_entry(entry.id)) }
+        binding.pry
+        entries
       end
 
     end

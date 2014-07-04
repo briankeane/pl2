@@ -232,6 +232,7 @@ module PL
       sample_array = self.create_sample_array
 
       recently_played = []
+      spins = []
 
       while time_tracker < next_thursday_midnight
         #if it's time for a commercial, move time-tracker over it's block
@@ -262,10 +263,18 @@ module PL
                                      audio_block_id: song.id,
                                      current_position: (max_position += 1),
                                      estimated_airtime: time_tracker })
+        
 
+        # FOR LATER OPTIMIZATION
+        # spins.push(@id.to_s + ', ' + song.id.to_s + ', ' + (max_position += 1).to_s + ', ' + time_tracker.to_s)
         time_tracker += (song.duration/1000)
 
       end  # endwhile
+
+      # mass insert spins into db
+      # sql = "INSERT INTO 'spins' ('station_id', 'audio_block_id', 'current_position', 'estimated_airtime') VALUES #{spins.join('\n')}"
+      # binding.pry
+      # ActiveRecord::Base.connection.execute(sql)
 
       @original_playlist_end_time = time_tracker
 
