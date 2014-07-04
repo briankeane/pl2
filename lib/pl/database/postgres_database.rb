@@ -645,10 +645,11 @@ module PL
       end
 
       def get_recent_log_entries(attrs)
-        ar_entries = LogEntry.where('station_id = ?', attrs[:station_id]).order('current_position DESC').last(attrs[:count]).reverse
+        ar_entries = LogEntry.where('station_id = ?', attrs[:station_id]).order('current_position DESC').first(attrs[:count])
         entries = []
-        ar_entries.each { |entry| entries.push(PL.db.get_log_entry(entry.id)) }
-        binding.pry
+        ar_entries.each do |entry| 
+          entries.push(PL.db.get_log_entry(entry.id))
+        end
         entries
       end
 

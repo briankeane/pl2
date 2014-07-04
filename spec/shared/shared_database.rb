@@ -556,6 +556,7 @@ shared_examples 'a badass database' do
 
   describe 'move_spin' do
     before(:each) do
+
       @spin1 = db.create_spin({ station_id: 1, audio_block_id: 1, current_position: 7 })
       @spin2 = db.create_spin({ station_id: 1, audio_block_id: 2, current_position: 8 })
       @spin3 = db.create_spin({ station_id: 1, audio_block_id: 3, current_position: 9 })
@@ -606,6 +607,9 @@ shared_examples 'a badass database' do
     end
 
     it 'can get recent entries' do
+      # force station to use same db as these tests
+      expect(PL).to receive(:db).at_least(:once).and_return(db) 
+      
       gotten_entries = db.get_recent_log_entries({ station_id: 4, count: 15})
       binding.pry
       expect(gotten_entries.size).to eq(15)
