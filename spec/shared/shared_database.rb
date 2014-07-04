@@ -611,7 +611,6 @@ shared_examples 'a badass database' do
       expect(PL).to receive(:db).at_least(:once).and_return(db) 
       
       gotten_entries = db.get_recent_log_entries({ station_id: 4, count: 15})
-      binding.pry
       expect(gotten_entries.size).to eq(15)
       expect(gotten_entries[0].current_position).to eq(105)
       expect(gotten_entries[14].current_position).to eq(91)

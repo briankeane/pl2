@@ -5,7 +5,7 @@ module PL
   module Database
 
     def self.db
-      @__db_instance ||= PostgresDatabase.new(env)
+      @__db_instance ||= PostgresDatabase.new(ENV['RAILS_ENV'])
     end
 
     class PostgresDatabase
@@ -74,6 +74,78 @@ module PL
         has_one :audio_block
       end
 
+      ########################
+      # ActiveRecord Methods #
+      ########################
+
+      class User
+        def to_pl
+          PL::User.new(self.attributes)
+        end
+      end
+
+      class Song
+        def to_pl
+          PL::Song.new(self.attributes)
+        end
+      end
+
+      class Commentary
+        def to_pl
+          PL::Commentary.new(self.attributes)
+        end
+      end
+
+      class Commercial
+        def to_pl
+          commercial = PL::Commercial.new(self.attributes)
+          commercial
+        end
+      end
+
+      class CommercialBlock
+        def to_pl
+          links = CommercialLink.where('audio_block_id = ?', self.id)
+          commercials = links.map { |link| PL::Database.db.get_commercial(link.commercial_id) }
+          attrs = self.attributes
+          attrs[:commercials] = commercials
+          cb = PL::CommercialBlock.new(attrs)
+          cb
+        end
+      end
+
+      class Spin
+        def to_pl
+          # collect the attributes, converting keys from strings to symbols
+          attrs = Hash[self.attributes.map{ |k, v| [k.to_sym, v] }]
+          
+          spin = PL::Spin.new(attrs)
+          spin
+        end
+      end
+
+      class Station
+        def to_pl
+
+          # collect the attributes, converting keys from strings to symbols
+          attrs = Hash[self.attributes.map{ |k, v| [k.to_sym, v] }]
+          
+          spins_per_week = {}
+          spin_frequencies = SpinFrequency.where('station_id = ?', id)
+          if spin_frequencies
+            spin_frequencies.each do |sf|
+              spins_per_week[sf.song_id] = sf.spins_per_week
+            end
+          end
+
+          if spins_per_week.size > 0
+            attrs[:spins_per_week] = spins_per_week
+          end
+
+          station = PL::Station.new(attrs)
+          return station
+        end
+      end
 
 
       #################
@@ -82,14 +154,13 @@ module PL
       def create_user(attrs)
         ar_user = User.create(attrs)
         ar_user.save
-        user = PL::User.new(ar_user.attributes)
-        user
+        ar_user.to_pl
       end
 
       def get_user(id)
         if User.exists?(id)
           ar_user = User.find(id)
-          return PL::User.new(ar_user.attributes)
+          return ar_user.to_pl
         else
           return nil
         end
@@ -98,7 +169,7 @@ module PL
       def get_user_by_twitter(twitter)
         if User.exists?(twitter: twitter)
           ar_user = User.find_by(twitter: twitter)
-          return PL::User.new(ar_user.attributes)
+          return ar_user.to_pl
         else
           return false
         end
@@ -107,7 +178,7 @@ module PL
       def get_user_by_twitter_uid(twitter_uid)
         if User.exists?(twitter_uid: twitter_uid)
           ar_user = User.find_by(twitter_uid: twitter_uid)
-          return PL::User.new(ar_user.attributes)
+          return ar_user.to_pl
         else
           return false
         end
@@ -118,7 +189,7 @@ module PL
           ar_user = User.find(attrs.delete(:id))
           ar_user.update_attributes(attrs)
           ar_user.save
-          return PL::User.new(ar_user.attributes)
+          return ar_user.to_pl
         else
           return nil
         end
@@ -127,7 +198,7 @@ module PL
       def delete_user(id)
         if User.exists?(id)
           ar_user = User.find(id)
-          user = PL::User.new(ar_user.attributes)
+          user = ar_user.to_pl
           User.delete(id)
           return user
         else
@@ -160,14 +231,13 @@ module PL
       ##############
       def create_song(attrs)
         ar_song = Song.create(attrs)
-        song = PL::Song.new(ar_song.attributes)
-        song
+        ar_song.to_pl
       end
 
       def get_song(id)
         if Song.exists?(id)
           ar_song = Song.find(id)
-          song = PL::Song.new(ar_song.attributes)
+          return ar_song.to_pl
         else
           return nil
         end
@@ -177,8 +247,7 @@ module PL
         if Song.exists?(attrs[:id])
           ar_song = Song.find(attrs.delete(:id))
           ar_song.update_attributes(attrs)
-          song = PL::Song.new(ar_song.attributes)
-          return song
+          return ar_song.to_pl
         else
           return false
         end
@@ -187,7 +256,7 @@ module PL
       def delete_song(id)
         if Song.exists?(id)
           ar_song = Song.find(id)
-          song = PL::Song.new(ar_song.attributes)
+          song = ar_song.to_pl
           ar_song.delete
           return song
         else
@@ -207,27 +276,22 @@ module PL
         ar_songs = Song.where('title LIKE ?', title + "%").order('title ASC')
 
         songs = []
-        ar_songs.each do |song|
-          song = PL::Song.new(song.attributes)
-          songs << song
-        end
+        ar_songs.each { |ar_song| songs << ar_song.to_pl }
+        
         songs
       end
 
       def get_songs_by_artist(artist)
         ar_songs = Song.where('artist LIKE ?', artist + "%").order('title ASC')
         songs = []
-        ar_songs.each do |song|
-          song = PL::Song.new(song.attributes)
-          songs << song
-        end
+        ar_songs.each { |ar_song| songs << ar_song.to_pl }
         songs
       end
 
       def get_all_songs
         ar_songs = Song.all.order('artist ASC, title ASC')
 
-        songs = ar_songs.map { |song| PL::Song.new(song.attributes) }
+        songs = ar_songs.map { |ar_song| ar_song.to_pl }
           
         songs
       end
@@ -237,14 +301,13 @@ module PL
       #################
       def create_commentary(attrs)
         ar_commentary = Commentary.create(attrs)
-        commentary = PL::Commentary.new(ar_commentary.attributes)
+        ar_commentary.to_pl
       end
 
       def get_commentary(id)
         if Commentary.exists?(id)
           ar_commentary = Commentary.find(id)
-          commentary = PL::Commentary.new(ar_commentary.attributes)
-          return commentary
+          return ar_commentary.to_pl
         else
           return nil
         end
@@ -254,7 +317,7 @@ module PL
         if Commentary.exists?(attrs[:id])
           ar_commentary = Commentary.find(attrs.delete(:id))
           ar_commentary.update_attributes(attrs)
-          commentary = PL::Commentary.new(ar_commentary.attributes)
+          return ar_commentary.to_pl
         else
           return nil
         end
@@ -263,7 +326,7 @@ module PL
       def delete_commentary(id)
         if Commentary.exists?(id)
           ar_commentary = Commentary.find(id)
-          commentary = PL::Commentary.new(ar_commentary.attributes)
+          commentary = ar_commentary.to_pl
           ar_commentary.delete
           return commentary
         else
@@ -277,14 +340,13 @@ module PL
       def create_commercial(attrs)
         ar_commercial = Commercial.create(attrs)
         ar_commercial.save
-        commercial = PL::Commercial.new(ar_commercial.attributes)
-        commercial
+        ar_commercial.to_pl
       end
 
       def delete_commercial(id)
         if Commercial.exists?(id)
           ar_commercial = Commercial.find(id)
-          commercial = PL::Commercial.new(ar_commercial.attributes)
+          commercial = ar_commercial.to_pl
           ar_commercial.delete
           return commercial
         else
@@ -295,8 +357,7 @@ module PL
       def get_commercial(id)
         if Commercial.exists?(id)
           ar_commercial = Commercial.find(id)
-          commercial = PL::Commercial.new(ar_commercial.attributes)
-          return commercial
+          return ar_commercial.to_pl
         else
           return nil
         end
@@ -306,8 +367,7 @@ module PL
         if Commercial.exists?(attrs[:id])
           ar_commercial = Commercial.find(attrs.delete(:id))
           ar_commercial.update_attributes(attrs)
-          commercial = PL::Commercial.new(ar_commercial.attributes)
-          return commercial
+          return ar_commercial.to_pl
         else
           return false
         end
@@ -327,20 +387,13 @@ module PL
           end
         end
 
-        cb = self.get_commercial_block(ar_cb.id)
-        cb
+        ar_cb.to_pl
       end
 
       def get_commercial_block(id)
         if CommercialBlock.exists?(id)
           ar_cb = CommercialBlock.find(id)
-
-          links = CommercialLink.where('audio_block_id = ?', id)
-          commercials = links.map { |link| self.get_commercial(link.commercial_id) }
-          attrs = ar_cb.attributes
-          attrs[:commercials] = commercials 
-          cb = PL::CommercialBlock.new(attrs)
-          cb
+          return ar_cb.to_pl
         else
           return nil
         end
@@ -350,8 +403,8 @@ module PL
         if CommercialBlock.exists?(attrs[:id])
           ar_cb = CommercialBlock.find(attrs.delete(:id))
           ar_cb.update_attributes(attrs)
-
-          return self.get_commercial_block(ar_cb.id)
+          ar_cb.save
+          return ar_cb.to_pl
         else
           return nil
         end
@@ -360,7 +413,7 @@ module PL
       def delete_commercial_block(id)
         if CommercialBlock.exists?(id)
           ar_cb = CommercialBlock.find(id)
-          cb = self.get_commercial_block(id)
+          cb = ar_cb.to_pl
 
           # if there are commercials, delete commercial_links
           if cb.commercials.size > 0
@@ -392,31 +445,13 @@ module PL
           end
         end
 
-        station = self.get_station(ar_station.id)
-        station
+        ar_station.to_pl
       end
 
       def get_station(id)
         if Station.exists?(id)
           ar_station = Station.find(id)
-
-          # collect the attributes, converting keys from strings to symbols
-          attrs = Hash[ar_station.attributes.map{ |k, v| [k.to_sym, v] }]
-          
-          spins_per_week = {}
-          spin_frequencies = SpinFrequency.where('station_id = ?', id)
-          if spin_frequencies
-            spin_frequencies.each do |sf|
-              spins_per_week[sf.song_id] = sf.spins_per_week
-            end
-          end
-
-          if spins_per_week.size > 0
-            attrs[:spins_per_week] = spins_per_week
-          end
-
-          station = PL::Station.new(attrs)
-          return station
+          return ar_station.to_pl
         else
           return nil
         end
@@ -434,9 +469,9 @@ module PL
       end
 
       def get_station_by_user_id(user_id)
-        station = Station.find_by('user_id = ?', user_id)
-        if station
-          return self.get_station(station.id)
+        ar_station = Station.find_by('user_id = ?', user_id)
+        if ar_station
+          return ar_station.to_pl
         else
           return nil
         end
@@ -470,19 +505,13 @@ module PL
       def create_spin(attrs)
         ar_spin = Spin.create(attrs)
         ar_spin.save
-        spin = self.get_spin(ar_spin.id)
-        spin
+        ar_spin.to_pl
       end
 
       def get_spin(id)
         if Spin.exists?(id)
           ar_spin = Spin.find(id)
-
-          # collect the attributes, converting keys from strings to symbols
-          attrs = Hash[ar_spin.attributes.map{ |k, v| [k.to_sym, v] }]
-          
-          spin = PL::Spin.new(attrs)
-          return spin
+          return ar_spin.to_pl
         else
           return nil
         end
@@ -490,7 +519,7 @@ module PL
 
       def delete_spin(id)
         ar_spin = Spin.find(id)
-        spin = self.get_spin(id)
+        spin = ar_spin.to_pl
         ar_spin.delete
         spin
       end
@@ -502,8 +531,7 @@ module PL
           ar_spin.update_attributes(attrs)
           ar_spin.save
 
-          spin = self.get_spin(ar_spin.id)
-          return spin
+          return ar_spin.to_pl
         else
           return false
         end
@@ -512,7 +540,7 @@ module PL
       def get_last_spin(station_id)
         if Spin.exists?(:station_id => station_id)
           ar_spin = Spin.where(:station_id == station_id).order(:current_position).last
-          return self.get_spin(ar_spin.id)
+          return ar_spin.to_pl
         else
           return nil
         end
@@ -590,15 +618,13 @@ module PL
 
       def get_full_playlist(station_id)
         ar_spins = Spin.where(:station_id => station_id).order(:current_position)
-        spins = []
-        ar_spins.each { |ar_spin| spins << self.get_spin(ar_spin.id) }
+        spins = ar_spins.map{ |ar_spin| ar_spin.to_pl }
         spins
       end
 
       def get_partial_playlist(attrs)
         ar_spins = Spin.where('station_id = ? and estimated_airtime >= ? and estimated_airtime <= ?', attrs[:station_id], attrs[:start_time], attrs[:end_time]).order(:current_position)
-        spins = []
-        ar_spins.each { |ar_spin| spins << self.get_spin(ar_spin.id) }
+        spins = ar_spins.map { |ar_spin| ar_spin.to_pl }
         spins
       end
 
@@ -652,7 +678,6 @@ module PL
         end
         entries
       end
-
     end
   end
 end
