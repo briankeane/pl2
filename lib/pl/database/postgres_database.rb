@@ -131,10 +131,10 @@ module PL
           attrs = Hash[self.attributes.map{ |k, v| [k.to_sym, v] }]
           
           spins_per_week = {}
-          spin_frequencies = SpinFrequency.where('station_id = ?', id)
+          spin_frequencies = self.spin_frequencies.pluck(:song_id, :spins_per_week)
           if spin_frequencies
             spin_frequencies.each do |sf|
-              spins_per_week[sf.song_id] = sf.spins_per_week
+              spins_per_week[sf[0]] = sf[1]
             end
           end
 
@@ -144,6 +144,16 @@ module PL
 
           station = PL::Station.new(attrs)
           return station
+        end
+      end
+
+      class LogEntry
+        def to_pl
+          # collect the attributes, converting keys from strings to symbols
+          attrs = Hash[self.attributes.map{ |k, v| [k.to_sym, v] }]
+
+          log_entry = PL::LogEntry.new(attrs)
+          log_entry
         end
       end
 
@@ -546,6 +556,15 @@ module PL
         end
       end
 
+      def get_next_spin(station_id)
+        if Spin.exists?(:station_id => station_id)
+          ar_spin = Spin.where(:station_id == station_id).order(:current_position).first
+          return ar_spin.to_pl
+        else
+          return nil
+        end
+      end
+
       ################################################################
       #                        insert_spin                           #
       ################################################################
@@ -577,9 +596,11 @@ module PL
           index += 1
         end
 
+        max_current_position = playlist[index].current_position
         # delete that spin
         self.delete_spin(playlist[index].id)
 
+        #Spin.update_all("current_position = current_position + 1", ["station_id = ? and current_position >= ? and current_position <= ?", @id, attrs[:insert_position], max_current_position ])
         # insert the new spin into the newly emptied slot
         spin = self.create_spin({ station_id: attrs[:station_id],
                        current_position: attrs[:insert_position],
@@ -648,6 +669,65 @@ module PL
         return spin
       end
 
+      ################################################
+      # mass_insert_spins (csv_file)                 #
+      ################################################
+      # inserts many spins at once in order to speed #
+      # up station#generate_playlist                 #
+      ################################################
+      def mass_insert_spins(csv_file)
+        conn = ActiveRecord::Base.connection
+        rc = conn.raw_connection
+        rc.exec("COPY spins (station_id, audio_block_id, current_position, estimated_airtime, created_at, updated_at) FROM STDIN WITH CSV")
+
+        file = File.open(csv_file.path, 'r')
+        while !file.eof?
+          rc.put_copy_data(file.readline)
+        end
+
+        rc.put_copy_end
+
+        while res = rc.get_result
+          if e_message = res.error_message
+            p e_message
+          end
+        end
+      end
+
+      ####################################
+      # move_spin                        #
+      # -------------------------------- #
+      # takes old_position, new_position #
+      # returns true for success, false  #
+      # for failure                      #
+      ####################################
+      def move_spin(attrs)   #old_position, new_position, station_id
+        #if moving backwards
+        if attrs[:old_position] > attrs[:new_position]
+          playlist_slice = Spin.where('current_position >= ? and current_position <= ?', attrs[:new_position], attrs[:old_position])
+
+          playlist_slice.each { |spin| spin.update_attributes({ current_position: spin.current_position + 1 }) }
+
+          playlist_slice.last.update_attributes({ current_position: attrs[:new_position] })
+
+          # return true for successful move
+          return true
+        elsif attrs[:old_position] < attrs[:new_position]
+
+          playlist_slice = Spin.where('current_position >= ? and current_position <= ?', attrs[:old_position], attrs[:new_position])
+          
+          playlist_slice.each { |spin| spin.update_attributes({ current_position: spin.current_position - 1 }) }
+
+          playlist_slice.first.update_attributes({ current_position: attrs[:new_position] })
+
+          # return true for successful move
+          return true
+        end
+
+        # return false if nothing was moved
+        return false
+      end
+
       ##################
       #   log_entries  #   
       ##################
@@ -672,11 +752,22 @@ module PL
 
       def get_recent_log_entries(attrs)
         ar_entries = LogEntry.where('station_id = ?', attrs[:station_id]).order('current_position DESC').first(attrs[:count])
-        entries = []
-        ar_entries.each do |entry| 
-          entries.push(PL.db.get_log_entry(entry.id))
+        ar_entries.map { |ar_entry| ar_entry.to_pl }
+      end
+
+      def get_full_station_log(station_id)
+        ar_entries = LogEntry.where('station_id = ?', station_id).order('current_position DESC')
+        return ar_entries.map { |ar_entry| ar_entry.to_pl }
+      end
+
+      def update_log_entry(attrs)
+        if LogEntry.exists?(attrs[:id])
+          ar_log_entry = LogEntry.find(attrs.delete(:id))
+          ar_log_entry.update_attributes(attrs)
+          return ar_log_entry.to_pl
+        else
+          return nil
         end
-        entries
       end
     end
   end

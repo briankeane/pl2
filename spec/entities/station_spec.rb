@@ -64,7 +64,7 @@ describe 'a station' do
 
     it 'ends at the correct time' do
       Timecop.travel(Time.local(2014, 5,9, 12))
-      expect(@station.original_playlist_end_time.to_s).to eq('2014-05-23 00:02:50 -0500')
+      expect(@station.original_playlist_end_time.localtime.to_s).to eq('2014-05-23 00:02:50 -0500')
     end
 
     describe 'now_playing' do
@@ -102,14 +102,14 @@ describe 'a station' do
 
     describe 'end_time' do
       it 'returns the proper end_time' do
-        expect(@station.end_time.to_s).to eq('2014-05-23 00:02:50 -0500')
+        expect(@station.end_time.localtime.to_s).to eq('2014-05-23 00:02:50 -0500')
       end
 
       it 'still returns the proper end_time' do
         PL.db.create_spin({ station_id: @station.id,
                               audio_block_id: @songs[0].id,
                               current_position: 5562 })
-        expect(@station.end_time.to_s).to eq('2014-05-23 00:09:00 -0500')
+        expect(@station.end_time.localtime.to_s).to eq('2014-05-23 00:09:00 -0500')
       end
     end
 
@@ -118,16 +118,16 @@ describe 'a station' do
         Timecop.travel(Time.local(2014, 5, 9, 11))
         program = @station.get_program({})
         expect(program.size).to eq(38)
-        expect(program.first.estimated_airtime.to_s).to eq(Time.local(2014,5,9, 11,3).to_s)
-        expect(program.last.estimated_airtime.to_s).to eq(Time.local(2014,5,9, 12,59,40).to_s)
+        expect(program.first.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,9, 11,3).to_s)
+        expect(program.last.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,9, 12,59,40).to_s)
         expect(program[9]).to be_a(PL::CommercialBlock)
       end
 
       it 'gets a future program' do
         program = @station.get_program({ start_time: Time.local(2014,5,10, 11,20) })
         expect(program.size).to eq(41)
-        expect(program.first.estimated_airtime.to_s).to eq(Time.local(2014,5,10, 11,18).to_s)
-        expect(program.last.estimated_airtime.to_s).to eq(Time.local(2014,5,10, 13,24).to_s)
+        expect(program.first.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 11,18).to_s)
+        expect(program.last.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 13,24).to_s)
       end
 
       it 'returns an empty array if there is no program scheduled' do
@@ -139,22 +139,22 @@ describe 'a station' do
         program = @station.get_program({ start_time: Time.local(2014,5,10, 4,20),
                                           end_time: Time.local(2014,5,10, 11,20) })
         expect(program.size).to eq(137)
-        expect(program.first.estimated_airtime.to_s).to eq(Time.local(2014,5,10, 4,16).to_s)
-        expect(program.last.estimated_airtime.to_s).to eq(Time.local(2014,5,10, 11,24,20).to_s)
+        expect(program.first.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 4,16).to_s)
+        expect(program.last.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 11,24,20).to_s)
       end
 
       it 'works if 1st spin is a commercial_block' do
         program = @station.get_program({ start_time: Time.local(2014,5,10, 4,5) })
-        expect(program.first.estimated_airtime.to_s).to eq(Time.local(2014,5,10, 4,0,20).to_s)
+        expect(program.first.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 4,0,20).to_s)
         expect(program.first).to be_a(PL::CommercialBlock)
       end
 
       it 'works if previous spin was a commercial_block' do
         program = @station.get_program({ start_time: Time.local(2014,5,10, 4,6) })
-        expect(program[1].estimated_airtime.to_s).to eq(Time.local(2014,5,10, 4,3,20).to_s)
+        expect(program[1].estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 4,3,20).to_s)
         expect(program[1]).to be_a(PL::Spin)
         expect(program[0]).to be_a(PL::CommercialBlock)
-        expect(program[0].estimated_airtime.to_s).to eq(Time.local(2014,5,10, 4,0,20).to_s)
+        expect(program[0].estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 4,0,20).to_s)
       end
 
       it 'puts commercial blocks in the right place' do
@@ -173,10 +173,10 @@ describe 'a station' do
         new_spin = PL.db.create_spin({ station_id: @station.id,
                       audio_block_id: @songs[0].id,
                       current_position: 5562 })
-        expect(@station.offset).to eq(-370.0)
+        expect(@station.offset.round).to eq(-370.0)
 
         PL.db.delete_spin(new_spin.id)
-        expect(@station.offset).to eq(0)
+        expect(@station.offset.round).to eq(0)
       end
     end
 
@@ -239,8 +239,8 @@ describe 'a station' do
       Timecop.travel(Time.local(2014, 4, 14, 11, 59))
       @station.make_log_current
       log = PL.db.get_full_station_log(@station.id)
-      expect(log[1].airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 56).to_s)
-      expect(log[0].airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 59).to_s)
+      expect(log[1].airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 11, 56).to_s)
+      expect(log[0].airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 11, 59).to_s)
       expect(log.size).to eq(2)
       expect(log[0].current_position).to eq(15)
       expect(log[1].current_position).to eq(14)
@@ -286,33 +286,33 @@ describe 'a station' do
                                       airtime: Time.new(2014, 4, 14, 11, 57),
                                       duration: 180000 
                                       })
-        expect(@station.log_end_time.to_s).to eq('2014-04-14 12:00:00 -0500')
+        expect(@station.log_end_time.localtime.to_s).to eq('2014-04-14 12:00:00 -0500')
       end
 
       describe 'update_estimated_airtimes' do
         it 'updates airtimes correctly' do
           Timecop.travel(Time.local(2014, 4, 14, 11, 56))
           @station.update_estimated_airtimes
-          expect(@spin1.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 11, 59).to_s)
-          expect(@spin2.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 04,30).to_s)
-          expect(@spin3.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
-          expect(@spin4.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
+          expect(@spin1.estimated_airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 11, 59).to_s)
+          expect(@spin2.estimated_airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 12, 04,30).to_s)
+          expect(@spin3.estimated_airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
+          expect(@spin4.estimated_airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
         end
 
         it 'works if it starts just before a commercial' do
           Timecop.travel(Time.local(2014, 4, 14, 12, 00))
           @station.update_estimated_airtimes
-          expect(@spin2.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 04,30).to_s)
-          expect(@spin3.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
-          expect(@spin4.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
+          expect(@spin2.estimated_airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 12, 04,30).to_s)
+          expect(@spin3.estimated_airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
+          expect(@spin4.estimated_airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
         end
 
         it 'works if it starts mid-commercial' do
           Timecop.travel(Time.local(2014, 4, 14, 12, 03))
           @station.update_estimated_airtimes
-          expect(@spin2.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 04,30).to_s)
-          expect(@spin3.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
-          expect(@spin4.estimated_airtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
+          expect(@spin2.estimated_airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 12, 04,30).to_s)
+          expect(@spin3.estimated_airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 12, 07,30).to_s)
+          expect(@spin4.estimated_airtime.localtime.to_s).to eq(Time.local(2014, 4, 14, 12, 10,30).to_s)
         end
 
       end

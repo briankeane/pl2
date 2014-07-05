@@ -89,17 +89,12 @@ module PL
     #####################################################################
 
     def update_estimated_airtimes
-      last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
-
-
-      last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
-
-      # if the station has been asleep
       if !self.active?
         self.make_log_current
-        last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
-        last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
       end
+
+      last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
+      last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
 
       max_position = last_spin_played.current_position
       playlist = PL.db.get_full_playlist(@id)
@@ -122,9 +117,11 @@ module PL
           time_tracker += (@secs_of_commercial_per_hour/2)
         end
 
-        updated_spin = PL.db.update_spin({ id: spin.id,
-                                  estimated_airtime: time_tracker })
-        time_tracker += updated_spin.duration/1000
+        if spin.estimated_airtime != time_tracker
+          updated_spin = PL.db.update_spin({ id: spin.id,
+                                    estimated_airtime: time_tracker })
+        end
+          time_tracker += spin.duration/1000
       end
     end
 
@@ -259,28 +256,20 @@ module PL
           recently_played.shift
         end
 
-        spin = PL.db.create_spin({ station_id: @id,
-                                     audio_block_id: song.id,
-                                     current_position: (max_position += 1),
-                                     estimated_airtime: time_tracker })
-        
-
-        # FOR LATER OPTIMIZATION
-        # spins.push(@id.to_s + ', ' + song.id.to_s + ', ' + (max_position += 1).to_s + ', ' + time_tracker.to_s)
+        spins.push(@id.to_s + ', ' + song.id.to_s + ', ' + (max_position += 1).to_s + ', ' + time_tracker.utc.to_s + ', ' + Time.now.utc.to_s + ', ' + Time.now.utc.to_s)
         time_tracker += (song.duration/1000)
 
       end  # endwhile
 
-      # mass insert spins into db
-      # sql = "INSERT INTO 'spins' ('station_id', 'audio_block_id', 'current_position', 'estimated_airtime') VALUES #{spins.join('\n')}"
-      # binding.pry
-      # ActiveRecord::Base.connection.execute(sql)
+      temp_csv_file = Tempfile.open('tempfile.csv')
+      temp_csv_file.write(spins.join("\n"))
+      PL.db.mass_insert_spins(temp_csv_file)
 
       @original_playlist_end_time = time_tracker
 
       #if it's the first playlist, start the station
       if PL.db.get_recent_log_entries({ station_id: @id, count: 1 }).size == 0
-        first_spin = PL.db.get_full_playlist(@id).first
+        first_spin = PL.db.get_next_spin(@id)
         PL.db.create_log_entry({ station_id: @id,
                                  current_position: first_spin.current_position,
                                  audio_block_id: song.id,
@@ -351,7 +340,7 @@ module PL
     #  returns TRUE or FALSE                                         #
     ##################################################################
     def active?
-      (self.log_end_time < Time.now) ? false : true
+      (self.log_end_time.utc < Time.now.utc) ? false : true
     end
 
     def log_end_time

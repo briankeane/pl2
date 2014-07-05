@@ -1,4 +1,5 @@
 require 'zlib'
+require 'csv'
 
 module PL
   module Database
@@ -381,6 +382,17 @@ module PL
         spin
       end
 
+      def mass_insert_spins(csv_file)
+        CSV.foreach(csv_file.path) do |row|
+          self.create_spin({ station_id: row[0].to_i,
+                              audio_block_id: row[1].to_i,
+                              current_position: row[2].to_i,
+                              estimated_airtime: Time.parse(row[3]),
+                              created_at: Time.now,
+                              updated_at: Time.now })
+        end 
+      end         
+
       #################################################################
       #                       add_spin                                #
       #################################################################
@@ -485,6 +497,11 @@ module PL
 
       def get_last_spin(station_id)
         spin = @spins.values.select { |spin| (spin.station_id == station_id) }.max_by { |spin| spin.current_position }
+        spin
+      end
+
+      def get_next_spin(station_id)
+        spin = @spins.values.select { |spin| (spin.station_id == station_id) }.min_by { |spin| spin.current_position }
         spin
       end
 

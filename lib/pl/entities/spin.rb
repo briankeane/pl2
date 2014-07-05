@@ -6,13 +6,13 @@ module PL
 
     def initialize(attrs)
       super(attrs)
-      @audio_block = PL.db.get_audio_block(audio_block_id)
+      #@audio_block = PL.db.get_audio_block(audio_block_id)
     end
 
-    # if audio_block_id is updated, update audio_block, too
+    # if audio_block_id is updated, get rid of newly invalidated audio_block, too
     def audio_block_id=(new_id)
       @audio_block_id = new_id
-      @audio_block = PL.db.get_audio_block(audio_block_id)
+      @audio_block = nil
     end
 
     def audio_block
