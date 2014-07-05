@@ -1,5 +1,6 @@
 require 'zlib'
 require 'csv'
+require 'securerandom'
 
 module PL
   module Database
@@ -25,6 +26,7 @@ module PL
         @log_entries = {}
         @audio_block_counter = 900
         @audio_blocks = {}
+        @sessions = {}
       end
 
       ##############
@@ -585,6 +587,28 @@ module PL
         entry
       end
 
+      ##############
+      #  Sessions  #
+      ##############
+
+      def create_session(user_id)
+        session_id = SecureRandom.uuid
+        @sessions[session_id] = user_id
+        return session_id
+      end
+
+      def get_uid_from_sid(session_id)
+        @sessions[session_id]
+      end
+
+      def delete_session(session_id)
+        if @sessions[session_id]
+          @sessions.delete(session_id)
+          return true
+        else
+          return false
+        end
+      end
     end
   end
 end

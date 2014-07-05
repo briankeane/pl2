@@ -1,5 +1,6 @@
 require 'active_record'
 require 'yaml'
+require 'securerandom'
 
 module PL
   module Database
@@ -72,6 +73,10 @@ module PL
       class LogEntry < ActiveRecord::Base
         has_one :station
         has_one :audio_block
+      end
+
+      class Session < ActiveRecord::Base
+        belongs_to :user
       end
 
       ########################
@@ -765,6 +770,35 @@ module PL
           ar_log_entry = LogEntry.find(attrs.delete(:id))
           ar_log_entry.update_attributes(attrs)
           return ar_log_entry.to_pl
+        else
+          return nil
+        end
+      end
+
+      ##############
+      #  Sessions  #
+      ##############
+
+      def create_session(user_id)
+        session_id = SecureRandom.uuid
+        Session.create({ user_id: user_id, session_id: session_id })
+        return session_id
+      end
+
+      def get_uid_from_sid(session_id)
+        if Session.exists?(session_id: session_id)
+          session = Session.find_by(session_id: session_id)
+          return session.user_id
+        else
+          return nil
+        end
+      end
+
+      def delete_session(session_id)
+        if Session.exists?(session_id: session_id)
+          session = Session.find_by session_id: session_id
+          session.delete
+          return true
         else
           return nil
         end
