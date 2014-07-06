@@ -1,3 +1,43 @@
 // Place all the styles related to the welcome controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+body {
+  margin-top: 45px;
+}
+
+body .mic-image {
+  height: 100%;
+  width: 100%;
+  background-image: url('../images/red_mic3.jpg');
+  background-size: cover;
+  background-repeat: none;
+}
+
+nav {
+  position: fixed;
+}
+
+.logo-panel {
+  border: none;
+  background: rgba(204, 204, 204, 0.0);
+  margin-top: 10%;
+  height: 200px;
+  text-align: center;
+  h1 {
+    padding-top: 20px;
+    color: #ED002A;
+    font-family: verdana;
+    font-style: bold;
+    font-size: 5em;
+    small {
+      color: #ED6B6F;
+      font-size: 20px;;
+    }
+  }
+  img {
+    margin-top: 20px;
+  }
+
+}
