@@ -1,7 +1,5 @@
 class StationsController < ApplicationController
   def dj_booth
-
-    binding.pry
     if !PL.db.get_station_by_uid(current_user.id)
       redirect_to station_new_path
     end

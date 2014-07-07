@@ -45,6 +45,14 @@ module PL
             return failure(:song_already_exists)
       end
 
+      stored_song_keys = s3.buckets[after_processing_bucket].objects.collect(&:key)
+
+      # protect against junk or unprocessed files
+      stored_song_keys.delete_if { |key| !key.match(/^_pl_/) }
+
+      #get the max key value so far and increment it
+      max_key_value = stored_song_keys.max_by { |key| key[4..10].to_i }
+      max_key_value += 1
 
       #create the song object and add it to the db
       song = PL.db.create_song({ title: title,
@@ -53,7 +61,7 @@ module PL
                                 duration: duration
                           })
 
-      new_key = (('0' * (5 - song.id.to_s.size)) +  song.id.to_s + '_' + song.artist + '_' + song.title + '.' + '.mp3')
+      new_key = ('_pl_' + ('0' * (7 - max_key_value.to_s.size)) +  max_key_value.to_s + '_' + song.artist + '_' + song.title + '.' + '.mp3')
       s3.buckets[after_processing_bucket].objects[new_key].write(:file => temp_song_file)
 
       # store metadata
