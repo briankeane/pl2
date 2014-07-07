@@ -347,7 +347,7 @@ shared_examples 'a badass database' do
     end
 
     it 'gets a station by user_id' do
-      gotten_station = db.get_station_by_user_id(1)
+      gotten_station = db.get_station_by_uid(1)
       expect(gotten_station.id).to eq(@station.id)
     end
   end
@@ -653,16 +653,28 @@ shared_examples 'a badass database' do
     it 'creates a Session' do
       user = db.create_user({ twitter: 'jimmy' })
       session_id = db.create_session(user.id)
-      user_id = db.get_uid_from_sid(session_id)
+      user_id = db.get_uid_by_sid(session_id)
       expect(user_id).to eq(user.id)
-      expect(db.get_uid_from_sid("999999")).to be_nil
+      expect(db.get_uid_by_sid("999999")).to be_nil
+    end
+
+    it 'gets a session_id from uid' do
+      session_id = db.create_session(1)
+      expect(db.get_sid_by_uid(1)).to eq(session_id)
+      expect(db.get_sid_by_uid(9999)).to be_nil      
+    end
+
+    it 'gets a uid from a session_id' do
+      session_id = db.create_session(1)
+      expect(db.get_uid_by_sid(session_id)).to eq(1)
+      expect(db.get_uid_by_sid('999')).to be_nil
     end
 
     it 'deletes a session' do
       session_id = db.create_session(5)
-      expect(db.get_uid_from_sid(session_id)).to eq(5)
+      expect(db.get_uid_by_sid(session_id)).to eq(5)
       db.delete_session(session_id)
-      expect(db.get_uid_from_sid(session_id)).to be_nil
+      expect(db.get_uid_by_sid(session_id)).to be_nil
     end
   end
 end

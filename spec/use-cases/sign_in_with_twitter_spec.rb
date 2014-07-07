@@ -21,5 +21,4 @@ describe 'SignInWithTwitter' do
     expect(result.user.id).to eq(user.id)
     expect(result.session_id).to_not be_nil
   end
-
 end

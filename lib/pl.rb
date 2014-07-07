@@ -1,12 +1,18 @@
-require 'dotenv'
 require 'aws'
 require 'pry-debugger'
-Dotenv.load
+
+# load environment variables only if RAILS app has not loaded them first
+#    -- (this is here so the non-rails app can stand on its own)
+if !defined? TWITTER_KEYS
+  TWITTER_KEYS = YAML.load_file("secrets/twitter_config.yml")[ENV['RAILS_ENV']]
+  S3_KEYS = YAML.load_file("secrets/s3_config.yml")[ENV['RAILS_ENV']]
+end
+
 
 module PL
 
   # set up AWS
-  AWS.config(access_key_id: ENV['S3_ACCESS_KEY_ID'], secret_access_key: ENV['S3_SECRET_KEY'], region: 'us-west-2')
+  AWS.config(access_key_id: S3_KEYS['ACCESS_KEY_ID'], secret_access_key: S3_KEYS['SECRET_KEY'], region: 'us-west-2')
 
   
   # Constants

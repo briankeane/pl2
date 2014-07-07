@@ -312,7 +312,7 @@ module PL
         station
       end
 
-      def get_station_by_user_id(user_id)
+      def get_station_by_uid(user_id)
         @stations.values.find { |station| station.user_id == user_id }
       end
 
@@ -597,8 +597,16 @@ module PL
         return session_id
       end
 
-      def get_uid_from_sid(session_id)
+      def get_uid_by_sid(session_id)
         @sessions[session_id]
+      end
+
+      def get_sid_by_uid(user_id)
+        if @sessions.has_value?(user_id)
+          return @sessions.find { |k,v| v == user_id }[0]
+        else
+          return nil
+        end
       end
 
       def delete_session(session_id)

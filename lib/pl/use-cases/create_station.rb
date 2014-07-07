@@ -2,7 +2,7 @@ module PL
   class CreateStation < UseCase
     def run(attrs)
       user = PL.db.get_user(attrs[:user_id])
-      station = PL.db.get_station_by_user_id(attrs[:user_id])
+      station = PL.db.get_station_by_uid(attrs[:user_id])
       case
       when !user
         return failure(:user_not_found) 

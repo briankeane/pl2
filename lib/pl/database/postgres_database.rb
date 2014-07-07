@@ -12,8 +12,8 @@ module PL
     class PostgresDatabase
       def initialize(env)
         config_path = File.join(File.dirname(__FILE__), '../../../db/config.yml')
-        db_config = YAML.load ERB.new(File.read 'db/config.yml').result
-        puts "USING: #{env} - #{YAML.load_file(config_path)[env]}"
+        db_config = YAML.load ERB.new(File.read config_path).result
+        print "  -- USING: #{env} - #{YAML.load_file(config_path)[env]}"
         ActiveRecord::Base.establish_connection(db_config[env])
       end
 
@@ -186,7 +186,7 @@ module PL
           ar_user = User.find_by(twitter: twitter)
           return ar_user.to_pl
         else
-          return false
+          return nil
         end
       end
 
@@ -195,8 +195,9 @@ module PL
           ar_user = User.find_by(twitter_uid: twitter_uid)
           return ar_user.to_pl
         else
-          return false
+          return nil
         end
+
       end
 
       def update_user(attrs)
@@ -483,7 +484,7 @@ module PL
         end
       end
 
-      def get_station_by_user_id(user_id)
+      def get_station_by_uid(user_id)
         ar_station = Station.find_by('user_id = ?', user_id)
         if ar_station
           return ar_station.to_pl
@@ -785,10 +786,19 @@ module PL
         return session_id
       end
 
-      def get_uid_from_sid(session_id)
-        if Session.exists?(session_id: session_id)
-          session = Session.find_by(session_id: session_id)
+      def get_uid_by_sid(session_id)
+        if Session.exists?(:session_id => session_id)
+          session = Session.find_by('session_id = ?', session_id)
           return session.user_id
+        else
+          return nil
+        end
+      end
+
+      def get_sid_by_uid(user_id)
+        if Session.exists?(:user_id => user_id.to_s)
+          session = Session.find_by('user_id = ?', user_id)
+          return session.session_id
         else
           return nil
         end
