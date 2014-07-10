@@ -6,6 +6,7 @@ require 'pry-debugger'
 if !defined? TWITTER_KEYS
   TWITTER_KEYS = YAML.load_file("secrets/twitter_config.yml")[ENV['RAILS_ENV']]
   S3_KEYS = YAML.load_file("secrets/s3_config.yml")[ENV['RAILS_ENV']]
+  ECHONEST_KEYS = YAML.load_file("secrets/echonest_config.yml")[ENV['RAILS_ENV']]
 end
 
 
@@ -54,7 +55,8 @@ require_relative 'pl/database/in_memory.rb'
 require_relative 'pl/entities/commentary.rb'
 require_relative 'pl/entities/log_entry.rb'
 require_relative 'pl/verbs/commercial_block_factory.rb'
-require_relative 'pl/verbs/audio_file_grabber'
+require_relative 'pl/verbs/audio_file_grabber.rb'
+require_relative 'pl/verbs/song_suggester.rb'
 require_relative 'pl/database/postgres_database.rb'
 require_relative 'pl/entities/commercial_block.rb'
 require_relative 'pl/entities/commercial.rb'
