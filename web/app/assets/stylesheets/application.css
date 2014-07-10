@@ -13,7 +13,23 @@
  *= require_self
  *= require_tree .
  *= require foundation_and_overrides
+ *= require jquery-ui
 
  */
 
 $navbar-color: #F1EAE2;
+$heavy-rotation: #147EFF;
+$medium-rotation: #147EFF;
+$light-rotation: #11BAFF;
+$main-background: #00647F;
+$header-background: #00C8FF;
+$main-font: white;
+$commentary-color: red;
+
+
+
+
+
+nav {
+  position: fixed;
+}

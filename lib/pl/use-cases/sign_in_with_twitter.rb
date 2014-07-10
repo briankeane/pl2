@@ -7,12 +7,12 @@ module PL
         # create the user if there's no user
         user = PL.db.create_user({ twitter: attrs[:twitter], twitter_uid: attrs[:twitter_uid] })
         new_user = true
-      else
-        # use an existing session_id if possible
-        session_id = PL.db.get_sid_by_uid(user.id)
-        if !session_id
-          session_id = PL.db.create_session(user.id)
-        end
+      end
+
+      # use an existing session_id if possible
+      session_id = PL.db.get_sid_by_uid(user.id)
+      if !session_id
+        session_id = PL.db.create_session(user.id)
       end
 
       return success :session_id => session_id, :user => user, :new_user => new_user

@@ -10,10 +10,11 @@ module PL
     end
 
     class PostgresDatabase
+
       def initialize(env)
         config_path = File.join(File.dirname(__FILE__), '../../../db/config.yml')
         db_config = YAML.load ERB.new(File.read config_path).result
-        print "  -- USING: #{env} - #{YAML.load_file(config_path)[env]}"
+        print "  -- USING: #{env} - #{YAML.load_file(config_path)[env]}"  
         ActiveRecord::Base.establish_connection(db_config[env])
       end
 
@@ -221,6 +222,17 @@ module PL
           return nil
         end
       end
+
+      def get_all_users
+        ar_users = User.all.order('twitter ASC')
+        users = ar_users.map { |x| x.to_pl }
+        ar_users
+      end
+
+      def destroy_all_users
+        User.delete_all
+      end
+
 
       ###############################################
       # Audio_Blocks                                #
@@ -698,6 +710,7 @@ module PL
             p e_message
           end
         end
+
       end
 
       ####################################

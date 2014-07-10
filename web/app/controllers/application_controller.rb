@@ -10,11 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def signed_in?
-    if current_user
-      return true
-    else
-      return false
-    end
+    current_user != nil
   end
 
   protect_from_forgery with: :exception

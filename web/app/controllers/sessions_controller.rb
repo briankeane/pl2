@@ -19,8 +19,8 @@ class SessionsController < ApplicationController
 
 
   def destroy
-    PL::SignOut.run({ session_id: session[:pl_session_id] })
     reset_session
+    PL::SignOut.run(session[:pl_session_id])
     return redirect_to root_path
   end
 

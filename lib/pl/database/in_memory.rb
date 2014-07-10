@@ -74,6 +74,14 @@ module PL
         user
       end
 
+      def get_all_users
+        @users.values.sort { |a,b| a.twitter <=> b.twitter }
+      end
+
+      def destroy_all_users
+        @users = {}
+      end
+
       ###############################################
       # Audio_Blocks                                #
       ###############################################

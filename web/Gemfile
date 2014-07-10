@@ -1,15 +1,12 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
-source 'https://rubygems.org'
-ruby '2.0.0'
-
 # include Gemfile
 app_gemfile_path = File.expand_path('../../Gemfile', __FILE__)
 eval File.read(app_gemfile_path)
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.0'
+gem 'rails', '~> 4.1.4'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass', '3.1.1'
@@ -24,6 +21,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'

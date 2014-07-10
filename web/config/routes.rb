@@ -12,10 +12,10 @@ Rails.application.routes.draw do
   match 'station/delete_from_rotation', to: 'stations#delete_from_rotation',   via: 'delete'
   match 'station/new',                  to: 'stations#new',                    via: 'get'
   match 'station/create',               to: 'stations#create',                 via: 'post'
+  match 'session/destroy',              to: 'sessions#destroy',                via: 'get'
 
   # sessions_controller paths
   get '/auth/twitter/callback', to: 'sessions#create_with_twitter'
-  get 'sessions/destroy'
-  
+
 
 end

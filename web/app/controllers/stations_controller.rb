@@ -1,7 +1,7 @@
 class StationsController < ApplicationController
   def dj_booth
-    if !PL.db.get_station_by_uid(current_user.id)
-      redirect_to station_new_path
+    if !current_station
+      return redirect_to station_new_path
     end
 
     result = PL::GetProgram.run({ station_id: current_station.id })

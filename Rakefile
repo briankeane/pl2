@@ -27,6 +27,11 @@ namespace :db do
     # [code to migrate database would go here]
   end
 
+  task :clear_users => [:load_app] do
+    PL.db.destroy_all_users
+  end
+
+
   task :load_songs => [:load_app] do
     PL.db.clear_everything
 

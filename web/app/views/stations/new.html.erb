@@ -1,2 +1,89 @@
-<h1>Station#new</h1>
-<p>Find me in app/views/station/new.html.erb</p>
+<div class="wall-without-mic-image">
+
+    <div class="row">
+      <div data-alert class="alert-box secondary">
+        <h4> Getting Started </h4>
+        <p> Please choose the songs that will be played on your station.  Heavy songs will be played frequently, and light songs will be played occasionally.  Just drag the songs you want into a bin on the left.  When you're finished, push the 'create my station' button.</p>
+      </div>
+    </div>
+
+  <div class="row">
+    <div class="searchbox small-3 columns">
+      Search: <input id="searchText">
+    </div>
+    <div class="container small-9 columns">
+      <button id='create' class='btn'>Create Station</button>
+      <button class='btn' id='random'>Generate Randomly</button>
+    </div>
+  </div>
+
+
+  <div class="row">
+
+    <div class="heavy rotation song-list-container small-4 columns">
+      <ul class="rotation song-list" id="heavy">
+        <% @heavy.each do |song| %>
+          <li data-searchString="<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" class="playlist-song">
+            <div class="clearfix">
+              <div class="title"><b><%= song.title %></b></div>
+              <div class="artist"><%= song.artist %></div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+
+   <!--  <div class="medium rotation song-list-container">
+      <ul class="rotation song-list" id="medium">
+        <% @medium.each do |song| %>
+          <li data-searchString="<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" class="playlist-song">
+            <div class="clearfix">
+              <div class="title"><b><%= song.title %></b></div>
+              <div class="artist"><%= song.artist %></div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div> -->
+
+   <!--  <div class="light rotation song-list-container">
+      <ul class="rotation song-list" id="light">
+        <% @light.each do |song| %>
+          <li data-searchString="<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" class="playlist-song">
+            <div class="clearfix">
+              <div class="title"><b><%= song.title %></b></div>
+              <div class="artist"><%= song.artist %></div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div> -->
+
+<!--     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 no-gutter" id="draganddrophandler">
+
+      <div class="all-songs song-list-container" >
+
+        <ul id="all-songs-list" class="song-list">
+          <% @songs.each do |song| %>
+            <li data-searchString="<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" class="playlist-song">
+            <div class="clearfix">
+              <div class="title"><b><%= song.title %></b></div>
+              <div class="artist"><%= song.artist %></div>
+            </div>
+          </li>
+          <% end %>
+        </ul>
+
+
+      </div>
+      <div id="status"></div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 no-gutter"?
+      <form style="display: inline">
+          Add a Song to Our Library: <input type="file" id="file">
+          <input type="submit" id="songUpload" disabled="true">Upload</input>
+          <p id="songMessage"></p>
+      </form>
+    </div> -->
+  </div>
+</div>

@@ -18,8 +18,15 @@
             <li class="has-dropdown">
               <%= link_to 'My Station', '#' %>
               <ul class="dropdown">
-                <li><%= link_to 'DJ Booth', '#' %></li>
+                <li><%= link_to 'DJ Booth',dj_booth_path %></li>
                 <li><%= link_to 'Station Manager', '#' %></li>
+              </ul>
+            </li>
+
+            <li class="has-dropdown">
+              <%= link_to ('@' + current_user.twitter), '#' %>
+              <ul class="dropdown">
+                <li><%= link_to 'Sign Out', session_destroy_path %></li>
               </ul>
             </li>
           

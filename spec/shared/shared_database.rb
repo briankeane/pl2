@@ -71,6 +71,21 @@ shared_examples 'a badass database' do
       deleted = db.delete_user(999)
       expect(deleted).to be_nil
     end
+
+    it 'gets all users' do
+      5.times { |i| db.create_user({ twitter: i.to_s }) }
+      all_users = db.get_all_users
+      expect(all_users.count).to eq(6)
+      expect(all_users[0].twitter).to eq('0')
+      expect(all_users[5].twitter).to eq('BrianKeaneTunes')
+    end
+
+    it 'destroys all users' do
+      5.times { |i| db.create_user({ twitter: i.to_s }) }
+      db.destroy_all_users
+      expect(db.get_all_users.count).to eq(0)
+    end
+
   end
 
   ################

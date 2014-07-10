@@ -11,6 +11,7 @@ describe 'SignInWithTwitter' do
     expect(result.new_user).to eq(true)
     expect(result.user.twitter_uid).to eq(456)
     expect(result.user.id).to_not be_nil
+    expect(result.session_id).to_not be_nil
   end
 
   it "signs in a user if they do exist" do
