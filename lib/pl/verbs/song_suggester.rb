@@ -22,7 +22,7 @@ module PL
                                                                 title: x.title,
                                                                 echonest_id: x.id,
                                                                 echonest_artist_id: x.artist_id } }
-                                                                binding.pry
+      binding.pry
     end
 
   end
