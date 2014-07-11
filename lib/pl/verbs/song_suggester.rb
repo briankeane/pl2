@@ -17,13 +17,13 @@ module PL
     ##############################################################
 
     def get_suggestions(*artists)
-      list = Echowrap.playlist_basic(artist: artists, results: 100, limited_interactivity: true)
+      list = Echowrap.playlist_static(artist: artists, results: 100, limited_interactivity: true)
       list.sort_by! { |x| [x.artist_name, x.title] }.map! { |x| { artist: x.artist_name, 
                                                                 title: x.title,
-                                                                echonest_id: x.id,
-                                                                echonest_artist_id: x.artist_id } }
-      binding.pry
+                                                                en_id: x.id,
+                                                                en_artist_id: x.artist_id } }
     end
 
+  
   end
 end
