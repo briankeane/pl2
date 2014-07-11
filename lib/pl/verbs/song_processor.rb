@@ -14,6 +14,7 @@ module PL
     def add_song_to_system(song_file)
       # Read the id3 tags
       tags = self.get_id3_tags(song_file)
+      
 
       # IF there were no ID3 tags
         # Get Fingerprint
@@ -48,7 +49,9 @@ module PL
     end
 
     def get_echo_nest_info(attrs) # takes title and artist
-      echo_tags = Echowrap.song_search(title: attrs[:title], artist: attrs[:artist])
+      echo_tags = Echowrap.song_search(combined: attrs[:artist] + ' ' + attrs[:title], results: 1)[0].attrs
+      binding.pry
+      echo_tags[:artist] = echo_tags.delete(:artist_name)
       return echo_tags
     end
 

@@ -19,6 +19,9 @@ describe 'SongProcessor' do
 
   it 'gets the echowrap info' do
     song = @sp.get_echo_nest_info({ title: 'Stepladder', artist: 'Rachel Loy' })
+    expect(song[:title]).to eq('Stepladder')
+    expect(song[:id]).to eq('SOOWAAV13CF6D1B3FA')
+    expect(song[:artist]).to eq('Rachel Loy')
   end
 
 
