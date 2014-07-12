@@ -1,6 +1,7 @@
 require 'mp3info'
 require 'echowrap'
 require 'fuzzystringmatch'
+require 'aws-sdk'
 
 module PL
   class SongProcessor
@@ -13,6 +14,9 @@ module PL
     end
 
     def add_song_to_system(song_file)
+
+      accurate_tags = {}
+
       # create mp3 and wav versions
       audio_converter = PL::AudioConverter.new
 
@@ -28,15 +32,15 @@ module PL
       # from id3 tags
       tags = self.get_id3_tags(mp3_file)
       
-      # from fingerprint
+      # from 
       fingerprint_tags = {}
-      fingerprint_results = `./echoprint-codegen ../pl2/spec/test_files/stepladder.mp3 10 30`
+      binding.pry
+      fingerprint_results = `../echoprint-codegen spec/test_files/stepladder.mp3 10 30`
       fingerprint_json = JSON.parse(fingerprint_results)
       fingerprint_tags[:artist] = fingerprint_json[0]["metadata"]["artist"] || ''
       fingerprint_tags[:album] = fingerprint_json[0]["metadata"]["release"] || ''
       fingerprint_tags[:duration] = fingerprint_json[0]["metadata"]["duration"].to_i * 1000  || 0
       fingerprint_tags[:title] = fingerprint_json[0]["metadata"]["title"] || ''
-
       # IF these are a not close match
       jarow = FuzzyStringMatch::JaroWinkler.create( :native )
       if (jarow.getDistance(tags.artist, fingerprint_tags[:artist]) < 0.75) || 
@@ -52,15 +56,28 @@ module PL
                                                       title: tags.title })
           end
 
-      else 
+      else
+        echonest_tags = fingerprint_tags
+      end
 
-      # IF there were no ID3 tags
-        # Get Fingerprint
-        # Check EchoNest for Match
-      # ELSE Get proper title and artist from echonest
-      # Store on S3
+      # Store the song
+      afh = PL::AudioFileHandler.new
+      key = afh.store_song({ song_file: mp3_song_file,
+                        artist: accurate_tags[:artist],
+                        album: accurate_tags[:album],
+                        title: accurate_tags[:title],
+                        duration: accurate_tags[:duration]
+                        })
+
+
       # Add to Echonest
+
       # Add to DB
+      PL.db.create_song({ artist: accurate_tags[:artist],
+                          album: accurate_tags[:album],
+                          title: accurate_tags[:title],
+                          duration: accurate_tags[:duration],
+                          key: key })
     end
 
     ######################################

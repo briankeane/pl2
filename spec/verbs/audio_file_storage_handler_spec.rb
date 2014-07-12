@@ -2,15 +2,15 @@ require 'spec_helper'
 require 'aws-sdk'
 require 'mp3info'
 
-describe 'audio_file_grabber' do
+describe 'audio_file_storage_handler' do
   it 'grabs song audio' do
-    VCR.use_cassette('audio_file_grabber/grabsong') do
+    VCR.use_cassette('audio_file_storage_handler/grabsong') do
       song = PL.db.create_song({ artist: 'Rachel Loy',
                           album: 'Broken Machine',
                           title: "Good Side",
                           key: '00001_Rachel Loy_Good Side.mp3' })
 
-      grabber = PL::AudioFileGrabber.new
+      grabber = PL::AudioFileStorageHandler.new
 
       mp3_file = grabber.grab_audio(song)
 
@@ -27,11 +27,11 @@ describe 'audio_file_grabber' do
   end
 
   it 'grabs commentary audio' do
-    VCR.use_cassette('audio_file_grabber/grabcommentary') do
+    VCR.use_cassette('audio_file_storage_handler/grabcommentary') do
       commentary = PL.db.create_commentary({ station_id: 1,
                                             key: 'testCommentary.mp3' })
 
-      grabber = PL::AudioFileGrabber.new
+      grabber = PL::AudioFileStorageHandler.new
 
       mp3_file = grabber.grab_audio(commentary)
 
@@ -40,10 +40,10 @@ describe 'audio_file_grabber' do
   end
 
   it 'grabs commercial audio' do
-    VCR.use_cassette('audio_file_grabber/grabcommercial') do
+    VCR.use_cassette('audio_file_storage_handler/grabcommercial') do
       commercial = PL.db.create_commercial({ sponsor: 'test',
                                               key: 'testCommercial.mp3' })
-      grabber = PL::AudioFileGrabber.new
+      grabber = PL::AudioFileStorageHandler.new
       mp3_file = grabber.grab_audio(commercial)
 
       expect(mp3_file.size).to eq(128053)

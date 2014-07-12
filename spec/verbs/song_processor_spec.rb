@@ -11,7 +11,7 @@ describe 'SongProcessor' do
     end
   end
 
-  it 'gets the id3 tags from an mp3 file' do
+  xit 'gets the id3 tags from an mp3 file' do
     file = File.open('spec/test_files/stepladder.mp3', 'r')
     tags = @sp.get_id3_tags(file)
     expect(tags[:artist]).to eq('Rachel Loy')
@@ -20,7 +20,7 @@ describe 'SongProcessor' do
     expect(tags[:duration]).to eq(222223)
   end
 
-  it 'gets the echowrap info' do
+  xit 'gets the echowrap info' do
     song = @sp.get_echo_nest_info({ title: 'Stepladder', artist: 'Rachel Loy' })
     expect(song[:title]).to eq('Stepladder')
     expect(song[:id]).to eq('SOOWAAV13CF6D1B3FA')

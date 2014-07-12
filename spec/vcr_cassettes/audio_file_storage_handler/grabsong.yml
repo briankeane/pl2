@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://playolasongs.s3-us-west-2.amazonaws.com/00001_Rachel%20Loy_Good%20Side.mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Sat, 12 Jul 2014 22:14:52 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:g7VyJR4LDWR7ySDLP03k7wXA/dY=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      X-Amz-Request-Id:
+      - 6CC18CDF929B4F7C
+      X-Amz-Id-2:
+      - JvXk507rdgRfjMUG3R892wS5MuMZL8RJ1HBjbeEGUW4qd5pFup5LlJ33s1pLuq4s
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Date:
+      - Sat, 12 Jul 2014 22:14:55 GMT
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <Error><Code>NoSuchKey</Code><Message>The specified key does not exist.</Message><Key>00001_Rachel Loy_Good Side.mp3</Key><RequestId>6CC18CDF929B4F7C</RequestId><HostId>JvXk507rdgRfjMUG3R892wS5MuMZL8RJ1HBjbeEGUW4qd5pFup5LlJ33s1pLuq4s</HostId></Error>
+    http_version: 
+  recorded_at: Sat, 12 Jul 2014 22:14:56 GMT
+recorded_with: VCR 2.9.2

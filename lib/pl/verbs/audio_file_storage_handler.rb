@@ -1,7 +1,7 @@
 require 'aws-sdk'
 
 module PL
-  class AudioFileGrabber
+  class AudioFileStorageHandler
     def grab_audio(audio_block)
       case
       when audio_block.is_a?(PL::Song)
@@ -22,6 +22,5 @@ module PL
 
       return temp_song_file
     end
-
   end
 end
