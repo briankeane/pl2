@@ -35,7 +35,6 @@ namespace :db do
   task :load_songs => [:load_app] do
     PL.db.clear_everything
 
-    puts "Seeding database"
     # configure s3
     AWS.config ({
                     :access_key_id     => S3_KEYS['ACCESS_KEY_ID'],

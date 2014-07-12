@@ -5,7 +5,10 @@ describe 'SongProcessor' do
     @sp = PL::SongProcessor.new
   end
 
-  xit 'adds a song to the system (db, AWS, and EchoNest)' do
+  it 'adds a song to the system (db, AWS, and EchoNest)' do
+    File.open('spec/test_files/stepladderwav.wav') do |wav_file|
+      expect(@sp.add_song_to_system(wav_file)).to eq(true)
+    end
   end
 
   it 'gets the id3 tags from an mp3 file' do

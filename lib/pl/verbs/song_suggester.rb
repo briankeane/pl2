@@ -20,7 +20,7 @@ module PL
       list = Echowrap.playlist_static(artist: artists, results: 100, limited_interactivity: true)
       list.sort_by! { |x| [x.artist_name, x.title] }.map! { |x| { artist: x.artist_name, 
                                                                 title: x.title,
-                                                                en_id: x.id,
+                                                                echo_id: x.id,
                                                                 en_artist_id: x.artist_id } }
     end
 

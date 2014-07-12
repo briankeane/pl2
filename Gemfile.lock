@@ -1,6 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    RubyInline (3.12.3)
+      ZenTest (~> 4.3)
+    ZenTest (4.10.1)
     active_record_tasks (1.1.0)
       activerecord (>= 4.0)
       rainbow
@@ -24,6 +27,8 @@ GEM
       json (~> 1.4)
       nokogiri (>= 1.4.4)
     builder (3.2.2)
+    chromaprint (0.0.2)
+      ffi
     chronic (0.10.2)
     coderay (1.1.0)
     columnize (0.8.9)
@@ -42,6 +47,9 @@ GEM
       simple_oauth (~> 0.2)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    ffi (1.9.3)
+    fuzzy-string-match (0.9.6)
+      RubyInline (>= 3.8.6)
     i18n (0.6.9)
     json (1.8.1)
     method_source (0.8.2)
@@ -93,8 +101,11 @@ DEPENDENCIES
   active_record_tasks (~> 1.1.0)
   activerecord (~> 4.1.0)
   aws-sdk (~> 1.43.0)
+  chromaprint
   chronic (~> 0.10.2)
   echowrap
+  fuzzy-string-match
+  json (~> 1.8.1)
   pg (~> 0.17.1)
   pry-debugger
   rspec

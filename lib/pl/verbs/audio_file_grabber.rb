@@ -16,8 +16,9 @@ module PL
 
       s3_song_file = s3.buckets[bucket].objects[audio_block.key]
       temp_song_file = Tempfile.new('temp_song_file')
-      temp_song_file.open()
+      temp_song_file.open
       temp_song_file.write(s3_song_file.read)
+      temp_song_file.close
 
       return temp_song_file
     end

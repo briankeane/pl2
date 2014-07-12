@@ -324,8 +324,8 @@ module PL
         songs
       end
 
-      def get_song_by_en_id(en_id)
-        ar_song = Song.find_by('en_id = ?', en_id)
+      def get_song_by_echo_id(echo_id)
+        ar_song = Song.find_by('echo_id = ?', echo_id)
         ar_song.to_pl
       end
       #################
