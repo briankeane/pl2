@@ -22,5 +22,19 @@ module PL
 
       return temp_song_file
     end
+
+    def store_song(attrs)
+      stored_song_keys = s3.buckets[after_processing_bucket].objects.collect(&:key)
+
+      s3.buckets[after_processing_bucket].objects[new_key].write(:file => temp_song_file)
+
+      aws_song_object = s3.buckets[after_processing_bucket].objects[new_key]
+      aws_song_object.metadata[:pl_title] = attrs[:title]
+      aws_song_object.metadata[:pl_artist] = attrs[:artist]
+      aws_song_object.metadata[:pl_album] = attrs[:album]
+      aws_song_object.metadata[:pl_duration] = attrs[:duration]
+      aws_song_object.metadata[:pl_echonest_id] = attrs[:echonest_id]
+    end
+
   end
 end

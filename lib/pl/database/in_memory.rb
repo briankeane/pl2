@@ -155,8 +155,8 @@ module PL
                                         ab.artist.match(/^#{artist}/) }.sort_by { |x| x.title }
       end
 
-      def get_song_by_echo_id(echo_id)
-        @audio_blocks.values.find { |x| x.echo_id == echo_id }
+      def get_song_by_echonest_id(echonest_id)
+        @audio_blocks.values.find { |x| x.echonest_id == echonest_id }
       end
 
 

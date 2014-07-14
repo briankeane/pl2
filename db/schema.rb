@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140711081936) do
     t.integer  "station_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "echo_id"
+    t.string   "echonest_id"
   end
 
   create_table "commercial_links", force: true do |t|

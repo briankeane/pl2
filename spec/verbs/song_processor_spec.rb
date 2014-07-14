@@ -6,7 +6,7 @@ describe 'SongProcessor' do
   end
 
   it 'adds a song to the system (db, AWS, and EchoNest)' do
-    File.open('spec/test_files/stepladderwav.wav') do |wav_file|
+    File.open('spec/test_files/even_mp3.mp3') do |wav_file|
       expect(@sp.add_song_to_system(wav_file)).to eq(true)
     end
   end

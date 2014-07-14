@@ -117,7 +117,7 @@ shared_examples 'a badass database' do
                         album: 'Coming Home',
                         duration: 19000,
                         key: 'ThisIsAKey.mp3',
-                        echo_id: 'THISISANENID' })
+                        echonest_id: 'THISISANENID' })
     end
 
     it 'is created with id, artist, title, album, duration, key' do
@@ -127,7 +127,7 @@ shared_examples 'a badass database' do
       expect(@song.duration).to eq(19000)
       expect(@song.key).to eq('ThisIsAKey.mp3')
       expect(@song.id).to be_a(Fixnum)
-      expect(@song.echo_id).to eq('THISISANENID')
+      expect(@song.echonest_id).to eq('THISISANENID')
     end
 
     it 'can be retrieved by id' do
@@ -138,7 +138,7 @@ shared_examples 'a badass database' do
       expect(gotten_song.duration).to eq(19000)
       expect(gotten_song.key).to eq('ThisIsAKey.mp3')
       expect(gotten_song.id).to be_a(Fixnum)
-      expect(gotten_song.echo_id).to eq('THISISANENID')
+      expect(gotten_song.echonest_id).to eq('THISISANENID')
     end
 
     it 'can be updated' do
@@ -147,7 +147,7 @@ shared_examples 'a badass database' do
       db.update_song({ id: @song.id, album: 'Album By Bob' })
       db.update_song({ id: @song.id, duration: 20000 })
       db.update_song({ id: @song.id, key: 'BobsKey.mp3' })
-      db.update_song({ id: @song.id, echo_id: 'ANOTHERENID'})
+      db.update_song({ id: @song.id, echonest_id: 'ANOTHERENID'})
 
       updated_song = db.get_song(@song.id)
       expect(updated_song.artist).to eq('Bob')
@@ -155,7 +155,7 @@ shared_examples 'a badass database' do
       expect(updated_song.album).to eq('Album By Bob')
       expect(updated_song.duration).to eq(20000)
       expect(updated_song.key).to eq('BobsKey.mp3')
-      expect(updated_song.echo_id).to eq('ANOTHERENID')
+      expect(updated_song.echonest_id).to eq('ANOTHERENID')
     end
 
     it "returns false if song-to-update doesn't exist" do
@@ -186,15 +186,15 @@ shared_examples 'a badass database' do
   describe 'song retrieval tests' do
     before do
       @song1 = db.create_song({ title: "Bar Lights", artist: "Brian Keane", duration: 226000,
-                                   key: 'ThisIsAKey.mp3', echo_id: 'THISISANENID' })
+                                   key: 'ThisIsAKey.mp3', echonest_id: 'THISISANENID' })
       @song2 = db.create_song({ title: "Bar Nights", artist: "Brian Keane", duration: 226000,
-                                   key: 'ThisIsAKey.mp3', echo_id: 'THISISANENID2' })
+                                   key: 'ThisIsAKey.mp3', echonest_id: 'THISISANENID2' })
       @song3 = db.create_song({ title: "Bar Brights", artist: "Brian Keane", duration: 226000,
-                                   key: 'ThisIsAKey.mp3', echo_id: 'THISISANENID3' })
+                                   key: 'ThisIsAKey.mp3', echonest_id: 'THISISANENID3' })
       @song4 = db.create_song({ title: "Bar First", artist: "Bob Dylan", duration: 226000,
-                                   key: 'ThisIsAKey.mp3', echo_id: 'THISISANENID4'})
+                                   key: 'ThisIsAKey.mp3', echonest_id: 'THISISANENID4'})
       @song5 = db.create_song({ title: "Hell", artist: "Bob Dylan", duration: 226000,
-                                   key: 'ThisIsAKey.mp3', echo_id: 'THISISANENID5' })
+                                   key: 'ThisIsAKey.mp3', echonest_id: 'THISISANENID5' })
     end
 
     it "gets a list of songs by title" do
@@ -211,8 +211,8 @@ shared_examples 'a badass database' do
       expect(songlist[2].title).to eq("Bar Nights")
     end
 
-    it 'gets a song by its echo_id' do
-      expect(db.get_song_by_echo_id(@song1.echo_id).id).to eq(@song1.id)
+    it 'gets a song by its echonest_id' do
+      expect(db.get_song_by_echonest_id(@song1.echonest_id).id).to eq(@song1.id)
     end
     
     it "returns a list of all songs in the database in the proper order" do
