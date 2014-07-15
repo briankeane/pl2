@@ -1,0 +1,288 @@
+---
+http_interactions:
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_Rachel%20Loy_Stepladder.mp3
+    body:
+      encoding: US-ASCII
+      base64_string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Tue, 15 Jul 2014 02:42:09 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:z+sBM0pxNBnvznA4FumJ5L4DHLM=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - h0jwqmtVgnhnlQn0aRxKXrO9g5vD+WYqI615dy2LZyEVdoRAndDPU7rZVBoSratK
+      X-Amz-Request-Id:
+      - 6F844002E960A53A
+      Date:
+      - Tue, 15 Jul 2014 02:42:11 GMT
+      X-Amz-Meta-Pl-Album:
+      - Broken Machine
+      X-Amz-Meta-Pl-Artist:
+      - Rachel Loy
+      X-Amz-Meta-Pl-Duration:
+      - '55'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - SOOWAAV13CF6D1B3FA
+      X-Amz-Meta-Pl-Title:
+      - Stepladder
+      Last-Modified:
+      - Tue, 15 Jul 2014 01:03:14 GMT
+      Etag:
+      - '"670bfb86a3c59428bbfa815c56a94a70"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '4589616'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      base64_string: ''
+    http_version: 
+  recorded_at: Tue, 15 Jul 2014 02:42:10 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_Rachel%20Loy_Stepladder.mp3
+    body:
+      encoding: US-ASCII
+      base64_string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Tue, 15 Jul 2014 02:42:10 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:jCm2EIE3zQ5GfzcH5lQ/wJ9QFUs=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - pgXYN3LHA69DpIP7lyLbt6s0w09cOG3vKZRPumtnYQ4z/fv/FKOQwXcE4LbScNQK
+      X-Amz-Request-Id:
+      - E3323D5302B6CBC2
+      Date:
+      - Tue, 15 Jul 2014 02:42:12 GMT
+      X-Amz-Meta-Pl-Album:
+      - Broken Machine
+      X-Amz-Meta-Pl-Artist:
+      - Rachel Loy
+      X-Amz-Meta-Pl-Duration:
+      - '55'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - SOOWAAV13CF6D1B3FA
+      X-Amz-Meta-Pl-Title:
+      - Stepladder
+      Last-Modified:
+      - Tue, 15 Jul 2014 01:03:14 GMT
+      Etag:
+      - '"670bfb86a3c59428bbfa815c56a94a70"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '4589616'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      base64_string: ''
+    http_version: 
+  recorded_at: Tue, 15 Jul 2014 02:42:11 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_Rachel%20Loy_Stepladder.mp3
+    body:
+      encoding: US-ASCII
+      base64_string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Tue, 15 Jul 2014 02:42:11 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:PvyGJw/+g48DKAV3yGlDSa+CgcY=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - ZgmywYIUL9tAf7F070U5AnZvCmjZQjt0RrmZEi0Pfrwbr4nTTInu1E6JwVKuqtbh
+      X-Amz-Request-Id:
+      - 8AB101924DD0C29F
+      Date:
+      - Tue, 15 Jul 2014 02:42:12 GMT
+      X-Amz-Meta-Pl-Album:
+      - Broken Machine
+      X-Amz-Meta-Pl-Artist:
+      - Rachel Loy
+      X-Amz-Meta-Pl-Duration:
+      - '55'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - SOOWAAV13CF6D1B3FA
+      X-Amz-Meta-Pl-Title:
+      - Stepladder
+      Last-Modified:
+      - Tue, 15 Jul 2014 01:03:14 GMT
+      Etag:
+      - '"670bfb86a3c59428bbfa815c56a94a70"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '4589616'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      base64_string: ''
+    http_version: 
+  recorded_at: Tue, 15 Jul 2014 02:42:11 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_Rachel%20Loy_Stepladder.mp3
+    body:
+      encoding: US-ASCII
+      base64_string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Tue, 15 Jul 2014 02:42:11 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:PvyGJw/+g48DKAV3yGlDSa+CgcY=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - z5IMPZf5e9sUshF3zntaZHBJhRWMNMEoARGwWEfNcwyyk1JGepHcarEUl9R1PKgg
+      X-Amz-Request-Id:
+      - 71C7E197248062B7
+      Date:
+      - Tue, 15 Jul 2014 02:42:13 GMT
+      X-Amz-Meta-Pl-Album:
+      - Broken Machine
+      X-Amz-Meta-Pl-Artist:
+      - Rachel Loy
+      X-Amz-Meta-Pl-Duration:
+      - '55'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - SOOWAAV13CF6D1B3FA
+      X-Amz-Meta-Pl-Title:
+      - Stepladder
+      Last-Modified:
+      - Tue, 15 Jul 2014 01:03:14 GMT
+      Etag:
+      - '"670bfb86a3c59428bbfa815c56a94a70"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '4589616'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      base64_string: ''
+    http_version: 
+  recorded_at: Tue, 15 Jul 2014 02:42:12 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_Rachel%20Loy_Stepladder.mp3
+    body:
+      encoding: US-ASCII
+      base64_string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Tue, 15 Jul 2014 02:42:12 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:ghX5KNOABZx1bpFsAjyrDDFXbzk=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - VUhYeFwuDZ8lChqV9dJlDsVMJIoi5tB0TrW+HM8KM8sk7L84wpfvtVNL+YR4/1xZ
+      X-Amz-Request-Id:
+      - CAE6B56881BD34D0
+      Date:
+      - Tue, 15 Jul 2014 02:42:13 GMT
+      X-Amz-Meta-Pl-Album:
+      - Broken Machine
+      X-Amz-Meta-Pl-Artist:
+      - Rachel Loy
+      X-Amz-Meta-Pl-Duration:
+      - '55'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - SOOWAAV13CF6D1B3FA
+      X-Amz-Meta-Pl-Title:
+      - Stepladder
+      Last-Modified:
+      - Tue, 15 Jul 2014 01:03:14 GMT
+      Etag:
+      - '"670bfb86a3c59428bbfa815c56a94a70"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '4589616'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      base64_string: ''
+    http_version: 
+  recorded_at: Tue, 15 Jul 2014 02:42:12 GMT
+recorded_with: VCR 2.9.2

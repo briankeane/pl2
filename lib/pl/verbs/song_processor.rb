@@ -14,48 +14,63 @@ module PL
     end
 
     def add_song_to_system(song_file)
+      
 
-      accurate_tags = {}
-
-      # create mp3 and wav versions
-      audio_converter = PL::AudioConverter.new
-
-      # IF it's a wav file
+      # Convert it to mp3 if it's a wav file
       if song_file.path.match(/\.wav$/)
+        audio_converter = PL::AudioConverter.new       
         song_file = File.open(audio_converter.wav_to_mp3(wav_file.path))
       end
 
       # from id3 tags
-      tags = self.get_id3_tags(mp3_file)
-      
-      echo_tags = self.get_echo_nest_info({ title: tags.title, artist: tags.artist })
+      tags = self.get_id3_tags(song_file)
+
+      echo_tags = self.get_echo_nest_info({ title: tags[:title], artist: tags[:artist] })
 
       # IF these are a not close match, exit with failure
       jarow = FuzzyStringMatch::JaroWinkler.create( :native )
-      if (jarow.getDistance(tags.artist, fingerprint_tags[:artist]) < 0.75) || 
-                    (jarow.getDistance(tags.title, fingerprint_tags[:title]) < 0.75)
+      if (jarow.getDistance(tags[:artist].downcase, echo_tags[:artist].downcase) < 0.75) || 
+                    (jarow.getDistance(tags[:title].downcase, echo_tags[:title].downcase) < 0.75)
   
         return false
       end
 
       # Store the song
-      afh = PL::AudioFileStorageHandler.new
-      key = afh.store_song({ song_file: mp3_song_file,
-                        artist: accurate_tags[:artist],
-                        album: accurate_tags[:album],
-                        title: accurate_tags[:title],
-                        duration: accurate_tags[:duration]
+      handler = PL::AudioFileStorageHandler.new
+      key = handler.store_song({ song_file: song_file,
+                        artist: echo_tags[:artist],
+                        album: echo_tags[:album],
+                        title: echo_tags[:title],
+                        duration: tags[:duration]
                         })
 
 
       # Add to Echonest
+      data = '[{ "item": {
+                  "item_id":"#{key}",
+                  "song_id":"#{echo_tags[:song_id]}",
+                  "item_keyvalues": {
+                    "pl_artist": "#{echo_tags[:artist]}",
+                    "pl_key" : "#{echo_tags[:key]}",
+                    "pl_album": "#{echo_tags[:album]}",
+                    "pl_title": "#{echo_tags[:duration]}",
+                    "pl_duration": "#{tags[:duration]}"
+                  }
+                }}]'
+
+      Echowrap.taste_profile_update(:id => ECHONEST_KEYS['TASTE_PROFILE_ID'], :data => data )
+
+
+
 
       # Add to DB
-      PL.db.create_song({ artist: accurate_tags[:artist],
-                          album: accurate_tags[:album],
-                          title: accurate_tags[:title],
-                          duration: accurate_tags[:duration],
+      song = PL.db.create_song({ artist: tags[:artist],
+                          album: tags[:album],
+                          title: tags[:title],
+                          duration: tags[:duration],
                           key: key })
+
+      return song
     end
 
     ######################################
@@ -81,10 +96,14 @@ module PL
       return tags
     end
 
+
     def get_echo_nest_info(attrs) # takes title and artist
-      echo_tags = Echowrap.song_search(combined: attrs[:artist] + ' ' + attrs[:title], results: 1)[0].attrs
-      binding.pry
+      echo_tags = Echowrap.song_search(combined: (attrs[:artist] || '') + ' ' + (attrs[:title] || ''), results: 1)[0].attrs
+
+      # rename some attrs for consistency
       echo_tags[:artist] = echo_tags.delete(:artist_name)
+      echo_tags[:echonest_id] = echo_tags.delete(:id)
+
       return echo_tags
     end
 

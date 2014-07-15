@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://playolacommentary.s3-us-west-2.amazonaws.com/testCommentary.mp3
+    uri: https://playolacommentariestest.s3-us-west-2.amazonaws.com/testCommentary.mp3
     body:
       encoding: US-ASCII
       string: ''
@@ -14,9 +14,9 @@ http_interactions:
       User-Agent:
       - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
       Date:
-      - Sat, 12 Jul 2014 22:14:56 GMT
+      - Tue, 15 Jul 2014 02:30:31 GMT
       Authorization:
-      - AWS AKIAI7LLKEWPT2P5JISQ:t59UV/YGLIiO2ve37FbEki7TTfI=
+      - AWS AKIAI7LLKEWPT2P5JISQ:8B6Xp6C9MOqqW+OWr6/z1VP46Gk=
       Accept:
       - '*/*'
   response:
@@ -25,13 +25,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - 1iPyihteH0TpGiBxAVmMY2mVWTP22kBGimNxvCVya4M1twm5VUfwy0f0l62bwC8sjtBaYgC9Mzw=
+      - GhXVsOzE6eLxSbBh1hlydhVNNJm8YmV7EutWfyQo+9OTn2eBCluMmMmDyzyfKYqi
       X-Amz-Request-Id:
-      - D7B10DF25118760C
+      - FEA73BBD5C7A7951
       Date:
-      - Sat, 12 Jul 2014 22:14:59 GMT
+      - Tue, 15 Jul 2014 02:30:33 GMT
       Last-Modified:
-      - Fri, 27 Jun 2014 17:37:04 GMT
+      - Mon, 14 Jul 2014 19:45:54 GMT
       Etag:
       - '"8dbc842dd3c6e4153a4d17add94aadd8"'
       Accept-Ranges:
@@ -11111,5 +11111,5 @@ http_interactions:
         AAA0gAAABCDTyFChidAQEVCCf/IKYCjoouKK+3+FBRwUd0F6CuhBMIK///wU
         2KK4FOCn///83zfCOyO8FkxBTUUzLjk4LjKqqqqq
     http_version: 
-  recorded_at: Sat, 12 Jul 2014 22:15:01 GMT
+  recorded_at: Tue, 15 Jul 2014 02:30:33 GMT
 recorded_with: VCR 2.9.2
