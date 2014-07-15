@@ -1,5 +1,6 @@
 require 'aws'
 require 'pry-debugger'
+require 'echowrap'
 
 # load environment variables only if RAILS app has not loaded them first
 #    -- (this is here so the non-rails app can stand on its own)
@@ -15,6 +16,12 @@ module PL
   # set up AWS
   AWS.config(access_key_id: S3_KEYS['ACCESS_KEY_ID'], secret_access_key: S3_KEYS['SECRET_KEY'], region: 'us-west-2')
 
+  # set up Echonest
+  Echowrap.configure do |config|
+    config.api_key = ECHONEST_KEYS['API_KEY']
+    config.consumer_key = ECHONEST_KEYS['CONSUMER_KEY']
+    config.shared_secret = ECHONEST_KEYS['SHARED_SECRET']
+  end
   
   # Constants
   HEAVY_ROTATION = 27
@@ -59,6 +66,7 @@ require_relative 'pl/verbs/audio_file_storage_handler.rb'
 require_relative 'pl/verbs/song_suggester.rb'
 require_relative 'pl/verbs/song_processor.rb'
 require_relative 'pl/verbs/audio_converter.rb'
+require_relative 'pl/verbs/song_pool_handler.rb'
 require_relative 'pl/database/postgres_database.rb'
 require_relative 'pl/entities/commercial_block.rb'
 require_relative 'pl/entities/commercial.rb'
