@@ -30,14 +30,29 @@
       <div class="small-6 columns">
         <input id="zipCode" class="required small-4 columns" type="text" placeholder="Zip Code">
       </div>
+      
       <div class="small-1 columns">
-        <a class=href="#">Why?</a>
+        <a data-reveal-id="why" href="#">Why?</a>
       </div>
 
       <div class="row">
         <p><button type="submit">Take My Info, Evil Corporation</button></p>
         </div>
       </form>
+
+
+      <div id="why" class="reveal-modal" data-reveal>
+        <h2>Why Do We Need To Know This Stuff?</h2>
+        <dl>
+          <dt>Birthdate and Gender</dt>
+          <dd>So that we can charge more for our commercials, making more money with less commercials, and in turn passing more money on to songwriters, musicians, and Playola users like you.</dd>
+          <dt>Zipcode</dt>
+          <dd>So that we can match local listeners to local stations</dd>
+        </dl>
+
+        <a data-reveal-id="getUserInfoModal"class="close-reveal-modal">&#215;</a>
+      </div>
+
     </div>
 
 
