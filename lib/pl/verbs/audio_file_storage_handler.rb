@@ -3,6 +3,9 @@ require 'aws-sdk'
 module PL
   class AudioFileStorageHandler
 
+    def initialize
+      @s3 = AWS::S3.new
+    end
 
     def bucket
       { 
@@ -24,8 +27,8 @@ module PL
         audio_block_type = :commentaries
       end
 
-      s3 = AWS::S3.new
-      s3_song_file = s3.buckets[bucket[audio_block_type]].objects[audio_block.key]
+      @s3 = AWS::S3.new
+      s3_song_file = @s3.buckets[bucket[audio_block_type]].objects[audio_block.key]
       temp_audio_file = Tempfile.new('temp_audio_file')
       temp_audio_file.open
       temp_audio_file.write(s3_song_file.read)
@@ -41,10 +44,10 @@ module PL
     #  returns a string with the new_aws_key            #
     #####################################################
     def store_song(attrs)
-      s3 = AWS::S3.new
+      @s3 = AWS::S3.new
       audio_block_type = :songs
 
-      stored_song_keys = s3.buckets[bucket[audio_block_type]].objects.collect(&:key)
+      stored_song_keys = @s3.buckets[bucket[audio_block_type]].objects.collect(&:key)
 
       # figure out what the next_key_value will be
       if stored_song_keys.count == 0
@@ -58,8 +61,8 @@ module PL
 
       new_key = ('_pl_' + ('0' * (7 - next_key_value.to_s.size)) +  next_key_value.to_s + '_' + attrs[:artist] + '_' + attrs[:title] + '.' + '.mp3')
 
-      s3.buckets[bucket[audio_block_type]].objects[new_key].write(:file => attrs[:song_file])
-      aws_song_object = s3.buckets[bucket[:songs]].objects[new_key]
+      @s3.buckets[bucket[audio_block_type]].objects[new_key].write(:file => attrs[:song_file])
+      aws_song_object = @s3.buckets[bucket[:songs]].objects[new_key]
       aws_song_object.metadata[:pl_title] = attrs[:title]
       aws_song_object.metadata[:pl_artist] = attrs[:artist]
       aws_song_object.metadata[:pl_album] = attrs[:album]
@@ -70,9 +73,12 @@ module PL
     end
 
     def get_stored_song_metadata(key)
-      s3 = AWS::S3.new
+      
+      if !@s3.buckets[bucket[:songs]].objects[key].exists?
+        return nil
+      end
 
-      aws_song_object = s3.buckets[bucket[:songs]].objects[key]
+      aws_song_object = @s3.buckets[bucket[:songs]].objects[key]
       metadata = {}
 
       metadata[:title] = aws_song_object.metadata[:pl_title]
@@ -81,6 +87,26 @@ module PL
       metadata[:duration] = aws_song_object.metadata[:pl_duration].to_i
       metadata[:echonest_id] = aws_song_object.metadata[:pl_echonest_id]
       metadata
+    end
+    
+    def get_all_songs
+      all_s3_objects = @s3.buckets[bucket[:songs]].objects
+      songs = []
+      all_s3_objects.each do |s3_object|
+        song = Song.new({ artist: s3_object.metadata[:pl_artist],
+                          title: s3_object.metadata[:pl_title],
+                          album: s3_object.metadata[:pl_album],
+                          duration: s3_object.metadata[:pl_duration].to_i,
+                          echonest_id: s3_object.metadata[:pl_echonest_id],
+                          key: s3_object.key })
+        songs << song
+      end
+      return songs
+    end
+
+    def delete_song(key)
+      @s3.buckets[bucket[:songs]].objects[key].delete
+      return true
     end
 
   end

@@ -3,13 +3,20 @@ require 'echowrap'
 
 module PL
   class SongPoolHandler
+
+    def add_song(song_object)
+      self.add_songs(song_object)
+    end
+
     def add_songs(*song_objects)
 
-      # if it's only one, format put it in an array
+      # This allows 1 object, a list, or an array of objects to be passed
       if song_objects.is_a?(PL::Song)
         song_object = song_objects
         song_objects = []
         song_objects.push(song_object)
+      elsif song_objects[0].is_a?(Array)
+        song_objects = song_objects[0]
       end
 
       json_songs = song_objects.map do |song|
@@ -70,6 +77,23 @@ module PL
       data = '[' + json_songs.join(", \n") + ']'
 
       Echowrap.taste_profile_update(id: ECHONEST_KEYS['TASTE_PROFILE_ID'], data: data)
+    end
+
+    ########################################################
+    #                  song_included?(attrs)               #
+    ########################################################
+    # takes title and artist and returns true if song is   #
+    # included in the pool.                                #
+    ########################################################
+    def song_included?(attrs)
+      profile = Echowrap.taste_profile_read(id: ECHONEST_KEYS['TASTE_PROFILE_ID'])
+      profile.items.select { |item| (item.attrs[:pl_artist] == attrs[:artist]) && 
+                                    (item.attrs[:pl_title] == attrs[:title]) }
+      if profile.items.size > 0
+        return true
+      else
+        return false
+      end
     end
   end
 end

@@ -1,89 +1,17 @@
 <div class="wall-without-mic-image">
 
-    <div class="row">
-      <div data-alert class="alert-box secondary">
-        <h4> Getting Started </h4>
-        <p> Please choose the songs that will be played on your station.  Heavy songs will be played frequently, and light songs will be played occasionally.  Just drag the songs you want into a bin on the left.  When you're finished, push the 'create my station' button.</p>
-      </div>
-    </div>
-
-  <div class="row">
-    <div class="searchbox small-3 columns">
-      Search: <input id="searchText">
-    </div>
-    <div class="container small-9 columns">
-      <button id='create' class='btn'>Create Station</button>
-      <button class='btn' id='random'>Generate Randomly</button>
-    </div>
+  <!-- Reveal Modals begin -->
+  <div id="getUserInfoModal" class="reveal-modal" data-closeOnBackgroundClick="false" data-reveal>
+    <h2>Big Brother Playola would Like to Know a Little About You.</h2>
+    <p>Reveal makes these very easy to summon and dismiss. The close button is simply an anchor with a unicode character icon and a class of <code>close-reveal-modal</code>. Clicking anywhere outside the modal will also dismiss it.</p>
+    <p>Finally, if your modal summons another Reveal modal, the plugin will handle that for you gracefully.</p>
+    <p><a href="#" data-reveal-id="secondModal" class="secondary button">Second Modal...</a></p>
+    <a class="close-reveal-modal">&#215;</a>
   </div>
 
-
-  <div class="row">
-
-    <div class="heavy rotation song-list-container small-4 columns">
-      <ul class="rotation song-list" id="heavy">
-        <% @heavy.each do |song| %>
-          <li data-searchString="<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" class="playlist-song">
-            <div class="clearfix">
-              <div class="title"><b><%= song.title %></b></div>
-              <div class="artist"><%= song.artist %></div>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-
-   <!--  <div class="medium rotation song-list-container">
-      <ul class="rotation song-list" id="medium">
-        <% @medium.each do |song| %>
-          <li data-searchString="<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" class="playlist-song">
-            <div class="clearfix">
-              <div class="title"><b><%= song.title %></b></div>
-              <div class="artist"><%= song.artist %></div>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    </div> -->
-
-   <!--  <div class="light rotation song-list-container">
-      <ul class="rotation song-list" id="light">
-        <% @light.each do |song| %>
-          <li data-searchString="<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" class="playlist-song">
-            <div class="clearfix">
-              <div class="title"><b><%= song.title %></b></div>
-              <div class="artist"><%= song.artist %></div>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    </div> -->
-
-<!--     <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5 no-gutter" id="draganddrophandler">
-
-      <div class="all-songs song-list-container" >
-
-        <ul id="all-songs-list" class="song-list">
-          <% @songs.each do |song| %>
-            <li data-searchString="<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" class="playlist-song">
-            <div class="clearfix">
-              <div class="title"><b><%= song.title %></b></div>
-              <div class="artist"><%= song.artist %></div>
-            </div>
-          </li>
-          <% end %>
-        </ul>
-
-
-      </div>
-      <div id="status"></div>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2 no-gutter"?
-      <form style="display: inline">
-          Add a Song to Our Library: <input type="file" id="file">
-          <input type="submit" id="songUpload" disabled="true">Upload</input>
-          <p id="songMessage"></p>
-      </form>
-    </div> -->
+  <div id="secondModal" class="reveal-modal" data-reveal>
+    <h2>This is a second modal.</h2>
+    <p>See? It just slides into place after the other first modal. Very handy when you need subsequent dialogs, or when a modal option impacts or requires another decision.</p>
+    <a class="close-reveal-modal">&#215;</a>
   </div>
 </div>

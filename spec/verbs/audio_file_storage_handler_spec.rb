@@ -55,19 +55,18 @@ describe 'audio_file_storage_handler' do
   end
 
   it 'gets metadata from a stored song' do
-    VCR.use_cassette('audio_file_storage_handler/getmetadata', :preserve_exact_body_bytes => true) do
+    #VCR.use_cassette('audio_file_storage_handler/getmetadata', :preserve_exact_body_bytes => true) do
       metadata = @grabber.get_stored_song_metadata('_pl_0000001_Rachel Loy_Stepladder.mp3')
       expect(metadata[:title]).to eq('Stepladder')
       expect(metadata[:artist]).to eq('Rachel Loy')
       expect(metadata[:album]).to eq('Broken Machine')
       expect(metadata[:duration]).to eq(55)
       expect(metadata[:echonest_id]).to eq('SOOWAAV13CF6D1B3FA')
-    end
-
+    #end
   end
 
   it 'stores a song' do
-    VCR.use_cassette('audio_file_storage_handler/storesong', :preserve_exact_body_bytes => true) do
+    #VCR.use_cassette('audio_file_storage_handler/storesong', :preserve_exact_body_bytes => true) do
       File.open('spec/test_files/look.mp3') do |file|
         new_key = @grabber.store_song({ title: 'Look At That Girl',
                                         artist: 'Rachel Loy',
@@ -83,13 +82,32 @@ describe 'audio_file_storage_handler' do
         expect(metadata[:album]).to eq('Broken Machine')
         expect(metadata[:duration]).to eq(9999)
         expect(metadata[:echonest_id]).to eq('test_echonest_id')
+        @grabber.delete_song(new_key)
       end
-      
-    end
+    #end
   end
 
 
 
+  it 'returns an array of all stored songs as objects' do
+    all_songs = @grabber.get_all_songs
+    expect(all_songs.size).to eq(3)
+    expect(all_songs[0].artist).to eq('Rachel Loy')
+    expect(all_songs[2].title).to eq('The Grandpa Song')
+  end
 
-
+  it 'deletes a song' do
+    File.open('spec/test_files/look.mp3') do |file|
+      new_key = @grabber.store_song({ title: 'Look At That Girl',
+                                      artist: 'Rachel Loy',
+                                      album: 'Broken Machine',
+                                      duration: 9999,
+                                      echonest_id: 'test_echonest_id',
+                                      song_file: file })
+      metadata = @grabber.get_stored_song_metadata(new_key)
+      expect(metadata[:title]).to eq('Look At That Girl')
+      @grabber.delete_song(new_key)
+      expect(@grabber.get_stored_song_metadata(new_key)).to be_nil
+    end
+  end
 end

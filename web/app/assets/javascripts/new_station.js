@@ -1,5 +1,6 @@
 (function(){
   
+  $('#getUserInfoModal').foundation('reveal', 'open');
   $('#heavy').sortable();
   $('#all-songs-list').sortable({ connectWith: ["#heavy", "#medium", "#light"],
                             dropOnEmpty: true });
