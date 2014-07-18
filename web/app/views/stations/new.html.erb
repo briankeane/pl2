@@ -5,30 +5,33 @@
     <h1>Big Brother Playola</h1>
     <h3>Would Like to Know 3 Things About You.</h3>
     
-    <form data-abide> 
+    <form data-abide id='userInfo'> 
       <div class="small-3 columns">
         <label for="birthYear" class="right">Your Birth Year</label>
       </div>
       <div class="small-9 columns">
-        <%= select_year Date.today, :start_year => 2009, :end_year => 1900, :class =>"small-9 columns required"  %>
+        <%= select_year Date.today, :start_year => 2009, :end_year => 1900, :class =>"small-9 columns"  %>
+        <small class="error">Please Tell Us Your Birth Year</small>
       </div>
 
       <div class="small-3 columns">
         <label for="gender" class="right">Gender</label>
       </div>
-      <div class="small-9 columns required">
-        <select id="gender" placeholder="Gender">
+      <div class="small-9 columns">
+        <select id="gender" placeholder="Gender" required>
           <option value=''></option>
           <option>Guy</option>
           <option>Girl</option>
         </select>
+        <small class="error">Please Tell Us Your Gender</small>
       </div>
 
       <div class="small-3 columns">
-        <label for="gender" class="right">Gender</label>
+        <label for="gender" class="right">Zipcode</label>
       </div>
       <div class="small-6 columns">
-        <input id="zipCode" class="required small-4 columns" type="text" placeholder="Zip Code">
+        <input id="zipcode" required type="text" pattern="^[0-9-]*$" placeholder="Zip Code">
+        <small class="error">Please Type a Valid Zipcode</small>
       </div>
       
       <div class="small-1 columns">

@@ -1,6 +1,60 @@
 (function(){
-  
+
+  $(document).foundation({
+    abide: {
+      live_validate: true,
+      focus_on_invalid: true,
+      error_labels: true,
+      patterns: {
+        zipcode: /^[-+]?[1-9]\d*$/
+      }
+    }
+  });
+
   $('#getUserInfoModal').foundation('reveal', 'open');
+  $('#userInfo').on('submit valid invalid', function(e) {
+      e.stopPropagation();
+      e.preventDefault();
+      if (e.type === 'valid') {
+        var year = $('#date_year').val();
+        var zipcode = $('#zipcode').val();
+        var gender
+        if ($('#gender').val() === 'Guy') {
+          gender = 'male';
+        } else {
+          gender = 'female';
+        }
+        
+        var userInfo = {
+          year: year,
+          zipcode: zipcode,
+          gender: gender
+        }
+
+        $.ajax({
+          type: "PUT",
+          dataType: "json",
+          url:'/users/update',
+          contentType: 'application.json',
+          data: JSON.stringify(userInfo),
+          success: function(obj) {
+            alert('SUCCESS, MF!');
+          }
+        })
+      } else if (e.type === 'invalid') {
+        alert('invalid');
+      }
+    });
+
+
+
+
+
+
+
+
+
+// OLD STUFF FROM HERE DOWN
   $('#heavy').sortable();
   $('#all-songs-list').sortable({ connectWith: ["#heavy", "#medium", "#light"],
                             dropOnEmpty: true });
@@ -97,7 +151,7 @@
         lightIds.push(lightElements.eq(i).attr('data-id'));
       }
 
-      createStationInfo = {
+      var createStationInfo = {
         heavy: heavyIds,
         medium: mediumIds,
         light: lightIds

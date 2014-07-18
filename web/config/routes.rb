@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  get 'users/update'
+
+  get 'users/delete'
+
+  get 'users/show'
+
   # welcome_controller paths
   root :to => 'welcome#home'
   match '/about',     to: 'welcome#about',  via: 'get'
