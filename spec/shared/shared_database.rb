@@ -15,7 +15,7 @@ shared_examples 'a badass database' do
     ##############
     before(:each) do
       @user = db.create_user({ twitter: 'BrianKeaneTunes',
-              twitter_uid: 756,
+              twitter_uid: '756',
               email: 'lonesomewhistle_gmail.com',
               birth_year: 1977,
               gender: 'male' })
@@ -24,7 +24,7 @@ shared_examples 'a badass database' do
     it 'creates a user' do
       expect(@user.id).to_not be_nil
       expect(@user.twitter).to eq('BrianKeaneTunes')
-      expect(@user.twitter_uid).to eq(756)
+      expect(@user.twitter_uid).to eq('756')
       expect(@user.birth_year).to eq(1977)
       expect(@user.gender).to eq('male')
     end
@@ -40,7 +40,7 @@ shared_examples 'a badass database' do
     end
 
     it 'can be gotten by twitter_uid' do
-      user = db.get_user_by_twitter_uid(756)
+      user = db.get_user_by_twitter_uid('756')
       expect(user.id).to eq(@user.id)
     end
 
@@ -49,13 +49,13 @@ shared_examples 'a badass database' do
       db.update_user({ id: @user.id,
                               birth_year: 1900,
                               twitter: 'bob',
-                              twitter_uid: 100,
+                              twitter_uid: '100',
                               gender: 'unsure',
                               email: 'bob@bob.com' })
       user = db.get_user(@user.id)
       expect(user.birth_year).to eq(1900)
       expect(user.twitter).to eq('bob')
-      expect(user.twitter_uid).to eq(100)
+      expect(user.twitter_uid).to eq('100')
       expect(user.gender).to eq('unsure')
       expect(user.email).to eq('bob@bob.com')
       expect(user.updated_at > old_update_time).to eq(true)

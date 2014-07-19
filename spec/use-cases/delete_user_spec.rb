@@ -9,7 +9,7 @@ describe 'DeleteUser' do
 
   it 'gets a user by twitter' do
     user = PL.db.create_user({ twitter: 'bob',
-                        twitter_uid: 5,
+                        twitter_uid: '5',
                         email: 'bob@bob.com',
                         birth_year: 1977,
                         gender: 'male'

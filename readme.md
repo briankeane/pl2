@@ -8,7 +8,7 @@ request:
 ```
 {
   "twitter": "BrianKeaneTunes",
-  "twitter_uid": 123,
+  "twitter_uid": "123",
   "email": "lonesomewhistle@gmail.com",
   "birth_year": 1977,
   "gender": "male"

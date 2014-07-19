@@ -10,7 +10,7 @@ describe 'GetUser' do
 
   it 'gets a user' do
     user = PL.db.create_user({ twitter: 'bob',
-                        twitter_uid: 5,
+                        twitter_uid: '5',
                         email: 'bob@bob.com',
                         birth_year: 1977,
                         gender: 'male'
@@ -20,7 +20,7 @@ describe 'GetUser' do
     expect(result.success?).to eq(true)
     expect(result.user.id).to eq(user.id)
     expect(result.user.twitter).to eq('bob')
-    expect(result.user.twitter_uid).to eq(5)
+    expect(result.user.twitter_uid).to eq('5')
     expect(result.user.email).to eq('bob@bob.com')
     expect(result.user.birth_year).to eq(1977)
     expect(result.user.gender).to eq('male')
