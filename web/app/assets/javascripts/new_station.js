@@ -11,12 +11,16 @@
     }
   });
 
-  $('#getUserInfoModal').foundation('reveal', 'open');
+  // Get the User Info if it's not yet complete
+  if ($('#getUserInfoModal').data('userinfocomplete') == false) {
+    $('#getUserInfoModal').foundation('reveal', 'open');
+  }
+ 
   $('#userInfo').on('submit valid invalid', function(e) {
       e.stopPropagation();
       e.preventDefault();
       if (e.type === 'valid') {
-        var year = $('#date_year').val();
+        var birth_year = $('#date_year').val();
         var zipcode = $('#zipcode').val();
         var gender
         if ($('#gender').val() === 'Guy') {
@@ -26,24 +30,30 @@
         }
         
         var userInfo = {
-          year: year,
+          birth_year: birth_year,
           zipcode: zipcode,
-          gender: gender
+          gender: gender,
+          _method: 'post'
         }
 
         $.ajax({
-          type: "PUT",
+          type: "POST",
           dataType: "json",
           url:'/users/update',
-          contentType: 'application.json',
+          contentType: 'application/json',
           data: JSON.stringify(userInfo),
           success: function(obj) {
+            console.log(obj)
             alert('SUCCESS, MF!');
+            $('#getUserInfoModal').foundation('reveal', 'close');
+
           }
         })
-      } else if (e.type === 'invalid') {
-        alert('invalid');
-      }
+
+
+
+
+      } 
     });
 
 

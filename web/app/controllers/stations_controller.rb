@@ -17,9 +17,14 @@ class StationsController < ApplicationController
 
   def new
     @songs = PL.db.get_all_songs
-    @heavy = []
-    @medium = []
-    @light = []
+
+    # tell the browser whether or not to collect the user info
+    if current_user.gender && current_user.birth_year && current_user.zipcode
+      @user_info_complete = true
+    else
+      @user_info_complete = false
+    end
+
   end
 
   def create

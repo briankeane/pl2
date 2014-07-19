@@ -36,7 +36,7 @@ namespace :db do
 
     song_pool = PL::SongPoolHandler.new
     all_songs = song_pool.all_songs
-    binding.pry
+
     
     puts "Adding songs from echonest...."
     all_songs.each_with_index do |song, i|

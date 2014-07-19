@@ -1,7 +1,8 @@
 <div class="wall-without-mic-image">
 
   <!-- Reveal Modals begin -->
-  <div id="getUserInfoModal" class="reveal-modal" data-closeOnBackgroundClick="false" data-reveal>
+  <%= content_tag "div", id: "getUserInfoModal", class: "reveal-modal", reaveal: true, data: { userInfoComplete: @user_info_complete } do %>
+  <!-- <div id="getUserInfoModal" class="reveal-modal" data-closeOnBackgroundClick="false" data-reveal> -->
     <h1>Big Brother Playola</h1>
     <h3>Would Like to Know 3 Things About You.</h3>
     
@@ -56,8 +57,8 @@
         <a data-reveal-id="getUserInfoModal"class="close-reveal-modal">&#215;</a>
       </div>
 
-    </div>
-
+    <!-- </div> -->
+    <% end %>
 
   <div id="secondModal" class="reveal-modal" data-reveal>
     <h2>This is a second modal.</h2>
