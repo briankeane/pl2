@@ -83,6 +83,37 @@ namespace :db do
     end
   end
 
-  task :clear_users do
+  task :update_stored_songs_info => [:load_app] do
+
+    # create the handlers
+    ash = PL::AudioFileStorageHandler.new
+    sp = PL::SongProcessor.new
+    song_pool = PL::SongPoolHandler.new
+
+    puts "Getting all currently stored info..."
+    all_songs = ash.get_all_songs
+    all_songs.each_with_index do |song, i|
+      puts "\rProcessing Song #{i} of all_songs.count"
+
+      # grab the file
+      temp_song_file = ash.grab_audio(song)
+      
+      # get it's tags
+      tags = sp.get_id3_tags(temp_song_file)
+
+      # grab the songpool info
+      echonest_info = sp.get_echo_nest_info({ title: tags[:title], artist: tags[:artist] })
+
+      # TEMPORARY... ASK THE USER IF THEY MATCH
+      puts "tags: "
+      puts "------------------"
+      puts tags
+      puts
+      puts "Echonest Info:"
+      puts "-------------------"
+      puts echonest_info
+
+    end
+
   end
 end

@@ -64,13 +64,24 @@ module PL
 
       @s3.buckets[bucket[audio_block_type]].objects[new_key].write(:file => attrs[:song_file])
       aws_song_object = @s3.buckets[bucket[:songs]].objects[new_key]
-      aws_song_object.metadata[:pl_title] = attrs[:title]
-      aws_song_object.metadata[:pl_artist] = attrs[:artist]
-      aws_song_object.metadata[:pl_album] = attrs[:album]
-      aws_song_object.metadata[:pl_duration] = attrs[:duration]
-      aws_song_object.metadata[:pl_echonest_id] = attrs[:echonest_id]
+
+      attrs[:key] = new_key
+
+      self.update_stored_song_metadata(attrs)
 
       return new_key
+    end
+
+    def update_stored_song_metadata(attrs)
+      audio_block_type = :songs
+
+      aws_song_object = @s3.buckets[bucket[audio_block_type]].objects[attrs[:key]]
+      aws_song_object.metadata[:pl_title] = attrs[:title] if attrs[:title]
+      aws_song_object.metadata[:pl_artist] = attrs[:artist] if attrs[:artist]
+      aws_song_object.metadata[:pl_album] = attrs[:album] if attrs[:album]
+      aws_song_object.metadata[:pl_duration] = attrs[:duration] if attrs[:duration]
+      aws_song_object.metadata[:pl_echonest_id] = attrs[:echonest_id] if attrs[:echonest_id]
+
     end
 
     def get_stored_song_metadata(key)
@@ -93,7 +104,13 @@ module PL
     def get_all_songs
       all_s3_objects = @s3.buckets[bucket[:songs]].objects
       songs = []
-      all_s3_objects.each do |s3_object|
+      
+      # for display
+      total = all_s3_objects.count
+      puts
+
+      all_s3_objects.each_with_index do |s3_object, i|
+        puts "\nSong #{i} of #{total}"
         song = Song.new({ artist: s3_object.metadata[:pl_artist],
                           title: s3_object.metadata[:pl_title],
                           album: s3_object.metadata[:pl_album],

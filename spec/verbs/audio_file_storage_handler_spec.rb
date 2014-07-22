@@ -87,6 +87,32 @@ describe 'audio_file_storage_handler' do
     #end
   end
 
+  it 'updates the metadata on a song' do
+    File.open('spec/test_files/look.mp3') do |file|
+      new_key = @grabber.store_song({ title: 'Look At That Girl',
+                                        artist: 'Rachel Loy',
+                                        album: 'Broken Machine',
+                                        duration: 9999,
+                                        echonest_id: 'test_echonest_id',
+                                        song_file: file })
+
+      @grabber.update_stored_song_metadata({ key: new_key,
+                                        artist: 'FAKEartist',
+                                        album: 'FAKEalbum',
+                                        title: 'FAKEtitle',
+                                        duration: 1,
+                                        echonest_id: 'FAKEid' })
+
+      metadata = @grabber.get_stored_song_metadata(new_key)
+
+      expect(metadata[:title]).to eq('FAKEtitle')
+      expect(metadata[:artist]).to eq('FAKEartist')
+      expect(metadata[:album]).to eq('FAKEalbum')
+      expect(metadata[:duration]).to eq(1)
+      expect(metadata[:echonest_id]).to eq('FAKEid')
+      @grabber.delete_song(new_key)
+    end
+  end
 
 
   it 'returns an array of all stored songs as objects' do
