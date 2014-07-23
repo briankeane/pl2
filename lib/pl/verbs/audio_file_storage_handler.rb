@@ -17,7 +17,6 @@ module PL
     end
     
 
-
     def grab_audio(audio_block)
       case
       when audio_block.is_a?(PL::Song)
@@ -110,7 +109,7 @@ module PL
       puts
 
       all_s3_objects.each_with_index do |s3_object, i|
-        puts "\nSong #{i} of #{total}"
+        print "\rSong #{i + 1} of #{total}"
         song = Song.new({ artist: s3_object.metadata[:pl_artist],
                           title: s3_object.metadata[:pl_title],
                           album: s3_object.metadata[:pl_album],

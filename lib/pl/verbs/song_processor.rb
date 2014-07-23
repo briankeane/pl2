@@ -85,11 +85,49 @@ module PL
 
 
     def get_echo_nest_info(attrs) # takes title and artist
-      echo_tags = Echowrap.song_search(combined: (attrs[:artist] || '') + ' ' + (attrs[:title] || ''), results: 1)[0].attrs
+
+      
+      song_list = Echowrap.song_search({ combined: { 
+                                            artist: (attrs[:artist] ||= ''), 
+                                            title: (attrs[:title] ||= '')
+                                          }, 
+                                          results: 10 
+                                        })
+      echo_tags = song_list[0].attrs
+
+
+      # if it's not a close match, find the closest
+      jarow = FuzzyStringMatch::JaroWinkler.create( :native )
+      artist_match = jarow.getDistance(attrs[:artist].downcase, echo_tags[:artist_name].downcase)
+      title_match = jarow.getDistance(attrs[:title].downcase, echo_tags[:title].downcase)
+      if (artist_match < 0.9) || (title_match < 0.9)
+        
+        closest_match_index = 0
+        closest_match_rating = 0
+        
+        # find the next closest match
+        song_list.each_with_index do |tags, i|
+          artist_match = jarow.getDistance(attrs[:artist].downcase, tags.artist_name.downcase)
+          title_match = jarow.getDistance(attrs[:title].downcase, tags.title.downcase)
+          
+          match_rating = artist_match + title_match
+
+          if match_rating > closest_match_rating
+            closest_title_match = title_match
+            closest_artist_match = artist_match
+            closest_match_rating = match_rating
+            closest_match_index = i
+          end
+        end
+
+        echo_tags = song_list[closest_match_index].attrs
+      end
 
       # rename some attrs for consistency
-      echo_tags[:artist] = echo_tags.delete(:artist_name)
-      echo_tags[:echonest_id] = echo_tags.delete(:id)
+      echo_tags[:artist] = (echo_tags.delete(:artist_name) || '')
+      echo_tags[:echonest_id] = (echo_tags.delete(:id) || '')
+      echo_tags[:artist_match_rating] = jarow.getDistance(attrs[:artist].downcase, echo_tags[:artist].downcase)
+      echo_tags[:title_match_rating] = jarow.getDistance(attrs[:title].downcase, echo_tags[:title].downcase)
 
       return echo_tags
     end

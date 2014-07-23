@@ -21,6 +21,10 @@ task :load_app do
   require 'aws-sdk'
 end
 
+task :sandbox => [:load_app] do
+  binding.pry
+end
+
 namespace :db do
   task :migrate do
     puts "Migrating database"
@@ -92,8 +96,10 @@ namespace :db do
 
     puts "Getting all currently stored info..."
     all_songs = ash.get_all_songs
+    puts
+    puts "           artist:                                             title:"
+    puts "----------------------------------------------------------------------"
     all_songs.each_with_index do |song, i|
-      puts "\rProcessing Song #{i} of all_songs.count"
 
       # grab the file
       temp_song_file = ash.grab_audio(song)
@@ -104,14 +110,26 @@ namespace :db do
       # grab the songpool info
       echonest_info = sp.get_echo_nest_info({ title: tags[:title], artist: tags[:artist] })
 
+
+      ash.update_stored_song_metadata({ key: song.key,
+                                          title: echonest_info[:title],
+                                          artist: echonest_info[:artist],
+                                          duration: tags[:duration],
+                                          album: tags[:album],
+                                          echonest_id: echonest_info[:echonest_id] })
+      
+
       # TEMPORARY... ASK THE USER IF THEY MATCH
-      puts "tags: "
-      puts "------------------"
-      puts tags
+      tags[:artist] ||= ''
+      tags[:title] ||= ''
+      echonest_info[:artist] ||= ''
+      echonest_info[:title] ||= ''
+
+      puts "     id3: " + tags[:artist] + (' ' * (50 - tags[:artist].size)) + tags[:title]
+      puts "echonest: " + echonest_info[:artist] + (' ' * (50 - echonest_info[:artist].size)) + echonest_info[:title]
+
+      puts "   match: " + echonest_info[:artist_match_rating].round(3).to_s + (' ' * (50 - echonest_info[:artist_match_rating].round(3).to_s.size)) + echonest_info[:title_match_rating].round(3).to_s
       puts
-      puts "Echonest Info:"
-      puts "-------------------"
-      puts echonest_info
 
     end
 
