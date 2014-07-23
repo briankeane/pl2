@@ -67,7 +67,7 @@ namespace :db do
 
 
     puts "Adding Songs to song pool"
-    all_stored_songs.each_slice(999) do |songs_chunk|
+    all_stored_songs.each_slice(10) do |songs_chunk|
       song_pool.add_songs(songs_chunk)
     end
 
