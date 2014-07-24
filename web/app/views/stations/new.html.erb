@@ -41,23 +41,69 @@
 
       <div class="row">
         <p><button type="submit">Take My Info, Evil Corporation</button></p>
-        </div>
-      </form>
-
-
-    <% end %>
-      <div id="why" class="reveal-modal" data-reveal>
-        <h2>Why Do We Need To Know This Stuff?</h2>
-        <dl>
-          <dt>Birthdate and Gender</dt>
-          <dd>So that we can charge more for our commercials, making more money with less commercials, and in turn passing more money on to songwriters, musicians, and Playola users like you.</dd>
-          <dt>Zipcode</dt>
-          <dd>So that we can match local listeners to local stations</dd>
-        </dl>
-
-        <a data-reveal-id="getUserInfoModal"class="close-reveal-modal">&#215;</a>
       </div>
+    </form>
 
+  <% end %>
+
+
+
+
+  <div id="why" class="reveal-modal" data-reveal>
+    <h2>Why Do We Need To Know This Stuff?</h2>
+    <dl>
+      <dt>Birth Year and Gender</dt>
+      <dd>So that we can charge more for your advertising time, making more money with less commercials, and in turn passing more money on to songwriters, musicians, and Playola users like you.</dd>
+      <dt>Zipcode</dt>
+      <dd>So that we can match local listeners to local stations</dd>
+    </dl>
+
+    <a data-reveal-id="getUserInfoModal"class="close-reveal-modal">&#215;</a>
+  </div>
+
+  <%= content_tag "div", id: "getStationInfoModal", class: "reveal-modal medium", data: { stationInfoComplete: @station_info_complete, reveal: true } do %>
+    
+    <div class="row">
+      <%= form_tag(station_create_path, :id => 'getArtists', :method => 'post') do %>
+      <h1>Create Your Station</h1>
+      
+        <fieldset>
+          <legend>  Enter up to 5 Artists That You Enjoy</legend>
+          <div class="small-6 columns">
+            <input class="small-6 columns" type="text" id="artist1" name="artist1" placeholder="Artist1">
+          </div>
+          <div class="small-6 columns">
+            <input class="small-6 columns" type="text" name="artist2" placeholder="Artist2">
+          </div>
+            <div class="small-6 columns">
+              <input type="text" name="artist3" placeholder="Artist3">
+            </div>
+            <div class ="small-6 columns">
+              <input type="text" name="artist4" placeholder="Artist4">
+            </div>
+            <div class ="small-6 columns left">
+              <input type="text" name="artist5" placeholder="Artist5">
+            </div>
+        </fieldset>
+    
+        <div class="row">
+          <div class="large-6 large-centered columns">
+            <ul class="button-group even-2">
+              <li><a href='#' class="button" id="manualStationCreate">Create Manually</a><p>I want to carefully pick each song</li>
+              <li><a href='#'class="button" id="automaticStationCreate">Create Automatically</a><pclass="small-3 columns" >I just want to get going</p></li>
+            </ul>
+          </div>
+        </div>
+      <% end %>
+
+      <div class="row hide" id="creating">
+        <h1>Creating Your Station...</h1>
+        <p>This may take a few seconds</p>
+      </div>
+      
+    </div>
+
+  <% end %>
 
   <!-- END MODALS  -->
   <!-- BEGIN PLAYLIST_PAGE -->

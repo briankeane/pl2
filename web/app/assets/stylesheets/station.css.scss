@@ -18,10 +18,10 @@ body .wall-without-mic-image {
   width: 100%;
   background-image: url('../images/just_background.jpg');
   background-size: cover;
-  background-repeat: none;
+  background-repeat: repeat-y;
 }
 
-#getUserInfoModal {
+#getUserInfoModal, #getStationInfoModal {
   text-align: center;
 }
 

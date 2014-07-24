@@ -110,6 +110,18 @@ namespace :db do
       # grab the songpool info
       echonest_info = sp.get_echo_nest_info({ title: tags[:title], artist: tags[:artist] })
 
+      # use the id3 tags if no suitable match found
+      if echonest_info[:artist_match_rating] < 8.0
+        echonest_info[:artist] = tags[:artist]
+        echonest_info[:echonest_id] == nil
+      end
+
+      if echonest_info[:title_match_rating] < 8.0
+        echonest_info[:title] = tags[:title]
+        echonest_info[:echonest_id] = nil
+      end
+
+
 
       ash.update_stored_song_metadata({ key: song.key,
                                           title: echonest_info[:title],

@@ -25,8 +25,12 @@ class StationsController < ApplicationController
       @user_info_complete = false
     end
 
+    if !current_station
+      @station_info_complete = false
+    end
   end
 
   def create
+    binding.pry
   end
 end

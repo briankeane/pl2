@@ -7,6 +7,14 @@ module PL
     def add_song(song_object)
       self.add_songs(song_object)
     end
+    #########################################################
+    #                  add_songs(song_objects)              #
+    #########################################################
+    # adds songs to the catalog.  Because echonest          #
+    # returns success without adding the song it checks for #
+    # duplicates and repeats the call for all songs that    #
+    # have not been added.                                  #
+    #########################################################
 
     def add_songs(*song_objects)
 

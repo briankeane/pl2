@@ -11,10 +11,32 @@
     }
   });
 
-  // Get the User Info if it's not yet complete
+  // Get the User & Station Info if it's not yet complete
   if ($('#getUserInfoModal').data('userinfocomplete') == false) {
     $('#getUserInfoModal').foundation('reveal', 'open');
+  } else {
+    if ($('#getStationInfoModal').data('stationinfocomplete') == false) {
+      $('#getStationInfoModal').foundation('reveal', 'open');
+    }
   }
+  
+  $('#manualStationCreate').click( function () {
+    $('#getArtists').trigger('createStation', 'manual');
+  });
+
+  $('#automaticStationCreate').click( function () {
+    $('#getArtists').trigger('createStation', 'automatic');
+  });
+
+  $('#getArtists').on('createStation', function(event, createType) {
+    $('#getArtists').addClass('hide');
+    $('#creating').removeClass('hide');
+    var input = $('<input>')
+      .attr('type', 'hidden')
+      .attr('name', 'createType').val(createType);
+    $('#getArtists').append($(input));
+    $('#getArtists').submit();
+  });
  
   $('#userInfo').on('submit valid invalid', function(e) {
       e.stopPropagation();
@@ -43,9 +65,9 @@
           contentType: 'application/json',
           data: JSON.stringify(userInfo),
           success: function(obj) {
-            console.log(obj)
-            alert('SUCCESS, MF!');
+            console.log(obj);
             $('#getUserInfoModal').foundation('reveal', 'close');
+            $('#getStationInfoModal').foundation('reveal', 'open');
 
           }
         })
