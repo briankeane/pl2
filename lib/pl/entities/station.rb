@@ -7,7 +7,7 @@ module PL
     attr_accessor :id, :secs_of_commercial_per_hour, :user_id
     attr_accessor :spins_per_week, :created_at, :updated_at
     attr_accessor :current_playlist_end_time, :original_playlist_end_time
-    attr_accessor :next_commercial_block, :air_times_current
+    attr_accessor :next_commercial_block, :airtimes_current
 
     # Station-specific constants
     MS_IN_WEEK = 604.8e+6
