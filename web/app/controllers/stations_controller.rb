@@ -4,8 +4,6 @@ class StationsController < ApplicationController
       return redirect_to station_new_path
     end
 
-    binding.pry
-
     result = PL::GetProgram.run({ station_id: current_station.id })
     if result.success?
       @program = result.program
@@ -75,7 +73,6 @@ class StationsController < ApplicationController
 
       result[:station].generate_playlist
 
-      binding.pry
     end
   end
 end

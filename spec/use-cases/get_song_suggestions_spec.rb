@@ -6,5 +6,4 @@ describe 'GetSongSuggestions' do
     expect(result.success?).to eq(true)
     expect(result[:song_suggestions].size).to eq(1)
   end
-
 end

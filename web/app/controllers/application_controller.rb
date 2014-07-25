@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_station
-    @current_station ||= PL.db.get_station_by_uid(current_user.id)
+    @wcurrent_station ||= PL.db.get_station_by_uid(current_user.id)
   end
 
   def signed_in?

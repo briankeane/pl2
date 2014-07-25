@@ -6,7 +6,7 @@
       focus_on_invalid: true,
       error_labels: true,
       patterns: {
-        zipcode: /^[-+]?[1-9]\d*$/
+        zipcode: /^\b\d{5}(-\d{4})?\b$/`
       }
     }
   });

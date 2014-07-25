@@ -686,7 +686,9 @@ module PL
       end
 
       def get_spin_by_current_position(attrs)
+        
         ar_spin = Spin.find_by(:station_id => attrs[:station_id], :current_position => attrs[:current_position])
+        
         spin = self.get_spin(ar_spin.id)
         return spin
       end

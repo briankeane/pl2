@@ -22,7 +22,6 @@ module PL
                                       results: 100, 
                                       limited_interactivity: true,
                                       seed_catalog: ECHONEST_KEYS['TASTE_PROFILE_ID'])
-      binding.pry
       list.sort_by! { |x| [x.artist_name, x.title] }.map! { |song| PL.db.get_song_by_echonest_id(song.id) }
       list                                       
     end
