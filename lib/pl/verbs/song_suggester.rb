@@ -16,18 +16,15 @@ module PL
     # a playlist of suggested songs                              #
     ##############################################################
 
-    def get_suggestions(*artists)
-      binding.pry
+    def get_suggestions(artists)
       list = Echowrap.playlist_static(artist: artists, 
                                       type: 'catalog',
                                       results: 100, 
-                                      limited_interactivity: true, 
-                                      limit: true,
+                                      limited_interactivity: true,
                                       seed_catalog: ECHONEST_KEYS['TASTE_PROFILE_ID'])
-      list.sort_by! { |x| [x.artist_name, x.title] }.map! { |x| { artist: x.artist_name, 
-                                                                title: x.title,
-                                                                echonest_id: x.id,
-                                                                en_artist_id: x.artist_id } }
+      binding.pry
+      list.sort_by! { |x| [x.artist_name, x.title] }.map! { |song| PL.db.get_song_by_echonest_id(song.id) }
+      list                                       
     end
 
   

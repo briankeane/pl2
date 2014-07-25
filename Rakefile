@@ -67,14 +67,12 @@ namespace :db do
 
 
     puts "Adding Songs to song pool"
-    all_stored_songs.each_slice(10) do |songs_chunk|
-      song_pool.add_songs(songs_chunk)
-    end
-
-    all_songs = song_pool.all_songs
+    song_pool.clear_all_songs
+    song_pool.add_songs(all_stored_songs.dup)
+    
 
     puts "Adding Songs to db"
-    all_songs.each_with_index do |song, i|
+    all_stored_songs.each_with_index do |song, i|
       print "\rProcessing song #{i + 1} of #{all_stored_songs.count}"
 
       song.instance_variables
@@ -110,25 +108,23 @@ namespace :db do
       # grab the songpool info
       echonest_info = sp.get_echo_nest_info({ title: tags[:title], artist: tags[:artist] })
 
+      # decide on final values
+      finalized_info = {}
+      finalized_info[:key] = song.key
+      finalized_info[:duration] = tags[:duration]
+      finalized_info[:album] = tags[:album]
+
+
       # use the id3 tags if no suitable match found
-      if echonest_info[:artist_match_rating] < 8.0
-        echonest_info[:artist] = tags[:artist]
-        echonest_info[:echonest_id] == nil
+      if (echonest_info[:artist_match_rating] < 0.8) || (echonest_info[:title_match_rating] < 0.8)
+        finalized_info[:artist] = tags[:artist]
+        finalized_info[:title] = tags[:title]
+        finalized_info[:echonest_id] == nil
+      else
+        finalized_info[:echonest_id] = echonest_info[:echonest_id]
       end
 
-      if echonest_info[:title_match_rating] < 8.0
-        echonest_info[:title] = tags[:title]
-        echonest_info[:echonest_id] = nil
-      end
-
-
-
-      ash.update_stored_song_metadata({ key: song.key,
-                                          title: echonest_info[:title],
-                                          artist: echonest_info[:artist],
-                                          duration: tags[:duration],
-                                          album: tags[:album],
-                                          echonest_id: echonest_info[:echonest_id] })
+      ash.update_stored_song_metadata(finalized_info)
       
 
       # TEMPORARY... ASK THE USER IF THEY MATCH
@@ -141,6 +137,9 @@ namespace :db do
       puts "echonest: " + echonest_info[:artist] + (' ' * (50 - echonest_info[:artist].size)) + echonest_info[:title]
 
       puts "   match: " + echonest_info[:artist_match_rating].round(3).to_s + (' ' * (50 - echonest_info[:artist_match_rating].round(3).to_s.size)) + echonest_info[:title_match_rating].round(3).to_s
+      if echonest_info[:echonest_id] == nil
+        puts "ECHONEST_ID NOT UPDATED"
+      end
       puts
 
     end

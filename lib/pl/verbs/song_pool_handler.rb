@@ -25,6 +25,7 @@ module PL
         song_objects = song_objects[0]
       end
 
+
       # delete songs that are already in the song_pool
       song_objects.delete_if { |song| self.song_included?({ artist: song.artist, title: song.title })}
       
