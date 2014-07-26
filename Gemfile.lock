@@ -87,6 +87,7 @@ GEM
     slop (3.5.0)
     thread_safe (0.3.4)
     timecop (0.7.1)
+    timezone (0.3.2)
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
     vcr (2.9.2)
@@ -111,5 +112,6 @@ DEPENDENCIES
   rspec
   ruby-mp3info (~> 0.8.4)
   timecop (~> 0.7.1)
+  timezone
   vcr (~> 2.9.2)
   webmock (~> 1.18.0)

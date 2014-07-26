@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140726104517) do
+ActiveRecord::Schema.define(version: 20140726105616) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,14 @@ ActiveRecord::Schema.define(version: 20140726104517) do
     t.integer  "duration"
   end
 
+  create_table "schedules", force: true do |t|
+    t.integer  "station_id"
+    t.datetime "current_playlist_end_time"
+    t.datetime "original_playlist_end_time"
+    t.integer  "next_commercial_block_id"
+    t.datetime "last_accurate_airtime"
+  end
+
   create_table "sessions", force: true do |t|
     t.string  "session_id"
     t.integer "user_id"
@@ -85,12 +93,9 @@ ActiveRecord::Schema.define(version: 20140726104517) do
     t.integer  "user_id"
     t.integer  "secs_of_commercial_per_hour"
     t.integer  "spins_per_week"
-    t.datetime "current_playlist_end_time"
-    t.datetime "original_playlist_end_time"
-    t.integer  "next_commercial_block_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.datetime "last_accurate_airtime"
+    t.integer  "schedule_id"
   end
 
   create_table "users", force: true do |t|
