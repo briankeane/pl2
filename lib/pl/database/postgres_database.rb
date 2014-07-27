@@ -764,6 +764,26 @@ module PL
         end
       end
 
+
+      ###############
+      #  Schedules  #
+      ###############
+      def create_schedule(attrs)
+        ar_schedule = Schedule.create(attrs)
+        schedule = self.get_schedule(ar_schedule.id)
+        schedule
+      end
+
+      def get_schedule(id)
+      end
+
+      def update_schedule(attrs)
+      end
+
+      def delete_schedule(id)
+      end
+
+
       ##############
       #  Sessions  #
       ##############

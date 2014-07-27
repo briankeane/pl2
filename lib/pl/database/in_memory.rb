@@ -27,6 +27,9 @@ module PL
         @audio_block_counter = 900
         @audio_blocks = {}
         @sessions = {}
+        @schedule_id_counter = 950
+        @schedules = {}
+
       end
 
       ##############
@@ -598,6 +601,45 @@ module PL
         end
         entry
       end
+
+      ###############
+      #  Schedules  #
+      ###############
+      def create_schedule(attrs)
+        id = (@schedule_id_counter += 1)
+        attrs[:id] = id
+        schedule = Schedule.new(attrs)
+        @schedules[id] = schedule
+        schedule
+      end
+
+      def get_schedule(id)
+        @schedules[id]
+      end
+
+      def update_schedule(attrs)
+        schedule = @schedules[attrs.delete(:id)]
+        
+        # return false if schedule doesn't exist
+        return false if schedule.nil?
+
+        #update values
+        attrs.each do |attr_name, value|
+          setter = "#{attr_name}="
+          schedule.send(setter, value) if schedule.class.method_defined?(setter)
+        end
+
+        schedule
+      end
+
+      def delete_schedule(id)
+        deleted_schedule = @schedules[id]
+        @schedules[id] = nil
+        deleted_schedule
+      end
+
+
+
 
       ##############
       #  Sessions  #

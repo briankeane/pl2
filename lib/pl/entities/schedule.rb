@@ -3,11 +3,11 @@ require 'tempfile'
 require 'active_support'
 
 module PL
-  class Schedule
+  class Schedule < Entity
   
-    attr_accessor :id, :station, :current_playlist_end_time,
-    attr_accessor :original_playlist_end_time, :next_commercial_block,
-    attr_accessor :last_accurate_airtime
+    attr_accessor :id, :station_id, :current_playlist_end_time
+    attr_accessor :original_playlist_end_time, :next_commercial_block
+    attr_accessor :last_accurate_airtime, :next_commercial_block_id
 
     # constants
     MS_IN_WEEK = 604.8e+6
@@ -15,10 +15,15 @@ module PL
     SECONDS_IN_DAY = 86400
     SPINS_WITHOUT_REPEAT = 35
 
-    def initialize
-      binding.pry
-      Time.zone = @station.timezone
+    def initialize(attrs)
+      super(attrs)
+      Time.zone = station.timezone unless !station
     end
+
+    def station
+      @station ||= PL.db.get_station(@station_id)
+    end
+
 
 
     def generate_playlist(end_time)

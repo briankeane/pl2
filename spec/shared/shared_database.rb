@@ -661,6 +661,46 @@ shared_examples 'a badass database' do
       expect(entry.listeners_at_start).to eq(0)
     end
   end
+  ###############
+  #  Schedules  #
+  ###############
+  describe 'Schedules' do
+
+    before(:each) do
+      db.clear_everything
+      @schedule = db.create_schedule({ station_id: 9 })
+    end
+
+    it 'creates a schedule' do
+      expect(@schedule.id).to be_a(Fixnum)
+      expect(@schedule.station_id).to eq(9)
+    end
+
+    it 'can be updated' do
+      updated_schedule = db.update_schedule({ id: @schedule.id,
+                                              station_id: 1,
+                                              current_playlist_end_time: Time.local(2014,1,1),
+                                              original_playlist_end_time: Time.local(2014,1,2),
+                                              next_commercial_block_id: 8,
+                                              last_accurate_airtime: Time.local(2014,1,3) })
+      expect(updated_schedule.station_id).to eq(1)
+      expect(updated_schedule.current_playlist_end_time.to_s).to eq('2014-01-01 00:00:00 -0600')
+      expect(updated_schedule.original_playlist_end_time.to_s).to eq('2014-01-02 00:00:00 -0600')
+      expect(updated_schedule.next_commercial_block_id).to eq(8)
+      expect(updated_schedule.last_accurate_airtime.to_s).to eq('2014-01-03 00:00:00 -0600')
+    end
+
+    it 'can be gotten' do
+      gotten_schedule = db.get_schedule(@schedule.id)
+      expect(gotten_schedule.id).to eq(@schedule.id)
+    end
+
+    it 'can be deleted' do
+      deleted_schedule = db.delete_schedule(@schedule.id)
+      expect(db.get_schedule(@schedule.id)).to be_nil
+      expect(deleted_schedule.station_id).to eq(9)
+    end
+  end
 
   ##############
   #  Sessions  #
