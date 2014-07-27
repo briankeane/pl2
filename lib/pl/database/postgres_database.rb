@@ -50,6 +50,12 @@ module PL
         belongs_to :user
         has_many :spin_frequencies
         has_many :spins
+        has_one :schedule
+        has_many :log_entries
+      end
+
+      class Schedule < ActiveRecord::Base
+        belongs_to :station
       end
 
       class User < ActiveRecord::Base
@@ -132,7 +138,6 @@ module PL
 
       class Station
         def to_pl
-
           # collect the attributes, converting keys from strings to symbols
           attrs = Hash[self.attributes.map{ |k, v| [k.to_sym, v] }]
           
@@ -569,67 +574,23 @@ module PL
         end
       end
 
-      def get_last_spin(station_id)
-        if Spin.exists?(:station_id => station_id)
-          ar_spin = Spin.where(:station_id == station_id).order(:current_position).last
+      def get_last_spin(schedule_id)
+        if Spin.exists?(:schedule_id => schedule_id)
+          ar_spin = Spin.where(:schedule_id == schedule_id).order(:current_position).last
           return ar_spin.to_pl
         else
           return nil
         end
       end
 
-      def get_next_spin(station_id)
-        if Spin.exists?(:station_id => station_id)
-          ar_spin = Spin.where(:station_id == station_id).order(:current_position).first
+      def get_next_spin(schedule_id)
+        if Spin.exists?(:schedule_id => schedule_id)
+          ar_spin = Spin.where(:schedule_id == schedule_id).order(:current_position).first
           return ar_spin.to_pl
         else
           return nil
         end
       end
-
-      ################################################################
-      #                        insert_spin                           #
-      ################################################################
-      # insert_spin inserts a spin into the playlist.                #
-      # it also deletes the 1st song after 3am (or 2am the following #
-      # day) to counterbalance the inserted song                     #
-      #  ----------------------------------------------------------- #
-      # takes: station_id, insert_position, audio_block_id           #
-      ################################################################
-      def insert_spin(attrs)
-        station = self.get_station(attrs[:station_id])
-        station.update_estimated_airtimes
-        playlist = self.get_full_playlist(station.id)
-        index = playlist.find_index { |spin| spin.current_position == attrs[:insert_position] }
-        current_position_tracker = attrs[:insert_position]
-
-        # if insert happens in the 3am hour, set marker to the following 1am
-        if playlist[index].estimated_airtime.hour == 3
-          change_hour = 2
-        else
-          change_hour = 3
-        end
-
-        # adjust current_position until change_hour
-        while (playlist[index].estimated_airtime.hour != change_hour) && (index < playlist.size)
-          self.update_spin({ id: playlist[index].id, 
-                            current_position: (playlist[index].current_position + 1) 
-                          })
-          index += 1
-        end
-
-        max_current_position = playlist[index].current_position
-        # delete that spin
-        self.delete_spin(playlist[index].id)
-
-        #Spin.update_all("current_position = current_position + 1", ["station_id = ? and current_position >= ? and current_position <= ?", @id, attrs[:insert_position], max_current_position ])
-        # insert the new spin into the newly emptied slot
-        spin = self.create_spin({ station_id: attrs[:station_id],
-                       current_position: attrs[:insert_position],
-                       audio_block_id: attrs[:audio_block_id] })
-        spin
-      end
-
 
       #################################################################
       #                       add_spin                                #
@@ -639,84 +600,91 @@ module PL
       # for the rest of the entire playlist                           #
       #################################################################
       def add_spin(attrs)
-        station = self.get_station(attrs[:station_id])
-        playlist = self.get_full_playlist(station.id)
-        index = playlist.find_index { |spin| spin.current_position == attrs[:add_position] }
+        playlist = Spin.where('schedule_id = ? and current_position >= ?', attrs[:schedule_id], attrs[:add_position]).order(:current_position)
+        index = 0
         current_position_tracker = attrs[:add_position]
 
-        # adjust current_position until change_hour
-        while (index < playlist.size)
-          self.update_spin({ id: playlist[index].id, 
-                            current_position: (playlist[index].current_position + 1) 
-                          })
-          index += 1
-        end
+        # shift everything after
+        Spin.update_all("current_position = current_position + 1", ["current_position >= ?", attrs[:current_position]])
 
         # add the new spin into the newly emptied slot
-        spin = self.create_spin({ station_id: attrs[:station_id],
+        spin = self.create_spin({ schedule_id: attrs[:schedule_id],
                        current_position: attrs[:add_position],
                        audio_block_id: attrs[:audio_block_id] })
         spin
       end
 
-      def get_full_playlist(station_id)
-        ar_spins = Spin.where(:station_id => station_id).order(:current_position)
+      def get_full_playlist(schedule_id)
+        ar_spins = Spin.where(:schedule_id => schedule_id).order(:current_position)
         spins = ar_spins.map{ |ar_spin| ar_spin.to_pl }
         spins
       end
 
       def get_partial_playlist(attrs)
-        ar_spins = Spin.where('station_id = ? and estimated_airtime >= ? and estimated_airtime <= ?', attrs[:station_id], attrs[:start_time], attrs[:end_time]).order(:current_position)
+        ar_spins = Spin.where('schedule_id = ? and estimated_airtime >= ? and estimated_airtime <= ?', attrs[:schedule_id], attrs[:start_time], attrs[:end_time]).order(:current_position)
         spins = ar_spins.map { |ar_spin| ar_spin.to_pl }
         spins
       end
 
-      def remove_spin(attrs) # station_id, current_position
-        playlist = self.get_full_playlist(attrs[:station_id])
-        spin = self.get_spin_by_current_position({ station_id: attrs[:station_id], current_position: attrs[:current_position] })
+      def remove_spin(attrs) # schedule_id, current_position
+        spin = self.get_spin_by_current_position({ schedule_id: attrs[:schedule_id], current_position: attrs[:current_position] })
         removed_spin = self.delete_spin(spin.id)
 
-        index = playlist.find_index { |spin| spin.current_position == (attrs[:current_position] + 1) }
-        while index < playlist.size
-          self.update_spin({ id: playlist[index].id, current_position: (playlist[index].current_position - 1) })
-          index += 1
-        end
+        # decrement all following current_positions
+        Spin.where("current_position > ?", attrs[:current_position]).update_all("current_position = current_position - 1")
 
         removed_spin
       end
 
       def get_spin_by_current_position(attrs)
         
-        ar_spin = Spin.find_by(:station_id => attrs[:station_id], :current_position => attrs[:current_position])
+        ar_spin = Spin.find_by(:schedule_id => attrs[:schedule_id], :current_position => attrs[:current_position])
         
         spin = self.get_spin(ar_spin.id)
         return spin
       end
 
       ################################################
-      # mass_insert_spins (csv_file)                 #
+      # mass_add_spins (csv_file)                    #
       ################################################
       # inserts many spins at once in order to speed #
-      # up station#generate_playlist                 #
+      # up station#generate_playlist -- takes an     #
+      # array of Spins and persists them             #
       ################################################
-      def mass_insert_spins(csv_file)
-        conn = ActiveRecord::Base.connection
-        rc = conn.raw_connection
-        rc.exec("COPY spins (station_id, audio_block_id, current_position, estimated_airtime, created_at, updated_at) FROM STDIN WITH CSV")
+      def mass_add_spins(spins)
+        stringified_spins = spins.map { |spin| (spin.schedule_id.to_s + ', ' + 
+                                                spin.audio_block_id.to_s + ', ' + 
+                                                spin.current_position.to_s + ', ' + 
+                                                spin.estimated_airtime.utc.to_s + ', ' + 
+                                                Time.now.utc.to_s + ', ' + 
+                                                Time.now.utc.to_s) }
 
-        file = File.open(csv_file.path, 'r')
-        while !file.eof?
-          rc.put_copy_data(file.readline)
-        end
+        temp_csv_file = Tempfile.new('tempfile.csv')
+        begin
+          temp_csv_file.write(stringified_spins.join("\n"))
+          temp_csv_file.rewind
 
-        rc.put_copy_end
 
-        while res = rc.get_result
-          if e_message = res.error_message
-            p e_message
+          conn = ActiveRecord::Base.connection
+          rc = conn.raw_connection
+          rc.exec("COPY spins (schedule_id, audio_block_id, current_position, estimated_airtime, created_at, updated_at) FROM STDIN WITH CSV")
+
+          while !temp_csv_file.eof?
+            rc.put_copy_data(temp_csv_file.readline)
           end
-        end
 
+          rc.put_copy_end
+
+          while res = rc.get_result
+            if e_message = res.error_message
+              p e_message
+            end
+          end
+
+        ensure
+          temp_csv_file.close
+          temp_csv_file.unlink
+        end
       end
 
       ####################################
@@ -726,31 +694,32 @@ module PL
       # returns true for success, false  #
       # for failure                      #
       ####################################
-      def move_spin(attrs)   #old_position, new_position, station_id
+      def move_spin(attrs)   #old_position, new_position, schedule_id
+        spin_to_move = Spin.find_by(:schedule_id => attrs[:schedule_id],
+                                    :current_position => attrs[:old_position])
+
         #if moving backwards
         if attrs[:old_position] > attrs[:new_position]
-          playlist_slice = Spin.where('current_position >= ? and current_position <= ?', attrs[:new_position], attrs[:old_position])
+          Spin.where("schedule_id = ? and current_position >= ? and current_position <= ?", 
+                                    attrs[:schedule_id], 
+                                    attrs[:new_position], 
+                                    attrs[:old_position]).update_all("current_position = current_position + 1")
 
-          playlist_slice.each { |spin| spin.update_attributes({ current_position: spin.current_position + 1 }) }
-
-          playlist_slice.last.update_attributes({ current_position: attrs[:new_position] })
-
-          # return true for successful move
-          return true
         elsif attrs[:old_position] < attrs[:new_position]
-
-          playlist_slice = Spin.where('current_position >= ? and current_position <= ?', attrs[:old_position], attrs[:new_position])
-          
-          playlist_slice.each { |spin| spin.update_attributes({ current_position: spin.current_position - 1 }) }
-
-          playlist_slice.first.update_attributes({ current_position: attrs[:new_position] })
-
-          # return true for successful move
-          return true
+          Spin.where("schedule_id = ? and current_position >= ? and current_position <= ?", 
+                                    attrs[:schedule_id], 
+                                    attrs[:old_position], 
+                                    attrs[:new_position]).update_all("current_position = current_position - 1")
+        else
+          # return false if nothing was moved
+          return false
         end
-
-        # return false if nothing was moved
-        return false
+        
+        spin_to_move.current_position = attrs[:new_position]
+        spin_to_move.save
+        
+        # return true for successful move
+        return true
       end
 
       ##################

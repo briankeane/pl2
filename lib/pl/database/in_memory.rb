@@ -249,7 +249,7 @@ module PL
       #  that enters the playlist and the only commercial unit a dj    #
       #  can change values for.                                        #
       ##################################################################
-      #  values:    station_id, duration, commercials                  #
+      #  values:    schedule_id, duration, commercials                 #
       #    NOTE: 'commercials' goes in as an array of commercial_ids   #
       #          but after input it exists as an array of commercial   #
       #          objects
@@ -353,7 +353,7 @@ module PL
       ########################
       #        spins         #
       # -------------------  #
-      # station_id           #
+      # schedule_id          #
       # current_position     #
       # audio_block_id       #
       # estimated_airtime    #
@@ -396,12 +396,12 @@ module PL
         spin
       end
 
-      def mass_insert_spins(csv_file)
-        CSV.foreach(csv_file.path) do |row|
-          self.create_spin({ station_id: row[0].to_i,
-                              audio_block_id: row[1].to_i,
-                              current_position: row[2].to_i,
-                              estimated_airtime: Time.parse(row[3]),
+      def mass_add_spins(spins)
+        spins.each do |spin|
+          self.create_spin({ schedule_id: spin.schedule_id,
+                              audio_block_id: spin.audio_block_id,
+                              current_position: spin.current_position,
+                              estimated_airtime: spin.estimated_airtime,
                               created_at: Time.now,
                               updated_at: Time.now })
         end 
@@ -416,7 +416,7 @@ module PL
       #################################################################
       def add_spin(attrs)
         station = self.get_station(attrs[:station_id])
-        playlist = self.get_full_playlist(station.id)
+        playlist = self.get_full_playlist(station.schedule_id)
         index = playlist.find_index { |spin| spin.current_position == attrs[:add_position] }
         current_position_tracker = attrs[:add_position]
 
@@ -429,7 +429,7 @@ module PL
         end
 
         # add the new spin into the newly emptied slot
-        spin = self.create_spin({ station_id: attrs[:station_id],
+        spin = self.create_spin({ schedule_id: attrs[:schedule_id],
                        current_position: attrs[:add_position],
                        audio_block_id: attrs[:audio_block_id] })
         spin
@@ -442,12 +442,12 @@ module PL
       # it also deletes the 1st song after 3am (or 2am the following #
       # day) to counterbalance the inserted song                     #
       #  ----------------------------------------------------------- #
-      # takes: station_id, insert_position, audio_block_id           #
+      # takes: schedule_id, insert_position, audio_block_id          #
       ################################################################
       def insert_spin(attrs)
         station = self.get_station(attrs[:station_id])
         station.update_estimated_airtimes
-        playlist = self.get_full_playlist(station.id)
+        playlist = self.get_full_playlist(station.schedule_id)
         index = playlist.find_index { |spin| spin.current_position == attrs[:insert_position] }
         current_position_tracker = attrs[:insert_position]
 
@@ -470,15 +470,15 @@ module PL
         self.delete_spin(playlist[index].id)
 
         # insert the new spin into the newly emptied slot
-        spin = self.create_spin({ station_id: attrs[:station_id],
+        spin = self.create_spin({ schedule_id: attrs[:schedule_id],
                        current_position: attrs[:insert_position],
                        audio_block_id: attrs[:audio_block_id] })
         spin
       end
 
-      def remove_spin(attrs) # station_id, current_position
-        playlist = self.get_full_playlist(attrs[:station_id])
-        spin = self.get_spin_by_current_position({ station_id: attrs[:station_id], current_position: attrs[:current_position] })
+      def remove_spin(attrs) # schedule_id, current_position
+        playlist = self.get_full_playlist(attrs[:schedule_id])
+        spin = self.get_spin_by_current_position({ schedule_id: attrs[:schedule_id], current_position: attrs[:current_position] })
         removed_spin = self.delete_spin(spin.id)
 
         index = playlist.find_index { |spin| spin.current_position == (attrs[:current_position] + 1) }
@@ -490,13 +490,13 @@ module PL
         removed_spin
       end
 
-      def get_full_playlist(station_id)
-        spins = @spins.values.select { |spin| spin.station_id == station_id }
+      def get_full_playlist(schedule_id)
+        spins = @spins.values.select { |spin| spin.schedule_id == schedule_id }
         spins = spins.sort_by { |spin| spin.current_position }
       end
 
       def get_partial_playlist(attrs)
-        spins = @spins.values.select { |spin| (spin.station_id == attrs[:station_id]) &&
+        spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
                                               (spin.estimated_airtime >= attrs[:start_time]) &&
                                               (spin.estimated_airtime <= attrs[:end_time]) }
         spins = spins.sort_by { |spin| spin.current_position }
@@ -504,18 +504,18 @@ module PL
       end
 
       def get_spin_by_current_position(attrs)
-        spin = @spins.values.find { |spin| (spin.station_id == attrs[:station_id]) && 
+        spin = @spins.values.find { |spin| (spin.schedule_id == attrs[:schedule_id]) && 
                                     (spin.current_position == attrs[:current_position]) }
         spin
       end
 
-      def get_last_spin(station_id)
-        spin = @spins.values.select { |spin| (spin.station_id == station_id) }.max_by { |spin| spin.current_position }
+      def get_last_spin(schedule_id)
+        spin = @spins.values.select { |spin| (spin.schedule_id == schedule_id) }.max_by { |spin| spin.current_position }
         spin
       end
 
-      def get_next_spin(station_id)
-        spin = @spins.values.select { |spin| (spin.station_id == station_id) }.min_by { |spin| spin.current_position }
+      def get_next_spin(schedule_id)
+        spin = @spins.values.select { |spin| (spin.schedule_id == schedule_id) }.min_by { |spin| spin.current_position }
         spin
       end
 
@@ -526,10 +526,10 @@ module PL
       # returns true for success, false  #
       # for failure                      #
       ####################################
-      def move_spin(attrs)   #old_position, new_position, station_id
+      def move_spin(attrs)   #old_position, new_position, schedule_id
         #if moving backwards
         if attrs[:old_position] > attrs[:new_position]
-          playlist_slice = self.get_full_playlist(attrs[:station_id]).select { |spin| (spin.current_position >= attrs[:new_position]) && (spin.current_position <= attrs[:old_position]) }
+          playlist_slice = self.get_full_playlist(attrs[:schedule_id]).select { |spin| (spin.current_position >= attrs[:new_position]) && (spin.current_position <= attrs[:old_position]) }
 
           playlist_slice.each { |spin| spin.current_position += 1 }
 
@@ -538,7 +538,7 @@ module PL
           # return true for successful move
           return true
         elsif attrs[:old_position] < attrs[:new_position]
-          playlist_slice = self.get_full_playlist(attrs[:station_id]).select { |spin| (spin.current_position >= attrs[:old_position]) && (spin.current_position <= attrs[:new_position]) }
+          playlist_slice = self.get_full_playlist(attrs[:schedule_id]).select { |spin| (spin.current_position >= attrs[:old_position]) && (spin.current_position <= attrs[:new_position]) }
 
           playlist_slice.each { |spin| spin.current_position -= 1 }
 

@@ -4,10 +4,10 @@ require 'tempfile'
 
 module PL
   class Station < Entity
-    attr_accessor :id, :secs_of_commercial_per_hour, :user_id
+    attr_accessor :id, :secs_of_commercial_per_hour, :user_id, :schedule_id
     attr_accessor :spins_per_week, :created_at, :updated_at
     attr_accessor :current_playlist_end_time, :original_playlist_end_time
-    attr_accessor :next_commercial_block, :airtimes_current, :last_accurate_airtime
+    attr_accessor :next_commercial_block, :last_accurate_airtime
 
     # Station-specific constants
     MS_IN_WEEK = 604.8e+6
@@ -263,7 +263,7 @@ module PL
 
       temp_csv_file = Tempfile.open('tempfile.csv')
       temp_csv_file.write(spins.join("\n"))
-      PL.db.mass_insert_spins(temp_csv_file)
+      PL.db.mass_add_spins(temp_csv_file)
 
       @original_playlist_end_time = time_tracker
 

@@ -79,7 +79,7 @@ module PL
 
       end #end while
 
-      PL.db.mass_insert_spins(spins)
+      PL.db.mass_add_spins(spins)
 
       
       @original_playlist_end_time = time_tracker
@@ -87,31 +87,6 @@ module PL
       @current_playlist_end_time = time_tracker
     end
 
-    ##################################################################
-    #     insert_commercials                                         #
-    ##################################################################
-    #  Takes in an array of Spin objects.                            #
-    #                                                                #
-    #  Returns an array of Spin Objects with Commercial_Blocks       # 
-    #  inserted and estimated_airtimes corrected                     #
-    #                                                                #
-    #  ASSUMES: 
-    ##################################################################
-    def insert_commercials(spins)
-      # return an empty array if it's empty
-      return [] unless spins
-
-      # set initial commercial_counter
-      commercial_counter = find_commercial_count(spins[0])
-
-      # adjust commercial_block_counter for cases where 1st spin should be a commercial
-      if (self.d)
-      spins.each do |spin|
-
-
-
-
-    
 
     def bring_schedule_current
     end

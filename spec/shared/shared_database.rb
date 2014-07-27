@@ -234,7 +234,7 @@ shared_examples 'a badass database' do
   describe 'a commentary' do
     before(:each) do
       @commentary = db.create_commentary({ duration: 5000,
-                                            station_id: 3,
+                                            schedule_id: 3,
                                             key: 'ThisIsAKey.mp3' })
     end
 
@@ -242,14 +242,14 @@ shared_examples 'a badass database' do
       # UNCOMMENT AFTER SPINS ARE CREATED
       #expect(@commentary.current_position).to eq(2)
       expect(@commentary.duration).to eq(5000)
-      expect(@commentary.station_id).to eq(3)
+      expect(@commentary.schedule_id).to eq(3)
       expect(@commentary.key).to eq('ThisIsAKey.mp3')
     end
 
     it 'can be retrieved' do
       gotten_commentary = db.get_commentary(@commentary.id)
       expect(gotten_commentary.duration).to eq(5000)
-      expect(gotten_commentary.station_id).to eq(3)
+      expect(gotten_commentary.schedule_id).to eq(3)
     end
 
     it 'can be updated' do
@@ -416,10 +416,19 @@ shared_examples 'a badass database' do
   #   spins     #
   ###############
   describe 'a spin' do
-    it 'can load many spins from a csv' do
-      file = File.open('spec/test_files/test_csv.csv')
-      db.mass_insert_spins(file)
-      expect(db.get_spin_by_current_position({station_id: 1, current_position: 1 }).id).to_not be_nil
+    it 'can mass add spins at once' do
+      db.clear_everything
+      spins = []
+      starting_airtime = Time.local(2014,1,1, 10)
+      20.times do |i|
+        spins << PL::Spin.new({ schedule_id: 1,
+                                  current_position: (i+1),
+                                  audio_block_id: (i+2),
+                                  estimated_airtime: starting_airtime += 180 })
+      end
+      db.mass_add_spins(spins)
+      expect(db.get_spin_by_current_position({schedule_id: 1, current_position: 1 }).id).to_not be_nil
+      expect(db.get_full_playlist(1).size).to eq(20)
     end
 
     before(:each) do
@@ -427,7 +436,7 @@ shared_examples 'a badass database' do
       starting_airtime = Time.local(2014,1,1, 10)
       @spins = []
       20.times do |i|
-        @spins[i] = db.create_spin({ station_id: 1,
+        @spins[i] = db.create_spin({ schedule_id: 1,
                                   current_position: (i+1),
                                   audio_block_id: (i+2),
                                   estimated_airtime: starting_airtime += 180 })
@@ -446,7 +455,7 @@ shared_examples 'a badass database' do
 
     it 'can be removed' do
       old_playlist = db.get_full_playlist(1)
-      removed_spin = db.remove_spin({ station_id: 1, current_position: 10 })
+      removed_spin = db.remove_spin({ schedule_id: 1, current_position: 10 })
       new_playlist = db.get_full_playlist(1)
       new_current_positions = new_playlist.map { |spin| spin.current_position }
       expect(new_playlist.size).to eq(19)
@@ -465,14 +474,14 @@ shared_examples 'a badass database' do
     end
 
     it "gets a partial playlist" do
-      playlist = db.get_partial_playlist({ station_id: 1,
+      playlist = db.get_partial_playlist({ schedule_id: 1,
                                             start_time: Time.local(2014,1,1, 10,5),
                                             end_time: Time.local(2014,1,1, 10,15) })
       expect(playlist.size).to eq(4)
       expect(playlist.first.current_position).to eq(2)
       expect(playlist.last.current_position).to eq(5)
 
-      playlist = db.get_partial_playlist({ station_id: 1,
+      playlist = db.get_partial_playlist({ schedule_id: 1,
                                             start_time: Time.local(2014,1,1, 10,10,),
                                             end_time: Time.local(2014,1,1, 10,15) })
       expect(playlist.size).to eq(2)
@@ -482,7 +491,7 @@ shared_examples 'a badass database' do
     end
 
     it 'gets a spin by current_position' do
-      expect(db.get_spin_by_current_position({ station_id: 1, current_position: 4 }).audio_block_id).to eq(5)
+      expect(db.get_spin_by_current_position({ schedule_id: 1, current_position: 4 }).audio_block_id).to eq(5)
     end
 
     it 'can be deleted' do
@@ -494,13 +503,13 @@ shared_examples 'a badass database' do
     end
 
     it 'can be updated' do
-      spin = db.create_spin({ station_id: 1,
+      spin = db.create_spin({ schedule_id: 1,
                               current_position: 2,
                               audio_block_id: 3,
                               estimated_airtime: Time.new(2014),
                             })
       updated_spin = db.update_spin({ id: spin.id,
-                                      station_id: 10,
+                                      schedule_id: 10,
                                       current_position: 20,
                                       audio_block_id: 30,
                                       estimated_airtime: Time.new(2015) 
@@ -556,30 +565,13 @@ shared_examples 'a badass database' do
     
     it 'adds a spin' do
       added_audio_block = db.create_song({ duration: 50000 })
-      added_spin = db.add_spin({ station_id: @station.id,
+      added_spin = db.add_spin({ schedule_id: @station.id,
                                  audio_block_id: added_audio_block.id,
                                  add_position: 15 })
       new_playlist = db.get_full_playlist(@station.id)
       expect(new_playlist.size).to eq(@old_playlist_ab_ids.size + 1)
       expect(@old_playlist_ab_ids.last).to eq(new_playlist.last.audio_block_id)
       expect(new_playlist[13].audio_block_id).to eq(added_audio_block.id)
-    end
-
-    it 'inserts a spin' do
-      inserted_audio_block = db.create_song({ duration: 50000 })
-      spin = db.insert_spin({ station_id: @station.id,
-                         insert_position: 15,
-                          audio_block_id: inserted_audio_block.id })
-      new_playlist = db.get_full_playlist(@station.id)
-      first_spin_after_3am = new_playlist.find_index { |spin| spin.estimated_airtime.hour > 3 }
-
-
-
-      expect(new_playlist[12].audio_block_id).to eq(@old_playlist_ab_ids[12])
-      expect(new_playlist[13].audio_block_id).to_not eq(@old_playlist_ab_ids[13])
-      expect(new_playlist[14].audio_block_id).to eq(@old_playlist_ab_ids[13])
-      expect(new_playlist[95].audio_block_id).to eq(@old_playlist_ab_ids[94])
-      expect(new_playlist[first_spin_after_3am + 2].audio_block_id).to eq(@old_playlist_ab_ids[first_spin_after_3am + 2])
     end
 
     after(:all) do
@@ -590,20 +582,20 @@ shared_examples 'a badass database' do
   describe 'move_spin' do
     before(:each) do
 
-      @spin1 = db.create_spin({ station_id: 1, audio_block_id: 1, current_position: 7 })
-      @spin2 = db.create_spin({ station_id: 1, audio_block_id: 2, current_position: 8 })
-      @spin3 = db.create_spin({ station_id: 1, audio_block_id: 3, current_position: 9 })
-      @spin4 = db.create_spin({ station_id: 1, audio_block_id: 4, current_position: 10 })
+      @spin1 = db.create_spin({ schedule_id: 1, audio_block_id: 1, current_position: 7 })
+      @spin2 = db.create_spin({ schedule_id: 1, audio_block_id: 2, current_position: 8 })
+      @spin3 = db.create_spin({ schedule_id: 1, audio_block_id: 3, current_position: 9 })
+      @spin4 = db.create_spin({ schedule_id: 1, audio_block_id: 4, current_position: 10 })
     end
 
     it "moves a song backwards and adjusts the playlist around it" do
-      db.move_spin({ old_position: 9, new_position: 7, station_id: 1 })
+      db.move_spin({ old_position: 9, new_position: 7, schedule_id: 1 })
       new_playlist = db.get_full_playlist(1)
       expect(new_playlist.map { |spin| spin.audio_block_id }).to eq([3,1,2,4])
     end
 
     it "moves a song forwards and adjusts the playlist around it" do
-      db.move_spin({ old_position: 7, new_position: 9, station_id: 1 })
+      db.move_spin({ old_position: 7, new_position: 9, schedule_id: 1 })
       new_playlist = db.get_full_playlist(1)
       expect(new_playlist.map { |spin| spin.audio_block_id }).to eq([2,3,1,4])
     end

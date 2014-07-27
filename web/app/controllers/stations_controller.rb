@@ -53,8 +53,6 @@ class StationsController < ApplicationController
         end
       end
 
-
-
       result.song_suggestions[0..12].each do |song|
         spins_per_week[song.id] = PL::HEAVY_ROTATION
       end
@@ -66,7 +64,6 @@ class StationsController < ApplicationController
       result.song_suggestions[41..53].each do |song|
         spins_per_week[song.id] = PL::MEDIUM_ROTATION
       end
-      
 
       result = PL::CreateStation.run({ user_id: current_user.id,
                                        spins_per_week: spins_per_week })

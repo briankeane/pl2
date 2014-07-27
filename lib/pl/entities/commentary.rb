@@ -1,6 +1,6 @@
 module PL
   class Commentary < Entity
-    attr_accessor :id, :station_id, :duration, :key, :audio_file
+    attr_accessor :id, :schedule_id, :duration, :key, :audio_file
 
     def initialize(attrs)
       super(attrs)
