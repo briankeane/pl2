@@ -115,6 +115,7 @@ module PL
       end
     end
 
+
     def bring_current
       # if the station is already active, do nothing
       if station.active?
@@ -126,13 +127,24 @@ module PL
       last_played = PL.db.update_log_entry({ id: last_played.id,
                                             listeners_at_finish: 0 })
       time_tracker = last_played.airtime + (last_played.duration/1000)
+      
+      if find_commercial_count(last_played.airtime) != find_commercial_count(last_played.airtime + last_played.duration/1000)
+        commercial_flag = true
+      else
+        commercial_flag = false
+      end
 
       playlist = PL.db.get_full_playlist(@id)       
      
       playlist.each_with_index do |spin, i|
-        break unless (time_tracker < Time.now)
 
+        # if it's time for a commercial, skip the time
+        if commercial_flag
+          time_tracker += station.secs_of_commercial_per_hour/2
+          commercial_flag = false
+        end
         
+        break unless (time_tracker < Time.now)
 
         # set up listeners_at_finish to put nil in the final spin
         if (time_tracker + spin.duration/1000) > Time.now
@@ -150,22 +162,86 @@ module PL
                                               listeners_at_finish: listeners_at_finish })
         spin.estimated_airtime = time_tracker
         time_tracker += spin.duration/1000
+        PL.db.delete_spin(spin.id)
+
+        if find_commercial_count(log_entry.airtime) != find_commercial_count(log_entry.airtime + log_entry.duration/1000)
+          commercial_flag = true
+        end
       end
     end
 
     def update_estimated_airtimes(endtime = nil)
-      if last_accurate_airtime < Time.now
-        self.bring_current
-        last_played = PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 }).first
-        start_time = last_played.airtime + last_played.duration/1000
-        if find_commercial_count(last_played.airtime) != find_commercial_count(start_time)
-          lead_with_commercial = true
+      # if the times are already accurate, just exit
+      if endtime
+        if endtime < last_accurate_airtime
+          return
         end
-        playlist = PL.db.get_full_playlist(@id)
-      else
-        PL.db.
-      time_tracker = station.log_end_time
       end
+
+      if !@last_accurate_current_position
+        @last_accurate_current_position = -1
+      end
+
+      self.bring_current
+
+      if @last_accurate_current_position > now_playing.current_position
+        playlist = PL.db.get_playlist_by_starting_current_position({ schedule_id: @id,
+                                                                     starting_position: @last_accurate_current_position })
+
+        # check previous spin to see if commercial_block is first
+        if @last_accurate_current_position == (now_playing.current_position + 1)
+          if find_commercial_count(now_playing.airtime) != find_commercial_count(now_playing.estimated_end_time)
+            lead_with_commercial = true
+          else
+            lead_with_commercial = false
+          end
+        else
+          lead_in_spin = PL.db.get_spin(@last_accurate_current_position - 1)
+          if find_commercial_count(lead_in_spin.estimated_airtime) != find_commercial_count(lead_in_spin.estimated_end_time)
+            lead_with_commercial = true
+          else
+            lead_with_commercial = false
+          end
+        end
+
+        playlist = self.adjust_playlist({ playlist: playlist,
+                                          start_time: last_accurate_airtime,
+                                          insert_commercials: false,
+                                          lead_with_commercial_block?: lead_with_commercial })
+
+      
+      else # @last_accurate_current_position < now_playing.current_position
+        # check if commercial needed
+        if find_commercial_count(now_playing.airtime) != find_commercial_count(now_playing.estimated_end_time)
+          lead_with_commercial = true
+        else
+          lead_with_commercial = false
+        end
+
+        playlist = PL.db.get_full_playlist(@id)
+
+        playlist = self.adjust_playlist({ playlist: playlist,
+                                          start_time: now_playing.estimated_end_time,
+                                          insert_commercials: false,
+                                          lead_with_commercial_block?: lead_with_commercial })
+      end
+
+      # update the database
+      playlist.each do |spin|
+        PL.db.update_spin({ id: spin.id,
+                            estimated_airtime: spin.estimated_airtime })
+        @last_accurate_current_position = spin.current_position
+        
+        # break out if job finishes early
+        if endtime
+          if spin.estimated_airtime > endtime
+            break
+          end
+        end
+      end
+
+      # write new last_accurate_current_position to database
+      PL.db.update_schedule({ last_accurate_current_position: @last_accurate_current_position })
     end
 
     # returns the 'block' number for the given time
@@ -186,6 +262,10 @@ module PL
     #             -- if true starts w/ commercial block   #
     #######################################################
     def adjust_playlist(attrs)
+      # return an empty array if given one
+      if attrs[:playlist] == []
+        return []
+      end
 
       max_position = attrs[:playlist].last.current_position
       time_tracker = attrs[:start_time]
@@ -234,5 +314,19 @@ module PL
       end
       airtime
     end
+
+    def now_playing
+      if !active?
+        self.bring_current
+      end
+
+      PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 })[0]
+    end
+
+    def active?
+      (@station.log_end_time.utc < Time.now.utc) ? false : true
+    end
+
+
   end
 end
