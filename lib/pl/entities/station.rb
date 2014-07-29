@@ -15,10 +15,24 @@ module PL
     SECONDS_IN_DAY = 86400
 
     def initialize(attrs)
+      attrs[:schedule_id]  ||= PL.db.create_schedule({ station_id: @id }).id
       attrs[:secs_of_commercial_per_hour] ||= PL::DEFAULT_SECS_OF_COMMERCIAL_PER_HOUR
       attrs[:spins_per_week] ||= {}
       super(attrs)
     end
+
+    def user
+      @user ||= PL.db.get_user(@user_id)
+    end
+
+    def schedule
+      @schedule ||= PL.db.get_schedule(@schedule_id)
+    end
+
+    def timezone
+      @timezone ||= user.timezone
+    end
+
 
     #####################################################################
     #     make_log_current                                              #
@@ -189,94 +203,6 @@ module PL
         cf = PL::CommercialBlockFactory.new
         @next_commercial_block = cf.construct_block(self)
         return @next_commercial_block
-      end
-    end
-
-
-
-    ##################################################################
-    #     generate_playlist                                          #
-    ##################################################################
-    #  This method generates or extends the current playlist         #
-    #  through the following thursday at midnight.  It takes         #
-    #  commercial time into account but does not insert commercial   #
-    #  blocks or placeholders.  Currently it gets the ratios correct #
-    #  but later it should be ammended to account for:               #
-    #                                                                #
-    #     1) proper hourly scheduling                                #
-    #     2) station ids                                             #
-    ##################################################################
-
-    def generate_playlist
-      # set up beginning and ending dates for comparison
-      this_thursday_midnight = Chronic.parse('this thursday midnight')
-      next_thursday_midnight = this_thursday_midnight + SECONDS_IN_WEEK
-      current_playlist = PL.db.get_full_playlist(@id)
-      time_tracker = nil
-
-      # set max_position and time_tracker initial values
-      if current_playlist.size == 0
-        max_position = 0
-        time_tracker = Time.now
-      else
-        max_position = current_playlist.last.current_position
-        time_tracker = self.end_time
-      end
-
-      # calibrate commercial_block_counter for start-time
-      commercial_block_counter = (time_tracker.to_f/1800.0).floor
-
-      sample_array = self.create_sample_array
-
-      recently_played = []
-      spins = []
-
-      while time_tracker < next_thursday_midnight
-        #if it's time for a commercial, move time-tracker over it's block
-
-        if (time_tracker.to_f/1800.0).floor > commercial_block_counter
-          commercial_block_counter += 1
-          time_tracker += (@secs_of_commercial_per_hour/2)
-        end
-
-
-        song = sample_array.sample
-
-        # IF it's been played recently, pick a new song
-        while recently_played.include?(song)
-          song = sample_array.sample
-        end
-
-        # Push the new song to the recently_played array
-        recently_played << song
-
-        # If the array is at max size, delete the first song
-        if ((recently_played.size >= PL::SPINS_WITHOUT_REPEAT) ||
-                (recently_played.size >= @spins_per_week.size - 1))
-          recently_played.shift
-        end
-
-        spins.push(@id.to_s + ', ' + song.id.to_s + ', ' + (max_position += 1).to_s + ', ' + time_tracker.utc.to_s + ', ' + Time.now.utc.to_s + ', ' + Time.now.utc.to_s)
-        time_tracker += (song.duration/1000)
-
-      end  # endwhile
-
-      temp_csv_file = Tempfile.open('tempfile.csv')
-      temp_csv_file.write(spins.join("\n"))
-      PL.db.mass_add_spins(temp_csv_file)
-
-      @original_playlist_end_time = time_tracker
-
-      #if it's the first playlist, start the station
-      if PL.db.get_recent_log_entries({ station_id: @id, count: 1 }).size == 0
-        first_spin = PL.db.get_next_spin(@id)
-        PL.db.create_log_entry({ station_id: @id,
-                                 current_position: first_spin.current_position,
-                                 audio_block_id: song.id,
-                                 airtime: first_spin.estimated_airtime,
-                                 duration: first_spin.duration
-                                 })
-        PL.db.delete_spin(first_spin.id)
       end
     end
     

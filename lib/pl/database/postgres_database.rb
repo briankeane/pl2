@@ -168,6 +168,17 @@ module PL
         end
       end
 
+      class Schedule
+        def to_pl
+          # collect the attributes, converting keys from strings to symbols
+          attrs = Hash[self.attributes.map{ |k, v| [k.to_sym, v] }]
+
+          schedule = PL::Schedule.new(attrs)
+          schedule
+        end
+      end
+
+
 
       #################
       #     Users     #
@@ -203,7 +214,6 @@ module PL
         else
           return nil
         end
-
       end
 
       def update_user(attrs)
@@ -555,10 +565,8 @@ module PL
       end
 
       def delete_spin(id)
-        ar_spin = Spin.find(id)
-        spin = ar_spin.to_pl
-        ar_spin.delete
-        spin
+        ar_spin = Spin.find(id).destroy
+        ar_spin.to_pl
       end
 
       def update_spin(attrs)
@@ -600,17 +608,14 @@ module PL
       # for the rest of the entire playlist                           #
       #################################################################
       def add_spin(attrs)
-        playlist = Spin.where('schedule_id = ? and current_position >= ?', attrs[:schedule_id], attrs[:add_position]).order(:current_position)
-        index = 0
-        current_position_tracker = attrs[:add_position]
-
         # shift everything after
-        Spin.update_all("current_position = current_position + 1", ["current_position >= ?", attrs[:current_position]])
+        Spin.where("schedule_id = ? and current_position >= ?", attrs[:schedule_id], attrs[:add_position]).update_all("current_position = current_position + 1")
 
         # add the new spin into the newly emptied slot
         spin = self.create_spin({ schedule_id: attrs[:schedule_id],
                        current_position: attrs[:add_position],
                        audio_block_id: attrs[:audio_block_id] })
+        
         spin
       end
 
@@ -621,7 +626,16 @@ module PL
       end
 
       def get_partial_playlist(attrs)
-        ar_spins = Spin.where('schedule_id = ? and estimated_airtime >= ? and estimated_airtime <= ?', attrs[:schedule_id], attrs[:start_time], attrs[:end_time]).order(:current_position)
+        
+        case 
+        when !attrs[:start_time]
+          ar_spins = Spin.where('schedule_id = ? and estimated_airtime <= ?', attrs[:schedule_id], attrs[:end_time]).order(:current_position)
+        when !attrs[:end_time]
+          ar_spins = Spin.where('schedule_id = ? and estimated_airtime >= ?', attrs[:schedule_id], attrs[:start_time]).order(:current_position)
+        else
+          ar_spins = Spin.where('schedule_id = ? and estimated_airtime >= ? and estimated_airtime <= ?', attrs[:schedule_id], attrs[:start_time], attrs[:end_time]).order(:current_position)
+        end
+        
         spins = ar_spins.map { |ar_spin| ar_spin.to_pl }
         spins
       end
@@ -648,7 +662,7 @@ module PL
       # mass_add_spins (csv_file)                    #
       ################################################
       # inserts many spins at once in order to speed #
-      # up station#generate_playlist -- takes an     #
+      # up schedule#generate_playlist -- takes an    #
       # array of Spins and persists them             #
       ################################################
       def mass_add_spins(spins)
@@ -727,18 +741,14 @@ module PL
       ##################
       def create_log_entry(attrs)
         ar_log_entry = LogEntry.create(attrs)
-        log_entry = self.get_log_entry(ar_log_entry.id)
-        log_entry
+        ar_log_entry.to_pl
       end
 
       def get_log_entry(id)
         if LogEntry.exists?(id)
           ar_log_entry = LogEntry.find(id)
-          # collect the attributes, converting keys from strings to symbols
-          attrs = Hash[ar_log_entry.attributes.map{ |k, v| [k.to_sym, v] }]
 
-          log_entry = PL::LogEntry.new(attrs)
-          return log_entry
+          return ar_log_entry.to_pl
         else
           return nil
         end
@@ -770,17 +780,39 @@ module PL
       ###############
       def create_schedule(attrs)
         ar_schedule = Schedule.create(attrs)
-        schedule = self.get_schedule(ar_schedule.id)
-        schedule
+        ar_schedule.save
+        ar_schedule.to_pl
       end
 
       def get_schedule(id)
+        if Schedule.exists?(id)
+          ar_schedule = Schedule.find(id)
+          return ar_schedule.to_pl
+        else
+          return nil
+        end
       end
 
       def update_schedule(attrs)
+        if Schedule.exists?(attrs[:id])
+          ar_schedule = Schedule.find(attrs.delete(:id))
+          ar_schedule.update_attributes(attrs)
+          return ar_schedule.to_pl
+        else
+          return nil
+        end
+
       end
 
       def delete_schedule(id)
+        if Schedule.exists?(id)
+          ar_schedule = Schedule.find(id)
+          schedule = ar_schedule.to_pl
+          ar_schedule.delete
+          return schedule
+        else
+          return nil
+        end
       end
 
 

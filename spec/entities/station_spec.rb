@@ -3,6 +3,8 @@ require 'Timecop'
 
 describe 'a station' do
   before(:each) do
+    db.clear_everything
+    @user = PL.db.create_user({ twitter: 'bob' })
     @song1 = PL::Song.new({ id: 1 })
     @song2 = PL::Song.new({ id: 2 })
     @song3 = PL::Song.new({ id: 3 })
@@ -25,6 +27,14 @@ describe 'a station' do
     expect(@station.spins_per_week[@song3.id]).to eq(PL::LIGHT_ROTATION)
     expect(@station.created_at).to eq(Time.new(1970))
     expect(@station.updated_at).to eq(Time.new(1970, 1, 2))
+  end
+
+  it "can get it's user" do
+    expect(@station.user.id).to eq(@station.user_id)
+  end
+
+  it "can get it's schedule" do
+    expect(@station.schedule.id).to eq(@station.schedule_id)
   end
 
   it "allows editing of the spins_per_week hash" do
@@ -54,17 +64,6 @@ describe 'a station' do
                                           spins_per_week: spins_per_week 
                                        })
       @station.generate_playlist
-    end
-
-    it 'creates a first playlist' do
-      generated_playlist = PL.db.get_full_playlist(@station.id)
-      expect(generated_playlist.size).to eq(5560)
-      expect(PL.db.get_full_station_log(@station.id).size).to eq(1)
-    end
-
-    it 'ends at the correct time' do
-      Timecop.travel(Time.local(2014, 5,9, 12))
-      expect(@station.original_playlist_end_time.localtime.to_s).to eq('2014-05-23 00:02:50 -0500')
     end
 
     describe 'now_playing' do

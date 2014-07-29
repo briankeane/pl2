@@ -487,7 +487,22 @@ shared_examples 'a badass database' do
       expect(playlist.size).to eq(2)
       expect(playlist.first.current_position).to eq(4)
       expect(playlist.last.current_position).to eq(5)
+    end
 
+    it 'gets a partial playlist from the beginning' do
+      playlist = db.get_partial_playlist({ schedule_id: 1,
+                                            end_time: Time.local(2014,1,1, 10,15) })
+      expect(playlist.size).to eq(5)
+      expect(playlist[0].current_position).to eq(1)
+      expect(playlist.last.current_position).to eq(5)
+    end
+
+    it 'gets a partial playlist until the end' do
+      playlist = db.get_partial_playlist({ schedule_id: 1,
+                                            start_time: Time.local(2014,1,1, 10,5) })
+      expect(playlist.size).to eq(19)
+      expect(playlist.first.current_position).to eq(2)
+      expect(playlist.last.current_position).to eq(20)
     end
 
     it 'gets a spin by current_position' do
@@ -537,14 +552,14 @@ shared_examples 'a badass database' do
     before(:each) do
       Timecop.travel(Time.local(2014,5,9, 20,30))
 
-      # force station to use same db as these tests
+      # force station/schedule to use same db as these tests
       expect(PL).to receive(:db).at_least(:once).and_return(db) 
 
       Timecop.travel(Time.local(2014, 5, 9, 10))
-      @user = PL.db.create_user({ twitter: "Bob" })
+      @user = db.create_user({ twitter: "Bob" })
       @songs = []
       86.times do |i|
-        @songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
+        @songs << db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
       end
 
       # build spins_per_week
@@ -556,19 +571,20 @@ shared_examples 'a badass database' do
       heavy.each { |song| spins_per_week[song.id] = PL::HEAVY_ROTATION }
       medium.each { |song| spins_per_week[song.id] = PL::MEDIUM_ROTATION }
       light.each { |song| spins_per_week[song.id] = PL::LIGHT_ROTATION }
-      @station = PL.db.create_station({ user_id: @user.id, 
+      @station = db.create_station({ user_id: @user.id, 
                                           spins_per_week: spins_per_week 
                                        })
-      @station.generate_playlist
-      @old_playlist_ab_ids = db.get_full_playlist(@station.id).map { |spin| spin.audio_block_id }
+      @schedule = db.create_schedule({ station_id: @station.id })
+      @schedule.generate_playlist
+      @old_playlist_ab_ids = db.get_full_playlist(@schedule.id).map { |spin| spin.audio_block_id }
     end
     
     it 'adds a spin' do
       added_audio_block = db.create_song({ duration: 50000 })
-      added_spin = db.add_spin({ schedule_id: @station.id,
+      added_spin = db.add_spin({ schedule_id: @schedule.id,
                                  audio_block_id: added_audio_block.id,
                                  add_position: 15 })
-      new_playlist = db.get_full_playlist(@station.id)
+      new_playlist = db.get_full_playlist(@schedule.id)
       expect(new_playlist.size).to eq(@old_playlist_ab_ids.size + 1)
       expect(@old_playlist_ab_ids.last).to eq(new_playlist.last.audio_block_id)
       expect(new_playlist[13].audio_block_id).to eq(added_audio_block.id)
@@ -661,6 +677,7 @@ shared_examples 'a badass database' do
       expect(entry.listeners_at_start).to eq(0)
     end
   end
+
   ###############
   #  Schedules  #
   ###############

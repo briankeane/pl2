@@ -33,7 +33,6 @@ class StationsController < ApplicationController
   def create
     artists = params[:artist].values.delete_if { |artist| artist.empty? }
 
-    binding.pry
     result = PL::GetSongSuggestions.run(artists)
 
     if params["createType"] == "manual"
