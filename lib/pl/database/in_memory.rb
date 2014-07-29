@@ -418,8 +418,7 @@ module PL
       # for the rest of the entire playlist                           #
       #################################################################
       def add_spin(attrs)
-        station = self.get_station(attrs[:station_id])
-        playlist = self.get_full_playlist(station.schedule_id)
+        playlist = self.get_full_playlist(attrs[:schedule_id])
         index = playlist.find_index { |spin| spin.current_position == attrs[:add_position] }
         current_position_tracker = attrs[:add_position]
 
@@ -499,9 +498,25 @@ module PL
       end
 
       def get_partial_playlist(attrs)
-        spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
+        case
+        when !attrs[:start_time]
+          spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
+                                                  (spin.estimated_airtime <= attrs[:end_time]) }
+        when !attrs[:end_time]
+          spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
+                                                (spin.estimated_airtime >= attrs[:start_time]) }
+        else
+          spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
                                               (spin.estimated_airtime >= attrs[:start_time]) &&
                                               (spin.estimated_airtime <= attrs[:end_time]) }
+        spins = spins.sort_by { |spin| spin.current_position }
+        spins
+        end
+      end
+
+      def get_playlist_by_starting_current_position(attrs)
+        spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
+                                              (spin.current_position >= attrs[:starting_current_position]) }
         spins = spins.sort_by { |spin| spin.current_position }
         spins
       end

@@ -626,7 +626,6 @@ module PL
       end
 
       def get_partial_playlist(attrs)
-        
         case 
         when !attrs[:start_time]
           ar_spins = Spin.where('schedule_id = ? and estimated_airtime <= ?', attrs[:schedule_id], attrs[:end_time]).order(:current_position)
@@ -636,6 +635,12 @@ module PL
           ar_spins = Spin.where('schedule_id = ? and estimated_airtime >= ? and estimated_airtime <= ?', attrs[:schedule_id], attrs[:start_time], attrs[:end_time]).order(:current_position)
         end
         
+        spins = ar_spins.map { |ar_spin| ar_spin.to_pl }
+        spins
+      end
+
+      def get_playlist_by_starting_current_position(attrs)
+        ar_spins = Spin.where('schedule_id = ? and current_position >= ?', attrs[:schedule_id], attrs[:starting_current_position]).order(:current_position)
         spins = ar_spins.map { |ar_spin| ar_spin.to_pl }
         spins
       end

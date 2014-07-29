@@ -7,7 +7,7 @@ module PL
     attr_accessor :id, :secs_of_commercial_per_hour, :user_id, :schedule_id
     attr_accessor :spins_per_week, :created_at, :updated_at
     attr_accessor :current_playlist_end_time, :original_playlist_end_time
-    attr_accessor :next_commercial_block, :last_accurate_airtime
+    attr_accessor :next_commercial_block
 
     # Station-specific constants
     MS_IN_WEEK = 604.8e+6
@@ -274,9 +274,9 @@ module PL
     end
 
     def log_end_time
-      binding.pry
       last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
       last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
+      last_spin_ended
     end
 
     def last_log_entry

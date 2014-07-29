@@ -3,7 +3,7 @@ require 'Timecop'
 
 describe 'a station' do
   before(:each) do
-    db.clear_everything
+    PL.db.clear_everything
     @user = PL.db.create_user({ twitter: 'bob' })
     @song1 = PL::Song.new({ id: 1 })
     @song2 = PL::Song.new({ id: 2 })

@@ -505,6 +505,14 @@ shared_examples 'a badass database' do
       expect(playlist.last.current_position).to eq(20)
     end
 
+    it 'gets a partial playlist by current_position' do
+      playlist = db.get_playlist_by_starting_current_position({ schedule_id: 1,
+                                                        starting_current_position: 10 })
+      expect(playlist.size).to eq(11)
+      expect(playlist[0].current_position).to eq(10)
+      expect(playlist[10].current_position).to eq(20)
+    end
+
     it 'gets a spin by current_position' do
       expect(db.get_spin_by_current_position({ schedule_id: 1, current_position: 4 }).audio_block_id).to eq(5)
     end
@@ -699,12 +707,12 @@ shared_examples 'a badass database' do
                                               current_playlist_end_time: Time.local(2014,1,1),
                                               original_playlist_end_time: Time.local(2014,1,2),
                                               next_commercial_block_id: 8,
-                                              last_accurate_airtime: Time.local(2014,1,3) })
+                                              last_accurate_current_position: 100 })
       expect(updated_schedule.station_id).to eq(1)
       expect(updated_schedule.current_playlist_end_time.to_s).to eq('2014-01-01 00:00:00 -0600')
       expect(updated_schedule.original_playlist_end_time.to_s).to eq('2014-01-02 00:00:00 -0600')
       expect(updated_schedule.next_commercial_block_id).to eq(8)
-      expect(updated_schedule.last_accurate_airtime.to_s).to eq('2014-01-03 00:00:00 -0600')
+      expect(updated_schedule.last_accurate_current_position).to eq(100)
     end
 
     it 'can be gotten' do

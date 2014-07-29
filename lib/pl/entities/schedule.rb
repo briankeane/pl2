@@ -8,7 +8,7 @@ module PL
   
     attr_accessor :id, :station_id, :current_playlist_end_time
     attr_accessor :original_playlist_end_time, :next_commercial_block
-    attr_accessor :last_accurate_airtime, :next_commercial_block_id
+    attr_accessor :last_accurate_current_position, :next_commercial_block_id
 
     # constants
     MS_IN_WEEK = 604.8e+6
@@ -99,7 +99,7 @@ module PL
 
       
       @original_playlist_end_time = time_tracker
-      @last_accurate_airtime = time_tracker
+      @last_accurate_current_position = spins.last.current_position
       @current_playlist_end_time = time_tracker
 
       #if it's the first playlist, start the station
@@ -154,8 +154,18 @@ module PL
     end
 
     def update_estimated_airtimes(endtime = nil)
-      last_played = PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 }).first
+      if last_accurate_airtime < Time.now
+        self.bring_current
+        last_played = PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 }).first
+        start_time = last_played.airtime + last_played.duration/1000
+        if find_commercial_count(last_played.airtime) != find_commercial_count(start_time)
+          lead_with_commercial = true
+        end
+        playlist = PL.db.get_full_playlist(@id)
+      else
+        PL.db.
       time_tracker = station.log_end_time
+      end
     end
 
     # returns the 'block' number for the given time
@@ -174,10 +184,6 @@ module PL
     #             false, just accounts for their time     #
     #          lead_with_commercial_block?                #
     #             -- if true starts w/ commercial block   #
-    #######################################################
-    # notes:                                              #
-    #    1) 1st spin in array must already be accurate -- #
-    #                                                     #
     #######################################################
     def adjust_playlist(attrs)
 
@@ -217,6 +223,16 @@ module PL
 
       modified_playlist
     end
-    
+
+    def last_accurate_airtime
+      spin = PL.db.get_spin_by_current_position({ schedule_id: @id, current_position: @last_accurate_current_position })
+      if spin
+        airtime = spin[:estimated_airtime]
+      else
+        # set to a valid minimum value
+        airtime = Time.local(1970,1,1)
+      end
+      airtime
+    end
   end
 end
