@@ -21,6 +21,14 @@ module PL
       super(attrs)
     end
 
+    def timezone
+      if !user
+        'Central Time (US & Canada)'
+      else
+        user.timezone
+      end
+    end
+
     def user
       @user ||= PL.db.get_user(@user_id)
     end
@@ -28,11 +36,6 @@ module PL
     def schedule
       @schedule ||= PL.db.get_schedule(@schedule_id)
     end
-
-    def timezone
-      @timezone ||= user.timezone
-    end
-
 
     #####################################################################
     #     make_log_current                                              #
@@ -186,7 +189,6 @@ module PL
         self.make_log_current
       end
 
-
       # if it should be a commercial (now_playing straddles the hour or the 1/2 hour)
       if (now_playing.airtime.to_f/1800.0).floor != (now_playing.estimated_end_time.to_f/1800.0).floor
         return next_commercial_block
@@ -272,6 +274,7 @@ module PL
     end
 
     def log_end_time
+      binding.pry
       last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
       last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
     end

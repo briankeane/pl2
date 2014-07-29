@@ -59,6 +59,7 @@ describe 'schedule' do
   describe 'make_log_current' do
     before (:each) do
       @station = PL.db.create_station({ user_id: 1, secs_of_commercial_per_hour: 300 })
+      @schedule = PL.db.create_schedule({ station_id: @station.id })
       @song = PL.db.create_song({ duration: 180000 })
       @spin1 = PL.db.create_spin({ current_position: 15,
                                       schedule_id: @schedule.id,
@@ -134,16 +135,40 @@ describe 'schedule' do
       @station = PL.db.create_station({ user_id: 1, secs_of_commercial_per_hour: 300 })
       @schedule = PL.db.create_schedule({ station_id: @station.id })
       @spins = []
-      30.times_with_index do |i|
-        @spins << Spin.new({ audio_block_id: song.id,
-                              schedule_id: @schedule.id })
+      30.times do |i|
+        @spins << PL::Spin.new({ audio_block_id: song.id,
+                              schedule_id: @schedule.id,
+                              current_position: i+1 })
       end
     end
 
-    xit 'inserts commercials correctly' do
+    it 'inserts commercials correctly' do
+      spins = @schedule.adjust_playlist({ playlist: @spins,
+                                          insert_commercials?: true,
+                                          start_time: Time.local(2014,4,14, 12,10) })
+      expect(spins[7]).to be_a(PL::CommercialBlock)
+      expect(spins[8].estimated_airtime.to_s).to eq(Time.local(2014,4,14, 12,33,30).to_s)
+      expect(spins[8]).to be_a(PL::Spin)
+      expect(spins[17]).to be_a(PL::CommercialBlock)
     end
 
-    xit 'leads off with a commercial properly' do
+    it 'accounts for commercials without inserting them' do
+      spins = @schedule.adjust_playlist({ playlist: @spins,
+                                          insert_commercials?: false,
+                                          start_time: Time.local(2014,4,14, 12,10) })
+      expect(spins[7]).to be_a(PL::Spin)
+      expect(spins[7].estimated_airtime.to_s).to eq(Time.local(2014,4,14, 12,33,30).to_s)
+    end
+
+    it 'leads off with a commercial properly' do
+      spins = @schedule.adjust_playlist({ playlist: @spins,
+                                          insert_commercials?: true,
+                                          lead_with_commercial_block?: true,
+                                          start_time: Time.local(2014,4,14, 12,01) })
+      expect(spins[0]).to be_a(PL::CommercialBlock)
+      expect(spins[1].estimated_airtime.to_s).to eq(Time.local(2014,4,14, 12,3,30).to_s)
+      expect(spins[10]).to be_a(PL::CommercialBlock)
+      expect(spins[10].estimated_airtime.to_s).to eq(Time.local(2014,4,14, 12,30,30).to_s)
     end
 
   end

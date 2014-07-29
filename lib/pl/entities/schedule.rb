@@ -25,7 +25,7 @@ module PL
       if !station
         'Central Time (US & Canada)'
       else
-        station.user.timezone
+        station.timezone
       end
     end
 
@@ -129,8 +129,10 @@ module PL
 
       playlist = PL.db.get_full_playlist(@id)       
      
-      playlist.each do |spin|
+      playlist.each_with_index do |spin, i|
         break unless (time_tracker < Time.now)
+
+        
 
         # set up listeners_at_finish to put nil in the final spin
         if (time_tracker + spin.duration/1000) > Time.now
@@ -146,7 +148,7 @@ module PL
                                               duration: spin.duration,
                                               listeners_at_start: 0,
                                               listeners_at_finish: listeners_at_finish })
-        spin.airtime = time_tracker
+        spin.estimated_airtime = time_tracker
         time_tracker += spin.duration/1000
       end
     end
@@ -156,11 +158,64 @@ module PL
       time_tracker = station.log_end_time
     end
 
-
-
     # returns the 'block' number for the given time
     def find_commercial_count(time)
       (time.to_f/1800.0).floor
+    end
+
+    #######################################################
+    #  adjust_playlist                                    #
+    #######################################################
+    # takes an array of spins and a start time, returns   #
+    # correct time with commercials                       #
+    #######################################################
+    # options: insert_commercials?                        #
+    #          -- if true, inserts cb's into the array    #
+    #             false, just accounts for their time     #
+    #          lead_with_commercial_block?                #
+    #             -- if true starts w/ commercial block   #
+    #######################################################
+    # notes:                                              #
+    #    1) 1st spin in array must already be accurate -- #
+    #                                                     #
+    #######################################################
+    def adjust_playlist(attrs)
+
+      max_position = attrs[:playlist].last.current_position
+      time_tracker = attrs[:start_time]
+
+      # calibrate commercial_counter for start_time
+      commercial_counter = find_commercial_count(time_tracker)
+
+      # adjust if it should start with a commercial
+      if attrs[:lead_with_commercial_block?]
+        commercial_counter -= 1
+      end
+
+      modified_playlist = []
+
+      attrs[:playlist].each do |spin|
+        # if it's time for a commercial
+        if commercial_counter != find_commercial_count(time_tracker)
+          commercial_counter += 1
+
+          if attrs[:insert_commercials?]
+            modified_playlist << PL::CommercialBlock.new(
+                                        { schedule_id: spin.schedule_id,
+                                          estimated_airtime: time_tracker,
+                                          duration: @station.secs_of_commercial_per_hour/2 })
+          end
+          
+          time_tracker += @station.secs_of_commercial_per_hour/2
+        end
+
+        spin.estimated_airtime = time_tracker
+        modified_playlist << spin
+
+        time_tracker += spin.duration/1000
+      end
+
+      modified_playlist
     end
     
   end
