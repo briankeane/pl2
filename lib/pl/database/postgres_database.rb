@@ -760,12 +760,12 @@ module PL
       end
 
       def get_recent_log_entries(attrs)
-        ar_entries = LogEntry.where('station_id = ?', attrs[:station_id]).order('current_position DESC').first(attrs[:count])
+        ar_entries = LogEntry.where('station_id = ?', attrs[:station_id]).order('airtime DESC').first(attrs[:count])
         ar_entries.map { |ar_entry| ar_entry.to_pl }
       end
 
       def get_full_station_log(station_id)
-        ar_entries = LogEntry.where('station_id = ?', station_id).order('current_position DESC')
+        ar_entries = LogEntry.where('station_id = ?', station_id).order('airtime DESC')
         return ar_entries.map { |ar_entry| ar_entry.to_pl }
       end
 

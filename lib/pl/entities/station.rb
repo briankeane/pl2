@@ -38,68 +38,6 @@ module PL
     end
 
     #####################################################################
-    #     make_log_current                                              #
-    #####################################################################
-    #  updates the logs if the station has been inactive                #
-    #####################################################################
-    def make_log_current
-
-      playlist = PL.db.get_full_playlist(@id)
-
-      # grab the last current_position in the log
-      max_position = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0].current_position
-      
-      # IF the station's been off
-      if !self.active?
-        time_tracker = self.log_end_time
-
-        # calibrate commercial_block_counter for start-time
-        commercial_block_counter = (time_tracker.to_f/1800.0).floor
-
-        #adjust commercial_block_counter for cases where 1st spin should be a commercial_block
-        if (self.last_log_entry.airtime.to_f/1800.0).floor != commercial_block_counter
-          commercial_block_counter -= 1
-        end
-
-        # set up an index to go through playlist array
-        index = 0
-        # get the log & playlist caught up
-        while (time_tracker < Time.now) && (index < playlist.size)
-
-          # add a commercial block if it's time
-          if (time_tracker.to_f/1800.0).floor > commercial_block_counter
-            commercial_block_counter += 1
-            commercial_block = PL.db.create_commercial_block({ station_id: @id, 
-                                                                duration: (@secs_of_commercial_per_hour/2) * 1000 })
-            PL.db.create_log_entry({ station_id: @id,
-                                      current_position: (max_position += 1),
-                                      audio_block_id: commercial_block.id,
-                                      airtime: time_tracker,
-                                      duration: commercial_block.duration,
-                                      listeners_at_start: 0,
-                                      listeners_at_finish: 0 })
-            time_tracker += (@secs_of_commercial_per_hour/2)
-
-          # ELSE record the next scheduled spin
-          else
-            spin = playlist[index]
-            log = PL.db.create_log_entry({ station_id: @id,
-                                      current_position: (max_position += 1),
-                                      audio_block_id: spin.audio_block_id,
-                                      airtime: time_tracker,
-                                      duration: spin.duration,
-                                      listeners_at_start: 0,
-                                      listeners_at_finish: 0 })
-            PL.db.delete_spin(spin.id)
-            time_tracker += log.duration/1000
-            index += 1
-          end
-        end
-      end  # end 'if station was asleep'
-    end
-
-
-    #####################################################################
     #     updated_estimated_airtimes                                    #
     #####################################################################
     #  updates the estimated airtimes, accounting for commercial blocks #
@@ -163,11 +101,7 @@ module PL
     end
 
     def now_playing
-      if !self.active?
-        self.make_log_current
-      end
-
-      return PL.db.get_recent_log_entries({station_id: @id, count: 1 })[0]
+      schedule.now_playing
     end
 
     def now_playing_with_audio_file
@@ -185,17 +119,7 @@ module PL
     end
 
     def next_spin
-      if !self.active?
-        self.make_log_current
-      end
-
-      # if it should be a commercial (now_playing straddles the hour or the 1/2 hour)
-      if (now_playing.airtime.to_f/1800.0).floor != (now_playing.estimated_end_time.to_f/1800.0).floor
-        return next_commercial_block
-      else
-        return PL.db.get_spin_by_current_position({ station_id: @id,
-                                                    current_position: (now_playing.current_position + 1) })
-      end
+      schedule.next_spin
     end
 
     def next_commercial_block
@@ -206,6 +130,12 @@ module PL
         @next_commercial_block = cf.construct_block(self)
         return @next_commercial_block
       end
+    end
+
+    def advance_commercial_block
+      cf = PL::CommercialBlockFactory.new
+      @next_commercial_block = cf.construct_block(self)
+      return @next_commercial_block
     end
     
     ##################################################################
@@ -270,7 +200,7 @@ module PL
     #  returns TRUE or FALSE                                         #
     ##################################################################
     def active?
-      (self.log_end_time.utc < Time.now.utc) ? false : true
+      schedule.active?
     end
 
     def log_end_time

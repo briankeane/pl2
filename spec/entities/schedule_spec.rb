@@ -2,28 +2,32 @@ require 'spec_helper'
 require 'timecop'
 
 describe 'schedule' do
+  describe 'crud' do
+    before(:each) do
+      @user = PL.db.create_user({ twitter: 'bob', timezone: 'Central Time (US & Canada)' })
+      @station = PL.db.create_station({ user_id: @user.id })
+      @schedule = PL.db.create_schedule({ station_id: @station.id })
+      @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
+    end
 
-  before(:each) do
-    @user = PL.db.create_user({ twitter: 'bob', timezone: 'Central Time (US & Canada)' })
-    @station = PL.db.create_station({ user_id: @user.id })
-    @schedule = PL.db.create_schedule({ station_id: @station.id })
-    @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
-  end
+    it 'is created with an id, station_id' do
+      schedule = PL::Schedule.new({ id: 1, station_id: 10 })
+      expect(schedule.id).to eq(1)
+      expect(schedule.station_id).to eq(10)
+    end
 
-  it 'is created with an id, station_id' do
-    schedule = PL::Schedule.new({ id: 1, station_id: 10 })
-    expect(schedule.id).to eq(1)
-    expect(schedule.station_id).to eq(10)
-  end
-
-  it "can get it's station" do
-    expect(@schedule.station.id).to eq(@station.id)
+    it "can get it's station" do
+      expect(@schedule.station.id).to eq(@station.id)
+    end
   end
 
   describe 'generate playlist' do
     before(:each) do
       Timecop.travel(Time.local(2014, 5, 9, 10))
-      @user = PL.db.create_user({ twitter: "Bob", password: "password" })
+      @user = PL.db.create_user({ twitter: 'bob', timezone: 'Central Time (US & Canada)' })
+      @station = PL.db.create_station({ user_id: @user.id })
+      @schedule = PL.db.create_schedule({ station_id: @station.id })
+      @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
       @songs = []
       86.times do |i|
         @songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
@@ -58,8 +62,10 @@ describe 'schedule' do
 
   describe 'bring_current' do
     before (:each) do
-      @station = PL.db.create_station({ user_id: 1, secs_of_commercial_per_hour: 300 })
+      @user = PL.db.create_user({ twitter: 'bob' })
+      @station = PL.db.create_station({ user_id: @user.id, secs_of_commercial_per_hour: 300 })
       @schedule = PL.db.create_schedule({ station_id: @station.id })
+      @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
       @song = PL.db.create_song({ duration: 180000 })
       @spin1 = PL.db.create_spin({ current_position: 15,
                                       schedule_id: @schedule.id,
@@ -112,9 +118,9 @@ describe 'schedule' do
       Timecop.travel(Time.local(2014,4,14, 12,9))
       @schedule.bring_current
       log = PL.db.get_full_station_log(@station.id)
-
-      expect(log.size).to eq(4)
-      expect(log[1].airtime.to_s).to eq(Time.local(2014,4,14,12, 04,30).to_s)
+      expect(log.size).to eq(5)
+      expect(log[2].audio_block).to be_a(PL::CommercialBlock)
+      expect(log[1].airtime.to_s).to eq(Time.local(2014,4,14, 12,04,30).to_s)
     end
 
     it "doesn't mess up when 1st log is a commercial" do
@@ -123,8 +129,8 @@ describe 'schedule' do
       Timecop.travel(Time.local(2014,4,14, 12,9))
       @schedule.bring_current
       log = PL.db.get_full_station_log(@station.id)
-      expect(log.size).to eq(4)
-      expect(log[1].airtime.to_s).to eq(Time.local(2014,4,14,12, 04,30).to_s)
+      expect(log.size).to eq(5)
+      expect(log[2].audio_block).to be_a(PL::CommercialBlock)
     end
   end
 
@@ -133,6 +139,7 @@ describe 'schedule' do
       @song = PL.db.create_song({ duration: 180000 })
       @station = PL.db.create_station({ user_id: 1, secs_of_commercial_per_hour: 300 })
       @schedule = PL.db.create_schedule({ station_id: @station.id })
+      @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
       @spins = []
       30.times do |i|
         @spins << PL.db.create_spin({ audio_block_id: @song.id,
@@ -181,8 +188,7 @@ describe 'schedule' do
                                 })
         @schedule.update_estimated_airtimes
         expect(PL.db.get_full_playlist(@schedule.id).size).to eq(30)
-        binding.pry
-        expect(PL.db.get_full_playlist(@schedule.id)[0].estimated_airtime.to_s).to eq('')
+        expect(PL.db.get_full_playlist(@schedule.id)[0].estimated_airtime.to_s).to eq(Time.local(2014,4,15, 12,17).to_s)
       end
 
       it 'still works if a commercial would be first' do
@@ -195,6 +201,68 @@ describe 'schedule' do
                                 })
         @schedule.update_estimated_airtimes
         expect(PL.db.get_full_playlist(@schedule.id)[0].estimated_airtime.to_s).to eq(Time.local(2014,4,15, 12,34,30).to_s)
+      end
+    end
+  end
+
+  describe 'playlist functions' do
+    before (:each) do
+      Timecop.travel(Time.local(2014, 5, 9, 10))
+      @user = PL.db.create_user({ twitter: "Bob", password: "password" })
+      @songs = []
+      86.times do |i|
+        @songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
+      end
+
+      # build spins_per_week
+      heavy = @songs[0..30]
+      medium = @songs[31..65]
+      light = @songs[66..85]
+
+      spins_per_week = {}
+      heavy.each { |song| spins_per_week[song.id] = PL::HEAVY_ROTATION }
+      medium.each { |song| spins_per_week[song.id] = PL::MEDIUM_ROTATION }
+      light.each { |song| spins_per_week[song.id] = PL::LIGHT_ROTATION }
+      @station = PL.db.create_station({ user_id: @user.id, 
+                                          spins_per_week: spins_per_week 
+                                       })
+      @schedule = PL.db.create_schedule({ station_id: @station.id })
+      @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
+      
+      @schedule.generate_playlist
+    end
+
+    describe 'now_playing' do
+      it 'returns the currently playing spin' do
+        expect(@schedule.now_playing.current_position).to eq(1)
+      end
+
+      it 'still returns now_playing later' do
+        Timecop.travel(2014,5,9, 11,12)
+        expect(@schedule.now_playing.current_position).to eq(21)
+      end
+    end
+
+    describe 'next_spin' do
+      it 'returns the next_spin' do
+        expect(@schedule.next_spin.current_position).to eq(2)
+      end
+
+      it 'returns a CommercialBlock if the next spin should be one' do
+        Timecop.travel(2014,5,9, 13)
+        expect(@schedule.next_spin).to be_a(PL::CommercialBlock)
+      end
+    end
+
+    describe 'active?' do
+      it 'returns true if the station has been running' do
+        Timecop.travel(Time.local(2014,5,9, 10,1))
+        expect(@schedule.active?).to eq(true)
+      end
+
+      it 'returns false if the station needs updating' do
+        Timecop.travel(Time.local(2014,5,9, 11))
+        expect(@schedule.active?).to eq(false)
       end
     end
   end

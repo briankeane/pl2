@@ -77,12 +77,6 @@ describe 'a station' do
       end
     end
 
-    describe 'now_playing_with_audio_file' do
-      xit 'returns the current spin with its audio file' do
-      end
-    end
-
-
     describe 'next_spin' do
       it 'returns the next_spin' do
         expect(@station.next_spin.current_position).to eq(2)
@@ -91,24 +85,6 @@ describe 'a station' do
       it 'returns a CommercialBlock if the next spin should be one' do
         Timecop.travel(2014,5,9, 13)
         expect(@station.next_spin).to be_a(PL::CommercialBlock)
-      end
-    end
-
-    describe 'next_spin_with_audio_file' do
-      xit 'returns the next_spin with its audio' do
-      end
-    end
-
-    describe 'end_time' do
-      it 'returns the proper end_time' do
-        expect(@station.end_time.localtime.to_s).to eq('2014-05-23 00:02:50 -0500')
-      end
-
-      it 'still returns the proper end_time' do
-        PL.db.create_spin({ station_id: @station.id,
-                              audio_block_id: @songs[0].id,
-                              current_position: 5562 })
-        expect(@station.end_time.localtime.to_s).to eq('2014-05-23 00:09:00 -0500')
       end
     end
 

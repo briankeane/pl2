@@ -11,5 +11,9 @@ module PL
     	airtime + @duration/1000
     end
 
+    def audio_block
+      @audio_block ||= PL.db.get_audio_block(@audio_block_id)
+    end
+    
   end
 end

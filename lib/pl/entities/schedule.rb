@@ -138,8 +138,26 @@ module PL
      
       playlist.each_with_index do |spin, i|
 
-        # if it's time for a commercial, skip the time
+
+        # if it's time for a commercial block
         if commercial_flag
+          
+          break unless (time_tracker < Time.now)
+          
+          log_entry = PL.db.create_log_entry({ station_id: @station_id,
+                                             audio_block_id: @station.next_commercial_block.id,
+                                             duration: @station.next_commercial_block.duration,
+                                             airtime: time_tracker,
+                                             listeners_at_start: 0 })
+
+          #advance the commercial block
+          @station.advance_commercial_block
+
+          # if this will not be the current spin, mark listers_at_finish 0
+          if (time_tracker + station.secs_of_commercial_per_hour/2) > Time.now
+            PL.db.update_log_entry({ id: log_entry.id, listeners_at_finish: 0 })
+          end
+
           time_tracker += station.secs_of_commercial_per_hour/2
           commercial_flag = false
         end
@@ -315,6 +333,10 @@ module PL
       airtime
     end
 
+    def active?
+      (station.log_end_time.utc < Time.now.utc) ? false : true
+    end
+
     def now_playing
       if !active?
         self.bring_current
@@ -323,8 +345,16 @@ module PL
       PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 })[0]
     end
 
-    def active?
-      (@station.log_end_time.utc < Time.now.utc) ? false : true
+
+    def next_spin
+      self.bring_current
+
+      # if it should be a commercial
+      if find_commercial_count(now_playing.airtime) != find_commercial_count(now_playing.estimated_end_time)
+        return @station.next_commercial_block
+      else
+        return PL.db.get_next_spin(@id)
+      end
     end
 
 
