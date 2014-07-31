@@ -59,7 +59,7 @@ module PL
       commercial_block_counter = (time_tracker.to_f/1800.0).floor
 
       #adjust commercial_block_counter for cases where 1st spin should be a commercial_block
-        if (self.last_log_entry.airtime.to_f/1800.0).floor != commercial_block_counter
+        if (self.just_played.airtime.to_f/1800.0).floor != commercial_block_counter
           commercial_block_counter -= 1
         end
 
@@ -138,59 +138,6 @@ module PL
       return @next_commercial_block
     end
     
-    ##################################################################
-    #     get_program                                                #
-    ##################################################################
-    #  returns an array representing a piece of the playlist         #
-    #  as it currently exists.                                       #
-    #  if no start_time is given, it returns the current playlist    #
-    #  default length is 2 hours                                     #
-    ##################################################################
-    def get_program(attrs)
-
-      # set default values if necessary
-      attrs[:start_time] ||= Time.now
-      attrs[:end_time] ||= (attrs[:start_time] + (2*60*60))
-
-      # give 5 min padding on either side of program
-      
-      attrs[:start_time] -= (5*60)
-      attrs[:end_time] += (5*60)
-
-      self.update_estimated_airtimes
-      playlist = PL.db.get_partial_playlist({ station_id: @id,
-                                              start_time: attrs[:start_time],
-                                              end_time: attrs[:end_time] })
-      
-      # return an empty array if no spins found
-      if playlist.size == 0
-        return []
-      end
-
-      previous_spin = PL.db.get_spin_by_current_position({ station_id: @id,
-                                                      current_position: (playlist[0].current_position - 1) })
-
-      if !previous_spin
-        previous_spin = now_playing
-      end
-
-      # iterate through the playlist and create the program
-      program = []
-      playlist.each do |spin|
-        # add a commercial block if there's a space provided
-        if previous_spin.estimated_end_time != spin.estimated_airtime
-          commercial_block = PL::CommercialBlock.new({ station_id: @id,
-                                                 duration: (@secs_of_commercial_per_hour/2 * 1000),
-                                                 estimated_airtime: previous_spin.estimated_end_time })
-          program << commercial_block
-        end
-
-        program << spin
-        previous_spin = spin
-      end
-
-      program
-    end
 
     ##################################################################
     #     active?                                                    #
@@ -205,11 +152,16 @@ module PL
 
     def log_end_time
       last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
+      
+      if !last_spin_played
+        return nil
+      end
+      
       last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
       last_spin_ended
     end
 
-    def last_log_entry
+    def just_played
       PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
     end
 

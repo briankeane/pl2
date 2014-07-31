@@ -207,7 +207,7 @@ describe 'schedule' do
 
   describe 'playlist functions' do
     before (:each) do
-      Timecop.travel(Time.local(2014, 5, 9, 10))
+      Timecop.travel(Time.local(2014,5,9, 10))
       @user = PL.db.create_user({ twitter: "Bob", password: "password" })
       @songs = []
       86.times do |i|
@@ -265,5 +265,21 @@ describe 'schedule' do
         expect(@schedule.active?).to eq(false)
       end
     end
+
+    describe 'get_program' do
+      it 'returns a program for a particular time' do
+        Timecop.travel(2014,5,10, 10)
+        program = @schedule.get_program
+        binding.pry
+      end
+
+      it 'returns a blank array if time is beyond scope' do
+      end
+
+      it 'extends the schedule if time should be created' do
+      end
+    end
+
+
   end
 end

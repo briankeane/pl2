@@ -14,6 +14,5 @@ module PL
     def audio_block
       @audio_block ||= PL.db.get_audio_block(@audio_block_id)
     end
-    
   end
 end

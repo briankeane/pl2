@@ -18,7 +18,7 @@ describe 'a station' do
                              updated_at: Time.new(1970, 1, 2) })
   end
 
-  it 'is created with an id, secs_of_commercial_per_hour, user_id, and heavy, medium, and light rotation arrays' do
+  it 'is created with an id, secs_of_commercial_per_hour, user_id, and spins_per_week array' do
     expect(@station.id).to eq(1)
     expect(@station.secs_of_commercial_per_hour).to eq(3)
     expect(@station.user_id).to eq(@user.id)
