@@ -1,10 +1,10 @@
 module PL
 	class GetNextSpin < UseCase
-		def run(station_id)
-      station = PL.db.get_station(station_id)
+		def run(schedule_id)
+      station = PL.db.get_station(schedule_id)
 
       if !station
-        return failure :station_not_found
+        return failure :schedule_not_found
       end
 
       return success :next_spin => station.next_spin

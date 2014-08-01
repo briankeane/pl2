@@ -5,7 +5,7 @@ describe 'GetNextSpin' do
     it 'calls bullshit if station is not found' do
         result = PL::GetNextSpin.run(9999)
         expect(result.success?).to eq(false)
-        expect(result.error).to eq(:station_not_found)
+        expect(result.error).to eq(:schedule_not_found)
     end
 
   it 'grabs the next spin' do
@@ -28,8 +28,9 @@ describe 'GetNextSpin' do
     @station = PL.db.create_station({ user_id: @user.id, 
                                         spins_per_week: spins_per_week 
                                      })
-    @station.generate_playlist
-
+    @schedule = PL.db.create_schedule({ station_id: @station.id })
+    @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
+    @schedule.generate_playlist
     result = PL::GetNextSpin.run(@station.id)
     expect(result.success?).to eq(true)
     expect(result.next_spin.current_position).to eq(2)
