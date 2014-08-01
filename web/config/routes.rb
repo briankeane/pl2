@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  
   get 'users/delete'
 
   get 'users/show'
@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   match 'station/create',               to: 'stations#create',                 via: 'post'
   match 'session/destroy',              to: 'sessions#destroy',                via: 'get'
   match 'users/update',                 to: 'users#update',                    via: 'post'
+  match 'upload',                       to: 'upload#upload',                   via: 'get'
 
   # sessions_controller paths
   get '/auth/twitter/callback', to: 'sessions#create_with_twitter'

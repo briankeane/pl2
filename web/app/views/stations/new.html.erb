@@ -1,7 +1,7 @@
 <div class="wall-without-mic-image">
 
   <!-- Reveal Modals begin -->
-  <%= content_tag "div", id: "getUserInfoModal", class: "reveal-modal", data: { userInfoComplete: @user_info_complete, reveal: true } do %>
+  <%= content_tag "div", id: "getUserInfoModal", class: "reveal-modal medium", data: { userInfoComplete: @user_info_complete, reveal: true } do %>
     
     <h1>Big Brother Playola</h1>
     <h3>Would Like to Know 3 Things About You.</h3>
@@ -31,7 +31,7 @@
         <label for="zipcode" class="right">Zipcode</label>
       </div>
       <div class="small-6 columns">
-        <input id="zipcode" required type="text" pattern="^[0-9-]*$" placeholder="Zip Code">
+        <input id="zipcode" required type="text" pattern="zipcode" placeholder="Zip Code">
         <small class="error">Please Type a Valid Zipcode</small>
       </div>
       
@@ -87,10 +87,11 @@
         </fieldset>
     
         <div class="row">
-          <div class="large-6 large-centered columns">
-            <ul class="button-group even-2">
+          <div class="large-12 large-centered columns">
+            <ul class="button-group even-3">
               <li><a href='#' class="button" id="manualStationCreate">Create Manually</a><p>I want to carefully pick each song</li>
-              <li><a href='#'class="button" id="automaticStationCreate">Create Automatically</a><pclass="small-3 columns" >I just want to get going</p></li>
+              <li><a href='#'class="button" id="automaticStationCreate">Create Automatically</a><p>I just want to get going</p></li>
+              <li><%= link_to "Upload Songs", upload_path, :class => "button" %><p>Let Me Upload Some Songs First</p></li>
             </ul>
           </div>
         </div>

@@ -1,0 +1,11 @@
+// Place all the styles related to the upload controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+body .mic-image-inverse {
+  height: 100%;
+  width: 100%;
+  background-image: url('../images/red_mic3_inverse.jpg');
+  background-size: cover;
+  background-repeat: none;
+}
