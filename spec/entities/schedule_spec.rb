@@ -34,6 +34,7 @@ describe 'schedule' do
 
   describe 'playlist functions' do
     before(:each) do
+      PL.db.clear_everything
       Timecop.travel(Time.local(2014, 5, 9, 10))
       @user = PL.db.create_user({ twitter: 'bob', timezone: 'Central Time (US & Canada)' })
       @station = PL.db.create_station({ user_id: @user.id })
@@ -90,10 +91,13 @@ describe 'schedule' do
     end
 
     it 'returns the currently playing spin if its a commercial' do
-      expect(@schedule.now_playing.current_position).to eq(1)
-      Timecop.travel(Time.local(2014,5,10,17,2))
-      binding.pry
-      expect(@schedule.now_playing.current_position).to be_nil
+      Timecop.travel(Time.local(2014,5,10,17))
+      expect(@schedule.now_playing.current_position).to eq(530)
+      Timecop.travel(Time.local(2014,5,10, 17,1,30))
+      expect(@schedule.now_playing.audio_block).to be_a(PL::CommercialBlock)
+      expect(@schedule.now_playing.airtime.to_s).to eq(Time.local(2014,5,10, 17,1,20).to_s)
+      Timecop.travel(Time.local(2014,5,10, 17,4,30))
+      expect(@schedule.now_playing.current_position).to eq(531)
     end
     
     it 'brings the station current' do
@@ -158,21 +162,29 @@ describe 'schedule' do
       expect(@schedule.now_playing.current_position).to be_nil
     end
 
+    describe 'GetProgram' do
+      it 'returns a program for a particular time' do
+        program = @schedule.get_program({ start_time: Time.local(2014,5,10, 17) })
+        expect(program[0].estimated_airtime.to_s).to eq(Time.local(2014,5,10, 16,58,10).to_s)
+        expect(program[0].current_position).to eq(530)
+        expect(program[1]).to be_a(PL::CommercialBlock)
+        expect(program.last.current_position).to eq(581)
+      end
+
+      it 'returns a blank array if time is beyond scope' do
+        program = @schedule.get_program({ start_time: Time.local(2014,5,23) })
+        expect(program).to eq([])
+      end
+
+      it 'extends the schedule if time should be created' do
+        Timecop.travel(Time.local(2014,5,19))
+        program = @schedule.get_program({ start_time: Time.local(2014,5,23) })
+        expect(program.size).to eq(58)
+      end
+    end
+
     after(:all) do
       Timecop.return
-    end
-  end
-
-
-  describe 'get_program' do
-    it 'returns a program for a particular time' do
-      Timecop.travel(2014,5,9,13)
-    end
-
-    it 'returns a blank array if time is beyond scope' do
-    end
-
-    it 'extends the schedule if time should be created' do
     end
   end
 end

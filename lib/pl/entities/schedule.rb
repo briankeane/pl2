@@ -258,7 +258,7 @@ module PL
                                               airtime: (spin.estimated_airtime - station.secs_of_commercial_per_hour/2),
                                               listeners_at_start: 0,
                                               listeners_at_finish: 0,
-                                              duration: (station.secs_of_commercial_per_hour/2)
+                                              duration: (station.secs_of_commercial_per_hour/2 * 1000)
                                             })
           station.advance_commercial_block
         end
@@ -276,6 +276,21 @@ module PL
                                     duration: spin.duration,
                                     airtime: spin.estimated_airtime,
                                     current_position: spin.current_position })
+      end
+
+      # if the end_time has not reached now (CommercialBlock should be playing)
+      if log_entry.estimated_end_time < Time.now
+        spin = PL.db.get_spin_by_current_position({ schedule_id: @id, current_position: (playlist.last.current_position + 1) })
+        if spin.commercial_leads_in
+          log_entry = PL.db.create_log_entry({ station_id: @station_id,
+                                                audio_block_id: station.next_commercial_block.id,
+                                                airtime: (spin.estimated_airtime - station.secs_of_commercial_per_hour/2),
+                                                listeners_at_start: 0,
+                                                listeners_at_finish: 0,
+                                                duration: (station.secs_of_commercial_per_hour/2 * 1000)
+                                              })
+          station.advance_commercial_block
+        end
       end
 
       PL.db.update_log_entry({ id: log_entry.id, listeners_at_finish: nil })
@@ -299,7 +314,7 @@ module PL
         return []
       end
 
-      # if no start_time give, use 1st estimated_airtime
+      # if no start_time given, use 1st estimated_airtime
       if !attrs[:start_time]
         attrs[:start_time] = attrs[:playlist][0].estimated_airtime
       end
@@ -307,26 +322,21 @@ module PL
       max_position = attrs[:playlist].last.current_position
       time_tracker = attrs[:start_time]
 
-      # calibrate commercial_counter for start_time
-      commercial_counter = find_commercial_count(time_tracker)
-
-      # adjust if it should start with a commercial
-      if attrs[:lead_with_commercial_block?]
-        commercial_counter -= 1
+      # adjust for the 1st spin if commercial leads in
+      if attrs[:playlist][0].commercial_leads_in
+        time_tracker -= station.secs_of_commercial_per_hour/2
       end
 
       modified_playlist = []
 
       attrs[:playlist].each do |spin|
         # if it's time for a commercial
-        if commercial_counter != find_commercial_count(time_tracker)
-          commercial_counter += 1
-
+        if spin.commercial_leads_in
           if attrs[:insert_commercials?]
             modified_playlist << PL::CommercialBlock.new(
                                         { schedule_id: spin.schedule_id,
                                           estimated_airtime: time_tracker,
-                                          duration: @station.secs_of_commercial_per_hour/2 })
+                                          duration: station.secs_of_commercial_per_hour/2 })
           end
           
           time_tracker += @station.secs_of_commercial_per_hour/2
@@ -365,7 +375,6 @@ module PL
     def next_spin
       self.bring_current
 
-
       # if it should be a commercial
       if find_commercial_count(now_playing.airtime) != find_commercial_count(now_playing.estimated_end_time)
         return @station.next_commercial_block
@@ -389,9 +398,6 @@ module PL
         attrs[:end_time] = attrs[:start_time] + (3*60*60)
       end
 
-      # update airtimes if necessary
-      self.update_estimated_airtimes(attrs[:end_time])
-
       playlist = PL.db.get_partial_playlist({ start_time: attrs[:start_time], end_time: attrs[:end_time], schedule_id: @id })
 
       # if it's out of range try extending the playlist
@@ -405,38 +411,16 @@ module PL
           return []
         end
       end
+      
+      # if there's a leading spin, add it
+      leading_spin = PL.db.get_spin_by_current_position({ current_position: (playlist[0].current_position - 1),
+                                                          schedule_id: @id })
+      playlist.unshift(leading_spin) unless !leading_spin
 
-      # find out if previous spin straddled commercial line
-      previous_spin = PL.db.get_spin_by_current_position({ schedule_id: @id,
-                                                      current_position: (playlist[0].current_position - 1) })
 
-      if !previous_spin
-        if self.next_spin.id == playlist[0].id
-          previous_spin = self.now_playing
-          if find_commercial_count(previous_spin.airtime) == find_commercial_count(previous_spin.estimated_end_time)
-            leading_commercial = false
-          else
-            leading_commercial = true
-          end
-        else
-          leading_commercial = false
-        end
-      else
-        if find_commercial_count(previous_spin.estimated_airtime) == find_commercial_count(previous_spin.estimated_end_time)
-          leading_commercial = false
-        else
-          leading_commercial = true
-        end
-      end
+      playlist = self.format_playlist({ playlist: playlist, insert_commercials?: true })
 
-      # add the commercials
-      playlist = self.adjust_playlist({ playlist: playlist, 
-                                lead_with_commercial_block?: leading_commercial,
-                                insert_commercials?: true })
-
-      playlist    
+      playlist 
     end
-
-
   end
 end
