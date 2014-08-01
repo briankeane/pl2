@@ -564,6 +564,10 @@ module PL
         end
       end
 
+      def playlist_exists?(schedule_id)
+        Spin.exists?(:schedule_id => schedule_id)
+      end
+
       def delete_spin(id)
         ar_spin = Spin.find(id).destroy
         ar_spin.to_pl
@@ -655,6 +659,10 @@ module PL
         removed_spin
       end
 
+      def get_final_spin(schedule_id)
+        Spin.where("schedule_id = ?", schedule_id).order(:current_position).last
+      end
+
       def get_spin_by_current_position(attrs)
         
         ar_spin = Spin.find_by(:schedule_id => attrs[:schedule_id], :current_position => attrs[:current_position])
@@ -675,6 +683,7 @@ module PL
                                                 spin.audio_block_id.to_s + ', ' + 
                                                 spin.current_position.to_s + ', ' + 
                                                 spin.estimated_airtime.utc.to_s + ', ' + 
+                                                spin.commercial_leads_in.to_s + ', ' +
                                                 Time.now.utc.to_s + ', ' + 
                                                 Time.now.utc.to_s) }
 
@@ -686,7 +695,7 @@ module PL
 
           conn = ActiveRecord::Base.connection
           rc = conn.raw_connection
-          rc.exec("COPY spins (schedule_id, audio_block_id, current_position, estimated_airtime, created_at, updated_at) FROM STDIN WITH CSV")
+          rc.exec("COPY spins (schedule_id, audio_block_id, current_position, estimated_airtime, commercial_leads_in, created_at, updated_at) FROM STDIN WITH CSV")
 
           while !temp_csv_file.eof?
             rc.put_copy_data(temp_csv_file.readline)

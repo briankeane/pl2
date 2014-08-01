@@ -399,12 +399,17 @@ module PL
         spin
       end
 
+      def get_final_spin(schedule_id)
+        @spins.values.select { |spin| spin.schedule_id == schedule_id }.max_by { |spin| spin.current_position }
+      end
+
       def mass_add_spins(spins)
         spins.each do |spin|
           self.create_spin({ schedule_id: spin.schedule_id,
                               audio_block_id: spin.audio_block_id,
                               current_position: spin.current_position,
                               estimated_airtime: spin.estimated_airtime,
+                              commercial_leads_in: spin.commercial_leads_in,
                               created_at: Time.now,
                               updated_at: Time.now })
         end 
@@ -511,6 +516,14 @@ module PL
                                               (spin.estimated_airtime <= attrs[:end_time]) }
         spins = spins.sort_by { |spin| spin.current_position }
         spins
+        end
+      end
+
+      def playlist_exists?(schedule_id)
+        if @spins.values.find { |spin| spin.schedule_id == schedule_id }
+          return true
+        else
+          return false
         end
       end
 

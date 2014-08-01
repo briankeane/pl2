@@ -416,6 +416,13 @@ shared_examples 'a badass database' do
   #   spins     #
   ###############
   describe 'a spin' do
+    it 'checks to see if a playlist exists' do
+      db.clear_everything
+      expect(db.playlist_exists?(1)).to eq(false)
+      db.create_spin({ schedule_id: 1 })
+      expect(db.playlist_exists?(1)).to eq(true)
+    end
+
     it 'can mass add spins at once' do
       db.clear_everything
       spins = []
@@ -424,10 +431,14 @@ shared_examples 'a badass database' do
         spins << PL::Spin.new({ schedule_id: 1,
                                   current_position: (i+1),
                                   audio_block_id: (i+2),
+                                  commercial_leads_in: true,
                                   estimated_airtime: starting_airtime += 180 })
       end
+      spins[0].commercial_leads_in = false
       db.mass_add_spins(spins)
       expect(db.get_spin_by_current_position({schedule_id: 1, current_position: 1 }).id).to_not be_nil
+      expect(db.get_full_playlist(1)[1].commercial_leads_in).to eq(true)
+      expect(db.get_full_playlist(1)[0].commercial_leads_in).to eq(false)
       expect(db.get_full_playlist(1).size).to eq(20)
     end
 
@@ -511,6 +522,11 @@ shared_examples 'a badass database' do
       expect(playlist.size).to eq(11)
       expect(playlist[0].current_position).to eq(10)
       expect(playlist[10].current_position).to eq(20)
+    end
+
+    it 'gets the final_spin' do
+      final_spin = db.get_final_spin(1)
+      expect(final_spin.current_position).to eq(20)
     end
 
     it 'gets a spin by current_position' do
