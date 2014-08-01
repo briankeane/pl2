@@ -1,13 +1,13 @@
 module PL
   class GetProgram < UseCase
     def run(attrs)
-      station = PL.db.get_station(attrs[:station_id])
+      schedule = PL.db.get_schedule(attrs[:schedule_id])
 
-      if !station
-        return failure :station_not_found
+      if !schedule
+        return failure :schedule_not_found
       end
 
-      program = station.get_program({ station_id: station.id,
+      program = schedule.get_program({ schedule_id: attrs[:schedule_id],
                                       start_time: attrs[:start_time],
                                      end_time: attrs[:end_time] })
       if program.size == 0
