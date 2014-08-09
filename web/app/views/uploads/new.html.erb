@@ -1,0 +1,89 @@
+<div class="mic-image-inverse">
+
+  <!-- Reveal Modals begin -->
+  <%= content_tag "div", id: "songInfoModal", class: "reveal-modal medium", data: { reveal: true } do %>
+    
+    <h1>Song Import</h1>
+    
+    <form data-abide id='songInfo'> 
+      <div class="small-3 columns">
+        <label for="title" class="right">Title</label>
+      </div>
+      <div class="small-9 columns">
+        <input id="title" type="text" />
+      </div>
+
+      <div class="small-3 columns">
+        <label for="artist" class="right">Artist</label>
+      </div>
+      <div class="small-9 columns">
+        <input id="artist" type="text" />
+      </div>
+
+
+      <div class="small-3 columns">
+        <label for="album" class="right">Album</label>
+      </div>
+      <div class="small-9 columns">
+        <input id="album" type="text" />
+      </div>
+
+      <div class="row">
+        <p><button type="submit">Yep That's Correct</button></p>
+      </div>
+    </form>
+  <% end %>
+
+
+
+
+
+
+
+
+
+
+
+  <%= filepicker_js_include_tag %>
+  <%= content_tag :div, class: "filepicker_info", data: { api_key: @filepicker_api_key } do %>
+  <% end %>
+  <div class="row top-row">
+    <div class="small-8 small-offset-4 columns">
+      <div class="row">
+        <div class="small-8 columns">
+          <h1 class="title">Upload Songs</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-5 columns">
+      <fieldset id="catalog-fieldset">
+        <legend>Current Catalog</legend>
+        <label for="searchbox">Search Text:</label>
+        <input type="text" id="searchbox" />
+
+        <ul id="catalog-list">
+          <% @all_songs.each do |song| %>
+            <li data-searchString= "<%= song.title + ' ' + song.artist %>">
+              <span class="songlist-title"><%= song.title %></span>
+              <span class="songlist-artist"><%= song.artist %></span>
+            </li>
+          <% end %> 
+        </ul>
+      </fieldset>
+    </div>
+    <div class="small-7 columns">
+      <fieldset>
+        <legend>Uploads</legend>
+        <div class="row">
+          <input id="filepicker" type="filepicker-dragdrop" data-fp-drag-class="small-9 columns drag-area" data-fp-button-class="small-2 column button filepicker-button" data-fp-multiple="true" data-fp-mimetype="audio/*" data-fp-button-text="Pick Mp3s" data-fp-drag-text="Or Drop Them Here" data-fp-services="COMPUTER, DROPBOX, GMAIL" data-fp-store-location="S3"/>
+        </div>
+        <div class="row">
+          <div id="uploaded-song-list">
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>

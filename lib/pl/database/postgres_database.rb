@@ -308,7 +308,7 @@ module PL
       end
 
       def song_exists?(attrs)
-        if Song.where(["title = ? and artist = ? and album = ?", attrs[:title], attrs[:artist], attrs[:album]]).size > 0
+        if Song.where(["LOWER(title) = ? and LOWER(artist) = ? and LOWER(album) = ?", attrs[:title].downcase, attrs[:artist].downcase, attrs[:album].downcase]).size > 0
           return true
         else
           return false

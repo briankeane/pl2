@@ -114,7 +114,10 @@ describe 'audio_file_storage_handler' do
     end
   end
 
+  xit 'gets unprocessed song audio' do
+  end
 
+  
   it 'returns an array of all stored songs as objects' do
     all_songs = @grabber.get_all_songs
     expect(all_songs.size).to eq(3)

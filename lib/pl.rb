@@ -8,6 +8,7 @@ if !defined? TWITTER_KEYS
   TWITTER_KEYS = YAML.load_file("secrets/twitter_config.yml")[ENV['RAILS_ENV']]
   S3_KEYS = YAML.load_file("secrets/s3_config.yml")[ENV['RAILS_ENV']]
   ECHONEST_KEYS = YAML.load_file("secrets/echonest_config.yml")[ENV['RAILS_ENV']]
+  FILEPICKER_KEYS = YAML.load_file("secrets/filepicker_config.yml")[ENV['RAILS_ENV']]
 end
 
 

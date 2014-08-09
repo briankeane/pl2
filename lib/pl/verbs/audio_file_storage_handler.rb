@@ -12,7 +12,8 @@ module PL
       { 
         songs: 'playolasongs',
         commercials: 'playolacommercials',
-        commentaries: 'playolacommentaries' 
+        commentaries: 'playolacommentaries',
+        unprocessedsongs: 'playolaunprocessedsongs'
       }
     end
     
@@ -30,7 +31,7 @@ module PL
       @s3 = AWS::S3.new
       s3_song_file = @s3.buckets[bucket[audio_block_type]].objects[audio_block.key]
       temp_audio_file = Tempfile.new('temp_audio_file')
-      temp_audio_file.open
+      temp_audio_file.binmode
       temp_audio_file.write(s3_song_file.read)
       temp_audio_file.close
 
@@ -119,6 +120,16 @@ module PL
         songs << song
       end
       return songs
+    end
+
+    def get_unprocessed_song_audio(key)
+      @s3 = AWS::S3.new
+      s3_song_file = @s3.buckets[bucket[:unprocessedsongs]].objects[key]
+      temp_audio_file = Tempfile.new('temp_audio_file')
+      temp_audio_file.binmode
+      temp_audio_file.write(s3_song_file.read)
+      temp_audio_file.close
+      return temp_audio_file
     end
 
     def delete_song(key)

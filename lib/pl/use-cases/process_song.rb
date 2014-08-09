@@ -5,78 +5,38 @@ module PL
   class ProcessSong < UseCase
     def run(key)
 
-      # set up s3
-      s3 = AWS::S3.new
-      before_processing_bucket = 'playolauploadedsongs'
-      after_processing_bucket = 'playolasongs'
+      ash = PL::AudioFileStorageHandler.new
+      sp = PL::SongProcessor.new
+      song_pool = PL::SongPoolHandler.new
 
-      s3_song_file = s3.buckets[before_processing_bucket].objects[key]
+      temp_song_file = ash.get_unprocessed_song_audio(key)
+      id3_tags = sp.get_id3_tags(temp_song_file)
 
-      # download the song
-      temp_song_file = Tempfile.new("temp_song_file")
-
-      temp_song_file.open()
-      temp_song_file.write(s3_song_file.read)
-
-      # get the id3 tags
-      mp3 = ''
-      Mp3Info.open(temp_song_file) do |song_tags|
-        mp3 = song_tags
-      end
-
-      artist = mp3.tag.artist
-      title = mp3.tag.title
-      album = mp3.tag.album
-      duration = (mp3.length * 1000).to_i
-
+      # return failure if id3_tags incomplete
       case 
-      when !artist || artist.strip.empty?
-            return failure (:no_artist_in_id3_tags)
-      when !title || title.strip.empty?
-            return failure (:no_title_in_id3_tags)
-      when !album || album.strip.empty?
-            return failure (:no_album_in_id3_tags)
+      when !id3_tags[:title] || id3_tags[:title].strip.size == 0
+        return failure(:no_title_in_id3_tags, id3_tags: id3_tags)
+      when !id3_tags[:artist] || id3_tags[:artist].strip.size == 0
+        return failure(:no_artist_in_id3_tags, id3_tags: id3_tags)
       end
 
-      if PL.db.song_exists?({ title: title,
-                              artist: artist,
-                              album: album })
-            s3_song_file.delete
-            return failure(:song_already_exists)
+      if PL.db.song_exists?({ artist: id3_tags[:artist], title: id3_tags[:title], album: id3_tags[:album] })
+        return failure(:song_already_exists, { id3_tags: id3_tags, key: key })
       end
 
-      stored_song_keys = s3.buckets[after_processing_bucket].objects.collect(&:key)
+      result = sp.add_song_to_system(temp_song_file)
 
-      # protect against junk or unprocessed files
-      stored_song_keys.delete_if { |key| !key.match(/^_pl_/) }
+      if result == false
+        echonest_info = sp.get_echo_nest_info({ artist: id3_tags[:artist],
+                                                title: id3_tags[:title] })
+        return failure(:no_echonest_match_found, :info => { 
+                                                          echonest_info: echonest_info,
+                                                          id3_tags: id3_tags,
+                                                          key: key } )
+      else 
+        return success
+      end
 
-      #get the max key value so far and increment it
-      max_key_value = stored_song_keys.max_by { |key| key[4..10].to_i }
-      max_key_value += 1
-
-      #create the song object and add it to the db
-      song = PL.db.create_song({ title: title,
-                                artist: artist,
-                                album: album,
-                                duration: duration
-                          })
-
-      new_key = ('_pl_' + ('0' * (7 - max_key_value.to_s.size)) +  max_key_value.to_s + '_' + song.artist + '_' + song.title + '.' + '.mp3')
-      s3.buckets[after_processing_bucket].objects[new_key].write(:file => temp_song_file)
-
-      # store metadata
-      aws_song_object = s3.buckets[after_processing_bucket].objects[new_key]
-      aws_song_object.metadata[:pl_title] = title
-      aws_song_object.metadata[:pl_artist] = artist
-      aws_song_object.metadata[:pl_album] = album
-      aws_song_object.metadata[:pl_duration] = duration
-
-      song = PL.db.update_song({ id: song.id, key: new_key })
-
-      # delete pre-processing file
-      s3_song_file.delete
-
-      return success :song => song
     end
-      end
+  end
 end

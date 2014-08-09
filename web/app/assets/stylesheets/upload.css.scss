@@ -5,7 +5,68 @@
 body .mic-image-inverse {
   height: 100%;
   width: 100%;
-  background-image: url('../images/red_mic3_inverse.jpg');
+  background-image: url('../images/just_background.jpg');
   background-size: cover;
   background-repeat: none;
+}
+
+body {
+  margin-top: 45px;
+}
+
+#uploaded-song-list {
+  margin-top: 10px;
+}
+
+#uploaded-song-list, #catalog-list {
+  background: white;
+  height: 300px;
+  overflow-y: scroll;
+}
+
+#drop-pane {
+  height: 350px;
+}
+
+#catalog-list .songlist-artist {
+  float: right;
+}
+
+#catalog-list {
+  margin: 0;
+}
+
+#catalog-list li {
+  font-size: .9rem;
+}
+
+#catalog-list li:nth-child(even) {
+  background-color: #E9D4C3;
+}
+
+#catalog-list li:nth-child(odd) {
+  background-color: #F1EAE2;
+}
+
+#catalog-fieldset {
+  padding: .8rem .1rem .8rem .1rem;
+}
+
+.drag-area{
+  height: 69px;
+}
+
+.filename {
+  width: 50%;
+  float: left;
+}
+
+.status {
+  width: 40%;
+  float: right;
+}
+
+.alert-box {
+  line-height: .1;
+  margin-bottom: 5px;
 }
