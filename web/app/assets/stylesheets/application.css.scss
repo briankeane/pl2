@@ -15,17 +15,8 @@
  *= require foundation_and_overrides
  *= require jquery-ui
  */
-$navbar-color: #F1EAE2;
-$heavy-rotation: steelblue;
-$medium-rotation: #147EFF;
-$light-rotation: #11BAFF;
-$main-background: #00647F;
-$header-background: #00C8FF;
-$main-font: white;
-$commentary-color: red;
-$microphone-red: #ED002A;
 
-
+@import "sass_variables.css.scss";
 
 nav {
   position: fixed;

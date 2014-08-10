@@ -1,6 +1,7 @@
 // Place all the styles related to the upload controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import "sass_variables.css.scss";
 
 body .mic-image-inverse {
   height: 100%;
@@ -41,32 +42,65 @@ body {
 }
 
 #catalog-list li:nth-child(even) {
-  background-color: #E9D4C3;
+  background-color: $darker-item;
 }
 
 #catalog-list li:nth-child(odd) {
-  background-color: #F1EAE2;
+  background-color: $lighter-item;
 }
 
 #catalog-fieldset {
   padding: .8rem .1rem .8rem .1rem;
 }
 
+fieldset legend {
+  background: none;
+}
+
 .drag-area{
   height: 69px;
 }
 
-.filename {
-  width: 50%;
-  float: left;
+
+.status.tiny.button {
+  margin: 0;
+  padding: 5px 5px 5px 5px;
 }
 
 .status {
-  width: 40%;
-  float: right;
+  float: left;
+  padding-top: 5px;
 }
 
-.alert-box {
-  line-height: .1;
-  margin-bottom: 5px;
+#uploaded-song-list {
+  .alert-box {
+    height: 25px;
+    line-height: 1em;
+    margin-bottom: 5px;
+    background-color: $darker-item;
+    color: black;
+    border-color: black;
+    padding: 0 0 0 0;
+    .filename {
+      width: 55%;
+      float: left;
+      height: 100%;
+      line-height: 100%;
+      padding-top: 5px;
+      padding-left: 5px;
+    }
+    .alert-box.success {
+      background-color: $lighter-item;
+    }
+    .status.button {
+      float: none;
+      color: white;
+    }
+    .processing-icon {
+      height: 20px;
+      width: 20px;
+      float: right;
+      margin-right: 9px;
+    }
+  }
 }

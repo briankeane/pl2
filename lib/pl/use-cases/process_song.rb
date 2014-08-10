@@ -15,9 +15,9 @@ module PL
       # return failure if id3_tags incomplete
       case 
       when !id3_tags[:title] || id3_tags[:title].strip.size == 0
-        return failure(:no_title_in_id3_tags, id3_tags: id3_tags)
+        return failure(:no_title_in_id3_tags, { id3_tags: id3_tags, key: key })
       when !id3_tags[:artist] || id3_tags[:artist].strip.size == 0
-        return failure(:no_artist_in_id3_tags, id3_tags: id3_tags)
+        return failure(:no_artist_in_id3_tags, { id3_tags: id3_tags, key: key })
       end
 
       if PL.db.song_exists?({ artist: id3_tags[:artist], title: id3_tags[:title], album: id3_tags[:album] })
@@ -34,7 +34,7 @@ module PL
                                                           id3_tags: id3_tags,
                                                           key: key } )
       else 
-        return success
+        return success song: song
       end
 
     end
