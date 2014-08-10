@@ -4,7 +4,7 @@
   <%= content_tag "div", id: "songInfoModal", class: "reveal-modal medium", data: { reveal: true } do %>
     
     <h1>Song Import</h1>
-    
+    <p>We could not find a match because of missing or incorrect information in the mp3 file.  Please review the information below and make sure all </p>
     <form data-abide id='songInfo'> 
       <div class="small-3 columns">
         <label for="title" class="right">Title</label>
@@ -29,7 +29,7 @@
       </div>
 
       <div class="row">
-        <p><button type="submit">Yep That's Correct</button></p>
+        <div class="button">Info is Correct</div>
       </div>
     </form>
   <% end %>

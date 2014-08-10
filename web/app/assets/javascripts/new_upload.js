@@ -3,7 +3,6 @@
 (function(){
   var filepickerApiKey = $('.filepicker_info').attr('data-api-key');
   
-  debugger;
   filepicker.setKey(filepickerApiKey);
 
   $(document).foundation('alert','events');
@@ -35,7 +34,6 @@
             console.log(result);
             var correspondingDiv = '*[data-key="' + result.table.key + '"]'
             
-            debugger;
             if (result.table.error === "song_already_exists") {
               $(correspondingDiv).addClass("success");
               $(correspondingDiv + ' .status').text('Already Uploaded');
@@ -48,9 +46,9 @@
               $(correspondingDiv + ' .status').text('Info Needed');
               $(correspondingDiv + ' .status').addClass('tiny button');
               $(correspondingDiv + ' .status').attr("data-error", result.table.error);
-              $(correspondingDiv + ' .status').attr("data-title", result.table.id3tags.title);
-              $(correspondingDiv + ' .status').attr("data-artist", result.table.id3tags.artist);
-              $(correspondingDiv + ' .status').attr("data-album", result.table.id3tags.album);
+              $(correspondingDiv + ' .status').attr("data-title", result.table.id3_tags.title);
+              $(correspondingDiv + ' .status').attr("data-artist", result.table.id3_tags.artist);
+              $(correspondingDiv + ' .status').attr("data-album", result.table.id3_tags.album);
               $(correspondingDiv + ' .processing-icon').addClass('hide');
             }
           },
@@ -58,45 +56,51 @@
             $('#songInfoModal').foundation('reveal', 'open');
             console.log(error);
           }
-        });
+      });
 
-      }  //endfor
+    }  //endfor
 
-      console.log(e);
-    });
-    
-    $('.status.tiny.button').click( function(event, eventObject) {
-      console.log(event);
-      console.log(eventObject);
-    });
+    console.log(e);
+  });
+  
+  $('#uploaded-song-list').on('click', '.status.tiny.button', function(event) {
+    console.log(event);
+    if (($(this).attr('data-error') === 'no_title_in_id3_tags') ||
+          ($(this).attr('data-error') === 'no_artist_in_id3_tags')) {
+      $('#songInfoModal #title').val($(this).attr('data-title'));
+      $('#songInfoModal #artist').val($(this).attr('data-artist'));
+      $('#songInfoModal #album').val($(this).attr('data-album'));
+      $('#songInfoModal').foundation('reveal', 'open');
+    }
+  });
 
-    $('.choose').click(function(e) {
-      filepicker.pick({ mimetype: 'audio/*'}, 
-                        {}, 
-                      function(InkBlobs) { alert('done'); console.log(stringify(InkBlobs));
-                      });
-    });
+  $('.choose').click(function(e) {
+    filepicker.pick({ mimetype: 'audio/*'}, 
+                      {}, 
+                    function(InkBlobs) { alert('done'); console.log(stringify(InkBlobs));
+                    });
+  });
 
 
-    $('#searchbox').keyup(function() {
-      var allListElements = $('li');
-      var fullList = $('#catalog-list li');
-      var searchString = $('#searchbox').val().toLowerCase();
+  $('#searchbox').keyup(function() {
+    var allListElements = $('li');
+    var fullList = $('#catalog-list li');
+    var searchString = $('#searchbox').val().toLowerCase();
 
-      for (var i=0; i<fullList.length; i++) {
-        var attr = fullList.eq(i).attr('data-searchString');
-        if  (typeof attr !== 'undefined' && attr !== false) {
-          var targetString = fullList.eq(i).attr("data-searchString").toLowerCase();
+    for (var i=0; i<fullList.length; i++) {
+      var attr = fullList.eq(i).attr('data-searchString');
+      if  (typeof attr !== 'undefined' && attr !== false) {
+        var targetString = fullList.eq(i).attr("data-searchString").toLowerCase();
 
-          if (targetString.indexOf(searchString) == -1) {
-            fullList.eq(i).hide();
-          } else {
-            fullList.eq(i).show();
-          }
-
+        if (targetString.indexOf(searchString) == -1) {
+          fullList.eq(i).hide();
+        } else {
+          fullList.eq(i).show();
         }
-      }
 
-    });
+      }
+    }
+
+  });
 
 })();

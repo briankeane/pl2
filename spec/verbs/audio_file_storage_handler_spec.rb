@@ -7,7 +7,8 @@ describe 'audio_file_storage_handler' do
     # use test buckets
     expect_any_instance_of(PL::AudioFileStorageHandler).to receive(:bucket).at_least(:once).and_return({ songs: 'playolasongstest',
                                                                   commercials: 'playolacommercialstest',
-                                                                  commentaries: 'playolacommentariestest' })
+                                                                  commentaries: 'playolacommentariestest',
+                                                                  unprocessedsongs: 'playolaunprocessedsongstest' })
     @grabber = PL::AudioFileStorageHandler.new
 
   end
@@ -115,6 +116,14 @@ describe 'audio_file_storage_handler' do
   end
 
   xit 'gets unprocessed song audio' do
+  end
+
+  it 'deletes unprocessed song' do
+    s3 = AWS::S3.new
+    song = s3.buckets['playolaunprocessedsongstest'].objects.create('key', 'data')
+    song.write('hi')
+    @grabber.delete_unprocessed_song('key')
+    expect(s3.buckets['playolaunprocessedsongstest'].objects['key'].exists?).to eq(false)
   end
 
   

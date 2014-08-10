@@ -132,6 +132,11 @@ module PL
       return temp_audio_file
     end
 
+    def delete_unprocessed_song(key)
+      @s3 = AWS::S3.new
+      s3_song_file = @s3.buckets[bucket[:unprocessedsongs]].objects[key].delete
+    end
+
     def delete_song(key)
       @s3.buckets[bucket[:songs]].objects[key].delete
       return true
