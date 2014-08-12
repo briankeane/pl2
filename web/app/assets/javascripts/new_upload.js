@@ -15,6 +15,7 @@
 
     for (var i=0; i<uploadedSongs.length; i++) {
       var html = '<div data-alert data-key="' + uploadedSongs[i]["key"] + 
+                  '" data-filename="' + uploadedSongs[i]["filename"] + 
                   '" class="alert-box"><div class="filename">' + 
                   uploadedSongs[i]["filename"] + 
                   '</div><div class="status">processing....</div>' +
@@ -45,10 +46,10 @@
               $(correspondingDiv).addClass("error");
               $(correspondingDiv + ' .status').text('Info Needed');
               $(correspondingDiv + ' .status').addClass('tiny button');
-              $(correspondingDiv + ' .status').attr("data-error", result.table.error);
-              $(correspondingDiv + ' .status').attr("data-title", result.table.id3_tags.title);
-              $(correspondingDiv + ' .status').attr("data-artist", result.table.id3_tags.artist);
-              $(correspondingDiv + ' .status').attr("data-album", result.table.id3_tags.album);
+              $(correspondingDiv).attr("data-error", result.table.error);
+              $(correspondingDiv).attr("data-title", result.table.id3_tags.title);
+              $(correspondingDiv).attr("data-artist", result.table.id3_tags.artist);
+              $(correspondingDiv).attr("data-album", result.table.id3_tags.album);
               $(correspondingDiv + ' .processing-icon').addClass('hide');
             }
           },
@@ -65,13 +66,14 @@
   
   $('#uploaded-song-list').on('click', '.status.tiny.button', function(event) {
     console.log(event);
-    if (($(this).attr('data-error') === 'no_title_in_id3_tags') ||
-          ($(this).attr('data-error') === 'no_artist_in_id3_tags')) {
-      $('#songInfoModal #title').val($(this).attr('data-title'));
-      $('#songInfoModal #artist').val($(this).attr('data-artist'));
-      $('#songInfoModal #album').val($(this).attr('data-album'));
-      $('songInfoModal').attr("data-key", $(this).parent().attr('data-key'));
+    if (($(this).parent().attr('data-error') === 'no_title_in_id3_tags') ||
+          ($(this).parent().attr('data-error') === 'no_artist_in_id3_tags')) {
       $('#songInfoModal').foundation('reveal', 'open');
+      $('#songInfoModal #title').val($(this).parent().attr('data-title'));
+      $('#songInfoModal #artist').val($(this).parent().attr('data-artist'));
+      $('#songInfoModal #album').val($(this).parent().attr('data-album'));
+      $('#songInfoModal').attr("data-key", $(this).parent().attr('data-key'));
+      $('#songInfoModal').attr('data-filename', $(this).parent().attr('data-filename'));
     }
   });
 
@@ -102,16 +104,20 @@
     }
   });
 
-  $('#songInfo').on('click', '#id3Submit', function(event) {
+  $('#songInfoForm').on('click', '#id3Submit', function(event) {
     // set the data values on the corresponding div
-    var correspondingDiv = '*[data-key="' + $(this).attr("data-key") + '"]'
+    var correspondingDiv = '*[data-key="' + $('#songInfoModal').attr("data-key") + '"]'
     $(correspondingDiv + ' .status').text('Resubmit');
-    $(correspondingDiv + ' .status').attr("data-title", $('#title').val());
-    $(correspondingDiv + ' .status').attr("data-album", $('#album').val());
-    $(correspondingDiv + ' .status').attr("data-artist", $('#artist').val());
+    $(correspondingDiv).attr("data-title", $('#title').val());
+    $(correspondingDiv).attr("data-album", $('#album').val());
+    $(correspondingDiv).attr("data-artist", $('#artist').val());
 
     // get matches
-    var songInfo = ({ artist: $('#artist').val(), title: $('#title').val() });
+    var songInfo = ({ artist: $('#artist').val(), 
+                        title: $('#title').val(),
+                        album: $('#album').val(),
+                          key: $('#songInfoModal').attr('data-key'),
+                      filename: $('#songInfoModal').attr('data-filename')  });
     $.ajax({
           type: "POST",
           dataType: "json",
@@ -121,9 +127,38 @@
           
           success: function(result) {
             $('#songInfoModal').foundation('reveal', 'close');
-            chooseSongMatch(result.table.songlist);
+            $('#chooseMatch').foundation('reveal', 'open');
+            $('#chooseMatch .filenameDisplay').text(songInfo.filename);
+            $('#chooseMatch .titleDisplay').text(songInfo.title);
+            $('#chooseMatch .artistDisplay').text(songInfo.artist);
+            $('#chooseMatch').attr('data-key', songInfo.key);
+            $('#chooseMatch').attr('data_album', songInfo.album);
+            refreshSongMatchTable(result.table.songlist);
           }
     });
+  });
+
+  $('#chooseMatch').on('click', '#addSongByEchonestIdButton', function() {
+    var songInfo = {};
+    if ($('songSelect').val() === 'ECHONESTIDNOTFOUND') {
+      songInfo.title = $('#chooseMatch .filenameDisplay').text();
+      songInfo.artist = $('#chooseMatch .filenameDisplay').text();
+      songInfo.album = $('#chooseMatch .filenameDisplay').text();
+      songInfo.key = $('#chooseMatch').attr('data-key');
+      
+      $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: '/upload/process_song_without_echonest_id',
+          contentType: 'application/json',
+          data: JSON.stringify(songInfo[i]),
+          success: function(result) {
+
+          }
+      });
+    }
+    songInfo.echonestId = $('#songSelect').val();
+    
   });
 
   var renderChooseSongTableRow = function(attrs) {
@@ -134,10 +169,7 @@
     return html;
   }
 
-  var chooseSongMatch = function(songlist) {
-    // call the modal
-    $('#chooseMatch').foundation('reveal', 'open');
-    
+  var refreshSongMatchTable = function(songlist) {
     // clear modal first
     $('#chooseSongTable tbody').empty();
 
@@ -146,7 +178,6 @@
       var html = renderChooseSongTableRow(songlist[i]);
       $('#chooseSongTable tbody').append(html);
     }
-
   }
 
 })();

@@ -27,12 +27,36 @@ describe 'SongProcessor' do
   end
 
   it 'gets the id3 tags from an mp3 file' do
-    file = File.open('spec/test_files/stepladder.mp3', 'r')
-    tags = @song_processor.get_id3_tags(file)
-    expect(tags[:artist]).to eq('Rachel Loy')
-    expect(tags[:title]).to eq('Stepladder')
-    expect(tags[:album]).to eq('Broken Machine')
-    expect(tags[:duration]).to eq(222223)
+    File.open('spec/test_files/stepladder.mp3', 'r') do |file|
+      tags = @song_processor.get_id3_tags(file)
+      expect(tags[:artist]).to eq('Rachel Loy')
+      expect(tags[:title]).to eq('Stepladder')
+      expect(tags[:album]).to eq('Broken Machine')
+      expect(tags[:duration]).to eq(222223)
+    end
+  end
+
+  describe 'write tags' do
+    
+    it 'writes the id3 tags to an mp3 file' do
+      File.open('spec/test_files/mine_no_title.mp3', 'rb') do |file|
+        @song_processor.write_id3_tags( song_file: file, title: 'WASSSUPPP')
+      end
+
+      File.open('spec/test_files/mine_no_title.mp3', 'rb') do |file|
+        expect(@song_processor.get_id3_tags(file)[:title]).to eq('WASSSUPPP')
+      end
+    end
+
+    after(:all) do
+      file = File.open('spec/test_files/mine_no_title.mp3', 'r') do |file|
+        @song_processor.write_id3_tags({ song_file: file,
+                                          artist: 'Brian Keane',
+                                          title: '',
+                                          album: '90 Miles an Hour'})
+        file.unlink
+      end
+    end
   end
 
   it 'gets the echowrap info' do

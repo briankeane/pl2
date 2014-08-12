@@ -14,7 +14,9 @@ class UploadsController < ApplicationController
     render :json => result
   end
 
-  def process_song_without_song_pool
+  def process_song_without_echonest_id
+    result = PL::ProcessSongWithoutEchonestId.run(params[:upload])
+    binding.pry
   end
 
   def get_song_match_possibilities

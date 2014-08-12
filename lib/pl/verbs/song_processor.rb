@@ -83,6 +83,17 @@ module PL
       return tags
     end
 
+    def write_id3_tags(attrs)
+
+      Mp3Info.open(attrs[:song_file].path) do |mp3|
+         mp3.tag.title = attrs[:title] unless !attrs[:title]
+         mp3.tag.artist = attrs[:artist] unless !attrs[:artist]
+         mp3.tag.album = attrs[:album] unless !attrs[:album]
+      end 
+
+      return true
+    end
+
 
     def get_echo_nest_info(attrs) # takes title and artist
 

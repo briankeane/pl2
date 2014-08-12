@@ -118,11 +118,17 @@ table:nth-child(odd) {
   background-color: $lighter-item;
 }
 
-#choosingSongContainer {
+#chooseSongContainer {
   overflow-y: scroll;
-  height: 200px;
-  
+  height: 130px;
+  margin-top: 5px;
 }
+
+#chooseMatch p {
+  margin: 0;
+  text-align: center;
+}
+
 #chooseSongTable {
   width: 100%;
   table-layout: fixed;
