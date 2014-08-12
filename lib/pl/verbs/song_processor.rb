@@ -87,10 +87,7 @@ module PL
                                 duration: tags[:duration],
                                 key: key
                                 })
-
-
-
-      
+      song
     end
 
 

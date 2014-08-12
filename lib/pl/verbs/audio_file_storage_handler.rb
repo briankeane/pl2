@@ -128,7 +128,6 @@ module PL
       temp_audio_file = Tempfile.new('temp_audio_file')
       temp_audio_file.binmode
       temp_audio_file.write(s3_song_file.read)
-      temp_audio_file.close
       return temp_audio_file
     end
 
