@@ -26,6 +26,14 @@ describe 'SongProcessor' do
     end
   end
 
+  it 'adds a song to the system without echonest tags' do
+    File.open('spec/test_files/even_mp3.mp3') do |mp3_file|
+      song = @song_processor.add_song_to_system_without_echonest_id(mp3_file)
+      expect(song.title).to eq('Even If It Breaks Your Heart')
+      expect(PL.db.get_song(song.id).artist).to eq('Will Hoge')
+    end
+  end
+
   it 'gets the id3 tags from an mp3 file' do
     File.open('spec/test_files/stepladder.mp3', 'r') do |file|
       tags = @song_processor.get_id3_tags(file)

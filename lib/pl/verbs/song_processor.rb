@@ -60,6 +60,40 @@ module PL
       return song
     end
 
+    def add_song_to_system_without_echonest_id(song_file)
+      
+      # Convert it to mp3 if it's a wav file
+      if song_file.path.match(/\.wav$/)
+        audio_converter = PL::AudioConverter.new       
+        song_file = File.open(audio_converter.wav_to_mp3(wav_file.path))
+      end
+
+      # get id3 tags
+      tags = self.get_id3_tags(song_file)
+
+       # Store the song
+      handler = PL::AudioFileStorageHandler.new
+      key = handler.store_song({ song_file: song_file,
+                                  artist: tags[:artist],
+                                  album: tags[:album],
+                                  title: tags[:title],
+                                  duration: tags[:duration]
+                                  })
+
+      # Add to DB
+      song = PL.db.create_song({ artist: tags[:artist],
+                                album: tags[:album],
+                                title: tags[:title],
+                                duration: tags[:duration],
+                                key: key
+                                })
+
+
+
+      
+    end
+
+
     ######################################
     #    get_id3_tags(song_file)         #
     ######################################
