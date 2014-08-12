@@ -21,6 +21,7 @@ module PL
       end
 
       if PL.db.song_exists?({ artist: id3_tags[:artist], title: id3_tags[:title], album: id3_tags[:album] })
+        ash.delete_unprocessed_song(key)
         return failure(:song_already_exists, { id3_tags: id3_tags, key: key })
       end
 
@@ -34,9 +35,9 @@ module PL
                                                           id3_tags: id3_tags,
                                                           key: key } )
       else 
+        ash.delete_unprocessed_song(key)
         return success song: song
       end
-
     end
   end
 end

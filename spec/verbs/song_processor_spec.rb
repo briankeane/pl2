@@ -41,4 +41,14 @@ describe 'SongProcessor' do
     expect(song[:echonest_id]).to eq('SOOWAAV13CF6D1B3FA')
     expect(song[:artist]).to eq('Rachel Loy')
   end
+
+  it 'gets possible song matches' do
+    matches = @song_processor.get_song_match_possibilities({ artist: 'Rachel Loy',
+                                                              title: 'Stepladder' })
+    expect(matches.size).to eq(10)
+    expect(matches[0][:artist]).to be_a(String)
+    expect(matches[0][:title]).to be_a(String)
+    expect(matches[0][:echonest_id]).to be_a(String)
+  end
+
 end

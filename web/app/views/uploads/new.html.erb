@@ -4,43 +4,108 @@
   <%= content_tag "div", id: "songInfoModal", class: "reveal-modal medium", data: { reveal: true } do %>
     
     <h1>Song Import</h1>
-    <p>We could not find a match because of missing or incorrect information in the mp3 file.  Please review the information below and make sure all </p>
+    <p>We could not find a match because of missing or incorrect information in the mp3 file.  Please review the information below and make sure all information is correct.</p>
     <form data-abide id='songInfo'> 
-      <div class="small-3 columns">
-        <label for="title" class="right">Title</label>
-      </div>
-      <div class="small-9 columns">
-        <input id="title" type="text" />
-      </div>
+      <fieldset>
+        <div class="small-3 columns">
+          <label for="title" class="right">Title</label>
+        </div>
+        <div class="small-9 columns">
+          <input id="title" type="text" />
+        </div>
 
-      <div class="small-3 columns">
-        <label for="artist" class="right">Artist</label>
-      </div>
-      <div class="small-9 columns">
-        <input id="artist" type="text" />
-      </div>
+        <div class="small-3 columns">
+          <label for="artist" class="right">Artist</label>
+        </div>
+        <div class="small-9 columns">
+          <input id="artist" type="text" />
+        </div>
 
+        <div class="small-3 columns">
+          <label for="album" class="right">Album</label>
+        </div>
+        <div class="small-9 columns">
+          <input id="album" type="text" />
+        </div>
 
-      <div class="small-3 columns">
-        <label for="album" class="right">Album</label>
-      </div>
-      <div class="small-9 columns">
-        <input id="album" type="text" />
-      </div>
-
+      </fieldset>
+      
       <div class="row">
-        <div class="button">Info is Correct</div>
+        <div class="small-6 small-offset-3">
+          <div id='id3Submit' class="button expand">Info is Correct</div>
+        </div>
       </div>
     </form>
   <% end %>
 
+  <%= content_tag "div", id: "chooseMatch", class: "reveal-modal medium", data: { reveal: true } do %>
+    
+    <h1>Find Song</h1>
+    <p>Please choose the song from the list of matches</p>
+    <form data-abide id='chooseID'>
+      <div class="row">
+        <input type="radio" name="songSelect" value="0" id="none" />
+        <label for="songSelect"><b>None of these are matches</b></label>
+      </div>
+      <div id="chooseSongContainer">
+        <table id="chooseSongTable">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Artist</th>
+              <th>Title</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="radio" name="test" value="bla" id="bla"/></td>
+              <td>Rachel Loy</td>
+              <td>Stepladder</td>
+            </tr>
+
+            <tr>
+              <td><input type="radio" name="test" value="bla" id="bla"/></td>
+              <td>Rachel Loy</td>
+              <td>Stepladder</td>
+            </tr>
+
+            <tr>
+              <td><input type="radio" name="test" value="bla" id="bla"/></td>
+              <td>Rachel Loy</td>
+              <td>Stepladder</td>
+            </tr>
+
+            <tr>
+              <td><input type="radio" name="test" value="bla" id="bla"/></td>
+              <td>Rachel Loy</td>
+              <td>Stepladder</td>
+            </tr>
+
+            <tr>
+              <td><input type="radio" name="test" value="bla" id="bla"/></td>
+              <td>Rachel Loy</td>
+              <td>Stepladder</td>
+            </tr>
+
+            <tr>
+              <td><input type="radio" name="test" value="bla" id="bla"/></td>
+              <td>Rachel Loy</td>
+              <td>Stepladder</td>
+            </tr>
+
+            <tr>
+              <td><input type="radio" name="test" value="bla" id="bla"/></td>
+              <td>Rachel Loy</td>
+              <td>Stepladder</td>
+            </tr>
 
 
+          </tbody>
+        </table>
+      </div>
 
-
-
-
-
+    </form>
+  <% end %>
 
 
 

@@ -2,6 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "sass_variables.css.scss";
+@import "foundation/components/tables";
 
 body .mic-image-inverse {
   height: 100%;
@@ -105,5 +106,43 @@ fieldset legend {
       float: right;
       margin-right: 9px;
     }
+  }
+}
+$include-html-table-classes: $include-html-classes !default;
+
+table:nth-child(even) {
+  background-color: $darker-item;
+}
+
+table:nth-child(odd) {
+  background-color: $lighter-item;
+}
+
+#choosingSongContainer {
+  overflow-y: scroll;
+  height: 200px;
+  
+}
+#chooseSongTable {
+  width: 100%;
+  table-layout: fixed;
+  thead {
+    overflow: hidden;
+  }
+  thead tr th:first-child {
+    width: 5%;
+  }
+  thead tr th:nth-child(2) {
+    width: 25%;
+  }
+  tbody tr td:first-child input {
+    line-height: 100%;
+    display: block;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  tbody td {
+    padding-top: 2px;
+    padding-bottom: 2px;
   }
 }

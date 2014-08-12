@@ -132,5 +132,22 @@ module PL
       return echo_tags
     end
 
+    def get_echo_nest_info_by_echonest_id(echonest_id)
+    end
+
+    def get_song_match_possibilities(attrs)
+      song_list = Echowrap.song_search({ combined: { 
+                                              artist: (attrs[:artist] ||= ''), 
+                                              title: (attrs[:title] ||= '')
+                                            }, 
+                                            results: 10 
+                                          })
+
+      song_list.map! { |song| { artist: song.artist_name,
+                                title: song.title,
+                                echonest_id: song.id } }
+
+      song_list
+    end
   end
 end

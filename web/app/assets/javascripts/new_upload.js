@@ -70,6 +70,7 @@
       $('#songInfoModal #title').val($(this).attr('data-title'));
       $('#songInfoModal #artist').val($(this).attr('data-artist'));
       $('#songInfoModal #album').val($(this).attr('data-album'));
+      $('songInfoModal').attr("data-key", $(this).parent().attr('data-key'));
       $('#songInfoModal').foundation('reveal', 'open');
     }
   });
@@ -97,10 +98,55 @@
         } else {
           fullList.eq(i).show();
         }
-
       }
     }
-
   });
+
+  $('#songInfo').on('click', '#id3Submit', function(event) {
+    // set the data values on the corresponding div
+    var correspondingDiv = '*[data-key="' + $(this).attr("data-key") + '"]'
+    $(correspondingDiv + ' .status').text('Resubmit');
+    $(correspondingDiv + ' .status').attr("data-title", $('#title').val());
+    $(correspondingDiv + ' .status').attr("data-album", $('#album').val());
+    $(correspondingDiv + ' .status').attr("data-artist", $('#artist').val());
+
+    // get matches
+    var songInfo = ({ artist: $('#artist').val(), title: $('#title').val() });
+    $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: '/upload/get_song_match_possibilities',
+          contentType: 'application/json',
+          data: JSON.stringify(songInfo),
+          
+          success: function(result) {
+            $('#songInfoModal').foundation('reveal', 'close');
+            chooseSongMatch(result.table.songlist);
+          }
+    });
+  });
+
+  var renderChooseSongTableRow = function(attrs) {
+    var html = '<tr><td><input type="radio" name="songSelect" value="' + 
+                attrs.echonest_id + '" id="songSelect" /></td>' +
+                '<td>' + attrs.artist + '</td>' + 
+                '<td>' + attrs.title + '</td></tr>'
+    return html;
+  }
+
+  var chooseSongMatch = function(songlist) {
+    // call the modal
+    $('#chooseMatch').foundation('reveal', 'open');
+    
+    // clear modal first
+    $('#chooseSongTable tbody').empty();
+
+    // create the table
+    for (var i=0; i<songlist.length; i++) {
+      var html = renderChooseSongTableRow(songlist[i]);
+      $('#chooseSongTable tbody').append(html);
+    }
+
+  }
 
 })();

@@ -16,4 +16,11 @@ class UploadsController < ApplicationController
 
   def process_song_without_song_pool
   end
+
+  def get_song_match_possibilities
+    result = PL::GetSongMatchPossibilities.run({ artist: params[:artist],
+                                                title: params[:title] })
+    render :json => result
+  end
+
 end
