@@ -27,6 +27,11 @@ class UploadsController < ApplicationController
   
   def delete_unprocessed_song
     result = PL::DeleteUnprocessedSong.run(params[:key])
-    return result
+    render :json => result
+  end
+
+  def process_song_by_echonest_id
+    result = PL::ProcessSongByEchonestId.run(params)
+    render :json => result
   end
 end

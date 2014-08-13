@@ -144,6 +144,7 @@
       songInfo.key = $('#chooseMatch').attr('data-key');
       $('#chooseMatch').foundation('reveal', 'close');
 
+      // add the song without echonestId
       $.ajax({
           type: "POST",
           dataType: "json",
@@ -151,7 +152,7 @@
           contentType: 'application/json',
           data: JSON.stringify(songInfo),
           success: function(result) {
-            var correspondingDiv = '*[data-key="' + songInfo.key + '"]'
+            var correspondingDiv = '*[data-key="' + songInfo.key + '"]';
             if (result.table.error === 'song_already_exists') {
               markAsAlreadyUploaded(correspondingDiv);
             } else {
@@ -159,22 +160,28 @@
             }
           }
       });
+
+    // else add the song with it's echonestId
     } else {
+      var key = $('#chooseMatch').attr('data-key');
+      $('#chooseMatch').foundation('reveal','close');
+      var correspondingDiv = '*[data-key="' + key + '"]';
+      markAsProcessing(correspondingDiv);
+
       $.ajax({
           type: "POST",
           dataType: "json",
+          url: '/upload/process_song_by_echonest_id',
           contentType: 'application/json',
-          data: JSON.stringify({ key: $('#chooseMatch').attr('data-key'),
-                                  echonestId: selected }),
+          data: JSON.stringify({ key: key,
+                                  echonest_id: selected }),
           success: function(result) {
-            
+            markAsAdded(correspondingDiv);
           }
-      })
+      });
     } 
       songInfo.echonestId = selected;
   });
-
-  $()
 
   var renderChooseSongTableRow = function(attrs) {
     var html = '<tr><td><input type="radio" name="songSelect" value="' + 
@@ -207,6 +214,12 @@
     $(correspondingDiv + ' .status').text('Song has been Added');
     $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
     $(correspondingDiv + ' .processing-icon').addClass('hide');
+  }
+
+  var markAsProcessing = function(correspondingDiv) {
+    $(correspondingDiv + ' .status').removeClass('button');
+    $(correspondingDiv + ' .status').text('processing...');
+    $(correspondingDiv + ' .processing-icon').removeClass('hide');
   }
 
 })();
