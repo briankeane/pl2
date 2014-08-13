@@ -25,7 +25,7 @@ module PL
       tags = self.get_id3_tags(song_file)
 
       # get closest echonest tags
-      echo_tags = self.get_echo_nest_info({ title: tags[:title], artist: tags[:artist] })
+      echo_tags = self.get_echonest_info({ title: tags[:title], artist: tags[:artist] })
 
       # IF these are a not close match, exit with failure
       jarow = FuzzyStringMatch::JaroWinkler.create( :native )
@@ -126,7 +126,7 @@ module PL
     end
 
 
-    def get_echo_nest_info(attrs) # takes title and artist
+    def get_echonest_info(attrs) # takes title and artist
 
       
       song_list = Echowrap.song_search({ combined: { 
@@ -174,7 +174,20 @@ module PL
       return echo_tags
     end
 
-    def get_echo_nest_info_by_echonest_id(echonest_id)
+    def get_echonest_info_by_echonest_id(echonest_id)
+      begin
+        song_profile = Echowrap.song_profile({ :id => echonest_id })
+      
+      rescue Echowrap::Error::BadRequest
+        return nil
+      end
+
+      echo_tags = song_profile.attrs
+      
+      # rename for consistency
+      echo_tags[:artist] = (echo_tags.delete(:artist_name) || '')
+      echo_tags[:echonest_id] = (echo_tags.delete(:id) || '')
+      echo_tags
     end
 
     def get_song_match_possibilities(attrs)

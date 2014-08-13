@@ -4,6 +4,9 @@
 @import "sass_variables.css.scss";
 @import "foundation/components/tables";
 
+$successful-upload: #d2f3d1;
+$successful-upload-border: #adc7ac;
+
 body .mic-image-inverse {
   height: 100%;
   width: 100%;
@@ -77,6 +80,10 @@ fieldset legend {
 }
 
 #uploaded-song-list {
+  .alert-box.success {
+    background-color: $successful-upload;
+    border-color: $successful-upload-border;
+  }
   .alert-box {
     height: 25px;
     line-height: 1em;

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   match 'upload/process_song',                      to: 'uploads#process_song',                      via: 'post'
   match 'upload/process_song_without_echonest_id',  to: 'uploads#process_song_without_echonest_id',  via: 'post'
   match 'upload/get_song_match_possibilities',      to: 'uploads#get_song_match_possibilities',      via: 'post'       
-  
+  match 'upload/delete_unprocessed_song',           to: 'uploads#delete_unprocessed_song',           via: 'post'
 
   # sessions_controller paths
   get '/auth/twitter/callback', to: 'sessions#create_with_twitter'

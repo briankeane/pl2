@@ -36,10 +36,7 @@
             var correspondingDiv = '*[data-key="' + result.table.key + '"]'
             
             if (result.table.error === "song_already_exists") {
-              $(correspondingDiv).addClass("success");
-              $(correspondingDiv + ' .status').text('Already Uploaded');
-              $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
-              $(correspondingDiv + ' .processing-icon').addClass('hide');
+              markAsAlreadyUploaded(correspondingDiv);
             } else if ((result.table.error === "no_title_in_id3_tags") ||
                       (result.table.error === "no_artist_in_id3_tags") ||
                       (result.table.error === "no_echonest_match_found")) {
@@ -115,6 +112,7 @@
                         album: $('#album').val(),
                           key: $('#songInfoModal').attr('data-key'),
                       filename: $('#songInfoModal').attr('data-filename')  });
+
     $.ajax({
           type: "POST",
           dataType: "json",
@@ -144,15 +142,21 @@
       songInfo.artist = $('#chooseMatch .filenameDisplay').text();
       songInfo.album = $('#chooseMatch .filenameDisplay').text();
       songInfo.key = $('#chooseMatch').attr('data-key');
+      $('#chooseMatch').foundation('reveal', 'close');
       
       $.ajax({
           type: "POST",
           dataType: "json",
           url: '/upload/process_song_without_echonest_id',
           contentType: 'application/json',
-          data: JSON.stringify(songInfo[i]),
+          data: JSON.stringify(songInfo),
           success: function(result) {
-            console.log(result);
+            var correspondingDiv = '*[data-key="' + songInfo.key + '"]'
+            if (result.table.error === 'song_already_exists') {
+              markAsAlreadyUploaded(correspondingDiv);
+            } else {
+              markAsAdded(correspondingDiv);
+            }
           }
       });
     }
@@ -177,6 +181,20 @@
       var html = renderChooseSongTableRow(songlist[i]);
       $('#chooseSongTable tbody').append(html);
     }
+  }
+
+  var markAsAlreadyUploaded = function(correspondingDiv) {
+    $(correspondingDiv).addClass("success");
+    $(correspondingDiv + ' .status').text('Already Uploaded');
+    $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
+    $(correspondingDiv + ' .processing-icon').addClass('hide');
+  }
+
+  var markAsAdded = function(correspondingDiv) {
+    $(correspondingDiv).addClass("success");
+    $(correspondingDiv + ' .status').text('Song has been Added');
+    $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
+    $(correspondingDiv + ' .processing-icon').addClass('hide');
   }
 
 })();

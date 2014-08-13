@@ -37,7 +37,7 @@ module PL
       if PL.db.song_exists?(id3_tags)
         return failure :song_already_exists
       end
-      binding.pry
+
       # process the file
       song = sp.add_song_to_system_without_echonest_id(temp_song_file)
 

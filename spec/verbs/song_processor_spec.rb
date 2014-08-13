@@ -15,7 +15,7 @@ describe 'SongProcessor' do
     File.open('spec/test_files/even_mp3.mp3') do |mp3_file|
       song = @song_processor.add_song_to_system(mp3_file)
       expect(song.title).to eq('Even If It Breaks Your Heart')
-      echonest_info = @song_processor.get_echo_nest_info(artist: 'Will Hoge', title: 'Even If It Breaks Your Heart')
+      echonest_info = @song_processor.get_echonest_info(artist: 'Will Hoge', title: 'Even If It Breaks Your Heart')
       expect(echonest_info[:echonest_id]).to eq('SOVJNMJ142453276BB')
       expect(song.echonest_id).to eq('SOVJNMJ142453276BB')
 
@@ -68,10 +68,21 @@ describe 'SongProcessor' do
   end
 
   it 'gets the echowrap info' do
-    song = @song_processor.get_echo_nest_info({ title: 'Stepladder', artist: 'Rachel Loy' })
+    song = @song_processor.get_echonest_info({ title: 'Stepladder', artist: 'Rachel Loy' })
     expect(song[:title]).to eq('Stepladder')
     expect(song[:echonest_id]).to eq('SOOWAAV13CF6D1B3FA')
     expect(song[:artist]).to eq('Rachel Loy')
+  end
+
+  it 'gets the echonest info by echonest id' do
+    song = @song_processor.get_echonest_info_by_echonest_id('SOOWAAV13CF6D1B3FA')
+    expect(song[:title]).to eq('Stepladder')
+    expect(song[:artist]).to eq('Rachel Loy')
+  end
+
+  it 'returns nil if there is no info by echonest id' do
+    song = @song_processor.get_echonest_info_by_echonest_id('FAKEECHONESTID')
+    expect(song).to be_nil
   end
 
   it 'gets possible song matches' do
