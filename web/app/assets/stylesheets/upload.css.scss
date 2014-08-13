@@ -68,6 +68,12 @@ fieldset legend {
   height: 69px;
 }
 
+.filepicker-button {
+  background-color: $primary;
+}
+ .filepicker-button:hover {
+    background-color: $darker-item;
+  }
 
 .status.tiny.button {
   margin: 0;

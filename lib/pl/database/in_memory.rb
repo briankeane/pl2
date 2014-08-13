@@ -133,7 +133,6 @@ module PL
       def song_exists?(attrs)  #title, artist, album
         songs = @audio_blocks.values.select { |song| song.is_a?(PL::Song) && 
                                               song.title.downcase == attrs[:title].downcase &&
-                                              song.album.downcase == attrs[:album].downcase &&
                                               song.artist.downcase == attrs[:artist].downcase }
 
         if songs.size > 0

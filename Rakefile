@@ -106,7 +106,7 @@ namespace :db do
       tags = sp.get_id3_tags(temp_song_file)
 
       # grab the songpool info
-      echonest_info = sp.get_echo_nest_info({ title: tags[:title], artist: tags[:artist] })
+      echonest_info = sp.get_echonest_info({ title: tags[:title], artist: tags[:artist] })
 
       # decide on final values
       finalized_info = {}

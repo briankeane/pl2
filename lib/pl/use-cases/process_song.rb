@@ -28,7 +28,7 @@ module PL
       result = sp.add_song_to_system(temp_song_file)
 
       if result == false
-        echonest_info = sp.get_echo_nest_info({ artist: id3_tags[:artist],
+        echonest_info = sp.get_echonest_info({ artist: id3_tags[:artist],
                                                 title: id3_tags[:title] })
         return failure(:no_echonest_match_found, { echonest_info: echonest_info,
                                                           id3_tags: id3_tags,

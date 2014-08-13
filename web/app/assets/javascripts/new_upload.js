@@ -100,7 +100,7 @@
 
   $('#songInfoForm').on('click', '#id3Submit', function(event) {
     // set the data values on the corresponding div
-    var correspondingDiv = '*[data-key="' + $('#songInfoModal').attr("data-key") + '"]'
+    var correspondingDiv = '*[data-key="' + $('#songInfoModal').attr("data-key") + '"]';
     $(correspondingDiv + ' .status').text('Resubmit');
     $(correspondingDiv).attr("data-title", $('#title').val());
     $(correspondingDiv).attr("data-album", $('#album').val());
@@ -143,7 +143,7 @@
       songInfo.album = $('#chooseMatch .filenameDisplay').text();
       songInfo.key = $('#chooseMatch').attr('data-key');
       $('#chooseMatch').foundation('reveal', 'close');
-      
+
       $.ajax({
           type: "POST",
           dataType: "json",
@@ -159,10 +159,22 @@
             }
           }
       });
-    }
-    songInfo.echonestId = selected;
-    
+    } else {
+      $.ajax({
+          type: "POST",
+          dataType: "json",
+          contentType: 'application/json',
+          data: JSON.stringify({ key: $('#chooseMatch').attr('data-key'),
+                                  echonestId: selected }),
+          success: function(result) {
+            
+          }
+      })
+    } 
+      songInfo.echonestId = selected;
   });
+
+  $()
 
   var renderChooseSongTableRow = function(attrs) {
     var html = '<tr><td><input type="radio" name="songSelect" value="' + 
