@@ -66,15 +66,12 @@
   
   $('#uploaded-song-list').on('click', '.status.tiny.button', function(event) {
     console.log(event);
-    if (($(this).parent().attr('data-error') === 'no_title_in_id3_tags') ||
-          ($(this).parent().attr('data-error') === 'no_artist_in_id3_tags')) {
-      $('#songInfoModal').foundation('reveal', 'open');
-      $('#songInfoModal #title').val($(this).parent().attr('data-title'));
-      $('#songInfoModal #artist').val($(this).parent().attr('data-artist'));
-      $('#songInfoModal #album').val($(this).parent().attr('data-album'));
-      $('#songInfoModal').attr("data-key", $(this).parent().attr('data-key'));
-      $('#songInfoModal').attr('data-filename', $(this).parent().attr('data-filename'));
-    }
+  $('#songInfoModal').foundation('reveal', 'open');
+  $('#songInfoModal #title').val($(this).parent().attr('data-title'));
+  $('#songInfoModal #artist').val($(this).parent().attr('data-artist'));
+  $('#songInfoModal #album').val($(this).parent().attr('data-album'));
+  $('#songInfoModal').attr("data-key", $(this).parent().attr('data-key'));
+  $('#songInfoModal').attr('data-filename', $(this).parent().attr('data-filename'));
   });
 
   $('.choose').click(function(e) {
@@ -138,9 +135,11 @@
     });
   });
 
-  $('#chooseMatch').on('click', '#addSongByEchonestIdButton', function() {
+  $('#chooseMatch').on('click', '#addSongByEchonestIdButton', function(event) {
+    event.preventDefault();
     var songInfo = {};
-    if ($('songSelect').val() === 'ECHONESTIDNOTFOUND') {
+    var selected = $("input[type='radio'][name='songSelect']:checked").val();
+    if (selected === 'ECHONESTIDNOTFOUND') {
       songInfo.title = $('#chooseMatch .filenameDisplay').text();
       songInfo.artist = $('#chooseMatch .filenameDisplay').text();
       songInfo.album = $('#chooseMatch .filenameDisplay').text();
@@ -153,11 +152,11 @@
           contentType: 'application/json',
           data: JSON.stringify(songInfo[i]),
           success: function(result) {
-
+            console.log(result);
           }
       });
     }
-    songInfo.echonestId = $('#songSelect').val();
+    songInfo.echonestId = selected;
     
   });
 

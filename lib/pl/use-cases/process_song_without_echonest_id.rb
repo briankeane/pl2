@@ -4,7 +4,6 @@ require 'mp3info'
 module PL
   class ProcessSongWithoutEchonestId < UseCase
     def run(attrs)
-      binding.pry
       ash = PL::AudioFileStorageHandler.new
       sp = PL::SongProcessor.new
 

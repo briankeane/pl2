@@ -33,7 +33,6 @@ module PL
       temp_audio_file = Tempfile.new('temp_audio_file')
       temp_audio_file.binmode
       temp_audio_file.write(s3_song_file.read)
-      temp_audio_file.close
 
       return temp_audio_file
     end
@@ -62,7 +61,9 @@ module PL
 
       new_key = ('_pl_' + ('0' * (7 - next_key_value.to_s.size)) +  next_key_value.to_s + '_' + attrs[:artist] + '_' + attrs[:title] + '.' + '.mp3')
 
-      @s3.buckets[bucket[audio_block_type]].objects[new_key].write(:file => attrs[:song_file])
+      song_file = File.open(attrs[:song_file])
+      song_file.binmode
+      @s3.buckets[bucket[audio_block_type]].objects[new_key].write(:file => song_file)
       aws_song_object = @s3.buckets[bucket[:songs]].objects[new_key]
 
       attrs[:key] = new_key
