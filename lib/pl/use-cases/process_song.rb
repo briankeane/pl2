@@ -25,9 +25,9 @@ module PL
         return failure(:song_already_exists, { id3_tags: id3_tags, key: key })
       end
 
-      result = sp.add_song_to_system(temp_song_file)
+      song = sp.add_song_to_system(temp_song_file)
 
-      if result == false
+      if song == false
         echonest_info = sp.get_echonest_info({ artist: id3_tags[:artist],
                                                 title: id3_tags[:title] })
         return failure(:no_echonest_match_found, { echonest_info: echonest_info,

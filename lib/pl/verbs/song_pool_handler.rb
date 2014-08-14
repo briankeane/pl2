@@ -25,14 +25,19 @@ module PL
         song_objects = song_objects[0]
       end
 
+      binding.pry
 
       # delete songs that are already in the song_pool
       song_objects.delete_if { |song| self.song_included?({ artist: song.artist, title: song.title })}
       
       total_to_add = song_objects.count
       
+      binding.pry
+      
       # while they have not yet all been added
       while (song_objects.size > 0)
+
+        binding.pry
 
         json_songs = song_objects.map do |song|
           ({    "item" => {

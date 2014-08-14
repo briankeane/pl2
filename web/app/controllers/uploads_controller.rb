@@ -10,12 +10,14 @@ class UploadsController < ApplicationController
   def process_song
     result = PL::ProcessSong.run(params[:upload][:key])
     result[:filename] = params[:upload][:filename]
+    result[:unprocessed_key] = params[:upload][:key]
 
     render :json => result
   end
 
   def process_song_without_echonest_id
     result = PL::ProcessSongWithoutEchonestId.run(params[:upload])
+    result[:unprocessed_key] = params[:upload][:key]
     render :json => result
   end
 
@@ -27,11 +29,19 @@ class UploadsController < ApplicationController
   
   def delete_unprocessed_song
     result = PL::DeleteUnprocessedSong.run(params[:key])
+    result[:unprocessed_key] = params[:key]
     render :json => result
   end
 
   def process_song_by_echonest_id
     result = PL::ProcessSongByEchonestId.run(params)
+    result[:unprocessed_key] = params[:key]
+    render :json => result
+  end
+
+  def get_echonest_id
+    result = PL::GetEchonestId.run(params)
+    result[:unprocessed_key] = params[:key]
     render :json => result
   end
 end

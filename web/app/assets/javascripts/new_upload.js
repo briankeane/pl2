@@ -33,7 +33,7 @@
           data: JSON.stringify(uploadedSongs[i]),
           success: function(result) {
             console.log(result);
-            var correspondingDiv = '*[data-key="' + result.table.key + '"]'
+            var correspondingDiv = '*[data-key="' + result.table.unprocessed_key + '"]'
             
             if (result.table.error === "song_already_exists") {
               markAsAlreadyUploaded(correspondingDiv);
@@ -48,10 +48,11 @@
               $(correspondingDiv).attr("data-artist", result.table.id3_tags.artist);
               $(correspondingDiv).attr("data-album", result.table.id3_tags.album);
               $(correspondingDiv + ' .processing-icon').addClass('hide');
+            } else if (!result.table.error) {
+              markAsAdded(correspondingDiv);
             }
           },
           error : function(error) {
-            $('#songInfoModal').foundation('reveal', 'open');
             console.log(error);
           }
       });
@@ -105,6 +106,7 @@
     $(correspondingDiv).attr("data-title", $('#title').val());
     $(correspondingDiv).attr("data-album", $('#album').val());
     $(correspondingDiv).attr("data-artist", $('#artist').val());
+    markAsProcessing(correspondingDiv);
 
     // get matches
     var songInfo = ({ artist: $('#artist').val(), 
@@ -113,22 +115,49 @@
                           key: $('#songInfoModal').attr('data-key'),
                       filename: $('#songInfoModal').attr('data-filename')  });
 
+    $('#songInfoForm').foundation('reveal','close');
+    // check for echonest match again
     $.ajax({
-          type: "POST",
-          dataType: "json",
-          url: '/upload/get_song_match_possibilities',
+          type: 'POST',
+          dataType: 'json',
+          url: '/upload/get_echonest_id',
           contentType: 'application/json',
           data: JSON.stringify(songInfo),
-          
           success: function(result) {
-            $('#songInfoModal').foundation('reveal', 'close');
-            $('#chooseMatch').foundation('reveal', 'open');
-            $('#chooseMatch .filenameDisplay').text(songInfo.filename);
-            $('#chooseMatch .titleDisplay').text(songInfo.title);
-            $('#chooseMatch .artistDisplay').text(songInfo.artist);
-            $('#chooseMatch').attr('data-key', songInfo.key);
-            $('#chooseMatch').attr('data_album', songInfo.album);
-            refreshSongMatchTable(result.table.songlist);
+            if (result.table.echonest_id) {  // if an echonest_id was found
+              $.ajax({
+                  type: "POST",
+                  dataType: "json",
+                  url: '/upload/process_song_by_echonest_id',
+                  contentType: 'application/json',
+                  data: JSON.stringify({ key: songInfo.key,
+                                          echonest_id: result.table.echonest_id }),
+                  success: function(result) {
+                    $('#songInfoModal').foundation('reveal', 'close');
+                    markAsAdded(correspondingDiv);
+                  }
+              });
+            } else {
+              
+              $.ajax({
+                    type: "POST",
+                    dataType: "json",
+                    url: '/upload/get_song_match_possibilities',
+                    contentType: 'application/json',
+                    data: JSON.stringify(songInfo),
+                    
+                    success: function(result) {
+                      $('#songInfoModal').foundation('reveal', 'close');
+                      $('#chooseMatch').foundation('reveal', 'open');
+                      $('#chooseMatch .filenameDisplay').text(songInfo.filename);
+                      $('#chooseMatch .titleDisplay').text(songInfo.title);
+                      $('#chooseMatch .artistDisplay').text(songInfo.artist);
+                      $('#chooseMatch').attr('data-key', songInfo.key);
+                      $('#chooseMatch').attr('data_album', songInfo.album);
+                      refreshSongMatchTable(result.table.songlist);
+                    }
+              });
+            }
           }
     });
   });
@@ -214,6 +243,7 @@
     $(correspondingDiv + ' .status').text('Song has been Added');
     $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
     $(correspondingDiv + ' .processing-icon').addClass('hide');
+    $(correspondingDiv + ' .status').removeClass('button');
   }
 
   var markAsProcessing = function(correspondingDiv) {
