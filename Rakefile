@@ -86,7 +86,6 @@ namespace :db do
   end
 
   task :update_stored_songs_info => [:load_app] do
-
     # create the handlers
     ash = PL::AudioFileStorageHandler.new
     sp = PL::SongProcessor.new
@@ -119,15 +118,13 @@ namespace :db do
       if (echonest_info[:artist_match_rating] < 0.8) || (echonest_info[:title_match_rating] < 0.8)
         finalized_info[:artist] = tags[:artist]
         finalized_info[:title] = tags[:title]
-        finalized_info[:echonest_id] == nil
+        finalized_info[:echonest_id] == 'SET_TO_NIL'
       else
         finalized_info[:echonest_id] = echonest_info[:echonest_id]
       end
 
       ash.update_stored_song_metadata(finalized_info)
       
-
-      # TEMPORARY... ASK THE USER IF THEY MATCH
       tags[:artist] ||= ''
       tags[:title] ||= ''
       echonest_info[:artist] ||= ''
@@ -137,9 +134,11 @@ namespace :db do
       puts "echonest: " + echonest_info[:artist] + (' ' * (50 - echonest_info[:artist].size)) + echonest_info[:title]
 
       puts "   match: " + echonest_info[:artist_match_rating].round(3).to_s + (' ' * (50 - echonest_info[:artist_match_rating].round(3).to_s.size)) + echonest_info[:title_match_rating].round(3).to_s
-      if echonest_info[:echonest_id] == nil
+      
+      if finalized_info[:echonest_id] == nil
         puts "ECHONEST_ID NOT UPDATED"
       end
+      
       puts
 
     end

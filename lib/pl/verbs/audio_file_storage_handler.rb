@@ -81,7 +81,11 @@ module PL
       aws_song_object.metadata[:pl_artist] = attrs[:artist] if attrs[:artist]
       aws_song_object.metadata[:pl_album] = attrs[:album] if attrs[:album]
       aws_song_object.metadata[:pl_duration] = attrs[:duration] if attrs[:duration]
-      aws_song_object.metadata[:pl_echonest_id] = attrs[:echonest_id] if attrs[:echonest_id]
+      if attrs[:echonest_id] && (attrs[:echonest_id] != 'SET_TO_NIL')
+        aws_song_object.metadata[:pl_echonest_id] = attrs[:echonest_id]
+      elsif attrs[:echonest_id] && (attrs[:echonest_id] == 'SET_TO_NIL')
+        aws_song_object.metadata[:pl_echonest_id] = nil
+      end
 
     end
 

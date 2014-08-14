@@ -115,6 +115,29 @@ describe 'audio_file_storage_handler' do
     end
   end
 
+  it 'explicitly sets nil on echonest metadata' do
+    File.open('spec/test_files/look.mp3') do |file|
+      new_key = @grabber.store_song({ title: 'Look At That Girl',
+                                        artist: 'Rachel Loy',
+                                        album: 'Broken Machine',
+                                        duration: 9999,
+                                        echonest_id: 'BLABLABLA',
+                                        song_file: file })
+
+      @grabber.update_stored_song_metadata({ key: new_key,
+                                        artist: 'FAKEartist',
+                                        album: 'FAKEalbum',
+                                        title: 'FAKEtitle',
+                                        duration: 1,
+                                        echonest_id: 'SET_TO_NIL' })
+
+      metadata = @grabber.get_stored_song_metadata(new_key)
+
+      expect(metadata[:echonest_id]).to 
+      @grabber.delete_song(new_key)
+    end
+  end
+
   xit 'gets unprocessed song audio' do
   end
 

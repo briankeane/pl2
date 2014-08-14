@@ -25,19 +25,14 @@ module PL
         song_objects = song_objects[0]
       end
 
-      binding.pry
-
-      # delete songs that are already in the song_pool
-      song_objects.delete_if { |song| self.song_included?({ artist: song.artist, title: song.title })}
-      
+      # get rid of any that are already stored
+      all_stored_echonest_ids = self.all_songs.map { |song| song.echonest_id }
+      song_objects.delete_if { |song| all_stored_echonest_ids.include?(song.echonest_id) }
+ 
       total_to_add = song_objects.count
-      
-      binding.pry
       
       # while they have not yet all been added
       while (song_objects.size > 0)
-
-        binding.pry
 
         json_songs = song_objects.map do |song|
           ({    "item" => {
@@ -58,8 +53,9 @@ module PL
 
         Echowrap.taste_profile_update(id: ECHONEST_KEYS['TASTE_PROFILE_ID'], data: data)
 
-        # remove songs that have been added
-        song_objects.delete_if { |song| self.song_included?({ artist: song.artist, title: song.title }) }
+        # get rid of songs that were successfully stored
+        all_stored_echonest_ids = self.all_songs.map { |song| song.echonest_id }
+        song_objects.delete_if { |song| all_stored_echonest_ids.include?(song.echonest_id) }
       end
     end
 
