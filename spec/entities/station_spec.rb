@@ -42,72 +42,6 @@ describe 'a station' do
     expect(@station.spins_per_week[5]).to eq(10)
   end
 
-  describe 'get_program' do
-    it 'gets the current program' do
-      Timecop.travel(Time.local(2014, 5, 9, 11))
-      program = @station.get_program({})
-      expect(program.size).to eq(38)
-      expect(program.first.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,9, 11,3).to_s)
-      expect(program.last.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,9, 12,59,40).to_s)
-      expect(program[9]).to be_a(PL::CommercialBlock)
-    end
-
-    it 'gets a future program' do
-      program = @station.get_program({ start_time: Time.local(2014,5,10, 11,20) })
-      expect(program.size).to eq(41)
-      expect(program.first.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 11,18).to_s)
-      expect(program.last.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 13,24).to_s)
-    end
-
-    it 'returns an empty array if there is no program scheduled' do
-      program = @station.get_program({ start_time: Time.local(2015,1,1) })
-      expect(program).to eq([])
-    end
-
-    it 'gets variable lengths of time' do
-      program = @station.get_program({ start_time: Time.local(2014,5,10, 4,20),
-                                        end_time: Time.local(2014,5,10, 11,20) })
-      expect(program.size).to eq(137)
-      expect(program.first.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 4,16).to_s)
-      expect(program.last.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 11,24,20).to_s)
-    end
-
-    it 'works if 1st spin is a commercial_block' do
-      program = @station.get_program({ start_time: Time.local(2014,5,10, 4,5) })
-      expect(program.first.estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 4,0,20).to_s)
-      expect(program.first).to be_a(PL::CommercialBlock)
-    end
-
-    it 'works if previous spin was a commercial_block' do
-      program = @station.get_program({ start_time: Time.local(2014,5,10, 4,6) })
-      expect(program[1].estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 4,3,20).to_s)
-      expect(program[1]).to be_a(PL::Spin)
-      expect(program[0]).to be_a(PL::CommercialBlock)
-      expect(program[0].estimated_airtime.localtime.to_s).to eq(Time.local(2014,5,10, 4,0,20).to_s)
-    end
-
-    it 'puts commercial blocks in the right place' do
-      program = @station.get_program({ start_time: Time.local(2014, 5, 9, 10),
-                                          end_time: Time.local(2014, 5, 9, 15) })
-
-      expect(program[9]).to be_a(PL::CommercialBlock)
-      expect(program[18]).to be_a(PL::CommercialBlock)
-      expect(program[28]).to be_a(PL::CommercialBlock)
-    end
-  end
-
-  describe 'offset' do
-    it 'returns the proper station offset' do
-      new_spin = PL.db.create_spin({ station_id: @station.id,
-                    audio_block_id: @songs[0].id,
-                    current_position: 5562 })
-      expect(@station.offset.round).to eq(-370.0)
-
-      PL.db.delete_spin(new_spin.id)
-      expect(@station.offset.round).to eq(0)
-    end
-end
-
   after (:all) do
     Timecop.return
   end
@@ -150,7 +84,8 @@ end
 
       it 'still gets the last log entry' do
         new_log = PL.db.create_log_entry({ station_id: @station.id,
-                                            current_position: 999 })
+                                            current_position: 999,
+                                            airtime: Time.new(2014,4,14,12) })
         expect(@station.just_played.current_position).to eq(999)
       end
     end

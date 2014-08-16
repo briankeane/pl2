@@ -8,28 +8,17 @@ module PL
       @s3 = AWS::S3.new
     end
 
-    def bucket
-      { 
-        songs: 'playolasongs',
-        commercials: 'playolacommercials',
-        commentaries: 'playolacommentaries',
-        unprocessedsongs: 'playolaunprocessedsongs'
-      }
-    end
-    
-
     def grab_audio(audio_block)
       case
       when audio_block.is_a?(PL::Song)
-        audio_block_type = :songs
+        bucket = @s3.buckets[S3['SONGS_BUCKET']]
       when audio_block.is_a?(PL::Commercial)
-        audio_block_type = :commercials
+        bucket = @s3.buckets[S3['COMMERCIALS_BUCKET']]
       when audio_block.is_a?(PL::Commentary)
-        audio_block_type = :commentaries
+        bucket = @s3.buckets[S3['COMMENTARIES_BUCKET']]
       end
 
-      @s3 = AWS::S3.new
-      s3_song_file = @s3.buckets[bucket[audio_block_type]].objects[audio_block.key]
+      s3_song_file = bucket.objects[audio_block.key]
       temp_audio_file = Tempfile.new('temp_audio_file')
       temp_audio_file.binmode
       temp_audio_file.write(s3_song_file.read)
@@ -45,9 +34,9 @@ module PL
     #####################################################
     def store_song(attrs)
       @s3 = AWS::S3.new
-      audio_block_type = :songs
+      bucket = @s3.buckets[S3['SONGS_BUCKET']]
 
-      stored_song_keys = @s3.buckets[bucket[audio_block_type]].objects.collect(&:key)
+      stored_song_keys = bucket.objects.collect(&:key)
 
       # figure out what the next_key_value will be
       if stored_song_keys.count == 0
@@ -63,8 +52,8 @@ module PL
 
       song_file = File.open(attrs[:song_file])
       song_file.binmode
-      @s3.buckets[bucket[audio_block_type]].objects[new_key].write(:file => song_file)
-      aws_song_object = @s3.buckets[bucket[:songs]].objects[new_key]
+      bucket.objects[new_key].write(:file => song_file)
+      aws_song_object = bucket.objects[new_key]
 
       attrs[:key] = new_key
 
@@ -74,9 +63,9 @@ module PL
     end
 
     def update_stored_song_metadata(attrs)
-      audio_block_type = :songs
+      bucket = @s3.buckets[S3['SONGS_BUCKET']]
 
-      aws_song_object = @s3.buckets[bucket[audio_block_type]].objects[attrs[:key]]
+      aws_song_object = bucket.objects[attrs[:key]]
       aws_song_object.metadata[:pl_title] = attrs[:title] if attrs[:title]
       aws_song_object.metadata[:pl_artist] = attrs[:artist] if attrs[:artist]
       aws_song_object.metadata[:pl_album] = attrs[:album] if attrs[:album]
@@ -91,11 +80,14 @@ module PL
 
     def get_stored_song_metadata(key)
       
-      if !@s3.buckets[bucket[:songs]].objects[key].exists?
+      bucket = @s3.buckets[S3['SONGS_BUCKET']]
+
+      if !bucket.objects[key].exists?
         return nil
       end
 
-      aws_song_object = @s3.buckets[bucket[:songs]].objects[key]
+      aws_song_object = bucket.objects[key]
+
       metadata = {}
 
       metadata[:title] = aws_song_object.metadata[:pl_title]
@@ -107,7 +99,7 @@ module PL
     end
     
     def get_all_songs
-      all_s3_objects = @s3.buckets[bucket[:songs]].objects
+      all_s3_objects = @s3.buckets[S3['SONGS_BUCKET']].objects
       songs = []
       
       # for display
@@ -129,7 +121,11 @@ module PL
 
     def get_unprocessed_song_audio(key)
       @s3 = AWS::S3.new
-      s3_song_file = @s3.buckets[bucket[:unprocessedsongs]].objects[key]
+
+      bucket = @s3.buckets[S3['UNPROCESSED_SONGS']]
+
+      s3_song_file = bucket.objects[key]
+
       temp_audio_file = Tempfile.new('temp_audio_file')
       temp_audio_file.binmode
       temp_audio_file.write(s3_song_file.read)
@@ -137,12 +133,11 @@ module PL
     end
 
     def delete_unprocessed_song(key)
-      @s3 = AWS::S3.new
-      s3_song_file = @s3.buckets[bucket[:unprocessedsongs]].objects[key].delete
+      s3_song_file = @s3.buckets[S3['UNPROCESSED_SONGS']].objects[key].delete
     end
 
     def delete_song(key)
-      @s3.buckets[bucket[:songs]].objects[key].delete
+      @s3.buckets[S3['SONGS_BUCKET']].objects[key].delete
       return true
     end
 

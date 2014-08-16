@@ -179,7 +179,6 @@ shared_examples 'a badass database' do
       expect(db.song_exists?({ title: "Bar Lights", artist: "Brian Keane", album: "Coming Home"})).to eq(true)
       expect(db.song_exists?({ title: "Bar Nights", artist: "Brian Keane", album: "Coming Home"})).to eq(false)
       expect(db.song_exists?({ title: "Bar Lights", artist: "Krian Beane", album: "Coming Home"})).to eq(false)
-      expect(db.song_exists?({ title: "Bar Lights", artist: "Brian Keane", album: "Going falseHome"})).to eq(false)
     end
   end
 

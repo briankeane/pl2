@@ -1,0 +1,193 @@
+---
+http_interactions:
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_Rachel%20Loy_Stepladder.mp3
+    body:
+      encoding: ASCII-8BIT
+      string: hi
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '2'
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Fri, 15 Aug 2014 18:09:33 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:MnKN92RvJx+CEe5ETnSRQjBW4L4=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - Q92QxA/Iy9kNdBPIlttMNNRKYrbPJHCu6j0CC3d3h+z8L3K697aznSE3IKp9nkQMN9dhYeG9L1Q=
+      X-Amz-Request-Id:
+      - 3329ECC8B5A42A2E
+      Date:
+      - Fri, 15 Aug 2014 18:09:34 GMT
+      Etag:
+      - '"49f68a5c8493ec2c0bf489821c21fc3b"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Fri, 15 Aug 2014 18:09:33 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_Rachel%20Loy_Stepladder.mp3
+    body:
+      encoding: US-ASCII
+      string: 'Stepladder'
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Fri, 15 Aug 2014 18:09:33 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:HwCk8FNeBfUnwJ2PzSUTdmgagW0=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - N/T3oo0oYx9JGKSOE1h9l55sY5DGu+TDNvCwFbzl4/JdpMoCzPffzeqwHWJRXVchuzu42CgEgx4=
+      X-Amz-Request-Id:
+      - 41A258653D1D3852
+      Date:
+      - Fri, 15 Aug 2014 18:09:35 GMT
+      Last-Modified:
+      - Fri, 15 Aug 2014 18:09:34 GMT
+      Etag:
+      - '"49f68a5c8493ec2c0bf489821c21fc3b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '2'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: 'Stepladder'
+    http_version: 
+  recorded_at: Fri, 15 Aug 2014 18:09:34 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_Rachel%20Loy_Stepladder.mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000001_Rachel%20Loy_Stepladder.mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Title:
+      - Stepladder
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Fri, 15 Aug 2014 18:09:34 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:Bruj6omKaRIukf+5mrRVSDmfLoo=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 42B193XHrzYUFhy8sSGUKTdvqJUi+IHQhSjUmIuGLJRWubPsDgJbORxW+5r2+7e0hP5QMUMx3yA=
+      X-Amz-Request-Id:
+      - 4B05F91EF3C33654
+      Date:
+      - Fri, 15 Aug 2014 18:09:35 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-15T18:09:35.000Z</LastModified><ETag>&quot;49f68a5c8493ec2c0bf489821c21fc3b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Fri, 15 Aug 2014 18:09:34 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_Rachel%20Loy_Stepladder.mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Fri, 15 Aug 2014 18:09:34 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:oU4P6QHeI3GVMzNiFXZWm1CzPmQ=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - tgN3/QqIbnsXnVl2SgF5WU16jg0QKX03Td6lcvhbiCKOHJRijc/5FnVoiP1aO0BdlEbc0OkNfVw=
+      X-Amz-Request-Id:
+      - 040C3A94A80DDFAA
+      Date:
+      - Fri, 15 Aug 2014 18:09:35 GMT
+      X-Amz-Meta-Pl-Title:
+      - Stepladder
+      Last-Modified:
+      - Fri, 15 Aug 2014 18:09:35 GMT
+      Etag:
+      - '"49f68a5c8493ec2c0bf489821c21fc3b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '2'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Fri, 15 Aug 2014 18:09:34 GMT
+recorded_with: VCR 2.9.2

@@ -6,7 +6,7 @@ require 'echowrap'
 #    -- (this is here so the non-rails app can stand on its own)
 if !defined? TWITTER_KEYS
   TWITTER_KEYS = YAML.load_file("secrets/twitter_config.yml")[ENV['RAILS_ENV']]
-  S3_KEYS = YAML.load_file("secrets/s3_config.yml")[ENV['RAILS_ENV']]
+  S3 = YAML.load_file("secrets/s3_config.yml")[ENV['RAILS_ENV']]
   ECHONEST_KEYS = YAML.load_file("secrets/echonest_config.yml")[ENV['RAILS_ENV']]
   FILEPICKER_KEYS = YAML.load_file("secrets/filepicker_config.yml")[ENV['RAILS_ENV']]
 end
@@ -15,7 +15,7 @@ end
 module PL
 
   # set up AWS
-  AWS.config(access_key_id: S3_KEYS['ACCESS_KEY_ID'], secret_access_key: S3_KEYS['SECRET_KEY'], region: 'us-west-2')
+  AWS.config(access_key_id: S3['ACCESS_KEY_ID'], secret_access_key: S3['SECRET_KEY'], region: 'us-west-2')
 
   # set up Echonest
   Echowrap.configure do |config|

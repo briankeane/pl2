@@ -61,7 +61,6 @@ module PL
     end
 
     def add_song_to_system_without_echonest_id(song_file)
-      
       # Convert it to mp3 if it's a wav file
       if song_file.path.match(/\.wav$/)
         audio_converter = PL::AudioConverter.new       
