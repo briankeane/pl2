@@ -67,7 +67,7 @@ class StationsController < ApplicationController
       result = PL::CreateStation.run({ user_id: current_user.id,
                                        spins_per_week: spins_per_week })
 
-      result[:station].generate_playlist
+      
 
     end
   end

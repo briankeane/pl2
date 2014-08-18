@@ -1,0 +1,2792 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/?max-keys=1000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:21 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:4QyRhJsh7GA04yDCqRnHg4ZHChc=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - e89Hj2tTV42ZPmbeeYppWFrcdIQkhov27PSiHFeRsyL74vwqc3N3+gypBnNwMGb2JKYk/feZNlM=
+      X-Amz-Request-Id:
+      - 8CABD6BE97FD4A1A
+      Date:
+      - Mon, 18 Aug 2014 20:55:23 GMT
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Name>playolasongstest</Name><Prefix></Prefix><Marker></Marker><MaxKeys>1000</MaxKeys><IsTruncated>false</IsTruncated></ListBucketResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:22 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: ASCII-8BIT
+      string: this is a file to test uploads
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '30'
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:22 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:TIqAOtJc5kv6+vlufM0sY56Lwn0=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - UZIek/reDnide83mlj/d7rzpAK/njspgreXy//ewRuZ+Ve35Ki3lx1XTRlhFfSiQ0SDO5PPsCuI=
+      X-Amz-Request-Id:
+      - B62498EA08EE9BB7
+      Date:
+      - Mon, 18 Aug 2014 20:55:23 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:22 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:22 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:SMvIIPsJ9CFC7+tZfZlvO9v+HQA=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - ntUNqR1YUWDZN1WEH/7Kcc0qBRgL/v1035Y93W9TepXdtXt6cc/19AIzOAiIPUuW1Tv5RRKvlKM=
+      X-Amz-Request-Id:
+      - 4F02D8A20B91D5F7
+      Date:
+      - Mon, 18 Aug 2014 20:55:24 GMT
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:23 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:23 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000001_artist0_title0..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Title:
+      - title0
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:23 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:21dDLGk37dZ4mjeTjERAeorEiN8=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - SUgvc6iFHLYITyb+sDywiCD1zCRRIjqtNmfwvhYu/WjHq1+QGPR0z2MSC4vEAm7fnxYojs+FPg0=
+      X-Amz-Request-Id:
+      - 79A5E6C9D68B9D83
+      Date:
+      - Mon, 18 Aug 2014 20:55:24 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:24.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:23 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:23 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:SqaCj0KwgPX4xq7Vwdh+4llCtcs=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - cJtRJpYOSDbyywk/Zp6sXbuRZ885a93PAaVhlsKKAAM7NeMkG2nPMxMaTIQusynmVCJ5pAD2lrA=
+      X-Amz-Request-Id:
+      - 0CA9A7671F3F02E5
+      Date:
+      - Mon, 18 Aug 2014 20:55:25 GMT
+      X-Amz-Meta-Pl-Title:
+      - title0
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:24 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:24 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000001_artist0_title0..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Title:
+      - title0
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:24 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:WxJfYjALJsXbKGUD8sIf8Y1OTH0=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 3aQ3NAVIPTgFSAbDLDU4vmHK41dPTvbMaNMe30eNZYGPzix8TIKTp35OazH05YW3vzZ979Og2+s=
+      X-Amz-Request-Id:
+      - 1E7FD8CFA404A159
+      Date:
+      - Mon, 18 Aug 2014 20:55:25 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:25.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:24 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:24 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:MsG45drhL4ABM+3rdipuI7n1O/E=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 5B/2FSDnmgDh9mvIptv93pMn7g2rJvibG7IIQcgdy9/7FrqjgT1iJsKVe7qDrBfetsNsJGlYaDo=
+      X-Amz-Request-Id:
+      - D8305BCC117186B4
+      Date:
+      - Mon, 18 Aug 2014 20:55:26 GMT
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Meta-Pl-Title:
+      - title0
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:25 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:24 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000001_artist0_title0..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Meta-Pl-Title:
+      - title0
+      X-Amz-Meta-Pl-Album:
+      - album0
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:24 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:uiYNzu6fvBAQzAlRt7lrCH82Z3M=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - g7t3F3TTeIZsN1jAK2zCeLatbSOXQpgIxZiEnXLYeOxbgtnvjoNTgmSaPJUq3OcZN0kgyIEImeU=
+      X-Amz-Request-Id:
+      - 8FD0E17DC6578567
+      Date:
+      - Mon, 18 Aug 2014 20:55:26 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:26.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:25 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:25 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:43i8SX7EkjHHlS8e9LQ02Ujn1G0=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 9ZbPsa8WvL06bPoYhZRl5pipac03R3jHRf3pOOul0GqNUqvEASXjL0nvrucAt6AOaQdPc036yR0=
+      X-Amz-Request-Id:
+      - 10C4EE1034080B24
+      Date:
+      - Mon, 18 Aug 2014 20:55:26 GMT
+      X-Amz-Meta-Pl-Album:
+      - album0
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Meta-Pl-Title:
+      - title0
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:26 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:25 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000001_artist0_title0..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Album:
+      - album0
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Meta-Pl-Title:
+      - title0
+      X-Amz-Meta-Pl-Duration:
+      - '0'
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:25 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:KcPZyshiOgFumC8Tkdvi7GiER50=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - UTMaPct3RPYE31GCGnlDF+5FFvI6wpe/5PYBF2vqhDWexWHJQtdr6yODIDNqKoBRdwJEqMD8GnI=
+      X-Amz-Request-Id:
+      - 58A0D36EC88CDA21
+      Date:
+      - Mon, 18 Aug 2014 20:55:27 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:27.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:26 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:26 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:JAKj/gllMGDY1LZeEUmBBcN5p7g=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - zQatHy0LHM6kLq10145BRI1fPuBcH+SHOj5mW6wZdX0WUkO2Vhg0443SOs1qxQcwM2aiihIC5II=
+      X-Amz-Request-Id:
+      - 2DE503E12C156A40
+      Date:
+      - Mon, 18 Aug 2014 20:55:27 GMT
+      X-Amz-Meta-Pl-Album:
+      - album0
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Meta-Pl-Duration:
+      - '0'
+      X-Amz-Meta-Pl-Title:
+      - title0
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:27 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:26 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000001_artist0_title0..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Album:
+      - album0
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Meta-Pl-Duration:
+      - '0'
+      X-Amz-Meta-Pl-Title:
+      - title0
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id0
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:26 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:S4AD1PThER6vujT/EceDXdkzefc=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - NBIQVh4CaNxBi62JFzvaAaUDHGPcDRrL/RZk+im3juQxZwauyttdKEEQxyBZq30pMd31oXQZl6U=
+      X-Amz-Request-Id:
+      - 56C5B88ADBD6F8BA
+      Date:
+      - Mon, 18 Aug 2014 20:55:28 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:28.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:27 GMT
+- request:
+    method: get
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/?max-keys=1000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:27 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:yfR5hUv5jT5vK2U7QNkCQ8tL/5I=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - WRx74+iYlUcoUykJoG7TI+iKBvrNN5l8KaAqWiBTLr5clhA8PzYjJQFe7mhqcdTup5ELL3mckXc=
+      X-Amz-Request-Id:
+      - 94006B7C38FE98BC
+      Date:
+      - Mon, 18 Aug 2014 20:55:28 GMT
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Name>playolasongstest</Name><Prefix></Prefix><Marker></Marker><MaxKeys>1000</MaxKeys><IsTruncated>false</IsTruncated><Contents><Key>_pl_0000001_artist0_title0..mp3</Key><LastModified>2014-08-18T20:55:28.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag><Size>30</Size><Owner><ID>8c2b103b3a84845977213691f2ee7c6255c95fed498a8affb01dfe166bf82f6a</ID><DisplayName>lonesomewhistle3</DisplayName></Owner><StorageClass>STANDARD</StorageClass></Contents></ListBucketResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:27 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: ASCII-8BIT
+      string: this is a file to test uploads
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '30'
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:27 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:iW+g34RmfaOoi0+HFKLG5tB1GOE=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - CwgPefpoYrAcVoW2lTw6zVVd/l4O9Ol8S8RtY+4afpRFimUqJSBkOmi5xfsPkl+2Wiwee5XlPpY=
+      X-Amz-Request-Id:
+      - 97F601643DC67ABF
+      Date:
+      - Mon, 18 Aug 2014 20:55:29 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:28 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:28 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:0ZOjcXUnUTGy53ogK+/LYtZqJn8=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - ou++42/U9N5SdLao7jWdCgdCqNVhpM5HIN3ZT4OsHlzUYHZMJX37J8ORgaw4n0PYAPeKQr+dF/8=
+      X-Amz-Request-Id:
+      - 5703B94B44BC86DC
+      Date:
+      - Mon, 18 Aug 2014 20:55:29 GMT
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:29 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:28 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000002_artist1_title1..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Title:
+      - title1
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:28 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:ay6v+ri+ECofsCbby/RePoPSp8s=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - sH5LOZkQ5gRgbdQcgRUlga1Gg4dqFFmX2KftCzQNlxCc3xk4Ox3f4A8rcQQOrPttySiw42/v+cQ=
+      X-Amz-Request-Id:
+      - 11BE2EFCA89EEE64
+      Date:
+      - Mon, 18 Aug 2014 20:55:30 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:30.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:29 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:29 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:72cYD/3ncZok6FXR5O5XiZHWKZs=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - uqobK6Pe2d1ZHvmDCgif+/oPATpFUredIKkHLxVAD6Ewi/jmQAXUiyzNsULwssJzXhX8aOxx2yk=
+      X-Amz-Request-Id:
+      - DD573D748B9C91E5
+      Date:
+      - Mon, 18 Aug 2014 20:55:30 GMT
+      X-Amz-Meta-Pl-Title:
+      - title1
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:30 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:29 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000002_artist1_title1..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Title:
+      - title1
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:29 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:TezsCclczGlk6cVDN59hGS8kQDQ=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - wFnhmF3HBfzFg64w5REVIvFth0KyfmAQ6k+kObwEPmeYcK72a/qLsSGh94NLkknhtpPhnRoNjGc=
+      X-Amz-Request-Id:
+      - 661FC52047EB690D
+      Date:
+      - Mon, 18 Aug 2014 20:55:31 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:31.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:30 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:30 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:Pax9q2j0kCWifbbfwBwv9Db4CTw=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 6Ei60lAa+Ml37OcXCsTyOh5SlY3ElRx0r5Ji6pn2P+3OnonGUHt7/Ok1ZV9wojN0fSGfU5rjTxs=
+      X-Amz-Request-Id:
+      - 4D1EA8FCB32B2A11
+      Date:
+      - Mon, 18 Aug 2014 20:55:31 GMT
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Meta-Pl-Title:
+      - title1
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:31 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:30 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000002_artist1_title1..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Meta-Pl-Title:
+      - title1
+      X-Amz-Meta-Pl-Album:
+      - album1
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:30 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:xJf2Z8Cz64OO8oA4d24GmFQI848=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - HxDWUMzEEP3NDPeClgl0E1jR62meeEMqIrFsFyU8GU9vsEc5trrSm6u8wVxWsUVAzSC3Gjh0vnE=
+      X-Amz-Request-Id:
+      - 0E87854100D04094
+      Date:
+      - Mon, 18 Aug 2014 20:55:31 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:31.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:30 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:30 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:Pax9q2j0kCWifbbfwBwv9Db4CTw=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 9cSMJqNs8L/rcjqwG/XeofkJACoGKd2PCKi4tAdzrW+k1gbuN4zQZ2+8hZQ/Zkkx2e7rcA+QWCs=
+      X-Amz-Request-Id:
+      - 9770E19E45C47F55
+      Date:
+      - Mon, 18 Aug 2014 20:55:32 GMT
+      X-Amz-Meta-Pl-Album:
+      - album1
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Meta-Pl-Title:
+      - title1
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:31 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:31 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000002_artist1_title1..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Album:
+      - album1
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Meta-Pl-Title:
+      - title1
+      X-Amz-Meta-Pl-Duration:
+      - '1'
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:31 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:W2TZPxnKgO7ZGW9J8E/NGVmcm2w=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - /hAQ79+hMyqVxzL0hsFfku+rLvMgm6ftGTmNVRuF58ZxtGbO9lVTXqbBn9de+ouGDlWqfGO9rsk=
+      X-Amz-Request-Id:
+      - 4BF6BACDC16BBB6C
+      Date:
+      - Mon, 18 Aug 2014 20:55:33 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:33.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:32 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:32 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:a5Zo2KuC6HRMapyZtItPqA6su9c=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - PiuQcYdBFtr8qadPq8AjljteB+5KB7WQ/jXweX3AqwgkLJ54aFRSytd/RiHKe7h5yS/U68SlyH4=
+      X-Amz-Request-Id:
+      - CE600F0459E137C8
+      Date:
+      - Mon, 18 Aug 2014 20:55:33 GMT
+      X-Amz-Meta-Pl-Album:
+      - album1
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Meta-Pl-Duration:
+      - '1'
+      X-Amz-Meta-Pl-Title:
+      - title1
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:33 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:32 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000002_artist1_title1..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Album:
+      - album1
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Meta-Pl-Duration:
+      - '1'
+      X-Amz-Meta-Pl-Title:
+      - title1
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id1
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:32 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:MZ2QJwFgC50LbO3xxcin9xZBbs0=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - qO6y40rUGgSyUG137aY6XdNV96T41ThbPSwAOBmwvh3HOObuLlh7sAz6iK6XyYf0FScIU1L16dY=
+      X-Amz-Request-Id:
+      - C2EECC37CADBE37D
+      Date:
+      - Mon, 18 Aug 2014 20:55:34 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:34.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:33 GMT
+- request:
+    method: get
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/?max-keys=1000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:33 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:lXX4HbdFgErYbOMEePZ+cIedN40=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - E0dDKTB5MJhQRwx+g+kaF4ei2exvO4WppuGdAEkr59snd8gX16eF6k5AZJLnBEhzSVAshTu4tcg=
+      X-Amz-Request-Id:
+      - 877BAD0317F85CAD
+      Date:
+      - Mon, 18 Aug 2014 20:55:34 GMT
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Name>playolasongstest</Name><Prefix></Prefix><Marker></Marker><MaxKeys>1000</MaxKeys><IsTruncated>false</IsTruncated><Contents><Key>_pl_0000001_artist0_title0..mp3</Key><LastModified>2014-08-18T20:55:28.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag><Size>30</Size><Owner><ID>8c2b103b3a84845977213691f2ee7c6255c95fed498a8affb01dfe166bf82f6a</ID><DisplayName>lonesomewhistle3</DisplayName></Owner><StorageClass>STANDARD</StorageClass></Contents><Contents><Key>_pl_0000002_artist1_title1..mp3</Key><LastModified>2014-08-18T20:55:34.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag><Size>30</Size><Owner><ID>8c2b103b3a84845977213691f2ee7c6255c95fed498a8affb01dfe166bf82f6a</ID><DisplayName>lonesomewhistle3</DisplayName></Owner><StorageClass>STANDARD</StorageClass></Contents></ListBucketResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:33 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: ASCII-8BIT
+      string: this is a file to test uploads
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      Content-Length:
+      - '30'
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:33 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:JhsCRsfaHrf1VCdi+vUKxLJ2Olg=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - ClSo8RemlKvyCorZTrz8jzAbFtQkOsIhQ8gDE6bGbPxxc+t/kGAEUbMVuC0gGuU6jT8ycqVMDGc=
+      X-Amz-Request-Id:
+      - 9F3B35EC7C64063A
+      Date:
+      - Mon, 18 Aug 2014 20:55:35 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Content-Length:
+      - '0'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:34 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:34 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:bX3iTfHrLdAlvg3VDb90SwaU57Q=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - PRX6Ch7O1Ql71QgVFaNfeTqEA1NiQA6imJZ+huViYXDc3HovoeWB56q7EJnP17u+U+0okTd0Ft8=
+      X-Amz-Request-Id:
+      - C290A8CAEE91E2EA
+      Date:
+      - Mon, 18 Aug 2014 20:55:35 GMT
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:35 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:34 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000003_artist2_title2..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Title:
+      - title2
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:34 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:nMaY2J3zyrp/FY84fEtOw3Mm9HA=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - cYaRrtgVcpFRcIqbh/CFjv7wjeKy1BwYz4V0vv9ri4Cwnu6uN1RmlPb4wznWaJ6CfpbKPM5xypE=
+      X-Amz-Request-Id:
+      - 4164D4C00ED5D3EB
+      Date:
+      - Mon, 18 Aug 2014 20:55:36 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:36.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:35 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:35 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:qabkRIYC/AaBJVHOlc24Oy7tBKI=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - yfj3fob9VeEZkMZiKx9zudw/3ypi+fU8qLUPhg7EFN1aPPuuVNOQJnuty8Y9m9JcLwfNMflwhgw=
+      X-Amz-Request-Id:
+      - 8E1AA899D513ECD0
+      Date:
+      - Mon, 18 Aug 2014 20:55:36 GMT
+      X-Amz-Meta-Pl-Title:
+      - title2
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:36 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:35 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000003_artist2_title2..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Title:
+      - title2
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:35 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:I10Ggu7RxhxL1apHqHKgmTDWy4U=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - WZtnFhe6erfV1A4wJK5ChS1n5bwT86ZOhxh7UjH0bF6HeeRGDucadICN5Ex1u8TJ0BEtg70SSkE=
+      X-Amz-Request-Id:
+      - E16091206E5F5FF4
+      Date:
+      - Mon, 18 Aug 2014 20:55:36 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:36.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:35 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:35 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:qabkRIYC/AaBJVHOlc24Oy7tBKI=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 555/sXkvfrdLBCPU12zeZ+KlduGNCvfDCRNuXl9iJSCYG0U85R/MgnVYvbN9PcG4BwvtIdZgFhw=
+      X-Amz-Request-Id:
+      - 249457348D8D211C
+      Date:
+      - Mon, 18 Aug 2014 20:55:37 GMT
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Meta-Pl-Title:
+      - title2
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:36 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:36 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000003_artist2_title2..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Meta-Pl-Title:
+      - title2
+      X-Amz-Meta-Pl-Album:
+      - album2
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:36 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:zXW8IACEf2BIradcAiSwc8qZ85k=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - M3vCddg3EDrgdMylQ3w+6nfVrxpdjJD9iOzGK+McZyRrKYNRVzpNFwqBA/IhMOsKYAbDbylz4cM=
+      X-Amz-Request-Id:
+      - EEC61BE20B54B43E
+      Date:
+      - Mon, 18 Aug 2014 20:55:37 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:37.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:36 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:36 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:8G3LbQaa8+jLtlsQNL3yX1fTALk=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - vuw/z7KZmB0UIEn9Fz96iadg35AO+qib02Zr1YvpB5MgxghDviYIH2ioVnGJuOR0iEFQiatmeVM=
+      X-Amz-Request-Id:
+      - 039AEC128227B05F
+      Date:
+      - Mon, 18 Aug 2014 20:55:38 GMT
+      X-Amz-Meta-Pl-Album:
+      - album2
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Meta-Pl-Title:
+      - title2
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:37 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:37 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000003_artist2_title2..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Album:
+      - album2
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Meta-Pl-Title:
+      - title2
+      X-Amz-Meta-Pl-Duration:
+      - '2'
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:37 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:OT4CjV+DWcbeS87SXTTaOo0MLJU=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - F/GLuSrtxI8iLeP4yoKvJkMFIbjGIASKlvlkyzTT02fdmMX/OC9xn9etWQR+YYwRen5/0GNUxvs=
+      X-Amz-Request-Id:
+      - FA0AE85B2B882078
+      Date:
+      - Mon, 18 Aug 2014 20:55:38 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:38.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:37 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:37 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:giuaqnRgjtEycS3tl7RzizBV2X0=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - kFgsiCA+ZKiFsiKaOMdC7H/bUjBr6aqKX+GtpF5Qhv7c0fcfZCwzvRx/PKbHKXIPDnvCj+5/iAo=
+      X-Amz-Request-Id:
+      - 5DB697AA583E50F7
+      Date:
+      - Mon, 18 Aug 2014 20:55:38 GMT
+      X-Amz-Meta-Pl-Album:
+      - album2
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Meta-Pl-Duration:
+      - '2'
+      X-Amz-Meta-Pl-Title:
+      - title2
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:38 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:37 GMT
+- request:
+    method: put
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      X-Amz-Copy-Source:
+      - playolasongstest/_pl_0000003_artist2_title2..mp3
+      X-Amz-Metadata-Directive:
+      - REPLACE
+      X-Amz-Meta-Pl-Album:
+      - album2
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Meta-Pl-Duration:
+      - '2'
+      X-Amz-Meta-Pl-Title:
+      - title2
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id2
+      X-Amz-Storage-Class:
+      - STANDARD
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:37 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:VHmHFmkYIDkKeE+1bmOYZmBIko8=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - /eK7YJocxPpGVki1gXRvItgd11DzZ3AUlKvFBwuoquxqS1LiWYiyi7YcOmvMv6hDvUGGq6usO8U=
+      X-Amz-Request-Id:
+      - B0D4305A77091865
+      Date:
+      - Mon, 18 Aug 2014 20:55:39 GMT
+      Content-Type:
+      - application/xml
+      Content-Length:
+      - '234'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <CopyObjectResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LastModified>2014-08-18T20:55:39.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag></CopyObjectResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:38 GMT
+- request:
+    method: get
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/?max-keys=1000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:38 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:BJ8kWuWE3ajI0ykjFtT7/UtO2lg=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - +SsBpsT/+Gezs/bQLtT5yam9L9ZQnyrtt2wwMXU8JcUEdTDGWdwSqHmU+nBv4qbM+90n8yKZY44=
+      X-Amz-Request-Id:
+      - 52BC6C4E1B8DCBBD
+      Date:
+      - Mon, 18 Aug 2014 20:55:39 GMT
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Name>playolasongstest</Name><Prefix></Prefix><Marker></Marker><MaxKeys>1000</MaxKeys><IsTruncated>false</IsTruncated><Contents><Key>_pl_0000001_artist0_title0..mp3</Key><LastModified>2014-08-18T20:55:28.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag><Size>30</Size><Owner><ID>8c2b103b3a84845977213691f2ee7c6255c95fed498a8affb01dfe166bf82f6a</ID><DisplayName>lonesomewhistle3</DisplayName></Owner><StorageClass>STANDARD</StorageClass></Contents><Contents><Key>_pl_0000002_artist1_title1..mp3</Key><LastModified>2014-08-18T20:55:34.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag><Size>30</Size><Owner><ID>8c2b103b3a84845977213691f2ee7c6255c95fed498a8affb01dfe166bf82f6a</ID><DisplayName>lonesomewhistle3</DisplayName></Owner><StorageClass>STANDARD</StorageClass></Contents><Contents><Key>_pl_0000003_artist2_title2..mp3</Key><LastModified>2014-08-18T20:55:39.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag><Size>30</Size><Owner><ID>8c2b103b3a84845977213691f2ee7c6255c95fed498a8affb01dfe166bf82f6a</ID><DisplayName>lonesomewhistle3</DisplayName></Owner><StorageClass>STANDARD</StorageClass></Contents></ListBucketResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:38 GMT
+- request:
+    method: get
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/?max-keys=1000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:38 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:BJ8kWuWE3ajI0ykjFtT7/UtO2lg=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 230Y/IKBRt6frqPJSnGdyScaGRcOVtwAAua68wyAhktwgMpkl/WsLhfo9tRDgSfNX9l6Ib/U23E=
+      X-Amz-Request-Id:
+      - 93973E785DB0887F
+      Date:
+      - Mon, 18 Aug 2014 20:55:40 GMT
+      Content-Type:
+      - application/xml
+      Transfer-Encoding:
+      - chunked
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: |-
+        <?xml version="1.0" encoding="UTF-8"?>
+        <ListBucketResult xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Name>playolasongstest</Name><Prefix></Prefix><Marker></Marker><MaxKeys>1000</MaxKeys><IsTruncated>false</IsTruncated><Contents><Key>_pl_0000001_artist0_title0..mp3</Key><LastModified>2014-08-18T20:55:28.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag><Size>30</Size><Owner><ID>8c2b103b3a84845977213691f2ee7c6255c95fed498a8affb01dfe166bf82f6a</ID><DisplayName>lonesomewhistle3</DisplayName></Owner><StorageClass>STANDARD</StorageClass></Contents><Contents><Key>_pl_0000002_artist1_title1..mp3</Key><LastModified>2014-08-18T20:55:34.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag><Size>30</Size><Owner><ID>8c2b103b3a84845977213691f2ee7c6255c95fed498a8affb01dfe166bf82f6a</ID><DisplayName>lonesomewhistle3</DisplayName></Owner><StorageClass>STANDARD</StorageClass></Contents><Contents><Key>_pl_0000003_artist2_title2..mp3</Key><LastModified>2014-08-18T20:55:39.000Z</LastModified><ETag>&quot;187d4e421ebeedd1669e4ccfdb79760b&quot;</ETag><Size>30</Size><Owner><ID>8c2b103b3a84845977213691f2ee7c6255c95fed498a8affb01dfe166bf82f6a</ID><DisplayName>lonesomewhistle3</DisplayName></Owner><StorageClass>STANDARD</StorageClass></Contents></ListBucketResult>
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:39 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:39 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:ShhxfGYW4X717nJc7oJgx8Il6cc=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 8PXuj4v5uEJW2hTx7PRQLzsKfyUZ7z6BpDJ3b+R+9H7I0ejfxIQMp9/1jrZQa/lk03skUwote8E=
+      X-Amz-Request-Id:
+      - 8C7849379C8BF50F
+      Date:
+      - Mon, 18 Aug 2014 20:55:40 GMT
+      X-Amz-Meta-Pl-Album:
+      - album0
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Meta-Pl-Duration:
+      - '0'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id0
+      X-Amz-Meta-Pl-Title:
+      - title0
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:28 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:39 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:39 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:ShhxfGYW4X717nJc7oJgx8Il6cc=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 3Y0jwh6XpjEXnnSCoGtMrXyvgTRMRO5MadRruUyNK1d73KkQadj4KxfnTMopDKGrVhLTB7Eu4WI=
+      X-Amz-Request-Id:
+      - CF516264C539593A
+      Date:
+      - Mon, 18 Aug 2014 20:55:41 GMT
+      X-Amz-Meta-Pl-Album:
+      - album0
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Meta-Pl-Duration:
+      - '0'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id0
+      X-Amz-Meta-Pl-Title:
+      - title0
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:28 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:40 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:40 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:PJZxdIoF3ckkDO3lStINZMbOpMg=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - LLt+agkBBik48HLLg0MCizothw4qv99Jco1W0p31V61sBqYM563Nl8eV5+rC9WTu8k90SlMffBQ=
+      X-Amz-Request-Id:
+      - ABB71BDF62F2131D
+      Date:
+      - Mon, 18 Aug 2014 20:55:41 GMT
+      X-Amz-Meta-Pl-Album:
+      - album0
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Meta-Pl-Duration:
+      - '0'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id0
+      X-Amz-Meta-Pl-Title:
+      - title0
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:28 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:40 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:40 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:PJZxdIoF3ckkDO3lStINZMbOpMg=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - BVeXTYGyJiHaiBUTVIr6QG5xikZyu8m7A5NOYeYTFI8xvX8Pog8lHwKWnDGUG5WhR0q6z1VXYVM=
+      X-Amz-Request-Id:
+      - B1A4118BFA5C679A
+      Date:
+      - Mon, 18 Aug 2014 20:55:42 GMT
+      X-Amz-Meta-Pl-Album:
+      - album0
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Meta-Pl-Duration:
+      - '0'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id0
+      X-Amz-Meta-Pl-Title:
+      - title0
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:28 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:41 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000001_artist0_title0..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:41 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:UNZWFKceG3m8wQ8QCASMRVO7jkE=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - IET30eY3jkjeglN4DuinmO4K3h2co2AZipcBIhxeSHhYyapCLTxRMz/YS4AJENKxtdbWhBG9tm4=
+      X-Amz-Request-Id:
+      - 04D1942E32EA4DCE
+      Date:
+      - Mon, 18 Aug 2014 20:55:42 GMT
+      X-Amz-Meta-Pl-Album:
+      - album0
+      X-Amz-Meta-Pl-Artist:
+      - artist0
+      X-Amz-Meta-Pl-Duration:
+      - '0'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id0
+      X-Amz-Meta-Pl-Title:
+      - title0
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:28 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:41 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:41 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:YXvLNeEnlTg1CPdclh6XmOfXV2w=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - SdMTv6l0k61bCjFiq8XBwfnPge/z9nGnmW5/Hmv+vrUVNy7QtUyukqboZ2dGHX0thzmUkqGBSHQ=
+      X-Amz-Request-Id:
+      - BAE2AB71EDFD701E
+      Date:
+      - Mon, 18 Aug 2014 20:55:42 GMT
+      X-Amz-Meta-Pl-Album:
+      - album1
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Meta-Pl-Duration:
+      - '1'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id1
+      X-Amz-Meta-Pl-Title:
+      - title1
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:34 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:41 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:41 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:YXvLNeEnlTg1CPdclh6XmOfXV2w=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 51PZjlk/hhjuet6bTTH3np5IsgViTJApo2OL3TgVi7ymzJqZEcY0Yo965IX13mZQeI3lQt+uS1A=
+      X-Amz-Request-Id:
+      - 799698AAE9649D85
+      Date:
+      - Mon, 18 Aug 2014 20:55:43 GMT
+      X-Amz-Meta-Pl-Album:
+      - album1
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Meta-Pl-Duration:
+      - '1'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id1
+      X-Amz-Meta-Pl-Title:
+      - title1
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:34 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:42 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:42 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:yziXGbzzGhGS7REmPMMxzt/+tQk=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - xFJ6zCevMDaBp1mNhj0kyBW++PVgMWiRlUoKHIE7k5vVi4qICkaL/mv3dlQm1KeU4ev8RnZAMM8=
+      X-Amz-Request-Id:
+      - BC07A9A776CDD277
+      Date:
+      - Mon, 18 Aug 2014 20:55:43 GMT
+      X-Amz-Meta-Pl-Album:
+      - album1
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Meta-Pl-Duration:
+      - '1'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id1
+      X-Amz-Meta-Pl-Title:
+      - title1
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:34 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:42 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:42 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:yziXGbzzGhGS7REmPMMxzt/+tQk=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - lPFbBL5sutE4JioMgWA03hjhPpE2Q/yVVeUAJvqNcyQzmU7JeS04YIR7BzXGVcmB5WpTp+A8r1U=
+      X-Amz-Request-Id:
+      - A8225ADB0FF46C0F
+      Date:
+      - Mon, 18 Aug 2014 20:55:44 GMT
+      X-Amz-Meta-Pl-Album:
+      - album1
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Meta-Pl-Duration:
+      - '1'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id1
+      X-Amz-Meta-Pl-Title:
+      - title1
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:34 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:43 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000002_artist1_title1..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:43 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:GUAHigWyeojcF/xCCckUHmeF12A=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - 4Ah/g/PaZcJ4BGI0mVIM+xabys1hMDJZ3yKuP30mqWE2xEGBNJyH/STP2/b8G4cXD0QFi/sulEg=
+      X-Amz-Request-Id:
+      - 74C93303C1259E96
+      Date:
+      - Mon, 18 Aug 2014 20:55:44 GMT
+      X-Amz-Meta-Pl-Album:
+      - album1
+      X-Amz-Meta-Pl-Artist:
+      - artist1
+      X-Amz-Meta-Pl-Duration:
+      - '1'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id1
+      X-Amz-Meta-Pl-Title:
+      - title1
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:34 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:43 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:43 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:vvoDChbbt8fDB9bWvBxkJHH06nw=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - EggrPwywa2Tp1IwM81juMghEz7PmBS3o5+Kn50SYtzb4dZ82cpHJ1QmjACRNyY0IzHh+w4PsbW8=
+      X-Amz-Request-Id:
+      - 43442ED3F47A1418
+      Date:
+      - Mon, 18 Aug 2014 20:55:45 GMT
+      X-Amz-Meta-Pl-Album:
+      - album2
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Meta-Pl-Duration:
+      - '2'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id2
+      X-Amz-Meta-Pl-Title:
+      - title2
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:39 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:44 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:44 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:e1Dbag+SpgeMgRkqHm0jXA/c3P4=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - P0k0DM6urzbpJl0WcH9NW3Zqee0I/C4hdINbKFP4mWm52h0hDmjJr6eRJpCgdCapNGTIGY8FNZw=
+      X-Amz-Request-Id:
+      - B2926206BC4AC890
+      Date:
+      - Mon, 18 Aug 2014 20:55:45 GMT
+      X-Amz-Meta-Pl-Album:
+      - album2
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Meta-Pl-Duration:
+      - '2'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id2
+      X-Amz-Meta-Pl-Title:
+      - title2
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:39 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:44 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:44 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:e1Dbag+SpgeMgRkqHm0jXA/c3P4=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - AfJ4FT3A0KjENSu1ylHcyid3m3qNyg6bDSZZNjtsoeMrqDgTbq4OJF16vTmQjOEmb9lJITlrSyo=
+      X-Amz-Request-Id:
+      - 45F52DF4699A3FBC
+      Date:
+      - Mon, 18 Aug 2014 20:55:45 GMT
+      X-Amz-Meta-Pl-Album:
+      - album2
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Meta-Pl-Duration:
+      - '2'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id2
+      X-Amz-Meta-Pl-Title:
+      - title2
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:39 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:44 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:44 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:e1Dbag+SpgeMgRkqHm0jXA/c3P4=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - RBUiotCClUIrv7fTRdSgwk4USyWPIsFyeXd8MTiACZjrMD2MxXla9dQhhD+hVQWSWmk1nkuVJc0=
+      X-Amz-Request-Id:
+      - 9E7ABCDBCA1A5DA4
+      Date:
+      - Mon, 18 Aug 2014 20:55:46 GMT
+      X-Amz-Meta-Pl-Album:
+      - album2
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Meta-Pl-Duration:
+      - '2'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id2
+      X-Amz-Meta-Pl-Title:
+      - title2
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:39 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:45 GMT
+- request:
+    method: head
+    uri: https://playolasongstest.s3-us-west-2.amazonaws.com/_pl_0000003_artist2_title2..mp3
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Content-Type:
+      - ''
+      Accept-Encoding:
+      - ''
+      User-Agent:
+      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      Date:
+      - Mon, 18 Aug 2014 20:55:45 GMT
+      Authorization:
+      - AWS AKIAI7LLKEWPT2P5JISQ:l8reuHF2f2So52YkVL8DjeoQSVM=
+      Accept:
+      - '*/*'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      X-Amz-Id-2:
+      - pvDNTkkKlX171V+vB5Quw4gNIsRomGjiv+tu120d7uoQix8Ae57Sx8HIVe+KvnoeONbDJI/WY5A=
+      X-Amz-Request-Id:
+      - 32A63C69C761C7BA
+      Date:
+      - Mon, 18 Aug 2014 20:55:46 GMT
+      X-Amz-Meta-Pl-Album:
+      - album2
+      X-Amz-Meta-Pl-Artist:
+      - artist2
+      X-Amz-Meta-Pl-Duration:
+      - '2'
+      X-Amz-Meta-Pl-Echonest-Id:
+      - id2
+      X-Amz-Meta-Pl-Title:
+      - title2
+      Last-Modified:
+      - Mon, 18 Aug 2014 20:55:39 GMT
+      Etag:
+      - '"187d4e421ebeedd1669e4ccfdb79760b"'
+      Accept-Ranges:
+      - bytes
+      Content-Type:
+      - ''
+      Content-Length:
+      - '30'
+      Server:
+      - AmazonS3
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version: 
+  recorded_at: Mon, 18 Aug 2014 20:55:45 GMT
+recorded_with: VCR 2.9.2

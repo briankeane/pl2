@@ -68,6 +68,7 @@ describe 'audio_file_storage_handler' do
   end
 
   it 'gets metadata from a stored song' do
+    # *****  VCR does not work with metadata methods *****  #
     #VCR.use_cassette('audio_file_storage_handler/getmetadata', :preserve_exact_body_bytes => true) do
       
       song_file = File.open('spec/test_files/stepladder.mp3')
@@ -91,6 +92,7 @@ describe 'audio_file_storage_handler' do
   end
 
   it 'stores a song' do
+    # *****  VCR does not work with metadata methods *****  #
     #VCR.use_cassette('audio_file_storage_handler/storesong', :preserve_exact_body_bytes => true) do
       File.open('spec/test_files/look.mp3') do |file|
         new_key = @grabber.store_song({ title: 'Look At That Girl',
@@ -98,7 +100,7 @@ describe 'audio_file_storage_handler' do
                                         album: 'Broken Machine',
                                         duration: 9999,
                                         echonest_id: 'test_echonest_id',
-                                        song_file: 'file' })
+                                        song_file: file })
         
         metadata = @grabber.get_stored_song_metadata(new_key)
         
@@ -139,29 +141,6 @@ describe 'audio_file_storage_handler' do
     end
   end
 
-  it 'explicitly sets nil on echonest metadata' do
-    File.open('spec/test_files/look.mp3') do |file|
-      new_key = @grabber.store_song({ title: 'Look At That Girl',
-                                        artist: 'Rachel Loy',
-                                        album: 'Broken Machine',
-                                        duration: 9999,
-                                        echonest_id: 'BLABLABLA',
-                                        song_file: file })
-
-      @grabber.update_stored_song_metadata({ key: new_key,
-                                        artist: 'FAKEartist',
-                                        album: 'FAKEalbum',
-                                        title: 'FAKEtitle',
-                                        duration: 1,
-                                        echonest_id: 'SET_TO_NIL' })
-
-      metadata = @grabber.get_stored_song_metadata(new_key)
-
-      expect(metadata[:echonest_id]).to be_nil
-      @grabber.delete_song(new_key)
-    end
-  end
-
   xit 'gets unprocessed song audio' do
   end
 
@@ -175,10 +154,25 @@ describe 'audio_file_storage_handler' do
 
   
   it 'returns an array of all stored songs as objects' do
-    all_songs = @grabber.get_all_songs
-    expect(all_songs.size).to eq(3)
-    expect(all_songs[0].artist).to eq('Rachel Loy')
-    expect(all_songs[2].title).to eq('The Grandpa Song')
+    # *****  VCR does not work with metadata methods *****  #
+    #VCR.use_cassette('audio_file_storage_handler/returns_array_of_stored_objects') do
+      File.open('spec/test_files/test_uploads.txt') do |file|
+        new_key = []
+        3.times do |i|
+          new_key[i] = @grabber.store_song({ title: 'title' + i.to_s,
+                                            artist: 'artist' + i.to_s,
+                                            album: 'album' + i.to_s,
+                                            duration: i.to_s,
+                                            echonest_id: 'id' + i.to_s,
+                                            song_file: file })
+        end
+
+        all_songs = @grabber.get_all_songs
+        expect(all_songs.size).to eq(3)
+        expect(all_songs[0].artist).to eq('artist0')
+        expect(all_songs[2].title).to eq('title2')
+      end
+    #end
   end
 
   it 'deletes a song' do
@@ -195,4 +189,9 @@ describe 'audio_file_storage_handler' do
       expect(@grabber.get_stored_song_metadata(new_key)).to be_nil
     end
   end
+
+  after(:all) do
+    @s3.buckets['playolasongstest'].objects.delete_all
+  end
+
 end

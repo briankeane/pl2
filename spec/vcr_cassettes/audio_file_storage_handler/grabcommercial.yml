@@ -2862,9 +2862,9 @@ http_interactions:
       User-Agent:
       - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
       Date:
-      - Fri, 15 Aug 2014 18:30:58 GMT
+      - Sat, 16 Aug 2014 13:48:04 GMT
       Authorization:
-      - AWS AKIAI7LLKEWPT2P5JISQ:72F1x5mm1TtMU6ktZBzrRC4m+wM=
+      - AWS AKIAI7LLKEWPT2P5JISQ:n0sqll/bgQXbPeiIW39G9jY2nt4=
       Accept:
       - '*/*'
   response:
@@ -2873,11 +2873,11 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - jYl77w1LUlAc+qxpFtlg9VsWBbHs5mEQiGT/o8k6BM2GF3CBjN283zNG1VWsy0aPS0WM9Q5c5GE=
+      - nsSYoXeNfoPwjCZ/Ix3vRyZ8Ent0LnikvMzKeNc+r++r+jAc+umO9xYbBdYJdwTf5w4qZNOHt1U=
       X-Amz-Request-Id:
-      - 19E7FD196458EF53
+      - DD6A30C15AA6A43B
       Date:
-      - Fri, 15 Aug 2014 18:31:00 GMT
+      - Sat, 16 Aug 2014 13:48:05 GMT
       Etag:
       - '"959c1015dca93fb761e13646aa608e7d"'
       Content-Length:
@@ -2888,7 +2888,7 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Fri, 15 Aug 2014 18:31:00 GMT
+  recorded_at: Sat, 16 Aug 2014 13:48:05 GMT
 - request:
     method: get
     uri: https://playolacommercialstest.s3-us-west-2.amazonaws.com/testCommercial.mp3
@@ -2903,9 +2903,9 @@ http_interactions:
       User-Agent:
       - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
       Date:
-      - Fri, 15 Aug 2014 18:31:00 GMT
+      - Sat, 16 Aug 2014 13:48:05 GMT
       Authorization:
-      - AWS AKIAI7LLKEWPT2P5JISQ:YRvj/KZa8oE6yLej7MBPMqriK28=
+      - AWS AKIAI7LLKEWPT2P5JISQ:NcjCFczfK8P/Wqfa5NYGZrktvxY=
       Accept:
       - '*/*'
   response:
@@ -2914,13 +2914,13 @@ http_interactions:
       message: OK
     headers:
       X-Amz-Id-2:
-      - mXfsKZIzY+2ds4DidZXKiZ4oDZNn2m/GzJW76QTaq5/DoXbx9VEQgge6IrkO7TY7Sj60k6xq/ac=
+      - txJUPngB4tYgML80wyLCr/glPkv8G07KQCbt9fHSf1AVNG0F5gOh92dqORI34wd6XrahF73s1kc=
       X-Amz-Request-Id:
-      - A511076E8F971611
+      - 1B3D361A4C4ECC55
       Date:
-      - Fri, 15 Aug 2014 18:31:01 GMT
+      - Sat, 16 Aug 2014 13:48:07 GMT
       Last-Modified:
-      - Fri, 15 Aug 2014 18:31:00 GMT
+      - Sat, 16 Aug 2014 13:48:05 GMT
       Etag:
       - '"959c1015dca93fb761e13646aa608e7d"'
       Accept-Ranges:
@@ -5781,5 +5781,5 @@ http_interactions:
         NIAAAAR3ZVte/AAUpbQACAmklSQXwOYepDXA/kOVz68F6zM3qqt6qqqp6qql
         +qlxmYoGFHhKd6+CoLRKCp2tTEFNRTMuOTguMg==
     http_version: 
-  recorded_at: Fri, 15 Aug 2014 18:31:01 GMT
+  recorded_at: Sat, 16 Aug 2014 13:48:06 GMT
 recorded_with: VCR 2.9.2
