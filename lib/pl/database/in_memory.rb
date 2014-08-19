@@ -352,6 +352,10 @@ module PL
         station
       end
 
+      def destroy_all_stations
+        @stations = {}
+      end
+
       ########################
       #        spins         #
       # -------------------  #

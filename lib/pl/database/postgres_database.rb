@@ -341,6 +341,11 @@ module PL
 
       def get_song_by_echonest_id(echonest_id)
         ar_song = Song.find_by('echonest_id = ?', echonest_id)
+        
+        if !ar_song
+          return nil
+        end
+        
         ar_song.to_pl
       end
       #################
@@ -522,6 +527,10 @@ module PL
         else
           return nil
         end
+      end
+
+      def destroy_all_stations
+        Station.destroy_all
       end
 
       ###################

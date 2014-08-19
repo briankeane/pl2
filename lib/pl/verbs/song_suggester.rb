@@ -22,8 +22,12 @@ module PL
                                       results: 100, 
                                       limited_interactivity: true,
                                       seed_catalog: ECHONEST_KEYS['TASTE_PROFILE_ID'])
-      list =list.sort_by! { |x| [x.artist_name, x.title] }.map! { |song| PL.db.get_song_by_echonest_id(song.id) }
-      list                                       
+      list.sort_by! { |x| [x.artist_name, x.title] }
+      final_list = []
+      list.each do |song|
+        final_list << PL.db.get_song_by_echonest_id(song.id) unless !PL.db.get_song_by_echonest_id(song.id)
+      end
+      final_list
     end
 
   

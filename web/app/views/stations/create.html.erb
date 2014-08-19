@@ -1,5 +1,44 @@
 <div class='mic-image-inverse'>
-  
+  <div class="row top-row">
+    <div class="small-8 small-offset-4 columns">
+      <div class="row">
+        <div class="small-8 columns">
+          <h1 class="title">Station Playlist</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-6 columns">
+      <fieldset id='spinsPerWeekFieldset'>
+        <ul id="spinsPerWeek-list">
+          <% @spins_per_week.each do |spin| %>
+            <li data-searchString= "<%= spin.title + ' ' + spin.artist %>">
+              <span class="songlist-title"><%=spin.title %></span>
+              <span class="songlist-artist"><%=spin.artist %></span>
+              <input type="number" min="1" max="45"/>
+            </li>
+          <% end %> 
+        </ul>
 
+      </fieldset>
+    </div>
+    <div class="small-6 columns">
+      <fieldset id="catalog-fieldset">
+        <legend>Current Catalog</legend>
+        <label for="searchbox">Search Text:</label>
+        <input type="text" id="searchbox" />
 
+        <ul id="catalog-list">
+            <% @all_songs.each do |song| %>
+              <li data-searchString= "<%= song.title + ' ' + song.artist %>">
+                <span class="songlist-title"><%= song.title %></span>
+                <span class="songlist-artist"><%= song.artist %></span>
+              </li>
+            <% end %>
+          </table> 
+        </ul>
+      </fieldset>
+    </div>
+  </div>
 </div>

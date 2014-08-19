@@ -373,6 +373,16 @@ shared_examples 'a badass database' do
       gotten_station = db.get_station_by_uid(1)
       expect(gotten_station.id).to eq(@station.id)
     end
+
+    it 'destroys all stations' do
+      station1 = db.create_station({ user_id: 1 })
+      station2 = db.create_station({ user_id: 2 })
+      station3 = db.create_station({ user_id: 3 })
+      db.destroy_all_stations
+      expect(db.get_station(station1.id)).to be_nil
+      expect(db.get_station(station2.id)).to be_nil
+      expect(db.get_station(station3.id)).to be_nil
+    end
   end
 
   ###################

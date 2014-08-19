@@ -1,5 +1,6 @@
 class StationsController < ApplicationController
   def dj_booth
+    binding.pry
     if !current_station
       return redirect_to station_new_path
     end
@@ -43,31 +44,43 @@ class StationsController < ApplicationController
       # big enough to work with
       if result.song_suggestions.size < 54
         all_songs_result = PL::GetAllSongs.run()
-        
+        all_songs = PL.db.get_all_songs
         result.song_suggestions.each { |song| all_songs_result.all_songs.delete(song.id) }
+        
         while result.song_suggestions.size < 54
           random_song = all_songs_result.all_songs.sample
           result.song_suggestions.push(random_song)
           all_songs_result.all_songs.delete(random_song.id)
         end
       end
+      
+      @spins_per_week = {}
 
       result.song_suggestions[0..12].each do |song|
-        spins_per_week[song.id] = PL::HEAVY_ROTATION
+        if PL.db.get_song_by_echonest_id(song.id)
+          @spins_per_week[PL.db.get_song_by_echonest_id(song.id)] = PL::HEAVY_ROTATION
+        end
       end
 
       result.song_suggestions[13..40].each do |song|
-        spins_per_week[song.id] = PL::MEDIUM_ROTATION
+        if PL.db.get_song_by_echonest_id(song.id)
+          @spins_per_week[PL.db.get_song_by_echonest_id(song.id)] = PL::MEDIUM_ROTATION
+        end
       end
 
       result.song_suggestions[41..53].each do |song|
-        spins_per_week[song.id] = PL::MEDIUM_ROTATION
+        if PL.db.get_song_by_echonest_id(song.id)
+          @spins_per_week[PL.db.get_song_by_echonest_id(song.id)] = PL::MEDIUM_ROTATION
+        end
       end
 
-      result = PL::CreateStation.run({ user_id: current_user.id,
-                                       spins_per_week: spins_per_week })
+      binding.pry
 
-      
+      result = PL::CreateStation.run({ user_id: current_user.id,
+                                       spins_per_week: @spins_per_week })
+
+      all_songs_result = PL::GetAllSongs.run()
+      @all_songs = all_songs_result.all_songs
 
     end
   end

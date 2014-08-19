@@ -35,6 +35,11 @@ namespace :db do
     PL.db.destroy_all_users
   end
 
+  task :clear_stations => [:load_app] do
+    PL.db.destroy_all_stations
+    PL.db.destroy_all_schedules
+  end
+
   task :load_db_via_echonest => [:load_app] do
     PL.db.clear_everything
 
