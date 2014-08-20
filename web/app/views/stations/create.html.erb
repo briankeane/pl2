@@ -11,12 +11,28 @@
   <div class="row">
     <div class="small-6 columns">
       <fieldset id='spinsPerWeekFieldset'>
+        <legend>Your Station's Song List</legend>
         <ul id="spinsPerWeek-list">
           <% @spins_per_week.each do |spin| %>
-            <li data-searchString= "<%= spin.title + ' ' + spin.artist %>">
-              <span class="songlist-title"><%=spin.title %></span>
-              <span class="songlist-artist"><%=spin.artist %></span>
-              <input type="number" min="1" max="45"/>
+            <li data-searchString= "<%= spin[0].title + ' ' + spin[0].artist %>" data-id="<%=spin[0].id%>">
+              <span class="songlist-title"><%=spin[0].title %></span>
+              <span class="songlist-artist"><%=spin[0].artist %></span>
+              
+              <% case %>
+              <% when spin[1] <= (PL::MEDIUM_ROTATION + PL::LIGHT_ROTATION)/2 %>
+                <% rotationLevel = 'Light' %>
+              <% when spin[1] <= (PL::HEAVY_ROTATION + PL::MEDIUM_ROTATION)/2 %>
+                <% rotationLevel = 'Medium' %>
+              <% else %>
+                <% rotationLevel = 'Heavy' %>
+              <% end %>
+
+              <select id="selectBox<%=spin[0].id%>" class="rotationSelect">
+                <option value='Heavy' <%='selected' unless (rotationLevel != 'Heavy')%>>Heavy</option>
+                <option value='Medium' <%='selected' unless (rotationLevel != 'Medium')%>>Medium</option>
+                <option value='Light' <%='selected' unless (rotationLevel != 'Light')%>>Light</option>
+              </select>
+
             </li>
           <% end %> 
         </ul>
@@ -25,7 +41,7 @@
     </div>
     <div class="small-6 columns">
       <fieldset id="catalog-fieldset">
-        <legend>Current Catalog</legend>
+        <legend>All Playola Songs</legend>
         <label for="searchbox">Search Text:</label>
         <input type="text" id="searchbox" />
 

@@ -7,8 +7,8 @@ describe 'song_suggester' do
 
   it 'suggests a playlist based on 1 artist' do
     playlist = @ss.get_suggestions('Rachel Loy')
-    expect(playlist.size > 0).to eq(true)
     binding.pry
+    expect(playlist.size > 0).to eq(true)
     expect(playlist[0].title).to be_a(String)
     expect(playlist[0].artist).to be_a(String)
   end

@@ -57,24 +57,16 @@ class StationsController < ApplicationController
       @spins_per_week = {}
 
       result.song_suggestions[0..12].each do |song|
-        if PL.db.get_song_by_echonest_id(song.id)
-          @spins_per_week[PL.db.get_song_by_echonest_id(song.id)] = PL::HEAVY_ROTATION
-        end
+        @spins_per_week[song] = PL::HEAVY_ROTATION
       end
 
       result.song_suggestions[13..40].each do |song|
-        if PL.db.get_song_by_echonest_id(song.id)
-          @spins_per_week[PL.db.get_song_by_echonest_id(song.id)] = PL::MEDIUM_ROTATION
-        end
+        @spins_per_week[song] = PL::MEDIUM_ROTATION 
       end
 
       result.song_suggestions[41..53].each do |song|
-        if PL.db.get_song_by_echonest_id(song.id)
-          @spins_per_week[PL.db.get_song_by_echonest_id(song.id)] = PL::MEDIUM_ROTATION
-        end
+        @spins_per_week[song] = PL::MEDIUM_ROTATION
       end
-
-      binding.pry
 
       result = PL::CreateStation.run({ user_id: current_user.id,
                                        spins_per_week: @spins_per_week })
