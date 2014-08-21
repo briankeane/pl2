@@ -154,9 +154,9 @@
       var songInfo = {};
       var selected = $("input[type='radio'][name='songSelect']:checked").val();
       if (selected === 'ECHONESTIDNOTFOUND') {
-        songInfo.title = $('#chooseMatch .filenameDisplay').text();
-        songInfo.artist = $('#chooseMatch .filenameDisplay').text();
-        songInfo.album = $('#chooseMatch .filenameDisplay').text();
+        songInfo.title = $('#chooseMatch').attr('data-title');
+        songInfo.artist = $('#chooseMatch').attr('data-artist');
+        songInfo.album = $('#chooseMatch').attr('data-album');
         songInfo.key = $('#chooseMatch').attr('data-key');
         $('#chooseMatch').foundation('reveal', 'close');
 

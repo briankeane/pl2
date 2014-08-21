@@ -1,10 +1,8 @@
 <div class='mic-image-inverse'>
   <div class="row top-row">
     <div class="small-8 small-offset-4 columns">
-      <div class="row">
-        <div class="small-8 columns">
+      <div class="row headline">
           <h1 class="title">Station Playlist</h1>
-        </div>
       </div>
     </div>
   </div>
@@ -12,7 +10,7 @@
     <div class="small-6 columns">
       <fieldset id='spinsPerWeekFieldset'>
         <legend>Your Station's Song List</legend>
-        <ul id="spinsPerWeek-list">
+        <ul id="spinsPerWeekList">
           <% @spins_per_week.each do |spin| %>
             <li data-searchString= "<%= spin[0].title + ' ' + spin[0].artist %>" data-id="<%=spin[0].id%>">
               <span class="songlist-title"><%=spin[0].title %></span>
@@ -47,7 +45,7 @@
 
         <ul id="catalog-list">
             <% @all_songs.each do |song| %>
-              <li data-searchString= "<%= song.title + ' ' + song.artist %>">
+              <li data-searchString= "<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" data-echonest_id="<%= song.echonest_id %>" data-artist="<%= song.artist %>" data-title="<%= song.title %>">
                 <span class="songlist-title"><%= song.title %></span>
                 <span class="songlist-artist"><%= song.artist %></span>
               </li>

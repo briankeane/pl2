@@ -25,7 +25,21 @@ body .wall-without-mic-image {
   height: 69px;
 }
 
-#spinsPerWeek-list {
+#catalog-list {
+  li {
+    list-style-type: none;
+  }
+  .disabled {
+    opacity:0.5;
+  }
+}
+
+.headline {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+#spinsPerWeekList {
   li {
     margin: 2px 0 2px 0;
     background-color: $darker-item;
