@@ -38,34 +38,35 @@
                                   $(ui.item).after(html);
                                   $('#catalog-list').sortable('cancel');
                                   $(ui.item).addClass('disabled');
-                                  $.ajax({
-                                    type: "POST",
-                                    dataType: "json",
-                                    url: '/stations/playlist/create_spin_frequency',
-                                    contentType: 'application/json',
-                                    data: JSON.stringify({ song_id: data.id,
-                                                          spinFrequency: data.spinFrequency }),
-                                    success: function(result) {
-                                      console.log('Success! Created!');
-                                      console.log(result);
-                                    }
-                                  });
+                                  createSpinPerWeekListItem(data);
                                 }
                               });
 
-    $('#spinsPerWeekList li').dblclick(function() {
+    $('#spinsPerWeekList').on('dblclick', 'li', function() {
       var data = $(this).data();
       deleteSpinPerWeekListItem(data);
       $("#catalog-list").find("[data-id='" + data.id + "']").removeClass('disabled');
       $(this).remove();
-    })
+    });
+
+    $('#catalog-list').on('dblclick', 'li', function() {
+      if (!$(this).hasClass('disabled')) {
+        var data = $(this).data();
+        var html = buildSpinPerWeekListItem(data);
+        data.spinFrequency = 'Medium';
+        $('#spinsPerWeekList li:last').after(html);
+        $(this).addClass('disabled');
+        createSpinPerWeekListItem(data);
+      }
+    });
   
     buildSpinPerWeekListItem = function(attrs) {
       var html = '<li data-searchString="' + attrs.title + ' ' + attrs.artist + '" ' +
                   'data-id="' + attrs.id + '" ' + 
                   'data-echonest_id="' + attrs.echonest_id + '" ' +  
                   'data-artist="' + attrs.artist + '" ' +
-                  'data-title="' + attrs.title + '">' + 
+                  'data-title="' + attrs.title + '" ' +  
+                  'class="ui-sortable-handle">' +
                   '<span class="songlist-title">' + attrs.title + '</span>' +
                   '<span class="songlist-artist">' + attrs.artist + '</span>' +
                   '<select id="selectBox' + attrs.id + '" class="rotationSelect">' +
@@ -88,6 +89,21 @@
                               spinFrequency: data.spinFrequency }),
         success: function(result) {
           console.log('Sucess! Deleted!');
+          console.log(result);
+        }
+      });
+    }
+
+    createSpinPerWeekListItem = function(data) {
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/stations/playlist/create_spin_frequency',
+        contentType: 'application/json',
+        data: JSON.stringify({ song_id: data.id,
+                              spinFrequency: data.spinFrequency }),
+        success: function(result) {
+          console.log('Success! Created!');
           console.log(result);
         }
       });
