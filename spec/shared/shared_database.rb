@@ -391,9 +391,9 @@ shared_examples 'a badass database' do
   describe 'a rotation_spins_per_week' do
     before(:each) do
       @station = db.create_station({ user_id: 1 })
-      @heavy_rl = db.record_spin_frequency({ song_id: 1, station_id: @station.id, spins_per_week: PL::HEAVY_ROTATION })
-      @medium_rl = db.record_spin_frequency({ song_id: 2, station_id: @station.id, spins_per_week: PL::MEDIUM_ROTATION })
-      @light_rl = db.record_spin_frequency({ song_id: 3, station_id: @station.id, spins_per_week: PL::LIGHT_ROTATION })
+      @heavy_rl = db.create_spin_frequency({ song_id: 1, station_id: @station.id, spins_per_week: PL::HEAVY_ROTATION })
+      @medium_rl = db.create_spin_frequency({ song_id: 2, station_id: @station.id, spins_per_week: PL::MEDIUM_ROTATION })
+      @light_rl = db.create_spin_frequency({ song_id: 3, station_id: @station.id, spins_per_week: PL::LIGHT_ROTATION })
     end
 
 
@@ -411,7 +411,7 @@ shared_examples 'a badass database' do
     end
 
     it 'can update a spin frequency' do
-      updated_station = db.record_spin_frequency({ song_id: 1, station_id: @station.id, spins_per_week: 1 })
+      updated_station = db.create_spin_frequency({ song_id: 1, station_id: @station.id, spins_per_week: 1 })
       expect(db.get_station(@station.id).spins_per_week[1]).to eq(1)
     end
 

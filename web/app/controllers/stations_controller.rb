@@ -73,13 +73,55 @@ class StationsController < ApplicationController
 
       all_songs_result = PL::GetAllSongs.run()
       @all_songs = all_songs_result.all_songs
-
     end
   end
 
   def create_spin_frequency
-    
+    case params[:spins_per_week]
+    when 'Heavy'
+      spins_per_week = PL::HEAVY_ROTATION
+    when 'Medium'
+      spins_per_week = PL::MEDIUM_ROTATION
+    when 'Light'
+      spins_per_week = PL::LIGHT_ROTATION
+    end
 
+    result = PL::CreateSpinFrequency.run({ spins_per_week: spins_per_week,
+                                              station_id: current_station.id,
+                                              song_id: params[:song_id] })
+    # update station
+    @current_station = result.station unless !result.success?
+
+    render :json => result
   end
+
+  def update_spin_frequency
+    case params[:spins_per_week]
+    when 'Heavy'
+      spins_per_week = PL::HEAVY_ROTATION
+    when 'Medium'
+      spins_per_week = PL::MEDIUM_ROTATION
+    when 'Light'
+      spins_per_week = PL::LIGHT_ROTATION
+    end
+
+    result = PL::UpdateSpinFrequency.run({ spins_per_week: spins_per_week,
+                                              station_id: current_station.id,
+                                              song_id: params[:song_id] })
+    # update station
+    @current_station = result.station unless !result.success?
+
+    render :json => result
+  end
+
+  def delete_spin_frequency
+    result = PL::DeleteSpinFrequency.run({ station_id: current_station.id,
+                                              song_id: params[:song_id] })
+    # update station
+    @current_station = result.station unless !result.success?
+
+    render :json => result
+  end
+
 
 end

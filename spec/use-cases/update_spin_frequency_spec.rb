@@ -7,9 +7,9 @@ describe 'UpdateSpinFrequency' do
     @song2 = PL.db.create_song({})
     @song3 = PL.db.create_song({})
 
-    @heavy_rl = PL.db.record_spin_frequency({ song_id: @song1.id, station_id: @station.id, spins_per_week: PL::HEAVY_ROTATION })
-    @medium_rl = PL.db.record_spin_frequency({ song_id: @song2.id, station_id: @station.id, spins_per_week: PL::MEDIUM_ROTATION })
-    @light_rl = PL.db.record_spin_frequency({ song_id: @song3.id, station_id: @station.id, spins_per_week: PL::LIGHT_ROTATION })
+    @heavy_rl = PL.db.create_spin_frequency({ song_id: @song1.id, station_id: @station.id, spins_per_week: PL::HEAVY_ROTATION })
+    @medium_rl = PL.db.create_spin_frequency({ song_id: @song2.id, station_id: @station.id, spins_per_week: PL::MEDIUM_ROTATION })
+    @light_rl = PL.db.create_spin_frequency({ song_id: @song3.id, station_id: @station.id, spins_per_week: PL::LIGHT_ROTATION })
   end
 
   it 'calls bullshit when the station is not found' do

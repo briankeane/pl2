@@ -25,6 +25,10 @@ Rails.application.routes.draw do
   match 'upload/delete_unprocessed_song',           to: 'uploads#delete_unprocessed_song',           via: 'post'
   match 'upload/process_song_by_echonest_id',       to: 'uploads#process_song_by_echonest_id',       via: 'post'
   match 'upload/get_echonest_id',                   to: 'uploads#get_echonest_id',                   via: 'post'
+  match '/stations/playlist/create_spin_frequency', to: 'stations#create_spin_frequency',            via: 'post'
+  match '/stations/playlist/update_spin_frequency', to: 'stations#update_spin_frequency',            via: 'post'
+  match '/stations/playlist/delete_spin_frequency', to: 'stations#delete_spin_frequency',            via: 'delete'
+
   # sessions_controller paths
   get '/auth/twitter/callback', to: 'sessions#create_with_twitter'
 

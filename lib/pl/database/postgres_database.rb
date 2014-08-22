@@ -536,7 +536,7 @@ module PL
       ###################
       #  SpinFrequency  #
       ###################
-      def record_spin_frequency(attrs)
+      def create_spin_frequency(attrs)
         spin_frequency = SpinFrequency.find_by(:station_id =>  attrs[:station_id], :song_id => attrs[:song_id])
         if spin_frequency
           spin_frequency.update_attributes(attrs)

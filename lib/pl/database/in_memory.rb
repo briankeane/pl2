@@ -338,7 +338,7 @@ module PL
       ##################################################################
       #  values:    song_id, station_id, spins_per_week (Integer)      #
       ##################################################################
-      def record_spin_frequency(attrs)
+      def create_spin_frequency(attrs)
         station = self.get_station(attrs[:station_id])
         station.spins_per_week[attrs[:song_id]] = attrs[:spins_per_week]
         station
