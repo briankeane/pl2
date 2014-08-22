@@ -10,7 +10,10 @@ module PL
         return failure(:station_already_exists, :station => station)
       else
         station = PL.db.create_station(attrs)
-        return success(:station => station)
+        attrs[:station_id] = station.id
+        schedule = PL.db.create_schedule(attrs)
+        station = PL.db.update_station({ id: station.id, schedule_id: schedule.id })
+        return success(:station => station, :schedule => schedule)
       end
     end
   end

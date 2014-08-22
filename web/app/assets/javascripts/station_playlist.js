@@ -49,6 +49,12 @@
       $(this).remove();
     });
 
+    $('#spinsPerWeekList').on('change', 'li .rotationSelect', function() {
+      var data = { spinFrequency: $(this).val(),
+                    song_id: $(this).parent().data().id };
+      updateSpinPerWeekListItem(data);
+    });
+
     $('#catalog-list').on('dblclick', 'li', function() {
       if (!$(this).hasClass('disabled')) {
         var data = $(this).data();
@@ -104,6 +110,21 @@
                               spinFrequency: data.spinFrequency }),
         success: function(result) {
           console.log('Success! Created!');
+          console.log(result);
+        }
+      });
+    }
+
+    updateSpinPerWeekListItem = function(data) {
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: '/stations/playlist/update_spin_frequency',
+        contentType: 'application/json',
+        data: JSON.stringify({ song_id: data.id,
+                              spinFrequency: data.spinFrequency }),
+        success: function(result) {
+          console.log('Success! Updated!');
           console.log(result);
         }
       });

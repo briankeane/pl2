@@ -39,4 +39,12 @@ describe 'CreateStation' do
     expect(result.station.user_id).to eq(user.id)
   end
 
+  it 'also creates a schedule and connects them' do
+    user = PL.db.create_user({ twitter: 'bob' })
+    result = PL::CreateStation.run({ user_id: user.id, spins_per_week: @spins_per_week })
+    expect(result.success?).to eq(true)
+    expect(PL.db.get_schedule(result.station.schedule_id)).to be_a(PL::Schedule)
+  end
+
+
 end

@@ -46,6 +46,8 @@ body .wall-without-mic-image {
   margin-left: auto;
 }
 
+fieldset {
+}
 #spinsPerWeekList {
   li {
     margin: 2px 0 2px 0;
@@ -76,7 +78,7 @@ body .wall-without-mic-image {
   }
   font-size: 0.9rem;
   background: $lighter-item;
-  height: 300px;
+  height: 360px;
   overflow-y: scroll;
   margin: 0;
 }
