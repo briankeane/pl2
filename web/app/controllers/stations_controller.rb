@@ -1,6 +1,6 @@
 class StationsController < ApplicationController
   def dj_booth
-    binding.pry
+
     if !current_station
       return redirect_to station_new_path
     end

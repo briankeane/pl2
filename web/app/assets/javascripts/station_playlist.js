@@ -9,14 +9,20 @@
     $('#catalog-list').sortable({ connectWith: '#spinsPerWeekList',
                                 helper: 'clone',
                                 widgets: ['zebra'],
-                                cancel: ".disabled"
+                                cancel: ".disabled",
+                                stop: function(event, ui) {
+                                  $('#catalog-list').sortable('cancel');
+                                }
     });
     
 
     $('#spinsPerWeekList').sortable({ 
                                 dropOnEmpty: true,
                                 receive: function(event, ui) {
-                                  $(ui.item).after("<li>THIS IS IT</li>");
+                                  var data = $(ui.item).data();
+                                  var html = buildSpinPerWeekListItem(data);
+
+                                  $(ui.item).after(html);
                                   $('#catalog-list').sortable('cancel');
                                   $(ui.item).addClass('disabled');
                                 }
@@ -26,7 +32,10 @@
   
     buildSpinPerWeekListItem = function(attrs) {
       var html = '<li data-searchString="' + attrs.title + ' ' + attrs.artist + '" ' +
-                  'data-id="' + attrs.songID + '">' + 
+                  'data-id="' + attrs.id + '" ' + 
+                  'data-echonest_id="' + attrs.echonest_id + '" ' +  
+                  'data-artist="' + attrs.artist + '" ' +
+                  'data-title="' + attrs.title + '">' + 
                   '<span class="songlist-title">' + attrs.title + '</span>' +
                   '<span class="songlist-artist">' + attrs.artist + '</span>' +
                   '<select id="selectBox' + attrs.id + '" class="rotationSelect">' +
@@ -41,7 +50,6 @@
     
 
     // mark duplicates 'disabled' on load
-
     $('#spinsPerWeekList li').each( function(i) {
       var id = $(this).attr('data-id');
       $("#catalog-list").find("[data-id='" + id + "']").addClass('disabled');
