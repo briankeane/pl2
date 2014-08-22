@@ -71,7 +71,6 @@ module PL
     end
 
     def all_songs
-
       index = 0
       items = []
       

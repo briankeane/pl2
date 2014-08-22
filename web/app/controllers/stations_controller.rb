@@ -76,4 +76,10 @@ class StationsController < ApplicationController
 
     end
   end
+
+  def create_spin_frequency
+    
+
+  end
+
 end
