@@ -245,7 +245,6 @@ module PL
       playlist = PL.db.get_partial_playlist({ schedule_id: @id, end_time: Time.now })
 
       # mark the last-started song as finished
-
       unfinished_log = PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 })[0]
       PL.db.update_log_entry({ id: unfinished_log.id,
                               listeners_at_finish: 0 })
@@ -280,6 +279,7 @@ module PL
 
       # if the end_time has not reached now (CommercialBlock should be playing)
       if log_entry.estimated_end_time < Time.now
+        binding.pry
         spin = PL.db.get_spin_by_current_position({ schedule_id: @id, current_position: (playlist.last.current_position + 1) })
         if spin.commercial_leads_in
           log_entry = PL.db.create_log_entry({ station_id: @station_id,

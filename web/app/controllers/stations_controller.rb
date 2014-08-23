@@ -24,7 +24,6 @@ class StationsController < ApplicationController
 
     all_songs_result = PL::GetAllSongs.run()
     @all_songs = all_songs_result.all_songs
-    binding.pry
   end
 
   def new
@@ -83,6 +82,7 @@ class StationsController < ApplicationController
                                        spins_per_week: @spins_per_week })
 
       current_schedule.generate_playlist(Time.now + (24*60*60))
+      @current_schedule = PL.db.get_schedule(current_schedule.id)
 
       redirect_to station_song_manager_path
     end

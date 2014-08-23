@@ -48,7 +48,7 @@ module PL
       next_key_value += 1
 
 
-      new_key = ('_pl_' + ('0' * (7 - next_key_value.to_s.size)) +  next_key_value.to_s + '_' + attrs[:artist] + '_' + attrs[:title] + '.' + '.mp3')
+      new_key = ('_pl_' + ('0' * (7 - next_key_value.to_s.size)) +  next_key_value.to_s + '_' + attrs[:artist] + '_' + attrs[:title] + '.mp3')
 
       song_file = File.open(attrs[:song_file])
       song_file.binmode

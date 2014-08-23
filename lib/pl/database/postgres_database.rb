@@ -677,9 +677,8 @@ module PL
       end
 
       def get_spin_by_current_position(attrs)
-        
         ar_spin = Spin.find_by(:schedule_id => attrs[:schedule_id], :current_position => attrs[:current_position])
-        
+        binding.pry
         spin = self.get_spin(ar_spin.id)
         return spin
       end
