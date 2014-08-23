@@ -555,6 +555,10 @@ module PL
         return self.get_station(attrs[:station_id])
       end
 
+      def destroy_all_spin_frequencies
+        SpinFrequency.delete_all
+      end
+
       ###############
       #   spins     #
       ###############
@@ -759,6 +763,10 @@ module PL
         return true
       end
 
+      def destroy_all_spins
+        Spin.delete_all
+      end
+
       ##################
       #   log_entries  #   
       ##################
@@ -795,6 +803,10 @@ module PL
         else
           return nil
         end
+      end
+
+      def destroy_all_log_entries
+        LogEntry.delete_all
       end
 
 
@@ -836,6 +848,10 @@ module PL
         else
           return nil
         end
+      end
+
+      def destroy_all_schedules
+        Schedule.delete_all
       end
 
 

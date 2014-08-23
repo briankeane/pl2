@@ -330,6 +330,10 @@ module PL
         @stations.values.find { |station| station.user_id == user_id }
       end
 
+      def destroy_all_stations
+        @stations = {}
+      end
+
       ##################################################################
       #     spin_frequency                                             #
       ##################################################################
@@ -352,8 +356,8 @@ module PL
         station
       end
 
-      def destroy_all_stations
-        @stations = {}
+      def destroy_all_spin_frequencies
+        @stations.values.each { |station| station.spins_per_week = {} }
       end
 
       ########################
@@ -553,6 +557,7 @@ module PL
         spin
       end
 
+
       ####################################
       # move_spin                        #
       # -------------------------------- #
@@ -584,6 +589,11 @@ module PL
 
         # return false if nothing was moved
         return false
+      end
+
+      def destroy_all_spins
+        @spin_counter = 700
+        @spins = {}
       end
 
       ########################
@@ -633,6 +643,11 @@ module PL
         entry
       end
 
+      def destroy_all_log_entries
+        @log_entry_counter = 800
+        @log_entries = {}
+      end
+
       ###############
       #  Schedules  #
       ###############
@@ -669,6 +684,10 @@ module PL
         deleted_schedule
       end
 
+      def destroy_all_schedules
+        @schedule_id_counter = 950
+        @schedules = {}
+      end
 
 
 

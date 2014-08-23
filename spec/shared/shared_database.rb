@@ -419,6 +419,12 @@ shared_examples 'a badass database' do
       updated_station = db.delete_spin_frequency({ song_id: 1, station_id: @station.id, spins_per_week: 0 })
       expect(db.get_station(@station.id).spins_per_week[1]).to eq(nil)
     end
+
+    it 'destroys all spin_frequencies' do
+      db.destroy_all_spin_frequencies
+      expect(db.get_station(@station.id).spins_per_week).to eq({})
+    end
+
   end
 
   ###############
@@ -579,6 +585,11 @@ shared_examples 'a badass database' do
     it 'returns the next scheduled spin for a station' do
       expect(db.get_next_spin(1).current_position).to eq(1)
     end
+
+    it 'destroys all spins' do
+      db.destroy_all_spins
+      expect(db.get_full_playlist(1).size).to eq(0)
+    end
   end
 
   describe 'insert_spin' do
@@ -681,7 +692,6 @@ shared_examples 'a badass database' do
     end
 
     it 'can get recent entries' do
-      
       gotten_entries = db.get_recent_log_entries({ station_id: 4, count: 15})
       expect(gotten_entries.size).to eq(15)
       expect(gotten_entries[0].current_position).to eq(105)
@@ -708,6 +718,11 @@ shared_examples 'a badass database' do
       expect(entry.id).to eq(updated_entry.id)
       expect(entry.listeners_at_finish).to eq(0)
       expect(entry.listeners_at_start).to eq(0)
+    end
+
+    it 'destroys all log_entries' do
+      db.destroy_all_log_entries
+      expect(PL.db.get_recent_log_entries({ station_id: 4, count:15}).size).to eq(0)
     end
   end
 
@@ -749,6 +764,11 @@ shared_examples 'a badass database' do
       deleted_schedule = db.delete_schedule(@schedule.id)
       expect(db.get_schedule(@schedule.id)).to be_nil
       expect(deleted_schedule.station_id).to eq(9)
+    end
+
+    it 'deletes all schedules' do
+      db.destroy_all_schedules
+      expect(db.get_schedule(@schedule.id)).to be_nil
     end
   end
 
