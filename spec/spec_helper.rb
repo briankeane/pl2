@@ -29,4 +29,8 @@ RSpec.configure do |config|
 
  # Use the specified formatter
    config.formatter = :documentation # :progress, :html, :textmate
+
+   config.filter_run focus: true
+   config.run_all_when_everything_filtered = true
+   config.filter_run_excluding :slow unless ENV['SLOW_SPECS']
 end

@@ -623,7 +623,7 @@ shared_examples 'a badass database' do
       @old_playlist_ab_ids = db.get_full_playlist(@schedule.id).map { |spin| spin.audio_block_id }
     end
     
-    it 'adds a spin' do
+    it 'adds a spin', :slow do
       added_audio_block = db.create_song({ duration: 50000 })
       added_spin = db.add_spin({ schedule_id: @schedule.id,
                                  audio_block_id: added_audio_block.id,

@@ -1,46 +1,41 @@
 <div class="wall-without-mic-image">
 
   <!-- Reveal Modals begin -->
-  <%= content_tag "div", id: "getUserInfoModal", class: "reveal-modal medium", data: { userInfoComplete: @user_info_complete, reveal: true } do %>
+  <%= content_tag "div", id: "getUserInfoModal", class: "reveal-modal medium", data: { options: 'close_on_background_click:false;',userInfoComplete: @user_info_complete, reveal: true } do %>
     
     <h1>Big Brother Playola</h1>
     <h3>Would Like to Know 3 Things About You.</h3>
-    
     <form data-abide id='userInfo'> 
-      <div class="small-3 columns">
-        <label for="birthYear" class="right">Your Birth Year</label>
-      </div>
-      <div class="small-9 columns">
-        <%= select_year Date.today, :start_year => 2009, :end_year => 1900, :class =>"small-9 columns"  %>
-        <small class="error">Please Tell Us Your Birth Year</small>
-      </div>
-
-      <div class="small-3 columns">
-        <label for="gender" class="right">Gender</label>
-      </div>
-      <div class="small-9 columns">
-        <select id="gender" placeholder="Gender" required>
-          <option value=''></option>
-          <option>Guy</option>
-          <option>Girl</option>
-        </select>
-        <small class="error">Please Tell Us Your Gender</small>
+    <fieldset>    
+      <div class="small-4 columns">
+        <label for="birthYear" class="right">Birth Year
+          <%= select_year Date.today, :start_year => 2009, :end_year => 1900, :class =>"small-9 columns", :prompt => 'Select Birth Year'  %>
+          <small class="error">Please Tell Us Your Birth Year</small>
+        </label>
       </div>
 
-      <div class="small-3 columns">
-        <label for="zipcode" class="right">Zipcode</label>
+      <div class="small-4 columns">
+        <label for="gender" class="right" placeholder="Gender">Gender
+          <select id="gender" placeholder="Gender" required>
+            <option value=''>Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+          <small class="error">Please Tell Us Your Gender</small>
+        </label>
       </div>
-      <div class="small-6 columns">
-        <input id="zipcode" required type="text" pattern="zipcode" placeholder="Zip Code">
-        <small class="error">Please Type a Valid Zipcode</small>
+      <div class="small-4 columns">
+        <label for="zipcode">Zipcode
+          <input id="zipcode" required type="text" pattern="zipcode" placeholder="Enter Zipcode">
+          <small class="error">Please Type a Valid Zipcode</small>
+        </label>
       </div>
-      
-      <div class="small-1 columns">
-        <a data-reveal-id="why" href="#">Why?</a>
-      </div>
-
+    </fieldset>
+    <div class="row">
+      <p><a data-reveal-id="why" id="why" href="#">Here's Why We Want this Info</a></p>
+    </div>
       <div class="row">
-        <p><button type="submit">Take My Info, Evil Corporation</button></p>
+        <button type="submit">Take My Info, Evil Corporation</button>
       </div>
     </form>
 
@@ -49,7 +44,7 @@
 
 
 
-  <div id="why" class="reveal-modal" data-reveal>
+  <div id="why" class="reveal-modal" data-options="close_on_background_click:false" data-reveal>
     <h2>Why Do We Need To Know This Stuff?</h2>
     <dl>
       <dt>Birth Year and Gender</dt>
@@ -108,18 +103,4 @@
 
   <!-- END MODALS  -->
   <!-- BEGIN PLAYLIST_PAGE -->
-  <div class="row">
-    <div class="rotation-bin heavy small-4 columns">
-      <ul class="heavy rotation">
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </div>
-
-    <div class="rotation-bin medium small-4 columns">
-    </div>
-    <div class="rotation-bin light small-4 columns">
-    </div>
-  </div>
 </div>

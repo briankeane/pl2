@@ -1,7 +1,7 @@
 class StationsController < ApplicationController
   
   def dj_booth
-    if !current_station || !current_station.schedule
+    if !current_station || !current_station.schedule  
       return redirect_to station_new_path
     end
 

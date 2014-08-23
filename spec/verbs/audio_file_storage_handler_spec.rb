@@ -67,7 +67,7 @@ describe 'audio_file_storage_handler' do
     end
   end
 
-  it 'gets metadata from a stored song' do
+  it 'gets metadata from a stored song', :slow do
     # *****  VCR does not work with metadata methods *****  #
     #VCR.use_cassette('audio_file_storage_handler/getmetadata', :preserve_exact_body_bytes => true) do
       
@@ -91,7 +91,7 @@ describe 'audio_file_storage_handler' do
     #end
   end
 
-  it 'stores a song' do
+  it 'stores a song', :slow do
     # *****  VCR does not work with metadata methods *****  #
     #VCR.use_cassette('audio_file_storage_handler/storesong', :preserve_exact_body_bytes => true) do
       File.open('spec/test_files/look.mp3') do |file|
@@ -114,7 +114,7 @@ describe 'audio_file_storage_handler' do
     #end
   end
 
-  it 'updates the metadata on a song' do
+  it 'updates the metadata on a song', :slow do
     File.open('spec/test_files/test_uploads.txt') do |file|
       new_key = @grabber.store_song({ title: 'Look At That Girl',
                                         artist: 'Rachel Loy',
@@ -153,7 +153,7 @@ describe 'audio_file_storage_handler' do
   end
 
   
-  it 'returns an array of all stored songs as objects' do
+  it 'returns an array of all stored songs as objects', :slow do
     # *****  VCR does not work with metadata methods *****  #
     #VCR.use_cassette('audio_file_storage_handler/returns_array_of_stored_objects') do
       File.open('spec/test_files/test_uploads.txt') do |file|
