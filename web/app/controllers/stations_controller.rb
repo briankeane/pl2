@@ -14,7 +14,17 @@ class StationsController < ApplicationController
     @current_spin = current_station.now_playing
   end
 
-  def playlist_editor
+  def song_manager
+    if !current_station || !current_station.schedule
+      return redirect_to station_new_path
+    end
+
+    @spins_per_week = {}
+    current_station.spins_per_week.each { |k,v| @spins_per_week[PL.db.get_song(k)] = v }
+
+    all_songs_result = PL::GetAllSongs.run()
+    @all_songs = all_songs_result.all_songs
+    binding.pry
   end
 
   def new
@@ -58,22 +68,23 @@ class StationsController < ApplicationController
       @spins_per_week = {}
 
       result.song_suggestions[0..12].each do |song|
-        @spins_per_week[song] = PL::HEAVY_ROTATION
+        @spins_per_week[song.id] = PL::HEAVY_ROTATION
       end
 
       result.song_suggestions[13..40].each do |song|
-        @spins_per_week[song] = PL::MEDIUM_ROTATION 
+        @spins_per_week[song.id] = PL::MEDIUM_ROTATION 
       end
 
       result.song_suggestions[41..53].each do |song|
-        @spins_per_week[song] = PL::MEDIUM_ROTATION
+        @spins_per_week[song.id] = PL::MEDIUM_ROTATION
       end
 
       result = PL::CreateStation.run({ user_id: current_user.id,
                                        spins_per_week: @spins_per_week })
 
-      all_songs_result = PL::GetAllSongs.run()
-      @all_songs = all_songs_result.all_songs
+      current_schedule.generate_playlist(Time.now + (24*60*60))
+
+      redirect_to station_song_manager_path
     end
   end
 

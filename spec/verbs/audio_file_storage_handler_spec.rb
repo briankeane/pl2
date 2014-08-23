@@ -175,7 +175,7 @@ describe 'audio_file_storage_handler' do
     #end
   end
 
-  it 'deletes a song' do
+  it 'deletes a song', :slow do
     File.open('spec/test_files/look.mp3') do |file|
       new_key = @grabber.store_song({ title: 'Look At That Girl',
                                       artist: 'Rachel Loy',

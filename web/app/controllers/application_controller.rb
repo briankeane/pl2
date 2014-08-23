@@ -13,5 +13,9 @@ class ApplicationController < ActionController::Base
     current_user != nil
   end
 
+  def current_schedule
+    @current_schedule ||= PL.db.get_schedule(current_station.schedule_id)
+  end
+
   protect_from_forgery with: :exception
 end

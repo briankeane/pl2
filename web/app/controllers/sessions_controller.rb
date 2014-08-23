@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
         redirect_to station_new_path
       else
         session[:pl_session_id] = result.session_id
-        return redirect_to dj_booth_path
+        return redirect_to find_station_path
       end
     else
       redirect_to sign_in_path

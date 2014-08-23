@@ -110,7 +110,7 @@ module PL
               (recently_played.size >= station.spins_per_week.size - 1))
           recently_played.shift
         end
-
+        
         spin =  Spin.new({ schedule_id: @id,
                             audio_block_id: song.id,
                             current_position: (max_position += 1),
