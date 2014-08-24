@@ -13,6 +13,9 @@ module PL
       if program.size == 0
         return failure(:no_playlist_for_requested_time)
       else
+        # 'touch' the audio-blocks so they are not passed to js as nil
+        program.each { |spin| spin.audio_block }
+
         return success :program => program
       end
     end

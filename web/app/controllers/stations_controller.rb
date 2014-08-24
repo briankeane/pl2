@@ -1,16 +1,13 @@
 class StationsController < ApplicationController
   
   def dj_booth
-    if !current_station || !current_station.schedule  
-      return redirect_to station_new_path
-    end
 
-    result = PL::GetProgram.run({ station_id: current_station.id })
+    return redirect_to station_new_path unless current_station
     
-    if result.success?
-      @program = result.program
-    end
+    result = PL::GetProgram.run({ schedule_id: current_schedule.id })
 
+    @program = result.program unless !result.success?
+    binding.pry
     @current_spin = current_station.now_playing
   end
 

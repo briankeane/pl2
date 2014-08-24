@@ -14,7 +14,17 @@ module PL
     def find_by_zip(zip)
       latitude = ''
       longitude = ''
-      CSV.foreach('lib/docs/cityzip.csv') do |line|
+      
+      # set path according to whether run from Rails or from Ruby
+      # HACKY change later
+      case ENV['RAILS_ENV']
+      when 'test'
+        path = 'lib/docs/cityzip.csv'
+      else
+        path = '../lib/docs/cityzip.csv'
+      end
+
+      CSV.foreach(path) do |line|
         if line[2] == zip
           latitude = line[3]
           longitude = line[4]

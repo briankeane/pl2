@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 23 Aug 2014 20:35:14 GMT
+      - Sun, 24 Aug 2014 14:09:11 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -27,9 +27,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - riadCrLMTmqwWKumdacPHg
+      - /pZqPV6+TOClIlktyTyNyg
       X-Worker-Node:
-      - 962d4:12199
+      - 62c18:16820
       X-Ratelimit-Remaining:
       - '105'
       Server:
@@ -56,7 +56,7 @@ http_interactions:
         "catalog": {"name": "Playola Test", "items": [], "start": 0, "total": 0, "type":
         "song", "id": "CAIQEUO1473A654C51"}}}'
     http_version: 
-  recorded_at: Sat, 23 Aug 2014 20:35:13 GMT
+  recorded_at: Sun, 24 Aug 2014 14:09:11 GMT
 - request:
     method: post
     uri: http://developer.echonest.com/api/v4/catalog/update
@@ -78,7 +78,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 23 Aug 2014 20:35:15 GMT
+      - Sun, 24 Aug 2014 14:09:11 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -86,9 +86,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - 4rKZSlnXSiG+8hHUJvteNw
+      - d5tO5dPuTsaW1C7dBOC4Aw
       X-Worker-Node:
-      - ef99f:21944
+      - ef99f:23035
       X-Ratelimit-Remaining:
       - '104'
       Server:
@@ -112,9 +112,9 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "ticket": "CAIQEUO1473A654C512F868039324D42"}}'
+        "ticket": "CAIQEUO1473A654C519FC0D1DE0B794C"}}'
     http_version: 
-  recorded_at: Sat, 23 Aug 2014 20:35:14 GMT
+  recorded_at: Sun, 24 Aug 2014 14:09:11 GMT
 - request:
     method: get
     uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CAIQEUO1473A654C51&results=1000&start=0
@@ -134,7 +134,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 23 Aug 2014 20:35:15 GMT
+      - Sun, 24 Aug 2014 14:09:11 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -142,9 +142,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - ZXGksc8cQlagOORiw4YtgQ
+      - KXstJev6TVWJgX3AlTYUzw
       X-Worker-Node:
-      - 9f840:26179
+      - a0306:27877
       X-Ratelimit-Remaining:
       - '103'
       Server:
@@ -172,18 +172,18 @@ http_interactions:
         "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album": "Broken
         Machine", "pl_duration": 999, "pl_title": "Stepladder", "pl_key": "test_key.mp3",
         "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified":
-        "2014-08-23T20:35:15", "date_added": "2014-08-23T20:35:15", "foreign_id":
+        "2014-08-24T14:09:11", "date_added": "2014-08-24T14:09:11", "foreign_id":
         "CAIQEUO1473A654C51:song:test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA", "request":
         {"item_id": "test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA"}}, {"song_name":
         "Cheater", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album":
         "Broken Machine", "pl_duration": 888, "pl_title": "Cheater", "pl_key": "test_key2.mp3",
         "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified":
-        "2014-08-23T20:35:15", "date_added": "2014-08-23T20:35:15", "foreign_id":
+        "2014-08-24T14:09:11", "date_added": "2014-08-24T14:09:11", "foreign_id":
         "CAIQEUO1473A654C51:song:test_key2.mp3", "song_id": "SOTWSLV13CF6D275AF",
         "request": {"item_id": "test_key2.mp3", "song_id": "SOTWSLV13CF6D275AF"}}],
         "start": 0, "total": 2, "type": "song", "id": "CAIQEUO1473A654C51"}}}'
     http_version: 
-  recorded_at: Sat, 23 Aug 2014 20:35:15 GMT
+  recorded_at: Sun, 24 Aug 2014 14:09:11 GMT
 - request:
     method: post
     uri: http://developer.echonest.com/api/v4/catalog/update
@@ -205,7 +205,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 23 Aug 2014 20:35:16 GMT
+      - Sun, 24 Aug 2014 14:09:12 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -213,9 +213,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - fXGYFJhsTzixjMsu1UcJdw
+      - 6RFbIm2TSCC28NakdSeLWA
       X-Worker-Node:
-      - 9a059:12123
+      - 0c0ba:17156
       X-Ratelimit-Remaining:
       - '102'
       Server:
@@ -239,9 +239,9 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "ticket": "CAIQEUO1473A654C512588FF80D69F4A"}}'
+        "ticket": "CAIQEUO1473A654C51EEF70E36F3FC4F"}}'
     http_version: 
-  recorded_at: Sat, 23 Aug 2014 20:35:16 GMT
+  recorded_at: Sun, 24 Aug 2014 14:09:12 GMT
 - request:
     method: get
     uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CAIQEUO1473A654C51&results=1000&start=0
@@ -261,7 +261,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sat, 23 Aug 2014 20:35:17 GMT
+      - Sun, 24 Aug 2014 14:09:12 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -269,9 +269,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - We9KhEfcTnqntDzvgV4ong
+      - ijuo8qgXToCiwvmo0RZSGQ
       X-Worker-Node:
-      - 89619:5489
+      - d1c7d:23013
       X-Ratelimit-Remaining:
       - '101'
       Server:
@@ -298,10 +298,10 @@ http_interactions:
         "catalog": {"name": "Playola Test", "items": [{"song_name": "Cheater", "artist_id":
         "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album": "Broken Machine", "pl_duration":
         888, "pl_title": "Cheater", "pl_key": "test_key2.mp3", "pl_artist": "Rachel
-        Loy"}, "artist_name": "Rachel Loy", "last_modified": "2014-08-23T20:35:15",
-        "date_added": "2014-08-23T20:35:15", "foreign_id": "CAIQEUO1473A654C51:song:test_key2.mp3",
+        Loy"}, "artist_name": "Rachel Loy", "last_modified": "2014-08-24T14:09:11",
+        "date_added": "2014-08-24T14:09:11", "foreign_id": "CAIQEUO1473A654C51:song:test_key2.mp3",
         "song_id": "SOTWSLV13CF6D275AF", "request": {"item_id": "test_key2.mp3", "song_id":
         "SOTWSLV13CF6D275AF"}}], "start": 0, "total": 1, "type": "song", "id": "CAIQEUO1473A654C51"}}}'
     http_version: 
-  recorded_at: Sat, 23 Aug 2014 20:35:17 GMT
+  recorded_at: Sun, 24 Aug 2014 14:09:12 GMT
 recorded_with: VCR 2.9.2

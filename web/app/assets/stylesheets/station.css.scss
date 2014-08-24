@@ -54,6 +54,7 @@ fieldset {
 }
 #spinsPerWeekList {
   li {
+    transition: all 0.2s ease-out;
     margin: 2px 0 2px 0;
     background-color: $darker-item;
     overflow-x: hidden;

@@ -2,7 +2,7 @@ module PL
   class CreateUser < UseCase
     def run(attrs)
       user = PL.db.get_user_by_twitter(attrs[:twitter])
-      
+
       case 
       when user != nil
         return failure(:user_already_exists)

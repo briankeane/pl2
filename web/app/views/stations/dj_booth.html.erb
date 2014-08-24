@@ -1,2 +1,46 @@
-<h1>Station#dj_booth</h1>
-<p>Find me in app/views/station/dj_booth.html.erb</p>
+<div class="mic-image-inverse">
+  <div class="row top-row">
+    <div class="small-8 small-offset-4 columns">
+      <div class="row">
+        <div class="small-8 columns">
+          <h1 class="title">DJ Booth</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-5 columns">
+      <fieldset id="catalog-fieldset">
+        <legend>Station Schedule</legend>
+        <label for="searchbox">Search Text:</label>
+        <input type="text" id="searchbox" />
+
+        <ul id="catalog-list">
+          <% @program.each do |spin| %>
+            <% if spin.is_a?(PL::CommercialBlock) %>
+              <li class='Commercial-Block'>Commercial Block</li>
+            <% else %>
+              <li class='song'>
+                <span class="songlist-title"><%= spin.audio_block.title %></span>
+                <span class="songlist-artist"><%= spin.audio_block.artist %></span>
+                <span class="estimated-airtime"><%= spin.estimated_airtime %></span>
+              </li>
+            <% end %>
+          <% end %> 
+        </ul>
+      </fieldset>
+    </div>
+    <div class="small-7 columns">
+      <fieldset>
+        <legend>Uploads</legend>
+        <div class="row">
+          <input id="filepicker" type="filepicker-dragdrop" data-fp-drag-class="small-9 columns drag-area" data-fp-button-class="small-2 column button filepicker-button" data-fp-multiple="true" data-fp-mimetype="audio/*" data-fp-button-text="Pick Mp3s" data-fp-drag-text="Or Drop Them Here" data-fp-services="COMPUTER, DROPBOX, GMAIL" data-fp-store-location="S3"/>
+        </div>
+        <div class="row">
+          <div id="uploaded-song-list">
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>

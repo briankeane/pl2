@@ -127,6 +127,7 @@ module PL
 
       @original_playlist_end_time = time_tracker
       @last_accurate_current_position = spins.last.current_position
+      PL.db.update_schedule({ id: @id, last_accurate_current_position: @last_accurate_current_position })
       @current_playlist_end_time = time_tracker
 
       #if it's the first playlist, start the station
@@ -214,6 +215,8 @@ module PL
                             commercial_leads_in: leading_commercial,
                             estimated_airtime: time_tracker })
         @last_accurate_current_position = spin.current_position
+        PL.db.update_schedule({ id: @id, last_accurate_current_position: @last_accurate_current_position })
+
         leading_commercial = false
         time_tracker += spin.duration/1000
 
@@ -279,7 +282,6 @@ module PL
 
       # if the end_time has not reached now (CommercialBlock should be playing)
       if log_entry.estimated_end_time < Time.now
-        binding.pry
         spin = PL.db.get_spin_by_current_position({ schedule_id: @id, current_position: (playlist.last.current_position + 1) })
         if spin.commercial_leads_in
           log_entry = PL.db.create_log_entry({ station_id: @station_id,

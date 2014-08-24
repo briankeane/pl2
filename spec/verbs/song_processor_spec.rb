@@ -16,8 +16,10 @@ describe 'SongProcessor' do
         song = @song_processor.add_song_to_system(mp3_file)
         expect(song.title).to eq('Even If It Breaks Your Heart')
         echonest_info = @song_processor.get_echonest_info(artist: 'Will Hoge', title: 'Even If It Breaks Your Heart')
-        expect(echonest_info[:echonest_id]).to eq('SOMVIWL131F77DFB4B')
-        expect(song.echonest_id).to eq('SOMVIWL131F77DFB4B')
+        
+        # sometimes echonest answers with duplicate record
+        expect((echonest_info[:echonest_id] == 'SOMVIWL131F77DFB4B') || (echonest_info[:echonest_id] == "SOZWILV12A58A7A00C")).to eq(true)
+        expect((song.echonest_id == 'SOMVIWL131F77DFB4B') || (song.echonest_id == "SOZWILV12A58A7A00C")).to eq(true)
 
         song = @song_pool.all_songs.select { |x| x.key == song.key }
 

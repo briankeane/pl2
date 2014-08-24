@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   match '/stations/playlist/update_spin_frequency', to: 'stations#update_spin_frequency',            via: 'post'
   match '/stations/playlist/delete_spin_frequency', to: 'stations#delete_spin_frequency',            via: 'delete'
 
+
   # sessions_controller paths
   get '/auth/twitter/callback', to: 'sessions#create_with_twitter'
 

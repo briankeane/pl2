@@ -80,6 +80,11 @@ describe 'schedule' do
       expect(generated_playlist.last.estimated_end_time.day).to eq(30)
     end
 
+    it 'generate_playlist updates the @last_accurate_current_position' do
+      expect(@schedule.last_accurate_current_position).to eq(5561)
+      expect(@schedule.last_accurate_airtime.to_s).to eq('2014-05-22 23:59:40 -0500')
+    end
+
     it "finds it's own end_time" do
       expect(@schedule.end_time.to_s).to eq(Time.local(2014,5,23, 0,2,50).to_s)
     end
