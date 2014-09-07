@@ -17,10 +17,10 @@
             <% if spin.is_a?(PL::CommercialBlock) %>
               <li class='commercialBlock'>Commercial Block</li>
             <% else %>
-              <li class='song' data-currentPosition="<%= spin.current_position %>">s
+              <li class='song' data-currentPosition="<%= spin.current_position %>">
                 <span class="songlist-title"><%= spin.audio_block.title %></span>
                 <span class="songlist-artist"><%= spin.audio_block.artist %></span>
-                <span class="estimated-airtime"><%= spin.estimated_airtime %></span>
+                <span class="estimated-airtime"><%= time_formatter(spin.estimated_airtime) %></span>
               </li>
             <% end %>
           <% end %> 

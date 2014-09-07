@@ -52,6 +52,7 @@ body .wall-without-mic-image {
 
 fieldset {
 }
+
 #spinsPerWeekList {
   li {
     transition: all 0.2s ease-out;
@@ -90,7 +91,7 @@ fieldset {
 
 #schedule-list {
   li {
-    transition: all 0.2s ease-out;
+    //transition: all 0.2s ease-out;
     margin: 2px 0 2px 0;
     background-color: $darker-item;
     overflow-x: hidden;
@@ -110,11 +111,18 @@ fieldset {
     .songlist-artist {
       float: left;
       overflow-x: hidden;
+      width: 35%;
     }
     .songlist-title {
       float: left;
-      width: 50%;
+      width: 40%;
       overflow-x: hidden;
+    }
+
+    .songlist-airtime {
+      float: left;
+      overflow-x: hidden;
+      width: 25%;
     }
   }
   font-size: 0.9rem;

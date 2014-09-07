@@ -83,7 +83,7 @@ module PL
 
       sample_array = station.create_sample_array
 
-      recently_played = []
+      recently_played_song_ids = []
       spins = []
 
 
@@ -99,16 +99,16 @@ module PL
         song = sample_array.sample
 
         # pick again until it hasn't been played recently
-        while recently_played.include?(song)
+        while recently_played_song_ids.include?(song.id)
           song = sample_array.sample
         end
 
-        recently_played << song
+        recently_played_song_ids << song.id
 
-        # if the recently_played is at max size, delete the first song
-        if ((recently_played.size >= SPINS_WITHOUT_REPEAT) ||
-              (recently_played.size >= station.spins_per_week.size - 1))
-          recently_played.shift
+        # if the recently_played_song_ids is at max size, delete the first song
+        if ((recently_played_song_ids.size >= SPINS_WITHOUT_REPEAT) ||
+              (recently_played_song_ids.size >= station.spins_per_week.size - 1))
+          recently_played_song_ids.shift
         end
         
         spin =  Spin.new({ schedule_id: @id,
