@@ -14,7 +14,7 @@ module PL
         return failure(:no_playlist_for_requested_time)
       else
         # 'touch' the audio-blocks so they are not passed to js as nil
-        program.each { |spin| spin.audio_block }
+        program.map { |spin| spin.audio_block unless spin.is_a?(CommercialBlock) }
 
         return success :program => program
       end

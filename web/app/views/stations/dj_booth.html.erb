@@ -9,18 +9,15 @@
     </div>
   </div>
   <div class="row">
-    <div class="small-5 columns">
-      <fieldset id="catalog-fieldset">
+    <div class="small-8 columns">
+      <fieldset id="schedule-fieldset">
         <legend>Station Schedule</legend>
-        <label for="searchbox">Search Text:</label>
-        <input type="text" id="searchbox" />
-
-        <ul id="catalog-list">
+        <ul id="schedule-list">
           <% @program.each do |spin| %>
             <% if spin.is_a?(PL::CommercialBlock) %>
-              <li class='Commercial-Block'>Commercial Block</li>
+              <li class='commercialBlock'>Commercial Block</li>
             <% else %>
-              <li class='song'>
+              <li class='song' data-currentPosition="<%= spin.current_position %>">s
                 <span class="songlist-title"><%= spin.audio_block.title %></span>
                 <span class="songlist-artist"><%= spin.audio_block.artist %></span>
                 <span class="estimated-airtime"><%= spin.estimated_airtime %></span>
@@ -30,14 +27,21 @@
         </ul>
       </fieldset>
     </div>
-    <div class="small-7 columns">
+    <div class="small-4 columns">
       <fieldset>
-        <legend>Uploads</legend>
         <div class="row">
-          <input id="filepicker" type="filepicker-dragdrop" data-fp-drag-class="small-9 columns drag-area" data-fp-button-class="small-2 column button filepicker-button" data-fp-multiple="true" data-fp-mimetype="audio/*" data-fp-button-text="Pick Mp3s" data-fp-drag-text="Or Drop Them Here" data-fp-services="COMPUTER, DROPBOX, GMAIL" data-fp-store-location="S3"/>
-        </div>
-        <div class="row">
-          <div id="uploaded-song-list">
+          <ul class="tabs" data-tab role="tablist">
+            <li class="small-6 columns tab-title active" role="songSearch"><a href="#songSearchPanel" role="tab" tabindex="0" aria-selected="true" controls="songSearchPanel">Song Search</a></li>
+            <li class="tab-title small-6 columns" role="voicetrack"><a href="#voicetrackPanel" role="tab" tabindex="0" aria-selected="false" controls="voicetrackPanel">Voicetrack</a></li>
+          </ul>
+
+          <div class="tabs-content">
+            <section role="tabpanel" aria-hidden="false" class="content active" id="songSearchPanel">
+              <h2>Here's where you search for songs</h2>
+            </section>
+            <section role="tabpanel" aria-hidden="true" class="content" id="voicetrackPanel">
+              <h2> Here's where you record yourself deejaying </h2>
+            </section>
           </div>
         </div>
       </fieldset>

@@ -130,7 +130,6 @@ module PL
         def to_pl
           # collect the attributes, converting keys from strings to symbols
           attrs = Hash[self.attributes.map{ |k, v| [k.to_sym, v] }]
-          
           spin = PL::Spin.new(attrs)
           spin
         end
@@ -677,9 +676,13 @@ module PL
       end
 
       def get_spin_by_current_position(attrs)
-        ar_spin = Spin.find_by(:schedule_id => attrs[:schedule_id], :current_position => attrs[:current_position])
-        spin = self.get_spin(ar_spin.id)
-        return spin
+        if Spin.exists?(:schedule_id => attrs[:schedule_id], :current_position => attrs[:current_position])
+          ar_spin = Spin.find_by(:schedule_id => attrs[:schedule_id], :current_position => attrs[:current_position])
+          spin = self.get_spin(ar_spin.id)
+          return spin
+        else
+          return nil
+        end
       end
 
       ################################################

@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
   
+  get 'schedules/add_spin'
+
+  get 'schedules/remove_spin'
+
+  get 'schedule/add_spin'
+
+  get 'schedule/remove_spin'
+
   get 'users/delete'
 
   get 'users/show'
@@ -29,7 +37,7 @@ Rails.application.routes.draw do
   match '/stations/playlist/create_spin_frequency', to: 'stations#create_spin_frequency',            via: 'post'
   match '/stations/playlist/update_spin_frequency', to: 'stations#update_spin_frequency',            via: 'post'
   match '/stations/playlist/delete_spin_frequency', to: 'stations#delete_spin_frequency',            via: 'delete'
-
+  match '/schedules/update_order',                  to: 'schedules#update_order',                    via: 'post'
 
   # sessions_controller paths
   get '/auth/twitter/callback', to: 'sessions#create_with_twitter'

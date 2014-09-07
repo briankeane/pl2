@@ -3,11 +3,15 @@ class StationsController < ApplicationController
   def dj_booth
 
     return redirect_to station_new_path unless current_station
-    
+
     result = PL::GetProgram.run({ schedule_id: current_schedule.id })
 
     @program = result.program unless !result.success?
-    binding.pry
+
+    @program.each do |spin|
+      spin.estimated_airtime = spin.estimated_airtime.in_time_zone(current_station.timezone)
+    end
+
     @current_spin = current_station.now_playing
   end
 

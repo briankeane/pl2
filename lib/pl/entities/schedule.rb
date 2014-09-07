@@ -424,5 +424,14 @@ module PL
 
       playlist 
     end
+
+    def insert_spin(attrs)
+      added_spin = PL.db.add_spin({ add_position: attrs[:add_position],
+                                    schedule_id: @id,
+                                    audio_block_id: attrs[:audio_block_id] })
+      @last_accurate_current_position = attrs[:add_position] - 1
+      PL.db.update_schedule({ id: @id, last_accurate_current_position: @last_accurate_current_position })
+      return added_spin
+    end
   end
 end

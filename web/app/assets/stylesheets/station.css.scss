@@ -88,3 +88,39 @@ fieldset {
   margin: 0;
 }
 
+#schedule-list {
+  li {
+    transition: all 0.2s ease-out;
+    margin: 2px 0 2px 0;
+    background-color: $darker-item;
+    overflow-x: hidden;
+    list-style-type: none;
+    border: 1px solid $darker-item-border;
+
+    select {
+      height: 100%;
+      width: 65px;
+      border: 0;
+      padding: 0;
+      margin: 0 3px 0 0;
+      float: right;
+      background-color: $lighter-item;
+      font-size: 0.7em;
+    }
+    .songlist-artist {
+      float: left;
+      overflow-x: hidden;
+    }
+    .songlist-title {
+      float: left;
+      width: 50%;
+      overflow-x: hidden;
+    }
+  }
+  font-size: 0.9rem;
+  background: $lighter-item;
+  height: 360px;
+  overflow-y: scroll;
+  margin: 0;
+}
+
