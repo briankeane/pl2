@@ -25,7 +25,7 @@
             $(this).remove();
           }
         });
-        
+
         var movePositionData = getMovePositions(currentPositions);
 
 
@@ -44,6 +44,46 @@
       }
 
     });
+
+
+
+
+    // ********************************************
+    // *           getMovePositions               *
+    // *                                          *
+    // *  -- takes an array of integers and       *
+    // *  determines which obj is out of sequence *
+    // * RETURNS: object { newPosition: INT,      *
+    // *                   oldPosition: INT }     *
+    // ********************************************
+    var getMovePositions = function(spinsArray) {
+      // iterate through the array to find the out of place number
+      var currentPositionCounter = spinsArray[0]-1;
+      var oldPositionCounter = null;
+      var newPositionCounter = null;
+      var movePositionData = {};
+
+      for (var i in spinsArray) {
+        currentPositionCounter++;
+        if (spinsArray[i] != currentPositionCounter) {
+          if (!(movePositionData.hasOwnProperty('oldPosition'))) {  // if we haven't come across anything yet
+            if (spinsArray[i] == currentPositionCounter + 1) { // if there's one missing
+              movePositionData.oldPosition = currentPositionCounter;
+              currentPositionCounter++;
+            } else {  // otherwise store both positions and break
+              movePositionData.newPosition = currentPositionCounter;
+              movePositionData.oldPosition = spinsArray[i];
+              break;
+            }
+          } else {  // (if we've already stored oldPosition and are just looking for newPosition)
+            movePositionData.newPosition = currentPositionCounter - 1;
+            break;
+          }
+        }
+      }
+      return movePositionData;
+    }
+
 
   }
 
