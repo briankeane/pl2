@@ -12,6 +12,13 @@ class StationsController < ApplicationController
       spin.estimated_airtime = spin.estimated_airtime.in_time_zone(current_station.timezone)
     end
 
+    # set first_current_position if commercial block is first
+    if @program.first.is_a?(PL::CommercialBlock)
+      @first_current_position = @program[1].current_position
+    else
+      @first_current_position = @program[0].current_position
+    end
+
     @current_spin = current_station.now_playing
   end
 

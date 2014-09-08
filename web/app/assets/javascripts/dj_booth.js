@@ -20,7 +20,14 @@
           }
         });
 
+        $('#schedule-list li').each(function(index, data) {
+          if ($(this).hasClass('commercialBlock')) {
+            $(this).remove();
+          }
+        });
+        
         var movePositionData = getMovePositions(currentPositions);
+
 
         // make ajax request to update database
         movePositionData._method = 'POST';
@@ -39,5 +46,5 @@
     });
 
   }
-  
+
 })();
