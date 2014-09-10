@@ -28,13 +28,16 @@
 
         var movePositionData = getMovePositions(currentPositions);
 
+        // get max and min current positions in order to request updated schedule
+        movePositionData.maxCurrentPosition = Math.max.apply(Math, currentPositions);
+        movePositionData.minCurrentPosition = Math.min.apply(Math, currentPositions);
 
         // make ajax request to update database
         movePositionData._method = 'POST';
         $.ajax({
           type: 'POST',
           dataType: 'json',
-          url: 'schedule/update_order',
+          url: 'schedules/move_spin',
           contentType: 'application/json',
           data: JSON.stringify(movePositionData),
           success: function(result) {

@@ -400,6 +400,10 @@ module PL
         attrs[:end_time] = attrs[:start_time] + (3*60*60)
       end
 
+      if last_accurate_airtime < attrs[:end_time]
+        self.update_estimated_airtimes(attrs[:end_time])
+      end
+
       playlist = PL.db.get_partial_playlist({ start_time: attrs[:start_time], end_time: attrs[:end_time], schedule_id: @id })
 
       # if it's out of range try extending the playlist
@@ -432,6 +436,20 @@ module PL
       @last_accurate_current_position = attrs[:add_position] - 1
       PL.db.update_schedule({ id: @id, last_accurate_current_position: @last_accurate_current_position })
       return added_spin
+    end
+
+    def move_spin(attrs)
+      moved_spin = PL.db.move_spin({ old_position: attrs[:old_position],
+                                     new_position: attrs[:new_position],
+                                     schedule_id: @id })
+
+      min_current_position = [attrs[:old_position], attrs[:new_position]].min - 1
+      if min_current_position < @last_accurate_current_position
+        @last_accurate_current_position = min_current_position
+        PL.db.update_schedule({ id: @id, last_accurate_current_position: min_current_position })
+      end
+
+      return moved_spin
     end
   end
 end

@@ -600,7 +600,7 @@ module PL
 
       def get_last_spin(schedule_id)
         if Spin.exists?(:schedule_id => schedule_id)
-          ar_spin = Spin.where(:schedule_id == schedule_id).order(:current_position).last
+          ar_spin = Spin.where('schedule_id = ?', schedule_id).order(:current_position).last
           return ar_spin.to_pl
         else
           return nil
@@ -609,7 +609,7 @@ module PL
 
       def get_next_spin(schedule_id)
         if Spin.exists?(:schedule_id => schedule_id)
-          ar_spin = Spin.where(:schedule_id == schedule_id).order(:current_position).first
+          ar_spin = Spin.where('schedule_id = ?', schedule_id).order(:current_position).first
           return ar_spin.to_pl
         else
           return nil

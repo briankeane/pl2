@@ -51,7 +51,7 @@
 
     $('#spinsPerWeekList').on('change', 'li .rotationSelect', function() {
       var data = { spinFrequency: $(this).val(),
-                    song_id: $(this).parent().data().id };
+                    id: $(this).parent().data().id };
       updateSpinPerWeekListItem(data);
     });
 
@@ -92,7 +92,7 @@
         url: '/stations/playlist/delete_spin_frequency',
         contentType: 'application/json',
         data: JSON.stringify({ song_id: data.id,
-                              spinFrequency: data.spinFrequency }),
+                              spins_per_week: data.spinFrequency }),
         success: function(result) {
           console.log('Sucess! Deleted!');
           console.log(result);
@@ -107,7 +107,7 @@
         url: '/stations/playlist/create_spin_frequency',
         contentType: 'application/json',
         data: JSON.stringify({ song_id: data.id,
-                              spinFrequency: data.spinFrequency }),
+                              spins_per_week: data.spinFrequency }),
         success: function(result) {
           console.log('Success! Created!');
           console.log(result);
@@ -122,7 +122,7 @@
         url: '/stations/playlist/update_spin_frequency',
         contentType: 'application/json',
         data: JSON.stringify({ song_id: data.id,
-                              spinFrequency: data.spinFrequency }),
+                              spins_per_week: data.spinFrequency }),
         success: function(result) {
           console.log('Success! Updated!');
           console.log(result);

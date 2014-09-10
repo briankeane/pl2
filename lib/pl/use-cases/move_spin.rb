@@ -1,5 +1,5 @@
 module PL
-  class MoveSpin < UseCase   # takes new_position, old_position, pl_session_id
+  class MoveSpin < UseCase   # takes new_position, old_position, schedule_id
     def run(attrs)
 
       schedule = PL.db.get_schedule(attrs[:schedule_id])
@@ -22,7 +22,7 @@ module PL
         return failure(:invalid_new_position)
       end
 
-      PL.db.move_spin({ schedule_id: schedule.id,
+      schedule.move_spin({ schedule_id: schedule.id,
                         old_position: attrs[:old_position],
                         new_position: attrs[:new_position] })
       return success

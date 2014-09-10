@@ -7,7 +7,6 @@ class StationsController < ApplicationController
     result = PL::GetProgram.run({ schedule_id: current_schedule.id })
 
     @program = result.program unless !result.success?
-
     @program.each do |spin|
       spin.estimated_airtime = spin.estimated_airtime.in_time_zone(current_station.timezone)
     end

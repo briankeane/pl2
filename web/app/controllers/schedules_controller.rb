@@ -1,5 +1,13 @@
 class SchedulesController < ApplicationController
-  def update_order
+  def move_spin
+    result = PL::MoveSpin.run({ new_position: params[:newPosition],
+                                old_position: params[:oldPosition],
+                                schedule_id: current_schedule.id })
+    if !result.success?
+      render :json => result
+    end
+
+
   end
 
   def add_spin
