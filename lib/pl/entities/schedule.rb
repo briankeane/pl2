@@ -174,7 +174,6 @@ module PL
         return false
       end
 
-      binding.pry
       # if the last_accurate_current_position is after the log, use it as the starting point
       if last_accurate_current_position > station.just_played.current_position
         playlist = PL.db.get_playlist_by_starting_current_position({ schedule_id: @id,
@@ -442,7 +441,7 @@ module PL
     def move_spin(attrs)
       moved_spin = PL.db.move_spin({ old_position: attrs[:old_position],
                                      new_position: attrs[:new_position],
-                                     schedule_id: @id })
+                                    schedule_id: @id })
 
       min_current_position = [attrs[:old_position], attrs[:new_position]].min - 1
       if min_current_position < @last_accurate_current_position

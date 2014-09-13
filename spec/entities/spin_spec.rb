@@ -62,4 +62,11 @@ describe 'a spin' do
   it 'calculates the proper estimated_end_time' do
     expect(@spin.estimated_end_time.to_s).to eq('2014-01-01 12:00:02 -0600')
   end
+
+  it 'can tell if a commercial follows' do
+    spin = PL::Spin.new({ estimated_airtime: Time.new(2014,1,1, 12,01), audio_block_id: @song.id })
+    expect(spin.commercial_follows?).to eq(false)
+    spin.estimated_airtime = Time.new(2014,1,1, 11,59,59)
+    expect(spin.commercial_follows?).to eq(true)
+  end
 end
