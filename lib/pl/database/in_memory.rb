@@ -533,9 +533,16 @@ module PL
         end
       end
 
-      def get_playlist_by_starting_current_position(attrs)
-        spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
-                                              (spin.current_position >= attrs[:starting_current_position]) }
+      def get_playlist_by_current_positions(attrs)
+        if !attrs[:ending_current_position]
+          spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
+                                                (spin.current_position >= attrs[:starting_current_position]) }
+        else
+          spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
+                                                (spin.current_position >= attrs[:starting_current_position]) &&
+                                                (spin.current_position <= attrs[:ending_current_position]) }
+        end
+        
         spins = spins.sort_by { |spin| spin.current_position }
         spins
       end

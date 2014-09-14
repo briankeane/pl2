@@ -655,8 +655,13 @@ module PL
         spins
       end
 
-      def get_playlist_by_starting_current_position(attrs)
-        ar_spins = Spin.where('schedule_id = ? and current_position >= ?', attrs[:schedule_id], attrs[:starting_current_position]).order(:current_position)
+      def get_playlist_by_current_positions(attrs)
+        if !attrs[:ending_current_position]
+          ar_spins = Spin.where('schedule_id = ? and current_position >= ?', attrs[:schedule_id], attrs[:starting_current_position]).order(:current_position)
+        else
+          ar_spins = Spin.where('schedule_id = ? and current_position >= ? and current_position <= ?', attrs[:schedule_id], attrs[:starting_current_position], attrs[:ending_current_position]).order(:current_position)
+        end
+
         spins = ar_spins.map { |ar_spin| ar_spin.to_pl }
         spins
       end
