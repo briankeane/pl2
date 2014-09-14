@@ -446,14 +446,13 @@ shared_examples 'a badass database' do
         spins << PL::Spin.new({ schedule_id: 1,
                                   current_position: (i+1),
                                   audio_block_id: (i+2),
-                                  commercial_leads_in: true,
                                   estimated_airtime: starting_airtime += 180 })
       end
-      spins[0].commercial_leads_in = false
+      
       db.mass_add_spins(spins)
       expect(db.get_spin_by_current_position({schedule_id: 1, current_position: 1 }).id).to_not be_nil
-      expect(db.get_full_playlist(1)[1].commercial_leads_in).to eq(true)
-      expect(db.get_full_playlist(1)[0].commercial_leads_in).to eq(false)
+      expect(db.get_full_playlist(1)[1].current_position).to eq(2)
+      expect(db.get_full_playlist(1)[0].current_position).to eq(1)
       expect(db.get_full_playlist(1).size).to eq(20)
     end
 

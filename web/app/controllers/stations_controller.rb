@@ -4,7 +4,6 @@ class StationsController < ApplicationController
 
     return redirect_to station_new_path unless current_station
 
-    binding.pry
     result = PL::GetProgram.run({ schedule_id: current_schedule.id })
 
     @program = result.program unless !result.success?

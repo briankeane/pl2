@@ -173,7 +173,7 @@ describe 'schedule' do
         expect(program[0].estimated_airtime.to_s).to eq(Time.local(2014,5,10, 16,58,10).to_s)
         expect(program[0].current_position).to eq(530)
         expect(program[1]).to be_a(PL::CommercialBlock)
-        expect(program.last.current_position).to eq(581)
+        expect(program[57].current_position).to eq(581)
       end
 
       it 'returns a blank array if time is beyond scope' do
@@ -184,7 +184,7 @@ describe 'schedule' do
       it 'extends the schedule if time should be created' do
         Timecop.travel(Time.local(2014,5,19))
         program = @schedule.get_program({ start_time: Time.local(2014,5,23) })
-        expect(program.size).to eq(58)
+        expect(program.size).to eq(59)
       end
     end
 

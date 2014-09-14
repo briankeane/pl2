@@ -416,7 +416,6 @@ module PL
                               audio_block_id: spin.audio_block_id,
                               current_position: spin.current_position,
                               estimated_airtime: spin.estimated_airtime,
-                              commercial_leads_in: spin.commercial_leads_in,
                               created_at: Time.now,
                               updated_at: Time.now })
         end 

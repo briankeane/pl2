@@ -65,8 +65,8 @@ describe 'a spin' do
 
   it 'can tell if a commercial follows' do
     spin = PL::Spin.new({ estimated_airtime: Time.new(2014,1,1, 12,01), audio_block_id: @song.id })
-    expect(spin.commercial_follows?).to eq(false)
+    expect(spin.commercials_follow?).to eq(false)
     spin.estimated_airtime = Time.new(2014,1,1, 11,59,59)
-    expect(spin.commercial_follows?).to eq(true)
+    expect(spin.commercials_follow?).to eq(true)
   end
 end

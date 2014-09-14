@@ -27,6 +27,7 @@ describe "MoveSpin" do
     @spin4 = PL.db.create_spin({ schedule_id: @schedule.id, audio_block_id: @song4.id, current_position: 8 })
     @spin5 = PL.db.create_spin({ schedule_id: @schedule.id, audio_block_id: @song5.id, current_position: 9 })
     @spin6 = PL.db.create_spin({ schedule_id: @schedule.id, audio_block_id: @song6.id, current_position: 10 })
+    @schedule.last_accurate_current_position = 10
   end
 
   it "calls bullshit if the schedule_id is invalid" do
@@ -63,4 +64,14 @@ describe "MoveSpin" do
     expect(result.success?).to eq(true)
     expect(PL.db.get_full_playlist(@schedule.id).map { |spin| spin.audio_block.id }).to eq([@song1.id, @song2.id, @song4.id,@song5.id,@song3.id,@song6.id])
   end
+
+  it 'rearranges the last_accurate_current_position after moving the spin' do
+    session_id = PL.db.create_session(@user.id)
+    result = PL::MoveSpin.run({ schedule_id: @schedule.id,
+                                  old_position: 7,
+                                  new_position: 9 })
+    expect(result.success?).to eq(true)
+    expect(@schedule.last_accurate_current_position).to eq(6)
+  end
+
 end

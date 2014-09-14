@@ -1,7 +1,7 @@
 module PL
   class Spin < Entity
     attr_accessor :id, :current_position, :created_at, :updated_at
-    attr_accessor :schedule_id, :estimated_airtime, :commercial_leads_in
+    attr_accessor :schedule_id, :estimated_airtime
     attr_reader :audio_block_id
 
     def initialize(attrs)

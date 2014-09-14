@@ -9,5 +9,13 @@ module PL
       attrs[:commercials] ||= []
       super(attrs)
     end
+
+    def commercials_follow?
+      false
+    end
+
+    def estimated_end_time
+      estimated_airtime + @duration/1000
+    end
   end
 end

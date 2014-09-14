@@ -52,7 +52,7 @@ describe 'GetProgram' do
       result = PL::GetProgram.run({ schedule_id: @schedule.id,
                                     start_time: Time.local(2014,5,12) })
       expect(result.success?).to eq(true)
-      expect(result.program.size).to eq(58)
+      expect(result.program.size).to eq(59)
     end
 
     after(:all) do

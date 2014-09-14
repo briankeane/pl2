@@ -697,7 +697,6 @@ module PL
                                                 spin.audio_block_id.to_s + ', ' + 
                                                 spin.current_position.to_s + ', ' + 
                                                 spin.estimated_airtime.utc.to_s + ', ' + 
-                                                spin.commercial_leads_in.to_s + ', ' +
                                                 Time.now.utc.to_s + ', ' + 
                                                 Time.now.utc.to_s) }
 
@@ -709,7 +708,7 @@ module PL
 
           conn = ActiveRecord::Base.connection
           rc = conn.raw_connection
-          rc.exec("COPY spins (schedule_id, audio_block_id, current_position, estimated_airtime, commercial_leads_in, created_at, updated_at) FROM STDIN WITH CSV")
+          rc.exec("COPY spins (schedule_id, audio_block_id, current_position, estimated_airtime, created_at, updated_at) FROM STDIN WITH CSV")
 
           while !temp_csv_file.eof?
             rc.put_copy_data(temp_csv_file.readline)
