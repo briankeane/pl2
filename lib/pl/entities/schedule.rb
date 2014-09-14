@@ -180,45 +180,30 @@ module PL
                                                                      starting_current_position: @last_accurate_current_position })
         
         time_tracker = playlist[0].estimated_airtime
-        if playlist[0].commercial_leads_in
-          leading_commercial = true
-
-          # counteract the commercial-padding for the 1st iteration
-          time_tracker -= station.secs_of_commercial_per_hour/2
-        end
 
       else  # otherwise use the log as the starting point
         playlist = PL.db.get_full_playlist(@id)
         time_tracker = station.just_played.estimated_end_time
-        if find_commercial_count(station.just_played.airtime) != find_commercial_count(station.just_played.estimated_end_time)
-          leading_commercial = true
-        else
-          leading_commercial = false
-        end
-      end
 
-      # calibrate commercial counter
-      commercial_counter = find_commercial_count(time_tracker)
-      if leading_commercial
-        commercial_counter -= 1
+        # account for a lead-in spin if necessary
+        if just_played.commercials_follow?
+          time_tracker += station.secs_of_commercial_per_hour/2
+        end
       end
 
       # update the database
       playlist.each do |spin|
-        if find_commercial_count(time_tracker) != commercial_counter
-          leading_commercial = true
-          time_tracker += station.secs_of_commercial_per_hour/2
-          commercial_counter += 1
-        end
 
         PL.db.update_spin({ id: spin.id,
-                            commercial_leads_in: leading_commercial,
                             estimated_airtime: time_tracker })
         @last_accurate_current_position = spin.current_position
-        PL.db.update_schedule({ id: @id, last_accurate_current_position: @last_accurate_current_position })
 
-        leading_commercial = false
         time_tracker += spin.duration/1000
+
+        # account for a commercial if necessary
+        if spin.commercials_follow?
+          time_tracker += station.secs_of_commercial_per_hour/2
+        end
 
         # break out if job finishes early
         if endtime
@@ -247,17 +232,40 @@ module PL
 
       playlist = PL.db.get_partial_playlist({ schedule_id: @id, end_time: Time.now })
 
-      # mark the last-started song as finished
+      # mark the last-started song as finished, add a commercial block if necessary
       unfinished_log = PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 })[0]
       PL.db.update_log_entry({ id: unfinished_log.id,
                               listeners_at_finish: 0 })
 
-      log_entry = nil
-      playlist.each do |spin|
-        if spin.commercial_leads_in
+      if unfinished_log.commercials_follow?
           log_entry = PL.db.create_log_entry({ station_id: @station_id,
                                               audio_block_id: station.next_commercial_block.id,
-                                              airtime: (spin.estimated_airtime - station.secs_of_commercial_per_hour/2),
+                                              airtime: unfinished_log.estimated_end_time,
+                                              listeners_at_start: 0,
+                                              listeners_at_finish: 0,
+                                              duration: (station.secs_of_commercial_per_hour/2 * 1000)
+                                            })
+      end
+
+      log_entry = nil
+      playlist.each do |spin|
+        log_entry = PL.db.create_log_entry({ station_id: @station_id,
+                                    listeners_at_start: 0,
+                                    listeners_at_finish: 0,
+                                    audio_block_id: spin.audio_block_id,
+                                    duration: spin.duration,
+                                    airtime: spin.estimated_airtime,
+                                    current_position: spin.current_position })
+
+        # break out if the spin is the current spin
+        if spin.estimated_end_time > Time.now
+          break
+        end
+
+        if spin.commercials_follow?
+          log_entry = PL.db.create_log_entry({ station_id: @station_id,
+                                              audio_block_id: station.next_commercial_block.id,
+                                              airtime: spin.estimated_end_time,
                                               listeners_at_start: 0,
                                               listeners_at_finish: 0,
                                               duration: (station.secs_of_commercial_per_hour/2 * 1000)
@@ -266,40 +274,17 @@ module PL
         end
 
         # break out if the commercial is the current spin
-        if spin.estimated_airtime > Time.now
+        if log_entry.estimated_end_time > Time.now
           break
         end
 
-
-        log_entry = PL.db.create_log_entry({ station_id: @station_id,
-                                    listeners_at_start: 0,
-                                    listeners_at_finish: 0,
-                                    audio_block_id: spin.audio_block_id,
-                                    duration: spin.duration,
-                                    airtime: spin.estimated_airtime,
-                                    current_position: spin.current_position })
-      end
-
-      # if the end_time has not reached now (CommercialBlock should be playing)
-      if log_entry.estimated_end_time < Time.now
-        spin = PL.db.get_spin_by_current_position({ schedule_id: @id, current_position: (playlist.last.current_position + 1) })
-        if spin.commercial_leads_in
-          log_entry = PL.db.create_log_entry({ station_id: @station_id,
-                                                audio_block_id: station.next_commercial_block.id,
-                                                airtime: (spin.estimated_airtime - station.secs_of_commercial_per_hour/2),
-                                                listeners_at_start: 0,
-                                                listeners_at_finish: 0,
-                                                duration: (station.secs_of_commercial_per_hour/2 * 1000)
-                                              })
-          station.advance_commercial_block
-        end
       end
 
       PL.db.update_log_entry({ id: log_entry.id, listeners_at_finish: nil })
     end
 
     #######################################################
-    #  adjust_playlist                                    #
+    #  format_playlist                                    #
     #######################################################
     # takes an array of spins and a start time, returns   #
     # correct time with commercials                       #

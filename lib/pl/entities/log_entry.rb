@@ -14,6 +14,14 @@ module PL
     def audio_block
       @audio_block ||= PL.db.get_audio_block(@audio_block_id)
     end
+
+    def commercials_follow?
+      if (@airtime.to_f/1800.0).floor != (self.estimated_end_time.to_f/1800.0).floor
+        return true
+      else
+        return false
+      end
+    end
     
   end
 end

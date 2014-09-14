@@ -26,4 +26,11 @@ describe 'a log entry' do
     expect(@log.estimated_end_time.to_s).to eq(Time.new(1983,4,15, 18,00,01).to_s)
   end
 
+  it 'tells if commercials follow' do
+    song = PL.db.create_song({ duration: 20000 })
+    log_entry = PL::LogEntry.new({ audio_block_id: song.id, airtime: Time.new(1983,4,15, 12,05), duration: 20000 })
+    expect(log_entry.commercials_follow?).to eq(false)
+    log_entry.airtime = Time.new(1983,4,15, 12,59,59)
+    expect(log_entry.commercials_follow?).to eq(true)
+  end
 end

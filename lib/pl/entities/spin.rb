@@ -32,13 +32,12 @@ module PL
       self.estimated_airtime + self.duration/1000
     end
 
-    def commercial_follows?
+    def commercials_follow?
       if (self.estimated_airtime.to_f/1800.0).floor != (self.estimated_end_time.to_f/1800.0).floor
         return true
       else
         return false
       end
     end
-
   end
 end
