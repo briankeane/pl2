@@ -530,12 +530,21 @@ shared_examples 'a badass database' do
       expect(playlist.last.current_position).to eq(20)
     end
 
-    it 'gets a partial playlist by current_position' do
-      playlist = db.get_playlist_by_starting_current_position({ schedule_id: 1,
+    it 'gets a partial playlist by starting current_position' do
+      playlist = db.get_playlist_by_current_positions({ schedule_id: 1,
                                                         starting_current_position: 10 })
       expect(playlist.size).to eq(11)
       expect(playlist[0].current_position).to eq(10)
       expect(playlist[10].current_position).to eq(20)
+    end
+
+    it 'gets a partial playlist by starting and ending positions' do
+      playlist = db.get_playlist_by_current_positions({ schedule_id: 1,
+                                                        starting_current_position: 10,
+                                                        ending_current_position: 15 })
+      expect(playlist.size).to eq(6)
+      expect(playlist[0].current_position).to eq(10)
+      expect(playlist[5].current_position).to eq(15)
     end
 
     it 'gets the final_spin' do

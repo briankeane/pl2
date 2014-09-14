@@ -3,9 +3,9 @@ class SchedulesController < ApplicationController
     result = PL::MoveSpin.run({ new_position: params[:newPosition],
                                 old_position: params[:oldPosition],
                                 schedule_id: current_schedule.id })
-    if !result.success?
-      render :json => result
-    end
+
+    render :json => result
+    
 
 
   end

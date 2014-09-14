@@ -1,7 +1,7 @@
 module PL
   class CommercialBlock < Entity
 
-    attr_accessor :id, :duration, :estimated_airtime, :commercials, :station_id, :cb_position, :audio_file
+    attr_accessor :id, :duration, :estimated_airtime, :commercials, :station_id, :cb_position, :audio_file, :current_position
 
     def initialize(attrs)
       # store default values if necessary

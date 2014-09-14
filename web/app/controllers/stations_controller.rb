@@ -5,19 +5,18 @@ class StationsController < ApplicationController
     return redirect_to station_new_path unless current_station
 
     result = PL::GetProgram.run({ schedule_id: current_schedule.id })
-
     @program = result.program unless !result.success?
     @program.each do |spin|
       spin.estimated_airtime = spin.estimated_airtime.in_time_zone(current_station.timezone)
     end
 
     # set first_current_position if commercial block is first
-    if @program.first.is_a?(PL::CommercialBlock)
+    if @program.last.is_a?(PL::CommercialBlock)
       @first_current_position = @program[1].current_position
     else
       @first_current_position = @program[0].current_position
     end
-
+    binding.pry
     @current_spin = current_station.now_playing
   end
 

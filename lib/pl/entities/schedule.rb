@@ -161,7 +161,7 @@ module PL
 
       # if the last_accurate_current_position is after the log, use it as the starting point
       if last_accurate_current_position > station.just_played.current_position
-        playlist = PL.db.get_playlist_by_starting_current_position({ schedule_id: @id,
+        playlist = PL.db.get_playlist_by_current_positions({ schedule_id: @id,
                                                                      starting_current_position: @last_accurate_current_position })
         
         time_tracker = playlist[0].estimated_airtime
@@ -171,7 +171,7 @@ module PL
         time_tracker = station.just_played.estimated_end_time
 
         # account for a lead-in spin if necessary
-        if just_played.commercials_follow?
+        if station.just_played.commercials_follow?
           time_tracker += station.secs_of_commercial_per_hour/2
         end
       end
@@ -241,6 +241,8 @@ module PL
                                     duration: spin.duration,
                                     airtime: spin.estimated_airtime,
                                     current_position: spin.current_position })
+        PL.db.delete_spin(spin.id)
+        binding.pry
 
         # break out if the spin is the current spin
         if spin.estimated_end_time > Time.now
@@ -250,6 +252,7 @@ module PL
         if spin.commercials_follow?
           log_entry = PL.db.create_log_entry({ station_id: @station_id,
                                               audio_block_id: station.next_commercial_block.id,
+                                              current_position: spin.current_position,
                                               airtime: spin.estimated_end_time,
                                               listeners_at_start: 0,
                                               listeners_at_finish: 0,
@@ -349,6 +352,10 @@ module PL
       end
 
       playlist_with_commercial_blocks 
+    end
+
+    def get_program_by_current_positions(attrs)
+      playlist = PL.db.get_playlist
     end
 
     def insert_spin(attrs)

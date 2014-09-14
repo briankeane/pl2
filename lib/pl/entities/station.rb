@@ -162,7 +162,7 @@ module PL
     end
 
     def just_played
-      PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
+      PL.db.get_recent_log_entries({ station_id: @id, count: 2 })[1]
     end
 
     def end_time
