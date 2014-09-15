@@ -20,17 +20,7 @@
           }
         });
 
-        $('#schedule-list li').each(function(index, data) {
-          if ($(this).hasClass('commercialBlock')) {
-            $(this).remove();
-          }
-        });
-
         var movePositionData = getMovePositions(currentPositions);
-
-        // get max and min current positions in order to request updated schedule
-        movePositionData.maxCurrentPosition = Math.max.apply(Math, currentPositions);
-        movePositionData.minCurrentPosition = Math.min.apply(Math, currentPositions);
 
         // make ajax request to update database
         movePositionData._method = 'POST';
@@ -42,13 +32,55 @@
           data: JSON.stringify(movePositionData),
           success: function(result) {
             console.log(result);
+
+
+            // change currentPositions data attr to reflect new positions
+            var cpCounter = parseInt($('#schedule-list').attr('data-firstCurrentPosition'));
+            $('#schedule-list li').each(function(index, data) {
+              if (!$(this).hasClass('commercialBlock')) {
+                $(this).attr('data-currentPosition', cpCounter);
+                cpCounter ++;
+              }
+            });
+            
+            // delete all commercial Blocks between the max and min currentPositions
+            var index = $('*[data-currentPosition="' + result.table.min_position +'"').index();
+            var maxIndex = $('*[data-currentPosition="' + result.table.max_position +'"').index();
+
+            while (index <= maxIndex) {
+              if ($('#schedule-list li').eq(index).hasClass('commercialBlock')) {
+                $('#schedule-list li').eq(index).remove();
+              }
+              index++;
+            };
+
+            // for every result
+            var newProgram = result.table.new_program;
+            for(var i=0; i<newProgram.length; i++) {
+              if (!newProgram[i].hasOwnProperty('commercials')) {
+                var currentSpinLi = ('*[data-currentPosition="' + newProgram[i].current_position +'"]');
+                $(currentSpinLi + ' .songlist-airtime').text(newProgram[i].estimated_airtime);
+              } else {
+                $(currentSpinLi).append("<li class='commercialBlock'>" + 
+                                        "<span class-'songlist-title'>Commercial Block</span>" + 
+                                        "<span class='songlist-airtime'>" +   newProgram[i].estimated_airtime + "</span></li>");
+              }
+            }
           }
+            
         });
       }
 
     });
-
-
+    
+    // ********************************************
+    // *       deleteCommercialBlocks             *
+    // *                                          *
+    // *  -- takes two currentPositions and       *
+    // *     deletes all commercialBlock li       *
+    // *     between them in the schedule list    *
+    // ********************************************
+    
 
 
     // ********************************************
@@ -86,8 +118,6 @@
       }
       return movePositionData;
     }
-
-
   }
 
 })();

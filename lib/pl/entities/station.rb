@@ -37,49 +37,6 @@ module PL
       @schedule ||= PL.db.get_schedule(@schedule_id)
     end
 
-    #####################################################################
-    #     updated_estimated_airtimes                                    #
-    #####################################################################
-    #  updates the estimated airtimes, accounting for commercial blocks #
-    #####################################################################
-
-    def update_estimated_airtimes
-      if !self.active?
-        self.make_log_current
-      end
-
-      last_spin_played = PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
-      last_spin_ended = last_spin_played.airtime + last_spin_played.duration/1000
-
-      max_position = last_spin_played.current_position
-      playlist = PL.db.get_full_playlist(@id)
-      time_tracker = last_spin_ended
-
-      # calibrate commercial_block_counter for start-time
-      commercial_block_counter = (time_tracker.to_f/1800.0).floor
-
-      #adjust commercial_block_counter for cases where 1st spin should be a commercial_block
-        if (self.just_played.airtime.to_f/1800.0).floor != commercial_block_counter
-          commercial_block_counter -= 1
-        end
-
-      # iterate through the playlist and fix times
-      playlist.each do |spin|
-
-        # add a space for a commercial block if it's time
-        if (time_tracker.to_f/1800.0).floor > commercial_block_counter
-          commercial_block_counter += 1
-          time_tracker += (@secs_of_commercial_per_hour/2)
-        end
-
-        if spin.estimated_airtime != time_tracker
-          updated_spin = PL.db.update_spin({ id: spin.id,
-                                    estimated_airtime: time_tracker })
-        end
-          time_tracker += spin.duration/1000
-      end
-    end
-
     ##################################################################
     #     create_sample_array                                        #
     ##################################################################
@@ -166,13 +123,17 @@ module PL
     end
 
     def end_time
-      self.update_estimated_airtimes
+      schedule.update_estimated_airtimes
       last_scheduled_spin = PL.db.get_last_spin(@id)
       last_scheduled_spin.estimated_airtime + last_scheduled_spin.duration/1000
     end
 
     def offset   # measurement of shift in end_time
       @original_playlist_end_time - self.end_time
+    end
+
+    def final_log_entry
+      PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
     end
 
     def adjust_offset(adjustment_date)  

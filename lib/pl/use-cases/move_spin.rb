@@ -25,6 +25,7 @@ module PL
       schedule.move_spin({ schedule_id: schedule.id,
                         old_position: attrs[:old_position],
                         new_position: attrs[:new_position] })
+
       return success
     end
   end

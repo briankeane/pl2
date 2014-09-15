@@ -148,19 +148,24 @@ module PL
     end
 
                  
-    def update_estimated_airtimes(endtime = nil)
+    def update_estimated_airtimes(attrs = {})
       # if there's no playlist yet, just exit
       if !playlist_exists?
         return false
       end
 
       # exit if an endtime is provided and it's already accurate
-      if endtime && (endtime < last_accurate_airtime)
+      if attrs[:endtime] && (attrs[:endtime] < last_accurate_airtime)
+        return false
+      end
+
+      # exit if a current_position is provided and it's already accurate
+      if attrs[:current_position] && (attrs[:current_position] < @last_accurate_current_position)
         return false
       end
 
       # if the last_accurate_current_position is after the log, use it as the starting point
-      if last_accurate_current_position > station.just_played.current_position
+      if @last_accurate_current_position > final_log_entry.current_position
         playlist = PL.db.get_playlist_by_current_positions({ schedule_id: @id,
                                                                      starting_current_position: @last_accurate_current_position })
         
@@ -168,10 +173,10 @@ module PL
 
       else  # otherwise use the log as the starting point
         playlist = PL.db.get_full_playlist(@id)
-        time_tracker = station.just_played.estimated_end_time
+        time_tracker = final_log_entry.estimated_end_time
 
-        # account for a lead-in spin if necessary
-        if station.just_played.commercials_follow?
+        # account for a lead-in commercial if necessary
+        if station.final_log_entry.commercials_follow?
           time_tracker += station.secs_of_commercial_per_hour/2
         end
       end
@@ -179,8 +184,9 @@ module PL
       # update the database
       playlist.each do |spin|
 
-        PL.db.update_spin({ id: spin.id,
+        spin = PL.db.update_spin({ id: spin.id,
                             estimated_airtime: time_tracker })
+        
         @last_accurate_current_position = spin.current_position
 
         time_tracker += spin.duration/1000
@@ -191,8 +197,15 @@ module PL
         end
 
         # break out if job finishes early
-        if endtime
-          if spin.estimated_airtime > endtime
+        if attrs[:endtime]
+          if spin.estimated_airtime > attrs[:endtime]
+            break
+          end
+        end
+
+        # break out if final last_accurate_current_position is passed
+        if attrs[:current_position]
+          if spin.current_position > attrs[:current_position]
             break
           end
         end
@@ -213,12 +226,12 @@ module PL
         return
       end
       
-      self.update_estimated_airtimes(Time.now)
+      self.update_estimated_airtimes({ endtime: Time.now })
 
       playlist = PL.db.get_partial_playlist({ schedule_id: @id, end_time: Time.now })
 
       # mark the last-started song as finished, add a commercial block if necessary
-      unfinished_log = PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 })[0]
+      unfinished_log = final_log_entry
       PL.db.update_log_entry({ id: unfinished_log.id,
                               listeners_at_finish: 0 })
 
@@ -228,11 +241,11 @@ module PL
                                               airtime: unfinished_log.estimated_end_time,
                                               listeners_at_start: 0,
                                               listeners_at_finish: 0,
+                                              current_position: unfinished_log.current_position,
                                               duration: (station.secs_of_commercial_per_hour/2 * 1000)
                                             })
       end
 
-      log_entry = nil
       playlist.each do |spin|
         log_entry = PL.db.create_log_entry({ station_id: @station_id,
                                     listeners_at_start: 0,
@@ -242,7 +255,6 @@ module PL
                                     airtime: spin.estimated_airtime,
                                     current_position: spin.current_position })
         PL.db.delete_spin(spin.id)
-        binding.pry
 
         # break out if the spin is the current spin
         if spin.estimated_end_time > Time.now
@@ -319,7 +331,7 @@ module PL
       end
 
       if last_accurate_airtime < attrs[:end_time]
-        self.update_estimated_airtimes(attrs[:end_time])
+        self.update_estimated_airtimes({ endtime: attrs[:end_time] })
       end
 
       playlist = PL.db.get_partial_playlist({ start_time: attrs[:start_time], end_time: attrs[:end_time], schedule_id: @id })
@@ -342,6 +354,7 @@ module PL
       playlist.unshift(leading_spin) unless !leading_spin
 
       playlist_with_commercial_blocks = []
+      
       playlist.each do |spin|
         playlist_with_commercial_blocks << spin
         if spin.commercials_follow?
@@ -354,8 +367,29 @@ module PL
       playlist_with_commercial_blocks 
     end
 
-    def get_program_by_current_positions(attrs)
-      playlist = PL.db.get_playlist
+    def get_program_by_current_positions(attrs)     
+      self.update_estimated_airtimes({ current_position: attrs[:ending_current_position] })
+
+      playlist = PL.db.get_playlist_by_current_positions({ schedule_id: @id,
+                                                          starting_current_position: attrs[:starting_current_position],
+                                                          ending_current_position: attrs[:ending_current_position] })
+      
+      # return an empty array if no spins are found
+      if playlist.size == 0
+        return []
+      end
+
+      playlist_with_commercial_blocks = []
+      playlist.each do |spin|
+        playlist_with_commercial_blocks << spin
+        if spin.commercials_follow?
+          playlist_with_commercial_blocks << PL::CommercialBlock.new({ schedule_id: spin.schedule_id,
+                                                                        estimated_airtime: spin.estimated_end_time,
+                                                                        duration: station.secs_of_commercial_per_hour/2 })
+        end
+      end
+
+      playlist_with_commercial_blocks
     end
 
     def insert_spin(attrs)
@@ -380,6 +414,11 @@ module PL
       end
 
       return moved_spin
+    end
+
+    # unlike now_playing, final_log_entry does not bring the station current
+    def final_log_entry
+      PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 })[0]
     end
   end
 end

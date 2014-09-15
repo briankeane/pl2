@@ -131,7 +131,7 @@ describe 'schedule' do
       
       @schedule = PL.db.update_schedule({ id: @schedule.id,
                                             last_accurate_current_position: 34 })
-      @schedule.update_estimated_airtimes(Time.local(2014,5,9, 12))
+      @schedule.update_estimated_airtimes({ endtime: Time.local(2014,5,9, 12) })
       expect(@schedule.last_accurate_current_position).to eq(37)
       expect(@schedule.last_accurate_airtime.to_s).to eq(Time.local(2014,5,9, 12,6).to_s)
       expect(PL.db.get_full_playlist(@schedule.id)[34].estimated_airtime.to_s).to eq(Time.local(2014,5,9, 11,59,50).to_s)
@@ -144,7 +144,7 @@ describe 'schedule' do
                         })
       @schedule = PL.db.update_schedule({ id: @schedule.id,
                                             last_accurate_current_position: 37 })
-      @schedule.update_estimated_airtimes(Time.local(2014,5,9, 12,10))
+      @schedule.update_estimated_airtimes({ endtime: Time.local(2014,5,9, 12,10) })
       playlist = PL.db.get_full_playlist(@schedule.id)
       expect(playlist[36].current_position).to eq(38)
       expect(playlist[36].estimated_airtime.to_s).to eq(Time.local(2014,5,9,12,9,10).to_s)
@@ -164,7 +164,8 @@ describe 'schedule' do
 
     it 'brings the station current if commercial is scheduled' do
       Timecop.travel(Time.local(2014,5,10, 0,3))
-      expect(@schedule.now_playing.current_position).to be_nil
+      expect(@schedule.now_playing.current_position).to eq(240)
+      expect(@schedule.now_playing.audio_block).to be_a(PL::CommercialBlock)
     end
 
     describe 'GetProgram' do
@@ -176,6 +177,14 @@ describe 'schedule' do
         expect(program[57].current_position).to eq(581)
       end
 
+      it 'returns a program given current_positions' do
+        program = @schedule.get_program_by_current_positions({ starting_current_position: 530,
+                                                                ending_current_position: 581 })
+        expect(program[0].estimated_airtime.to_s).to eq(Time.local(2014,5,10, 16,58,10).to_s)
+        expect(program[0].current_position).to eq(530)
+        expect(program[1]).to be_a(PL::CommercialBlock)
+        expect(program[57].current_position).to eq(581)
+      end
       it 'returns a blank array if time is beyond scope' do
         program = @schedule.get_program({ start_time: Time.local(2014,5,23) })
         expect(program).to eq([])

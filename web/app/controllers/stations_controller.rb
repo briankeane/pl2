@@ -16,7 +16,7 @@ class StationsController < ApplicationController
     else
       @first_current_position = @program[0].current_position
     end
-    binding.pry
+
     @current_spin = current_station.now_playing
   end
 
