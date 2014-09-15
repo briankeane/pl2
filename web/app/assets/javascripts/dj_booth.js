@@ -3,11 +3,12 @@
     
 
     $('#schedule-list').sortable({
+      items: "li:not(.disabled)",
       start: function(event, ui) {
         ui.item.startPos = ui.item.index();
       },
       stop: function(event, ui) {
-
+        $('#schedule-list .commercialBlock').removeClass('disabled');
         // return if order did not change
         if (ui.item.startPos == ui.item.index()) {return; }
 
@@ -56,22 +57,40 @@
 
             // for every result
             var newProgram = result.table.new_program;
+            debugger;
             for(var i=0; i<newProgram.length; i++) {
               if (!newProgram[i].hasOwnProperty('commercials')) {
                 var currentSpinLi = ('*[data-currentPosition="' + newProgram[i].current_position +'"]');
                 $(currentSpinLi + ' .songlist-airtime').text(newProgram[i].estimated_airtime);
               } else {
-                $(currentSpinLi).append("<li class='commercialBlock'>" + 
+                // if the last entry is a commercial, delete the following commercial so there are no duplicates
+                if (i === newProgram.length - 1) {
+                  $(currentSpinLi).next().remove();
+                }
+                
+                $(currentSpinLi).after("<li class='commercialBlock'>" + 
                                         "<span class-'songlist-title'>Commercial Block</span>" + 
                                         "<span class='songlist-airtime'>" +   newProgram[i].estimated_airtime + "</span></li>");
               }
-            }
-          }
+            } //endFor
+            
+            //disable commercialBlock movement
+            $('#schedule-list .commercialBlock').addClass('disabled');
+            $('#schedule-list').sortable({
+              items: "li:not(.disabled)"
+            });
+            $('#schedule-list').disableSelection();
+            
+          } //end success
+
+          
             
         });
       }
 
     });
+
+    $('#schedule-list').disableSelection();
     
     // ********************************************
     // *       deleteCommercialBlocks             *

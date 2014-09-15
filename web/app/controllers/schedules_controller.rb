@@ -7,11 +7,13 @@ class SchedulesController < ApplicationController
                                 schedule_id: current_schedule.id })
 
     max_position = [params[:oldPosition], params[:newPosition]].max
-    min_position = [params[:oldPosition], params[:newPosition]].min
+    min_position = [params[:oldPosition], params[:newPosition]].min - 1  # buffer for leading commercial blocks
+    
 
     result.new_program = current_schedule.get_program_by_current_positions({ schedule_id: current_schedule.id,
                                                                              starting_current_position: min_position,
                                                                              ending_current_position: max_position })
+
 
     result.max_position = max_position
     result.min_position = min_position

@@ -15,7 +15,7 @@
         <ul id="schedule-list" data-firstCurrentPosition="<%= @first_current_position %>"  data-lastCurrentPosition="<%= @program.last.current_position %>">
           <% @program.each do |spin| %>
             <% if spin.is_a?(PL::CommercialBlock) %>
-              <li class='commercialBlock'>
+              <li class='commercialBlock disabled'>
                 <span class-"songlist-title">Commercial Block</span>
                 <span class="songlist-airtime"><%= time_formatter(spin.estimated_airtime) %></span>
               </li>
