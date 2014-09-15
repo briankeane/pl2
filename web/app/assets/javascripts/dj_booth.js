@@ -57,7 +57,6 @@
 
             // for every result
             var newProgram = result.table.new_program;
-            debugger;
             for(var i=0; i<newProgram.length; i++) {
               if (!newProgram[i].hasOwnProperty('commercials')) {
                 var currentSpinLi = ('*[data-currentPosition="' + newProgram[i].current_position +'"]');
@@ -68,7 +67,7 @@
                   $(currentSpinLi).next().remove();
                 }
                 
-                $(currentSpinLi).after("<li class='commercialBlock'>" + 
+                $(currentSpinLi).after("<li class='commercialBlock disabled'>" + 
                                         "<span class-'songlist-title'>Commercial Block</span>" + 
                                         "<span class='songlist-airtime'>" +   newProgram[i].estimated_airtime + "</span></li>");
               }
