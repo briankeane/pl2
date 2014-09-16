@@ -18,6 +18,7 @@ class StationsController < ApplicationController
     end
 
     @current_spin = current_station.now_playing
+    @all_songs = PL.db.get_all_songs
   end
 
   def song_manager

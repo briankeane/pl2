@@ -1,8 +1,18 @@
 (function(){
   if ($('body.stations.dj_booth').length) {
     
+    $('#all-songs-source-list').sortable({ 
+      connectWith: '#schedule-list',
+      helper: 'clone',
+      widgets: ['zebra'],
+      cancel: ".disabled",
+      stop: function(event, ui) {
+        $('#all-songs-source-list').sortable('cancel');
+      }
+    });
 
     $('#schedule-list').sortable({
+      connectWith: '#all-songs-source-list',
       items: "li:not(.disabled)",
       start: function(event, ui) {
         ui.item.startPos = ui.item.index();
@@ -80,12 +90,34 @@
             });
             $('#schedule-list').disableSelection();
             
-          } //end success
-
           
-            
+
+          } //end success
         });
-      }
+      },
+      receive: function(event, ui) {
+        var songInfo = {};
+        songInfo.id = $(ui.item).attr('data-id');
+        
+        // grab the insert position
+        songInfo.insertPosition = $('#schedule-list li').eq(ui.item.index() + 1).attr('data-currentPosition');
+        
+        // if there was a commercialBlock there, grab the one after
+        if (!songInfo.insertPosition) {
+          songInfo.insertPosition = $('#schedule-list li').eq(ui.item.index() + 2).attr('data-currentPosition');
+        }
+        debugger;
+        $.ajax({
+          type: 'POST',
+          dataType: 'json',
+          url: 'schedules/insert_spin',
+          contentType: 'application/json',
+          data: JSON.stringify(songInfo)
+         });
+          
+        // cancel so the song remains in the master list
+        $('#all-songs-source-list').sortable('cancel');
+      }  
 
     });
 

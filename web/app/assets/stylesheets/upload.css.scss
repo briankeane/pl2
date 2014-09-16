@@ -27,7 +27,7 @@ body {
   height: 281px;
 }
 
-#uploaded-song-list, #catalog-list {
+#uploaded-song-list, #catalog-list, #all-songs-source-list {
   background: white;
   overflow-y: scroll;
 }
@@ -35,26 +35,24 @@ body {
 #drop-pane {
   height: 350px;
 }
-
-#catalog-list .songlist-artist {
-  float: right;
-}
-
-#catalog-list {
+#catalog-list, #all-songs-source-list {
   margin: 0;
   height: 320px;
-}
 
-#catalog-list li {
-  font-size: .9rem;
-}
+  li {
+    font-size: .9rem;
+  }
 
-#catalog-list li:nth-child(even) {
-  background-color: $darker-item;
-}
+  li:nth-child(even) {
+    background-color: $darker-item;
+  }
 
-#catalog-list li:nth-child(odd) {
-  background-color: $lighter-item;
+  li:nth-child(odd) {
+    background-color: $lighter-item;
+  }
+  .songlist-artist {
+    float: right;
+  }
 }
 
 #catalog-fieldset {
