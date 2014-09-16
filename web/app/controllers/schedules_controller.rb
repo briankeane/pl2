@@ -29,7 +29,27 @@ class SchedulesController < ApplicationController
 
   end
 
-  def add_spin
+  def insert_song
+    result = PL::InsertSpin.run({ schedule_id: current_schedule.id,
+                                  add_position: params[:addPosition].to_i,
+                                  audio_block_id: params[:songId].to_i })
+    
+    result.min_position = params[:addPosition].to_i - 1
+    result.max_position = params[:lastCurrentPosition].to_i + 1
+
+    result.new_program = current_schedule.get_program_by_current_positions({ schedule_id: current_schedule.id,
+                                                                            starting_current_position: result.min_position,
+                                                                            ending_current_position: result.max_position })
+    
+    # format estimated_air_times
+    result.new_program.each do |spin|
+      if spin.estimated_airtime
+        spin.estimated_airtime = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
+      end
+    end
+
+
+    render :json => result
   end
 
   def remove_spin

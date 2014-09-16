@@ -42,81 +42,48 @@
           contentType: 'application/json',
           data: JSON.stringify(movePositionData),
           success: function(result) {
-            console.log(result);
-
-
-            // change currentPositions data attr to reflect new positions
-            var cpCounter = parseInt($('#schedule-list').attr('data-firstCurrentPosition'));
-            $('#schedule-list li').each(function(index, data) {
-              if (!$(this).hasClass('commercialBlock')) {
-                $(this).attr('data-currentPosition', cpCounter);
-                cpCounter ++;
-              }
-            });
-            
-            // delete all commercial Blocks between the max and min currentPositions
-            var index = $('*[data-currentPosition="' + result.table.min_position +'"').index();
-            var maxIndex = $('*[data-currentPosition="' + result.table.max_position +'"').index();
-
-            while (index <= maxIndex) {
-              if ($('#schedule-list li').eq(index).hasClass('commercialBlock')) {
-                $('#schedule-list li').eq(index).remove();
-              }
-              index++;
-            };
-
-            // for every result
-            var newProgram = result.table.new_program;
-            for(var i=0; i<newProgram.length; i++) {
-              if (!newProgram[i].hasOwnProperty('commercials')) {
-                var currentSpinLi = ('*[data-currentPosition="' + newProgram[i].current_position +'"]');
-                $(currentSpinLi + ' .songlist-airtime').text(newProgram[i].estimated_airtime);
-              } else {
-                // if the last entry is a commercial, delete the following commercial so there are no duplicates
-                if (i === newProgram.length - 1) {
-                  $(currentSpinLi).next().remove();
-                }
-                
-                $(currentSpinLi).after("<li class='commercialBlock disabled'>" + 
-                                        "<span class-'songlist-title'>Commercial Block</span>" + 
-                                        "<span class='songlist-airtime'>" +   newProgram[i].estimated_airtime + "</span></li>");
-              }
-            } //endFor
-            
-            //disable commercialBlock movement
-            $('#schedule-list .commercialBlock').addClass('disabled');
-            $('#schedule-list').sortable({
-              items: "li:not(.disabled)"
-            });
-            $('#schedule-list').disableSelection();
-            
-          
-
-          } //end success
+            refreshScheduleList(result.table); 
+          }
         });
       },
       receive: function(event, ui) {
-        var songInfo = {};
-        songInfo.id = $(ui.item).attr('data-id');
-        
+        var insertSongInfo = {};
+        insertSongInfo.songId = $(ui.item).attr('data-id');
+        insertSongInfo.lastCurrentPosition = $('#schedule-list').attr('data-lastCurrentPosition');
+
         // grab the insert position
-        songInfo.insertPosition = $('#schedule-list li').eq(ui.item.index() + 1).attr('data-currentPosition');
+        insertSongInfo.addPosition = $('#schedule-list li').eq(ui.item.index() + 1).attr('data-currentPosition');
         
-        // if there was a commercialBlock there, grab the one after
-        if (!songInfo.insertPosition) {
-          songInfo.insertPosition = $('#schedule-list li').eq(ui.item.index() + 2).attr('data-currentPosition');
+        // if there was a commercialBlock there, use the spin after instead
+        if (!insertSongInfo.addPosition) {
+          insertSongInfo.addPosition = $('#schedule-list li').eq(ui.item.index() + 2).attr('data-currentPosition');
         }
-        debugger;
+
+        // create the new html spin and add it
+        var html = renderSpin({ estimated_airtime: '',
+                                 current_position: insertSongInfo.addPosition,
+                                 title: $(ui.item).find('.songlist-title').text(),
+                                 artist: $(ui.item).find('.songlist-artist').text() });
+        $(ui.item).after(html);
+
+        // then cancel so the original song item remains in the master list
+        $('#all-songs-source-list').sortable('cancel');
+
+
         $.ajax({
           type: 'POST',
           dataType: 'json',
-          url: 'schedules/insert_spin',
+          url: 'schedules/insert_song',
           contentType: 'application/json',
-          data: JSON.stringify(songInfo)
+          data: JSON.stringify(insertSongInfo),
+          success: function(result) {
+            refreshScheduleList(result.table);
+
+            // update new lastCurrentPosition on the DOM
+            $('#schedule-list').attr('data-lastCurrentPosition', result.max_position);
+          }
          });
           
-        // cancel so the song remains in the master list
-        $('#all-songs-source-list').sortable('cancel');
       }  
 
     });
@@ -124,14 +91,93 @@
     $('#schedule-list').disableSelection();
     
     // ********************************************
-    // *       deleteCommercialBlocks             *
+    // *       refreshScheduleList                *
     // *                                          *
-    // *  -- takes two currentPositions and       *
-    // *     deletes all commercialBlock li       *
-    // *     between them in the schedule list    *
+    // *  -- takes an object with:                *
+    // *                  max_position            *
+    // *                  min_position            *
+    // *                  new_program (array)     *
     // ********************************************
-    
+    // * updates the times and commercial         *
+    // * placements in the schedule-list          *
+    // ********************************************
+    var refreshScheduleList = function(result) {
 
+      // change currentPositions data attr to reflect new positions
+      var cpCounter = parseInt($('#schedule-list').attr('data-firstCurrentPosition'));
+      $('#schedule-list li').each(function(index, data) {
+        if (!$(this).hasClass('commercialBlock')) {
+          $(this).attr('data-currentPosition', cpCounter);
+          cpCounter ++;
+        }
+      });
+
+      // delete all commercial Blocks between the max and min currentPositions
+      var index = $('*[data-currentPosition="' + result.min_position +'"').index();
+      var maxIndex = $('*[data-currentPosition="' + result.max_position +'"').index();
+
+      // adjust for cases where full schedule is updated
+      if (!maxIndex === -1) {
+        maxIndex = $('#schedule-list li').last().index();
+      }
+
+      while (index <= maxIndex) {
+        if ($('#schedule-list li').eq(index).hasClass('commercialBlock')) {
+          $('#schedule-list li').eq(index).remove();
+        }
+        index++;
+      };
+
+      // update times/commercial blocks for each item in new_program
+      var newProgram = result.new_program;
+      for(var i=0; i<newProgram.length; i++) {
+        if (!newProgram[i].hasOwnProperty('commercials')) {
+          var currentSpinLi = ('*[data-currentPosition="' + newProgram[i].current_position +'"]');
+          $(currentSpinLi + ' .songlist-airtime').text(newProgram[i].estimated_airtime);
+        } else {
+          // if the last entry is a commercial, delete the following commercial so there are no duplicates
+          if (i === newProgram.length - 1) {
+            $(currentSpinLi).next().remove();
+          }
+          
+          $(currentSpinLi).after("<li class='commercialBlock disabled'>" + 
+                                  "<span class-'songlist-title'>Commercial Block</span>" + 
+                                  "<span class='songlist-airtime'>" +   newProgram[i].estimated_airtime + "</span></li>");
+        }
+      } //endFor
+      
+      //disable commercialBlock movement
+      $('#schedule-list .commercialBlock').addClass('disabled');
+      $('#schedule-list').sortable({
+        items: "li:not(.disabled)"
+      });
+      $('#schedule-list').disableSelection();
+    }
+
+
+
+
+    // ********************************************
+    // *               renderSpin                 *
+    // *                                          *
+    // *  -- takes a spinInfo object and returns  *
+    // *  a string of html                        *
+    // ********************************************
+    var renderSpin = function(spinInfo) {
+      
+      if (spinInfo.hasOwnProperty('currentPosition')) {
+        var currentPosition = spinInfo.currentPosition;
+      } else {
+        var currentPosition = '';
+      }
+
+      var html = '<li class="song ui-sortable-handle" data-currentPosition="' + 
+                  currentPosition + '"><span class="songlist-title">' + spinInfo.title + 
+                  '</span><span class="songlist-artist">' + spinInfo.artist + '</span>' +
+                  '<span class="songlist-airtime">' + spinInfo.estimated_airtime + '</span></li>';
+      return html;
+    }
+ 
 
     // ********************************************
     // *           getMovePositions               *
