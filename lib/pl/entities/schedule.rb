@@ -150,6 +150,7 @@ module PL
                  
     def update_estimated_airtimes(attrs = {})
       # if there's no playlist yet, just exit
+
       if !playlist_exists?
         return false
       end
@@ -331,7 +332,7 @@ module PL
       end
 
       if last_accurate_airtime < attrs[:end_time]
-        self.update_estimated_airtimes({ endtime: attrs[:end_time] })
+        self.update_estimated_airtimes({ endtime: attrs[:end_time] + (60*60) })
       end
 
       playlist = PL.db.get_partial_playlist({ start_time: attrs[:start_time], end_time: attrs[:end_time], schedule_id: @id })
@@ -347,6 +348,9 @@ module PL
           return []
         end
       end
+      
+      # trim off non-updated spins
+      playlist.delete_if { |spin| spin.current_position > @last_accurate_current_position }
       
       # if there's a leading spin, add it
       leading_spin = PL.db.get_spin_by_current_position({ current_position: (playlist[0].current_position - 1),
@@ -364,11 +368,12 @@ module PL
         end
       end
 
+
       playlist_with_commercial_blocks 
     end
 
     def get_program_by_current_positions(attrs)     
-      self.update_estimated_airtimes({ current_position: attrs[:ending_current_position] })
+      self.update_estimated_airtimes({ current_position: attrs[:ending_current_position] + 10 })
 
       playlist = PL.db.get_playlist_by_current_positions({ schedule_id: @id,
                                                           starting_current_position: attrs[:starting_current_position],

@@ -1,6 +1,11 @@
 (function(){
   if ($('body.stations.dj_booth').length) {
     
+    $('#searchbox').keyup(function() {
+      var searchText = $('#searchbox').val();
+      searchSonglist(searchText, ['#all-songs-source-list']);
+    });
+    
     $('#all-songs-source-list').sortable({ 
       connectWith: '#schedule-list',
       helper: 'clone',
@@ -33,6 +38,15 @@
 
         var movePositionData = getMovePositions(currentPositions);
 
+        // if they just moved around a commercial, cancel it
+        if (!movePositionData.moved) {
+          $('#schedule-list').sortable('cancel');
+          $('#schedule-list .commercialBlock').addClass('disabled');
+          //$('#schedule-list').disableSelection();
+          return;
+        }
+        // disable list until request has come back
+        $('#schedule-list').sortable('disable');
         // make ajax request to update database
         movePositionData._method = 'POST';
         $.ajax({
@@ -43,6 +57,7 @@
           data: JSON.stringify(movePositionData),
           success: function(result) {
             refreshScheduleList(result.table); 
+            $('#schedule-list').sortable('enable');
           }
         });
       },
@@ -69,7 +84,8 @@
         // then cancel so the original song item remains in the master list
         $('#all-songs-source-list').sortable('cancel');
 
-
+        // disable list until results come back
+        $('#schedule-list').sortable('disable');
         $.ajax({
           type: 'POST',
           dataType: 'json',
@@ -78,9 +94,10 @@
           data: JSON.stringify(insertSongInfo),
           success: function(result) {
             refreshScheduleList(result.table);
-
             // update new lastCurrentPosition on the DOM
-            $('#schedule-list').attr('data-lastCurrentPosition', result.max_position);
+            $('#schedule-list').attr('data-lastCurrentPosition', result.table.max_position);
+
+            $('#schedule-list').sortable('enable');
           }
          });
           
@@ -185,7 +202,8 @@
     // *  -- takes an array of integers and       *
     // *  determines which obj is out of sequence *
     // * RETURNS: object { newPosition: INT,      *
-    // *                   oldPosition: INT }     *
+    // *                   oldPosition: INT,      *
+    // *                   moved: BOOLEAN }       *
     // ********************************************
     var getMovePositions = function(spinsArray) {
       // iterate through the array to find the out of place number
@@ -211,6 +229,13 @@
             break;
           }
         }
+      }
+
+      // mark whether or not it moved
+      if (!movePositionData.newPosition) {
+        movePositionData.moved = false;
+      } else  {
+        movePositionData.moved = true;
       }
       return movePositionData;
     }
