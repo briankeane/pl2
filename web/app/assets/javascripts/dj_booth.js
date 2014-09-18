@@ -5,7 +5,12 @@
       var searchText = $('#searchbox').val();
       searchSonglist(searchText, ['#all-songs-source-list']);
     });
-    
+
+    $('#recording').sortable({
+                            connectWith: '#schedule-list',
+                            
+    });
+
     $('#all-songs-source-list').sortable({ 
       connectWith: '#schedule-list',
       helper: 'clone',
@@ -74,32 +79,38 @@
           insertSongInfo.addPosition = $('#schedule-list li').eq(ui.item.index() + 2).attr('data-currentPosition');
         }
 
-        // create the new html spin and add it
-        var html = renderSpin({ estimated_airtime: '',
-                                 current_position: insertSongInfo.addPosition,
-                                 title: $(ui.item).find('.songlist-title').text(),
-                                 artist: $(ui.item).find('.songlist-artist').text() });
-        $(ui.item).after(html);
+        // if it was a song
+        if (ui.item.attr('id') === 'all-songs-source-list') {
+          // create the new html spin and add it
+          var html = renderSpin({ estimated_airtime: '',
+                                   current_position: insertSongInfo.addPosition,
+                                   title: $(ui.item).find('.songlist-title').text(),
+                                   artist: $(ui.item).find('.songlist-artist').text() });
+          $(ui.item).after(html);
 
-        // then cancel so the original song item remains in the master list
-        $('#all-songs-source-list').sortable('cancel');
+          // then cancel so the original song item remains in the master list
+          $('#all-songs-source-list').sortable('cancel');
 
-        // disable list until results come back
-        $('#schedule-list').sortable('disable');
-        $.ajax({
-          type: 'POST',
-          dataType: 'json',
-          url: 'schedules/insert_song',
-          contentType: 'application/json',
-          data: JSON.stringify(insertSongInfo),
-          success: function(result) {
-            refreshScheduleList(result.table);
-            // update new lastCurrentPosition on the DOM
-            $('#schedule-list').attr('data-lastCurrentPosition', result.table.max_position);
+          // disable list until results come back
+          $('#schedule-list').sortable('disable');
+          $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            url: 'schedules/insert_song',
+            contentType: 'application/json',
+            data: JSON.stringify(insertSongInfo),
+            success: function(result) {
+              refreshScheduleList(result.table);
+              // update new lastCurrentPosition on the DOM
+              $('#schedule-list').attr('data-lastCurrentPosition', result.table.max_position);
 
-            $('#schedule-list').sortable('enable');
-          }
-         });
+              $('#schedule-list').sortable('enable');
+            }
+          });
+        } else {  // otherwise if it was a commentary
+          console.log('a commentary was dropped');
+          $('#recording').sortable('cancel');
+        }
           
       }  
 

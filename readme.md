@@ -1,5 +1,6 @@
 # Playola
-This app makes creating and maintaining an internet radio station very easy.  Following is a description of the API interface (it's not functioning yet!)
+This app makes broadcasting a real 24-hr radio station effortless and fun.  It also allows you to listen to what other users are broadcasting.
+
 
 ### Users
 #####create_user

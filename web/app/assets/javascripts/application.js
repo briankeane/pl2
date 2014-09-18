@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require foundation
+//= require_tree ./libraries
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

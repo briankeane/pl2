@@ -3,7 +3,8 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 @import "sass_variables.css.scss";
-  
+
+
 body .wall-without-mic-image {
   height: 100%;
   width: 100%;
@@ -147,4 +148,23 @@ fieldset {
 
 .row {
   max-width: 90%
+}
+
+#catalog-fieldset {
+  .tabs {
+    width: 100%;
+    dd {
+      width: 50%;
+      a {
+        background-color: $lighter-item;
+        width: 100%;
+        padding: .5em 1em .5em 1em;
+        text-align: center;
+      }
+    }
+    dd.active a {
+      background-color: $darker-item;
+    }
+
+  }
 }

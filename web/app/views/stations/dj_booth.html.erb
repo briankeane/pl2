@@ -1,50 +1,71 @@
 <div class="mic-image-inverse">
   <div class="row top-row">
-    <div class="small-8 small-offset-4 columns">
-      <div class="row">
-        <div class="small-8 columns">
-          <h1 class="title">DJ Booth</h1>
-        </div>
+
+    <div class="container small-8 columns">
+
+      <div class="small-6 small-offset-2 columns">
+        <h1 class="title">DJ Booth</h1>
+      </div>
+
+      <div class="small-12 columns">
+        <fieldset id="schedule-fieldset">
+          <legend>Station Schedule</legend>
+          <ul id="schedule-list" data-firstCurrentPosition="<%= @first_current_position %>"  data-lastCurrentPosition="<%= @program.last.current_position %>">
+            <% @program.each do |spin| %>
+              <% if spin.is_a?(PL::CommercialBlock) %>
+                <li class='commercialBlock disabled'>
+                  <span class-"songlist-title">Commercial Block</span>
+                  <span class="songlist-airtime"><%= time_formatter(spin.estimated_airtime) %></span>
+                </li>
+              <% else %>
+                <li class='song' data-currentPosition="<%= spin.current_position %>">
+                  <span class="songlist-title"><%= spin.audio_block.title %></span>
+                  <span class="songlist-artist"><%= spin.audio_block.artist %></span>
+                  <span class="songlist-airtime"><%= time_formatter(spin.estimated_airtime) %></span>
+                </li>
+              <% end %>
+            <% end %> 
+          </ul>
+        </fieldset>
       </div>
     </div>
-  </div>
-  <div class="row">
-    <div class="small-8 columns">
-      <fieldset id="schedule-fieldset">
-        <legend>Station Schedule</legend>
-        <ul id="schedule-list" data-firstCurrentPosition="<%= @first_current_position %>"  data-lastCurrentPosition="<%= @program.last.current_position %>">
-          <% @program.each do |spin| %>
-            <% if spin.is_a?(PL::CommercialBlock) %>
-              <li class='commercialBlock disabled'>
-                <span class-"songlist-title">Commercial Block</span>
-                <span class="songlist-airtime"><%= time_formatter(spin.estimated_airtime) %></span>
-              </li>
-            <% else %>
-              <li class='song' data-currentPosition="<%= spin.current_position %>">
-                <span class="songlist-title"><%= spin.audio_block.title %></span>
-                <span class="songlist-artist"><%= spin.audio_block.artist %></span>
-                <span class="songlist-airtime"><%= time_formatter(spin.estimated_airtime) %></span>
-              </li>
-            <% end %>
-          <% end %> 
-        </ul>
-      </fieldset>
-    </div>
+        
     <div class="small-4 columns">
       <fieldset id="catalog-fieldset">
-        <legend>Current Catalog</legend>
-        <label for="searchbox">Search Text:</label>
-        <input type="text" id="searchbox" />
+        <dl class="tabs" data-tab>
+          <dd class="active"><a href="#all-songs-source-container">Catalog</a></dd>
+          <dd><a href="#record">Record</a></dd>
+        </dl>
+        <div class="tabs-content">
+          <div class="content active" id="all-songs-source-container">
+            <label for="searchbox">Search Text:</label>
+            <input type="text" id="searchbox" />
 
-        <ul id="all-songs-source-list">
-          <% @all_songs.each do |song| %>
-            <li data-searchString= "<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>">
-              <span class="songlist-title"><%= song.title %></span>
-              <span class="songlist-artist"><%= song.artist %></span>
-            </li>
-          <% end %> 
-        </ul>
+            <ul id="all-songs-source-list">
+              <% @all_songs.each do |song| %>
+                <li data-searchString= "<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>">
+                  <span class="songlist-title"><%= song.title %></span>
+                  <span class="songlist-artist"><%= song.artist %></span>
+                </li>
+              <% end %> 
+            </ul>
+          </div>
+          <div class="content" id="record">
+            <h4>Record</h4>
+            <button id="startRecording" class="glyphicon glyphicon-">record</button>
+            <button id="stopRecording" disabled="true">stop</button>
+            <canvas id="volumeMeter"></canvas>
+
+            <ul id="recording">
+              <li class="commentary" opacity="0.3">
+              </li>
+            </ul>
+
+          </div>
+        </div>
       </fieldset>
+    </div>
+
     </div>
   </div>
 </div>
