@@ -108,6 +108,7 @@
             }
           });
         } else {  // otherwise if it was a commentary
+          addCommentary
           console.log('a commentary was dropped');
           $('#recording').sortable('cancel');
         }
@@ -141,8 +142,8 @@
       });
 
       // delete all commercial Blocks between the max and min currentPositions
-      var index = $('*[data-currentPosition="' + result.min_position +'"').index();
-      var maxIndex = $('*[data-currentPosition="' + result.max_position +'"').index();
+      var index = $('*[data-currentPosition="' + result.min_position +'"]').index();
+      var maxIndex = $('*[data-currentPosition="' + result.max_position +'"]').index();
 
       // adjust for cases where full schedule is updated
       if (!maxIndex === -1) {
