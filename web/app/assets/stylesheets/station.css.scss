@@ -165,6 +165,18 @@ fieldset {
     dd.active a {
       background-color: $darker-item;
     }
+  }
+}
 
+#recording {
+  margin: 0;
+  list-style: none;
+  min-height: 20px;
+ .commentary {
+    background-color: $darker-item;
+    audio {
+      width: 80%;
+      display: block;
+    }
   }
 }

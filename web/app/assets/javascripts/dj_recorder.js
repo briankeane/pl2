@@ -59,7 +59,7 @@
       function getAverageVolume(array) {
         var values = 0;
         var average;
-        var length=array.length;
+        var length = array.length;
 
         for (var i=0; i < length; i++) {
           values += array[i];
@@ -92,7 +92,6 @@
 
       // create WAV download link using audio data blob
       createDownloadLink();
-
       recorder.clear();
     }
 
@@ -113,6 +112,9 @@
         li.append(au);
         li.append(hf);
         recordingList.append(template);
+
+        // Possibly a better way to do this in the future?
+        window.currentBlob = blob;
 
       });
     }

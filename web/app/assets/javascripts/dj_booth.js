@@ -7,6 +7,7 @@
     });
 
     $('#recording').sortable({
+                            dropOnEmpty: true,
                             connectWith: '#schedule-list',
                             
     });
@@ -18,6 +19,9 @@
       cancel: ".disabled",
       stop: function(event, ui) {
         $('#all-songs-source-list').sortable('cancel');
+      },
+      start: function(event, ui) {
+        ui.item.type = 'song';
       }
     });
 
@@ -67,23 +71,23 @@
         });
       },
       receive: function(event, ui) {
-        var insertSongInfo = {};
-        insertSongInfo.songId = $(ui.item).attr('data-id');
-        insertSongInfo.lastCurrentPosition = $('#schedule-list').attr('data-lastCurrentPosition');
+        var insertSpinInfo = {};
+        insertSpinInfo.songId = $(ui.item).attr('data-id');
+        insertSpinInfo.lastCurrentPosition = $('#schedule-list').attr('data-lastCurrentPosition');
 
         // grab the insert position
-        insertSongInfo.addPosition = $('#schedule-list li').eq(ui.item.index() + 1).attr('data-currentPosition');
+        insertSpinInfo.addPosition = $('#schedule-list li').eq(ui.item.index() + 1).attr('data-currentPosition');
         
         // if there was a commercialBlock there, use the spin after instead
-        if (!insertSongInfo.addPosition) {
-          insertSongInfo.addPosition = $('#schedule-list li').eq(ui.item.index() + 2).attr('data-currentPosition');
+        if (!insertSpinInfo.addPosition) {
+          insertSpinInfo.addPosition = $('#schedule-list li').eq(ui.item.index() + 2).attr('data-currentPosition');
         }
 
         // if it was a song
-        if (ui.item.attr('id') === 'all-songs-source-list') {
+        if (ui.item.type === 'song') {
           // create the new html spin and add it
           var html = renderSpin({ estimated_airtime: '',
-                                   current_position: insertSongInfo.addPosition,
+                                   current_position: insertSpinInfo.addPosition,
                                    title: $(ui.item).find('.songlist-title').text(),
                                    artist: $(ui.item).find('.songlist-artist').text() });
           $(ui.item).after(html);
@@ -98,7 +102,7 @@
             dataType: 'json',
             url: 'schedules/insert_song',
             contentType: 'application/json',
-            data: JSON.stringify(insertSongInfo),
+            data: JSON.stringify(insertSpinInfo),
             success: function(result) {
               refreshScheduleList(result.table);
               // update new lastCurrentPosition on the DOM
@@ -108,7 +112,9 @@
             }
           });
         } else {  // otherwise if it was a commentary
-          addCommentary
+          insertSpinInfo.duration =  ui.item.children()[0].duration/1000;
+          insertSpinInfo.key = 'test';
+          debugger;
           console.log('a commentary was dropped');
           $('#recording').sortable('cancel');
         }
@@ -131,7 +137,6 @@
     // * placements in the schedule-list          *
     // ********************************************
     var refreshScheduleList = function(result) {
-
       // change currentPositions data attr to reflect new positions
       var cpCounter = parseInt($('#schedule-list').attr('data-firstCurrentPosition'));
       $('#schedule-list li').each(function(index, data) {
