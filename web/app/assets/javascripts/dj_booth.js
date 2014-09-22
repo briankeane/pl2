@@ -33,6 +33,7 @@
       },
       stop: function(event, ui) {
         $('#schedule-list .commercialBlock').removeClass('disabled');
+        
         // return if order did not change
         if (ui.item.startPos == ui.item.index()) {return; }
 
@@ -40,7 +41,7 @@
         var currentPositions = [];
 
         $('#schedule-list li').each(function(index, data) {
-          if ($(this).hasClass('song')) {
+          if (!($(this).hasClass('commercialBlock'))) {
             currentPositions.push(parseInt($(this).attr('data-currentPosition')));
           }
         });
@@ -137,7 +138,6 @@
           fd.append('data', window.currentBlob);
           fd.append('addPosition', insertSpinInfo.addPosition);
           fd.append('lastCurrentPosition', insertSpinInfo.lastCurrentPosition);
-          debugger;
           fd.append('duration', insertSpinInfo.duration);
           
           // disable the list until the results come back

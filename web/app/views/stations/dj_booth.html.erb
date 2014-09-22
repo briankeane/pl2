@@ -10,7 +10,7 @@
       <div class="small-12 columns">
         <fieldset id="schedule-fieldset">
           <legend>Station Schedule</legend>
-          <ul id="schedule-list" data-firstCurrentPosition="<%= @first_current_position %>"  data-lastCurrentPosition="<%= @program.last.current_position %>">
+          <ul id="schedule-list" data-firstCurrentPosition="<%= @first_current_position %>"  data-lastCurrentPosition="<%= @program.last.current_position || @program[-2].current_position %>">
             <% @program.each do |spin| %>
               <% if spin.is_a?(PL::CommercialBlock) %>
                 <li class='commercialBlock disabled'>

@@ -190,6 +190,10 @@ module PL
         
         @last_accurate_current_position = spin.current_position
 
+        if spin.audio_block.is_a?(PL::CommercialBlock)
+          binding.pry
+        end
+
         time_tracker += spin.duration/1000
 
         # account for a commercial if necessary
