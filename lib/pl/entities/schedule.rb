@@ -372,7 +372,7 @@ module PL
       playlist_with_commercial_blocks 
     end
 
-    def get_program_by_current_positions(attrs)     
+    def get_program_by_current_positions(attrs) 
       self.update_estimated_airtimes({ current_position: attrs[:ending_current_position] + 10 })
 
       playlist = PL.db.get_playlist_by_current_positions({ schedule_id: @id,

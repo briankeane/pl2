@@ -97,6 +97,7 @@
 
           // disable list until results come back
           $('#schedule-list').sortable('disable');
+
           $.ajax({
             type: 'POST',
             dataType: 'json',
@@ -112,11 +113,48 @@
             }
           });
         } else {  // otherwise if it was a commentary
-          insertSpinInfo.duration =  ui.item.children()[0].duration/1000;
-          insertSpinInfo.key = 'test';
-          debugger;
-          console.log('a commentary was dropped');
+          var html = renderCommentary({ estimated_airtime: '',
+                                   current_position: insertSpinInfo.addPosition,
+                                   sourceLink: ui.item.children()[0].src });
+          
+          // add the formatted commentary and delete the original item
+          $(ui.item).after(html);
           $('#recording').sortable('cancel');
+          $('#recording .commentary audio').remove();
+
+
+          // re-enable recording
+          $('#startRecording').removeAttr('disabled');
+
+
+          var fd = new FormData();
+          fd.append('fname','comment.wav');
+          fd.append('data', window.currentBlob);
+          fd.append('addPosition', insertSpinInfo.addPosition);
+          fd.append('lastCurrentPosition', insertSpinInfo.lastCurrentPosition);
+          fd.append('duration', ui.item.children()[0].duration*1000);  // (converted to ms)
+          
+          // disable the list until the results come back
+          $('#schedule-list').sortable('disable');
+          
+          $.ajax({
+            type:'POST',
+            url:'schedules/process_commentary',
+            data: fd,
+            processData: false,
+            contentType: false,
+            success: function(result) {
+              refreshScheduleList(result.table);
+
+              // update new lastCurrentPosition on the DOM
+              $('#schedule-list').attr('data-lastCurrentPosition', result.table.max_position);
+
+              // reactivate schedule-list
+              $('#schedule-list').sortable('enable');
+            }
+          }).done(function(data) {
+            console.log(data);
+          });
         }
           
       }  
@@ -125,6 +163,7 @@
 
     $('#schedule-list').disableSelection();
     
+
     // ********************************************
     // *       refreshScheduleList                *
     // *                                          *
@@ -211,7 +250,27 @@
                   '<span class="songlist-airtime">' + spinInfo.estimated_airtime + '</span></li>';
       return html;
     }
- 
+     // *******************************************
+    // *               renderCommentary           *
+    // *                                          *
+    // *  -- takes a spinInfo object and returns  *
+    // *  a string of html                        *
+    // ********************************************
+    var renderCommentary = function(spinInfo) {
+      
+      if (spinInfo.hasOwnProperty('currentPosition')) {
+        var currentPosition = spinInfo.currentPosition;
+      } else {
+        var currentPosition = '';
+      }
+
+      var html = '<li class="commentary ui-sortable-handle" data-currentPosition="' + 
+                  spinInfo.currentPosition + '"><span class="songlist-title">Commentary' + 
+                  '</span><span class="songlist-artist"><audio controls src="' + spinInfo.sourceLink + '"></audio></span>' +
+                  '<span class="songlist-airtime">' + spinInfo.estimated_airtime + '</span></li>';
+      return html;
+    }
+
 
     // ********************************************
     // *           getMovePositions               *

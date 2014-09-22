@@ -26,6 +26,44 @@ module PL
       return temp_audio_file
     end
     
+    ###########################################################
+    #    store_commentary(attrs) :schedule_id, duration,      #
+    #         :audio_file                                     #
+    ###########################################################
+    #  returns a string with the new_aws_key                  #
+    ###########################################################
+    def store_commentary(attrs)
+      bucket = @s3.buckets[S3['COMMENTARIES_BUCKET']]
+
+      stored_commentaries_keys = bucket.objects.collect(&:key)
+
+      # figure out what the next_key_value will be
+      if stored_commentaries_keys.count == 0
+        next_key_value = 0
+      else     
+        next_key_value = stored_commentaries_keys.max_by { |key| key[4..10].to_i }[4..10].to_i
+      end
+      
+      next_key_value += 1
+
+
+      new_key = ('_com' + ('0' * (7 - next_key_value.to_s.size)) +  next_key_value.to_s + '_' + attrs[:schedule_id].to_s + '_' + '.mp3')
+
+      commentary_file = File.open(attrs[:audio_file])
+      commentary_file.binmode
+      bucket.objects[new_key].write(:file => commentary_file)
+      aws_commentary_object = bucket.objects[new_key]
+
+      attrs[:key] = new_key
+
+      aws_commentary_object.metadata[:pl_duration] = attrs[:duration] if attrs[:duration]
+      aws_commentary_object.metadata[:pl_shedule_id] = attrs[:schedule_id] if attrs[:schedule_id]
+
+      return new_key
+    end
+
+
+
     #####################################################
     #    store_song(attrs) :title, :artist, :album,     #
     #       :duration, :song_file, :echonest_id         #
@@ -33,7 +71,6 @@ module PL
     #  returns a string with the new_aws_key            #
     #####################################################
     def store_song(attrs)
-      @s3 = AWS::S3.new
       bucket = @s3.buckets[S3['SONGS_BUCKET']]
 
       stored_song_keys = bucket.objects.collect(&:key)

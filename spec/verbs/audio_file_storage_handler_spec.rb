@@ -8,6 +8,7 @@ describe 'audio_file_storage_handler' do
     @s3 = AWS::S3.new
     @grabber = PL::AudioFileStorageHandler.new
     @s3.buckets['playolasongstest'].objects.delete_all
+    @s3.buckets['playolacommentariestest'].objects.delete_all
   end
 
   it 'grabs song audio' do
@@ -114,6 +115,21 @@ describe 'audio_file_storage_handler' do
     #end
   end
 
+  it 'stores a commentary', :slow do
+    # ********* VCR does not work with metadata methods ***** #
+    File.open('spec/test_files/testCommentary.mp3') do |file|
+      new_key = @grabber.store_commentary({ schedule_id: 55,
+                                            duration: 9999,
+                                            audio_file: file })
+      commentary = PL.db.create_commentary({ schedule_id: 55,
+                                            key: new_key })
+
+      mp3_file = @grabber.grab_audio(commentary)
+
+      expect(mp3_file.size).to eq(497910)
+    end
+  end
+
   it 'updates the metadata on a song', :slow do
     File.open('spec/test_files/test_uploads.txt') do |file|
       new_key = @grabber.store_song({ title: 'Look At That Girl',
@@ -192,6 +208,7 @@ describe 'audio_file_storage_handler' do
 
   after(:all) do
     @s3.buckets['playolasongstest'].objects.delete_all
+    @s3.buckets['playolacommentariestest'].objects.delete_all
   end
 
 end

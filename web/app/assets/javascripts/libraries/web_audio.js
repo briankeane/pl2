@@ -1,5 +1,4 @@
 var webAudio = function() {
-
   // Start off by initializing a new context.
   context = new webkitAudioContext();
 
@@ -14,7 +13,6 @@ var webAudio = function() {
     window.setTimeout(callback, 1000 / 60);
   };
   })();
-
 
   function playSound(buffer, time) {
     var source = context.createBufferSource();
@@ -41,8 +39,6 @@ var webAudio = function() {
     });
     bufferLoader.load();
   }
-
-
 
   // This is the default bufferloader from webaudio.com
   function BufferLoader(context, urlList, callback) {
@@ -92,9 +88,6 @@ var webAudio = function() {
     this.loadBuffer(this.urlList[i], i);
   };
 
-
-
-
   // MY STUFF NOW..... FOR RECORDING
   function getLiveInput() {
     //get the audio stream
@@ -121,8 +114,6 @@ var webAudio = function() {
     requestAnimationFrame(render);
   };
 
-
-
   // see if any of these work (diff browsers)
   var contextClass = (window.AudioContext ||
                       window.webkitAudioContext ||
@@ -134,18 +125,8 @@ var webAudio = function() {
     // webAudio is available so init it
     var context = new contextClass();
   } else {
-    alert("You can't record with this browser... time to UPGRADE, bitch.");
+    alert("Sorry, recording is not enabled with this browser...");
   }
-
-  var bufferLoader = new BufferLoader(
-    context,
-    [
-    '../../../../Desktop/oldwithyou.mp3'
-    ],
-    finishedLoading
-    );
-
-  bufferLoader.load();
 
   function finishedLoading(bufferList) {
     var source1 = context.createBufferSource();

@@ -131,6 +131,17 @@ fieldset {
     background-color: $big-accent-toned-down;
   }
 
+  .commentary {
+    background-color: $primary;
+    .songlist-title {
+      width: 20%
+    }
+
+    .songlist-artist {
+      width: 55%
+    }
+  }
+
   li {
    -ms-user-select: none; /* IE 10+ */
    -moz-user-select: -moz-none;
@@ -179,4 +190,8 @@ fieldset {
       display: block;
     }
   }
+}
+
+#volumeMeter {
+  height: 60px;
 }
