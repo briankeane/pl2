@@ -112,6 +112,7 @@
               $('#schedule-list').sortable('enable');
             }
           });
+
         } else {  // otherwise if it was a commentary
           var html = renderCommentary({ estimated_airtime: '',
                                    current_position: insertSpinInfo.addPosition,
@@ -119,9 +120,13 @@
           
           // add the formatted commentary and delete the original item
           $(ui.item).after(html);
+
+          insertSpinInfo.duration = ui.item.children()[0].duration * 1000 //converted to ms
+          
+          // return original li to old list and clear it
           $('#recording').sortable('cancel');
           $('#recording .commentary audio').remove();
-
+          $('#recording .commentary a').remove();
 
           // re-enable recording
           $('#startRecording').removeAttr('disabled');
@@ -132,7 +137,8 @@
           fd.append('data', window.currentBlob);
           fd.append('addPosition', insertSpinInfo.addPosition);
           fd.append('lastCurrentPosition', insertSpinInfo.lastCurrentPosition);
-          fd.append('duration', ui.item.children()[0].duration*1000);  // (converted to ms)
+          debugger;
+          fd.append('duration', insertSpinInfo.duration);
           
           // disable the list until the results come back
           $('#schedule-list').sortable('disable');

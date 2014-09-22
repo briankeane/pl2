@@ -76,6 +76,7 @@ class SchedulesController < ApplicationController
         spin.estimated_airtime = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
       end
     end
+
     render :json => result
   end
 
