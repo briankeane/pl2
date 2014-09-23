@@ -273,7 +273,7 @@
       var html = '<li class="commentary ui-sortable-handle" data-currentPosition="' + 
                   spinInfo.currentPosition + '"><span class="songlist-title">Commentary' + 
                   '</span><span class="songlist-artist"><audio controls src="' + spinInfo.sourceLink + '"></audio></span>' +
-                  '<span class="songlist-airtime">' + spinInfo.estimated_airtime + '</span></li>';
+                  '<span class="songlist-airtime">' + spinInfo.estimated_airtime + '</span><a href="#" class="close">&times;</a></li>';
       return html;
     }
 

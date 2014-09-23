@@ -236,20 +236,22 @@ module PL
       playlist = PL.db.get_partial_playlist({ schedule_id: @id, end_time: Time.now })
 
       # mark the last-started song as finished, add a commercial block if necessary
-      unfinished_log = final_log_entry
-      PL.db.update_log_entry({ id: unfinished_log.id,
+      log_entry = final_log_entry
+      PL.db.update_log_entry({ id: log_entry.id,
                               listeners_at_finish: 0 })
 
-      if unfinished_log.commercials_follow?
+      if log_entry.commercials_follow?
           log_entry = PL.db.create_log_entry({ station_id: @station_id,
                                               audio_block_id: station.next_commercial_block.id,
-                                              airtime: unfinished_log.estimated_end_time,
+                                              airtime: log_entry.estimated_end_time,
                                               listeners_at_start: 0,
                                               listeners_at_finish: 0,
-                                              current_position: unfinished_log.current_position,
+                                              current_position: log_entry.current_position,
                                               duration: (station.secs_of_commercial_per_hour/2 * 1000)
                                             })
       end
+
+
 
       playlist.each do |spin|
         log_entry = PL.db.create_log_entry({ station_id: @station_id,

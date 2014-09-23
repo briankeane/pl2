@@ -16,18 +16,21 @@
                 <li class='commercialBlock disabled'>
                   <span class-"songlist-title">Commercial Block</span>
                   <span class="songlist-airtime"><%= time_formatter(spin.estimated_airtime) %></span>
+                  <a href="#" class="close" title="delete">×</a>
                 </li>
               <% elsif spin.audio_block.is_a?(PL::Song) %>
                 <li class='song' data-currentPosition="<%= spin.current_position %>">
                   <span class="songlist-title"><%= spin.audio_block.title %></span>
                   <span class="songlist-artist"><%= spin.audio_block.artist %></span>
                   <span class="songlist-airtime"><%= time_formatter(spin.estimated_airtime) %></span>
+                  <a href="#" class="close" title="delete">×</a>
                 </li>
                 <% else %>
                   <li class='commentary' data-currentPosition="<%= spin.current_position %>">
                     <span class='songlist-title'>Commentary</span>
                     <span class="songlist-artist"><audio controls src="https://s3-us-west-2.amazonaws.com/playolacommentaries/<%=spin.audio_block.key %>"</audio></span>
                     <span class="songlist-airtime"><%= time_formatter(spin.estimated_airtime) %></span>
+                    <a href="#" class="close" title="delete">×</a>
                   </li>
               <% end %>
             <% end %> 
