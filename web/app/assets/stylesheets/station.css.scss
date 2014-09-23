@@ -109,6 +109,7 @@ fieldset {
       background-color: $lighter-item;
       font-size: 0.7em;
     }
+
     .songlist-artist {
       float: left;
       overflow-x: hidden;
@@ -136,28 +137,9 @@ fieldset {
   .commercialBlock {
     background-color: $big-accent-toned-down;
 
-    .songlist-artist {
-      float: left;
-      overflow-x: hidden;
-      width: 30%;
-    }
-
     .songlist-title {
       float: left;
-      width: 40%;
-      overflow-x: hidden;
-    }
-    
-    .songlist-airtime {
-      float: left;
-      overflow-x: hidden;
-      width: 25%;
-      margin-left: 14px;
-    }
-
-    li .close {
-      width: 5%;
-      float: left;
+      width: 70%;
     }
   }
 

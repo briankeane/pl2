@@ -14,7 +14,7 @@
             <% @program.each do |spin| %>
               <% if spin.is_a?(PL::CommercialBlock) %>
                 <li class='commercialBlock disabled'>
-                  <span class-"songlist-title">Commercial Block</span>
+                  <span class="songlist-title">Commercial Block</span>
                   <span class="songlist-airtime"><%= time_formatter(spin.estimated_airtime) %></span>
                   <a href="#" class="close" title="delete">×</a>
                 </li>
