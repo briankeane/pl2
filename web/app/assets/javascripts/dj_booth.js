@@ -169,6 +169,10 @@
 
     $('#schedule-list').disableSelection();
     
+    $('#schedule-list li .close').on('click', function() {
+      console.log(this);
+      debugger;
+    });
 
     // ********************************************
     // *       refreshScheduleList                *

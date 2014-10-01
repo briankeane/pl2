@@ -431,5 +431,6 @@ module PL
     def final_log_entry
       PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 })[0]
     end
+
   end
 end

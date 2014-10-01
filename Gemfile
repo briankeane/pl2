@@ -25,3 +25,5 @@ gem 'fuzzy-string-match'
 gem 'json', '~> 1.8.1'
 
 gem 'timezone'
+
+gem 'rails_12factor'

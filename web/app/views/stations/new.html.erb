@@ -18,8 +18,8 @@
         <label for="gender" class="right" placeholder="Gender">Gender
           <select id="gender" placeholder="Gender" required>
             <option value=''>Select Gender</option>
-            <option>Male</option>
-            <option>Female</option>
+            <option value='male'>Male</option>
+            <option vale ='female'>Female</option>
           </select>
           <small class="error">Please Tell Us Your Gender</small>
         </label>
@@ -83,11 +83,9 @@
     
         <div class="row">
           <div class="large-12 large-centered columns">
-            <ul class="button-group even-3">
-              <li><a href='#' class="button" id="manualStationCreate">Create Manually</a><p>I want to carefully pick each song</li>
-              <li><a href='#'class="button" id="automaticStationCreate">Create Automatically</a><p>I just want to get going</p></li>
-              <li><%= link_to "Upload Songs", uploads_new_path, :class => "button" %><p>Let Me Upload Some Songs First</p></li>
-            </ul>
+
+              <a href='#'class="button large" id="automaticStationCreate">Get Started</a>
+
           </div>
         </div>
       <% end %>
