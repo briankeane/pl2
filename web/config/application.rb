@@ -26,7 +26,7 @@ module Web
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-    if ENV['FILEPICKER__API_KEY']
+    if ENV['FILEPICKER_API_KEY']
         FILEPICKER_KEYS = { 'API_KEY' => ENV['FILEPICKER_API_KEY'] }
     else
         FILEPICKER_KEYS = YAML.load_file("#{::Rails.root}/../secrets/filepicker_config.yml")[::Rails.env]
