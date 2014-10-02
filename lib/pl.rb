@@ -5,10 +5,29 @@ require 'echowrap'
 # load environment variables only if RAILS app has not loaded them first
 #    -- (this is here so the non-rails app can stand on its own)
 if !defined? TWITTER_KEYS
-  TWITTER_KEYS = YAML.load_file("secrets/twitter_config.yml")[ENV['RAILS_ENV']]
-  S3 = YAML.load_file("secrets/s3_config.yml")[ENV['RAILS_ENV']]
-  ECHONEST_KEYS = YAML.load_file("secrets/echonest_config.yml")[ENV['RAILS_ENV']]
-  FILEPICKER_KEYS = YAML.load_file("secrets/filepicker_config.yml")[ENV['RAILS_ENV']]
+  
+  # if we're on heroku, load from ENV
+  if ENV['TWITTER_CONSUMER_KEY']
+    TWITTER_KEYS = { 'CONSUMER_KEY'=> ENV['TWITTER_CONSUMER_KEY'],
+                      'CONSUMER_SECRET'=> ENV['TWITTER_CONSUMER_SECRET'] }
+    S3= { 'ACCESS_KEY_ID' => ENV['S3_ACCESS_KEY_ID'],
+          'SECRET_KEY' => ENV['S3_SECRET_KEY'],
+          'SONGS_BUCKET' => 'playolasongs',
+          'COMMERCIALS_BUCKET' => 'playolacommercials',
+          'COMMENTARIES_BUCKET' => 'playolacommentaries',
+          'UNPROCESSED_SONGS' => 'playolaunprocessedsongs' }
+    FILEPICKER = { 'API_KEY' => ENV['FILEPICKER_API_KEY'] }
+    ECHONEST_KEYS = { 'API_KEY' => ENV['ECHONEST_API_KEY'],
+                       'CONSUMER_KEY' => ENV['ECHONEST_CONSUMER_KEY'],
+                       'SHARED_SECRET' => ENV['ECHONEST_SHARED_SECRET'],
+                       'TASTE_PROFILE_ID' => ENV['ECHONEST_TASTE_PROFILE_ID'] }
+
+  else    #load from yamls
+    TWITTER_KEYS = YAML.load_file("secrets/twitter_config.yml")[ENV['RAILS_ENV']]
+    S3 = YAML.load_file("secrets/s3_config.yml")[ENV['RAILS_ENV']]
+    ECHONEST_KEYS = YAML.load_file("secrets/echonest_config.yml")[ENV['RAILS_ENV']]
+    FILEPICKER_KEYS = YAML.load_file("secrets/filepicker_config.yml")[ENV['RAILS_ENV']]
+  end
 end
 
 
