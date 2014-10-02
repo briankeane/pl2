@@ -16,7 +16,7 @@ if !defined? TWITTER_KEYS
           'COMMERCIALS_BUCKET' => 'playolacommercials',
           'COMMENTARIES_BUCKET' => 'playolacommentaries',
           'UNPROCESSED_SONGS' => 'playolaunprocessedsongs' }
-    FILEPICKER = { 'API_KEY' => ENV['FILEPICKER_API_KEY'] }
+    FILEPICKER_KEYS = { 'API_KEY' => ENV['FILEPICKER_API_KEY'] }
     ECHONEST_KEYS = { 'API_KEY' => ENV['ECHONEST_API_KEY'],
                        'CONSUMER_KEY' => ENV['ECHONEST_CONSUMER_KEY'],
                        'SHARED_SECRET' => ENV['ECHONEST_SHARED_SECRET'],
