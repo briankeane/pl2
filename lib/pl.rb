@@ -1,5 +1,4 @@
 require 'aws'
-require 'pry-debugger'
 require 'echowrap'
 
 # load environment variables only if RAILS app has not loaded them first
