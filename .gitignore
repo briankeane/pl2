@@ -1,4 +1,4 @@
 .env
 /vendor/
-/web/config/secrets.yml
+
 /secrets/
