@@ -171,7 +171,6 @@
     
     $('#schedule-list li .close').on('click', function() {
       console.log(this);
-      debugger;
     });
 
     // ********************************************
@@ -224,7 +223,7 @@
           }
           
           $(currentSpinLi).after("<li class='commercialBlock disabled'>" + 
-                                  "<span class-'songlist-title'>Commercial Block</span>" + 
+                                  "<span class='songlist-title'>Commercial Block</span>" + 
                                   "<span class='songlist-airtime'>" +   newProgram[i].estimated_airtime + "</span></li>");
         }
       } //endFor
