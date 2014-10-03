@@ -8,8 +8,31 @@
       </div>
 
       <div class="small-12 columns">
+          <fieldset id="nowPlayingFieldset">
+            <legend>Now Playing</legend>
+
+          <ul id="nowPlayingList">
+            <% if @now_playing.audio_block.is_a?(PL::CommercialBlock) %>              
+              <li class='nowPlaying commercialBlock'>
+                <span class='title'><b>Commercial Block</b></span>
+              
+            <% elsif @now_playing.audio_block.is_a?(PL::Song) %>
+              <li class='nowPlaying song'>
+                <span class='title'><b><%= @now_playing.audio_block.title %></b></span>
+                <span class='artist'><%= @now_playing.audio_block.artist %></span>
+            <% elsif @now_playing.is_a?(PL::Commentary) %>
+              <span class='title'><b>Commentary</b></span>
+            <% end %>
+            <div class="progress">
+              <span class="meter"></span>
+            </div>
+          </li>  
+          </ul>       
+        </fieldset>
+        
         <fieldset id="schedule-fieldset">
           <legend>Station Schedule</legend>
+
           <ul id="schedule-list" data-firstCurrentPosition="<%= @first_current_position %>"  data-lastCurrentPosition="<%= @program.last.current_position || @program[-2].current_position %>">
             <% @program.each do |spin| %>
               <% if spin.is_a?(PL::CommercialBlock) %>

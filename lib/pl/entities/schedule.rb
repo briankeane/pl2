@@ -358,13 +358,15 @@ module PL
       # trim off non-updated spins
       playlist.delete_if { |spin| spin.current_position > @last_accurate_current_position }
       
-      # if there's a leading spin, add it
-      leading_spin = PL.db.get_spin_by_current_position({ current_position: (playlist[0].current_position - 1),
-                                                          schedule_id: @id })
-      playlist.unshift(leading_spin) unless !leading_spin
-
       playlist_with_commercial_blocks = []
-      
+
+      # if it starts with a commercial, add it before starting
+      if now_playing.commercials_follow?
+        playlist_with_commercial_blocks << PL::CommercialBlock.new({ schedule_id: spin.schedule_id,
+                                                estimated_airtime: now_playing.estimated_end_time,
+                                                duration: station.secs_of_commercial_per_hour/2 })
+      end
+
       playlist.each do |spin|
         playlist_with_commercial_blocks << spin
         if spin.commercials_follow?

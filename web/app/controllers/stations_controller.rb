@@ -17,7 +17,7 @@ class StationsController < ApplicationController
       @first_current_position = @program[0].current_position
     end
 
-    @current_spin = current_station.now_playing
+    @now_playing = current_station.now_playing
     @all_songs = PL.db.get_all_songs
   end
 

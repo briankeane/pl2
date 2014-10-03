@@ -178,6 +178,41 @@ fieldset {
   margin: 0;
 }
 
+#nowPlayingFieldset {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+
+  #nowPlayingList {
+    list-style: none;
+    
+    .nowPlaying {
+      background-color: $darker-item;
+      height: 70px;
+      border: black solid 1px;
+      padding-left: 6px;
+      padding-right: 6px;
+    }
+
+    .title {
+      color: black;
+      font-size: .9em;
+      float: left;
+      width: 50%;
+    }
+
+    .artist {
+      float: right;
+      width: 50%;
+      text-align: right;
+    }
+
+    .progress {
+      float: right;
+      width: 100%;
+    }
+  }
+}
+
 .row {
   max-width: 90%
 }
