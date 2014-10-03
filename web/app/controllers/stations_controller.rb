@@ -91,7 +91,7 @@ class StationsController < ApplicationController
       current_schedule.generate_playlist(Time.now + (24*60*60))
       @current_schedule = PL.db.get_schedule(current_schedule.id)
 
-      redirect_to station_song_manager_path
+      redirect_to listens_index_path
     end
   end
 

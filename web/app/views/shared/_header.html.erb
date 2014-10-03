@@ -14,9 +14,9 @@
         <ul class="right">
           
           <% if signed_in? == true %>
-            <li><%= link_to 'Listen', '#' %></li>
+            <li><%= link_to 'Listen', listens_index_path %></li>
             <li class="has-dropdown">
-              <%= link_to 'My Station', '#' %>
+              <%= link_to 'Broadcast', '#' %>
               <ul class="dropdown">
                 <li><%= link_to 'DJ Booth',dj_booth_path %></li>
                 <li><%= link_to 'Song Manager', station_song_manager_path %></li>
