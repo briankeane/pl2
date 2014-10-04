@@ -190,10 +190,6 @@ module PL
         
         @last_accurate_current_position = spin.current_position
 
-        if spin.audio_block.is_a?(PL::CommercialBlock)
-          binding.pry
-        end
-
         time_tracker += spin.duration/1000
 
         # account for a commercial if necessary
@@ -362,7 +358,7 @@ module PL
 
       # if it starts with a commercial, add it before starting
       if now_playing.commercials_follow?
-        playlist_with_commercial_blocks << PL::CommercialBlock.new({ schedule_id: spin.schedule_id,
+        playlist_with_commercial_blocks << PL::CommercialBlock.new({ schedule_id: @id,
                                                 estimated_airtime: now_playing.estimated_end_time,
                                                 duration: station.secs_of_commercial_per_hour/2 })
       end
