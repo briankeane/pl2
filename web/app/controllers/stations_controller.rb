@@ -8,8 +8,8 @@ class StationsController < ApplicationController
     @program = result.program unless !result.success?
     
     gon.audioQueue = [];
-    gon.audioQueue[0] = current_schedule.now_playing.to_json
-    gon.audioQueue[1] = current_schedule.next_spin
+    gon.audioQueue[0] = current_schedule.now_playing.to_hash
+    gon.audioQueue[1] = current_schedule.next_spin.to_hash
     gon.timezoneOffsetInMs = current_schedule.now_playing.airtime.in_time_zone(current_station.timezone).utc_offset/60 * -1
 
     

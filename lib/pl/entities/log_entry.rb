@@ -22,6 +22,15 @@ module PL
         return false
       end
     end
+
+    def to_hash
+      hash = {}
+      self.instance_variables.each { |var| hash[var.to_s.delete('@').to_sym] = self.instance_variable_get(var) }
+      hash[:estimated_end_time] = self.estimated_end_time
+      hash[:audio_block] = self.audio_block.to_hash
+      hash[:commercials_follow?] = self.commercials_follow?
+      hash
+    end
     
   end
 end

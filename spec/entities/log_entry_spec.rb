@@ -2,10 +2,11 @@ require 'spec_helper'
 
 describe 'a log entry' do
   before(:each) do
+    @song = PL.db.create_song({ title: 'song', duration: 1000 })
     @log = PL::LogEntry.new({ id: 1,
                               station_id: 4,
                               current_position: 76,
-                              audio_block_id: 375,
+                              audio_block_id: @song.id,
                               airtime: Time.new(1983, 4, 15, 18),
                               listeners_at_start: 55,
                               listeners_at_finish: 57,
@@ -15,7 +16,7 @@ describe 'a log entry' do
   it 'can be created' do
     expect(@log.station_id).to eq(4)
     expect(@log.current_position).to eq(76)
-    expect(@log.audio_block_id).to eq(375)
+    expect(@log.audio_block_id).to eq(@song.id)
     expect(@log.airtime.to_s).to eq(Time.new(1983, 4, 15, 18).to_s)
     expect(@log.listeners_at_start).to eq(55)
     expect(@log.listeners_at_finish).to eq(57)
@@ -32,5 +33,16 @@ describe 'a log entry' do
     expect(log_entry.commercials_follow?).to eq(false)
     log_entry.airtime = Time.new(1983,4,15, 12,59,59)
     expect(log_entry.commercials_follow?).to eq(true)
+  end
+
+  it 'outputs itself as a hash' do
+    hash = @log.to_hash
+    expect(hash[:station_id]).to eq(4)
+    expect(hash[:current_position]).to eq(76)
+    expect(hash[:audio_block_id]).to eq(@song.id)
+    expect(hash[:airtime].to_s).to eq(Time.new(1983, 4, 15, 18).to_s)
+    expect(hash[:listeners_at_start]).to eq(55)
+    expect(hash[:listeners_at_finish]).to eq(57)
+    expect(hash[:duration]).to eq(1000)
   end
 end
