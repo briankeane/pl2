@@ -7,11 +7,31 @@ class StationsController < ApplicationController
     result = PL::GetProgram.run({ schedule_id: current_schedule.id })
     @program = result.program unless !result.success?
     
-    gon.audioQueue = [];
-    gon.audioQueue[0] = current_schedule.now_playing.to_hash
-    gon.audioQueue[1] = current_schedule.next_spin.to_hash
-    gon.timezoneOffsetInMs = current_schedule.now_playing.airtime.in_time_zone(current_station.timezone).utc_offset/60 * -1
+    now_playing = PL::GetProgram.run({ schedule_id: current_schedule.id }).program
+    
+    now_playing.unshift(current_schedule.now_playing)
 
+    gon.audioQueue = now_playing[0..2].map do |spin|
+      obj = {}
+      case
+      when spin.is_a?(PL::CommercialBlock)
+        obj[:type] = 'CommercialBlock'
+        obj[:key] = 'STUBFORCBKEY'
+      when spin.audio_block.is_a?(PL::Song)
+        obj[:type] = 'Song'
+        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
+      when spin.audio_block.is_a?(PL::Commentary)
+        obj[:type] = 'Commentary'
+        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
+      end
+
+      if spin.is_a?(PL::LogEntry)
+        obj[:airtime_in_secs] = spin.airtime.to_f
+      else
+        obj[:airtime_in_secs] = spin.estimated_airtime.to_f
+      end
+      obj
+    end
     
     # convert to local time
     @program.each do |spin|

@@ -236,9 +236,6 @@
       $('#schedule-list').disableSelection();
     }
 
-
-
-
     // ********************************************
     // *               renderSpin                 *
     // *                                          *
@@ -324,6 +321,15 @@
       }
       return movePositionData;
     }
+
+
+
+
+
+
+
+
+
   }
 
 })();

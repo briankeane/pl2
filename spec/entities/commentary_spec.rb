@@ -14,12 +14,4 @@ describe 'a commentary' do
     expect(@commentary.duration).to eq(5000)
     expect(@commentary.key).to eq('ThisIsAKey.mp3')
   end
-
-  it 'outputs itself as a hash' do
-    hash = @commentary.to_hash
-    expect(hash[:id]).to eq(1)
-    expect(hash[:schedule_id]).to eq(2)
-    expect(hash[:duration]).to eq(5000)
-    expect(hash[:key]).to eq('ThisIsAKey.mp3')
-  end
 end

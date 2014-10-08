@@ -21,18 +21,5 @@ describe 'Song' do
     expect(@song.key).to eq('ThisIsAKey.mp3')
     expect(@song.created_at).to eq(Time.new(1970))
     expect(@song.updated_at).to eq(Time.new(1970, 1, 2))
-  end
-
-  it 'outputs a hash of itself' do
-    hash = @song.to_hash
-    expect(hash[:id]).to eq(1)
-    expect(hash[:artist]).to eq('Rachel Loy')
-    expect(hash[:title]).to eq('Stepladder')
-    expect(hash[:album]).to eq('Broken Machine')
-    expect(hash[:duration]).to eq(180000)
-    expect(hash[:key]).to eq('ThisIsAKey.mp3')
-    expect(hash[:created_at]).to eq(Time.new(1970))
-    expect(hash[:updated_at]).to eq(Time.new(1970, 1, 2))
-  end
-
+  en
 end

@@ -20,7 +20,6 @@
               <li class='nowPlaying song'>
                 <span class='title'><b><%= @now_playing.audio_block.title %></b></span>
                 <span class='artist'><%= @now_playing.audio_block.artist %></span>
-                <audio id='nowPlayingAudio' src="https://s3-us-west-2.amazonaws.com/playolasongs/<%=@now_playing.audio_block.key %>"></audio>
             <% elsif @now_playing.is_a?(PL::Commentary) %>
               <span class='title'><b>Commentary</b></span>
             <% end %>

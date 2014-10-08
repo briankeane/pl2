@@ -20,12 +20,4 @@ describe 'a commercial_block' do
     expect(commercial_block.cb_position).to eq(1)
   end
 
-  it 'outputs itself as a hash' do
-    hash = @commercial_block.to_hash
-    expect(hash[:id]).to eq(5)
-    expect(hash[:duration]).to eq(180000)
-    expect(hash[:commercials].map { |c| c.id }).to eq([@commercial1.id, @commercial2.id])
-    expect(hash[:station_id]).to eq(2)
-  end
-
 end

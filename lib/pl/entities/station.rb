@@ -49,6 +49,7 @@ module PL
     def create_sample_array
       sample_array = []
 
+
       # add songs to sample-array in correct ratios
       @spins_per_week.each do |k,v|
         v.times { sample_array.push(PL::db.get_song(k)) }
