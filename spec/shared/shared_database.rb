@@ -594,6 +594,10 @@ shared_examples 'a badass database' do
       expect(db.get_next_spin(1).current_position).to eq(1)
     end
 
+    it 'returns the spin after next scheduled' do
+      expect(db.get_spin_after_next(1).current_position).to eq(2)
+    end
+
     it 'destroys all spins' do
       db.destroy_all_spins
       expect(db.get_full_playlist(1).size).to eq(0)

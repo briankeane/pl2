@@ -563,6 +563,12 @@ module PL
         spin
       end
 
+      def get_spin_after_next(schedule_id)
+        next_spin = self.get_next_spin(schedule_id)
+        spin_after_next = self.get_spin_by_current_position({ schedule_id: schedule_id,
+                                                              current_position: next_spin.current_position + 1 })
+        spin_after_next
+      end
 
       ####################################
       # move_spin                        #

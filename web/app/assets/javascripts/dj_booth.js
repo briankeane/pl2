@@ -15,7 +15,7 @@
 
       });
 
-      // give it a few seconds to load or it'll be choppy 
+      // give it a few seconds to load or it'll be choppy
       var t = setTimeout(function() { 
         gon.audioQueue[0].audio.play();
         gon.audioQueue[0].audio.currentTime = (Date.now() - gon.audioQueue[0].airtime_in_ms)/1000;

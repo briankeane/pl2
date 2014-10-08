@@ -616,6 +616,15 @@ module PL
         end
       end
 
+      def get_spin_after_next(schedule_id)
+        if Spin.exists?(:schedule_id => schedule_id)
+          ar_spin = Spin.where('schedule_id = ?', schedule_id).order(:current_position)[1]
+          return ar_spin.to_pl
+        else
+          return nil
+        end
+      end
+
       #################################################################
       #                       add_spin                                #
       #################################################################
