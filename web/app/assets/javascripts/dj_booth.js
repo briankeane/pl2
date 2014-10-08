@@ -8,16 +8,19 @@
 
     // seek the proper place in the first song and play it
     gon.audioQueue[0].audio.addEventListener('canplaythrough', function() {
+      // unbind so it doesn't run repeatedly
+
       // set timer for next advance
       setTimeout(function() {
 
       });
 
       // give it a few seconds to load or it'll be choppy 
-      setTimeout(function() { 
+      var t = setTimeout(function() { 
         gon.audioQueue[0].audio.play();
         gon.audioQueue[0].audio.currentTime = (Date.now() - gon.audioQueue[0].airtime_in_ms)/1000;
       }, 5000);
+
     });
     
     // set up the progress bar
