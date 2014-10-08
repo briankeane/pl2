@@ -26,9 +26,9 @@ class StationsController < ApplicationController
       end
 
       if spin.is_a?(PL::LogEntry)
-        obj[:airtime_in_secs] = spin.airtime.to_f
+        obj[:airtime_in_ms] = spin.airtime.to_f * 1000
       else
-        obj[:airtime_in_secs] = spin.estimated_airtime.to_f
+        obj[:airtime_in_ms] = spin.estimated_airtime.to_f * 1000
       end
       obj
     end

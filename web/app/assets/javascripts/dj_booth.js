@@ -1,7 +1,29 @@
 (function(){
   if ($('body.stations.dj_booth').length) {
     
-    $('#searchbox').keyup(function() {
+    // load audioQueue
+    for (i=0;i<gon.audioQueue.length;i++) {
+      gon.audioQueue[i].audio = new Audio(gon.audioQueue[i].key)
+    }
+
+    // seek the proper place in the first song and play it
+    gon.audioQueue[0].audio.addEventListener('canplaythrough', function() {
+      // set timer for next advance
+      setTimeout(function() {
+
+      });
+
+      // give it a few seconds to load or it'll be choppy 
+      setTimeout(function() { 
+        gon.audioQueue[0].audio.play();
+        gon.audioQueue[0].audio.currentTime = (Date.now() - gon.audioQueue[0].airtime_in_ms)/1000;
+      }, 5000);
+    });
+    
+    // set up the progress bar
+    gon.audioQueue[0].audio.addEventListener('timeupdate', function() { updateProgressBar(); });
+
+    $('#searchbox').keyup(function(event) {
       var searchText = $('#searchbox').val();
       searchSonglist(searchText, ['#all-songs-source-list']);
     });
@@ -321,15 +343,20 @@
       }
       return movePositionData;
     }
-
-
-
-
-
-
-
-
-
   }
+
+  // *********************************************
+  // *           updateProgressBar               *
+  // *                                           *
+  // *  -- updates the per-song station progress *
+  // *********************************************
+  var updateProgressBar = function() {
+    var elapsedTime = gon.audioQueue[0].audio.currentTime;
+    var totalTime = gon.audioQueue[0].audio.duration;
+    var percentComplete = elapsedTime/totalTime * 100;
+    $('.progress .meter').css('width', percentComplete + '%');
+  }
+
+
 
 })();
