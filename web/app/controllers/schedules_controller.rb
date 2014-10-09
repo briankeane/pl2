@@ -80,6 +80,11 @@ class SchedulesController < ApplicationController
     render :json => result
   end
 
+  def get_spin_after_next
+    spin = current_schedule.get_spin_after_next
+    render :json spin
+  end
+
 
   def remove_spin
   end

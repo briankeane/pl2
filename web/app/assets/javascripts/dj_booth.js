@@ -2,25 +2,33 @@
   if ($('body.stations.dj_booth').length) {
     
     // load audioQueue
-    for (i=0;i<gon.audioQueue.length;i++) {
-      gon.audioQueue[i].audio = new Audio(gon.audioQueue[i].key)
+    for (var i=0;i<gon.audioQueue.length;i++) {
+      gon.audioQueue[i].audio = new Audio(gon.audioQueue[i].key);
     }
+    
+    // set the next advance
+    var msTillAdvanceSpin = (gon.audioQueue[1].airtime_in_ms - Date.now());
+    setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
 
     // seek the proper place in the first song and play it
     gon.audioQueue[0].audio.addEventListener('canplaythrough', function() {
-      // unbind so it doesn't run repeatedly
 
       // set timer for next advance
       setTimeout(function() {
 
       });
 
-      // give it a few seconds to load or it'll be choppy
-      var t = setTimeout(function() { 
-        gon.audioQueue[0].audio.play();
-        gon.audioQueue[0].audio.currentTime = (Date.now() - gon.audioQueue[0].airtime_in_ms)/1000;
-      }, 5000);
+      // if it hasn't already started
+      if (!gon["musicStarted"]) {
+        // set flag so it only executes once
+        gon["musicStarted"] = true;
 
+        // give it a few seconds to load or it'll be choppy
+        var t = setTimeout(function() { 
+          gon.audioQueue[0].audio.play();
+          gon.audioQueue[0].audio.currentTime = (Date.now() - gon.audioQueue[0].airtime_in_ms)/1000;
+        }, 5000);
+      }
     });
     
     // set up the progress bar
@@ -358,8 +366,16 @@
     var totalTime = gon.audioQueue[0].audio.duration;
     var percentComplete = elapsedTime/totalTime * 100;
     $('.progress .meter').css('width', percentComplete + '%');
-  }
+  };
 
+  var advanceSpin= function() { 
+    gon.audioQueue.shift();
+    gon.audioQueue[0].audio.play();
+    var msTillAdvanceSpin = (gon.audioQueue[1].airtime_in_ms - Date.now());
+    setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
+
+
+  };
 
 
 })();

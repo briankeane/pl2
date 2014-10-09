@@ -318,6 +318,16 @@ module PL
       end
     end
 
+    def spin_after_next
+            # if it should be a commercial
+      if next_spin.commercials_follow?
+        return @station.next_commercial_block
+      else
+        return PL.db.get_spin_after_next(@id)
+      end
+    end
+
+
     ########################################################
     #  get_program                                         #
     ########################################################
