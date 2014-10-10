@@ -80,9 +80,14 @@ class SchedulesController < ApplicationController
     render :json => result
   end
 
-  def get_spin_after_next
-    spin = current_schedule.get_spin_after_next
-    render :json spin
+  def get_spin_by_current_position
+    spin = PL.db.get_spin_by_current_position({ schedule_id: @schedule_id,
+                                                current_position: params[:current_position] })
+
+    # 'touch' audioBlock so it's not blank for js
+    spin.audio_block
+
+    render :json => spin
   end
 
 

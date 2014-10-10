@@ -21,5 +21,5 @@ describe 'Song' do
     expect(@song.key).to eq('ThisIsAKey.mp3')
     expect(@song.created_at).to eq(Time.new(1970))
     expect(@song.updated_at).to eq(Time.new(1970, 1, 2))
-  en
+  end
 end

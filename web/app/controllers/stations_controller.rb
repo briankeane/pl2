@@ -11,6 +11,7 @@ class StationsController < ApplicationController
     
     now_playing.unshift(current_schedule.now_playing)
 
+    # load audioQueue array
     gon.audioQueue = now_playing[0..2].map do |spin|
       obj = {}
       case
@@ -25,6 +26,8 @@ class StationsController < ApplicationController
         obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
       end
 
+      obj[:currentPosition] = spin.current_position
+      obj[:commercialsFollow?] = spin.commercials_follow?
       if spin.is_a?(PL::LogEntry)
         obj[:airtime_in_ms] = spin.airtime.to_f * 1000
       else
@@ -37,8 +40,6 @@ class StationsController < ApplicationController
     @program.each do |spin|
       spin.estimated_airtime = spin.estimated_airtime.in_time_zone(current_station.timezone)
     end
-
-
 
     # set first_current_position if commercial block is first
     if @program.last.is_a?(PL::CommercialBlock)

@@ -40,18 +40,6 @@ describe 'a spin' do
     expect(@spin.estimated_airtime.to_s).to eq('2014-01-01 12:00:00 -0600')
   end
 
-  it 'outputs a hash version of itself' do
-    hash = @spin.to_hash
-    expect(hash[:id]).to eq(1)
-    expect(hash[:current_position]).to eq(2)
-    expect(hash[:audio_block][:id]).to eq(@song.id)
-    expect(hash[:created_at]).to eq(Time.new(1970))
-    expect(hash[:updated_at]).to eq(Time.new(1970, 1, 2))
-    expect(hash[:schedule_id]).to eq(3)
-    expect(hash[:estimated_airtime].to_s).to eq('2014-01-01 12:00:00 -0600')
-  end
-
-
   it "grabs the audio_block if it's a song" do
     expect(@spin.audio_block.title).to eq('song')
     expect(@spin.audio_block.duration).to eq(2000)

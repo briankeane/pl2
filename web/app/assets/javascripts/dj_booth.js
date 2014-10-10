@@ -369,13 +369,35 @@
   };
 
   var advanceSpin= function() { 
+    // advance audioQueue
     gon.audioQueue.shift();
+
+    // create callback for ajax request
+    var updateQueue = function(result) {
+      console.log(result);
+      return result;
+    }
+
+    getSpinByCurrentPosition(gon.audioQueue[0].currentPosition + 1, updateQueue);
+
+    // play the new song
     gon.audioQueue[0].audio.play();
     var msTillAdvanceSpin = (gon.audioQueue[1].airtime_in_ms - Date.now());
     setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
-
-
   };
+
+
+
+  var getSpinByCurrentPosition = function(currentPosition, callback) {
+    $.ajax({
+          type: 'GET',
+          dataType: 'json',
+          url: 'schedules/get_spin_by_current_position',
+          contentType: 'application/json',
+          data: { current_position: currentPosition },
+          success: callback
+        });
+  }
 
 
 })();

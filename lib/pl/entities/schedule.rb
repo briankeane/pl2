@@ -370,7 +370,8 @@ module PL
       if now_playing.commercials_follow?
         playlist_with_commercial_blocks << PL::CommercialBlock.new({ schedule_id: @id,
                                                 estimated_airtime: now_playing.estimated_end_time,
-                                                duration: station.secs_of_commercial_per_hour/2 })
+                                                duration: station.secs_of_commercial_per_hour/2,
+                                                current_position: now_playing.current_position })
       end
 
       playlist.each do |spin|
@@ -378,7 +379,8 @@ module PL
         if spin.commercials_follow?
           playlist_with_commercial_blocks << PL::CommercialBlock.new({ schedule_id: spin.schedule_id,
                                                 estimated_airtime: spin.estimated_end_time,
-                                                duration: station.secs_of_commercial_per_hour/2 })
+                                                duration: station.secs_of_commercial_per_hour/2,
+                                                current_position: spin.current_position })
         end
       end
 
