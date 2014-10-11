@@ -8,8 +8,8 @@
       </div>
 
       <div class="small-12 columns">
-          <fieldset id="nowPlayingFieldset">
-            <legend>Now Playing</legend>
+        <fieldset id="nowPlayingFieldset">
+          <legend>Now Playing</legend>
   
           <ul id="nowPlayingList">
             <% if @now_playing.audio_block.is_a?(PL::CommercialBlock) %>              
@@ -23,15 +23,16 @@
             <% elsif @now_playing.is_a?(PL::Commentary) %>
               <span class='title'><b>Commentary</b></span>
             <% end %>
-            <div class="progress">
-              <span class="meter"></span>
-            </div>
-            <div class='nowPlayingTimes'>
-              <div class='elapsedTime'></div>
-              <div class='timeRemaining'></div>
-            </div>
+              <div class="progress">
+                <span class="meter"></span>
+              </div>
+              <div class='nowPlayingTimes'>
+                <div class='elapsedTime'></div>
+                <a class='muteButton' href='#'></a>
+                <div class='timeRemaining'></div>
+              </div>
 
-          </li>  
+            </li>  
           </ul>       
         </fieldset>
 

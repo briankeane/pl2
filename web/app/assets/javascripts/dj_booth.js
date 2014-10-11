@@ -210,6 +210,12 @@
       console.log(this);
     });
 
+
+    // set up mute button
+    $('.muteButton').click(function() {
+      toggleStationMute();
+    });
+
     // ********************************************
     // *       refreshScheduleList                *
     // *                                          *
@@ -433,6 +439,15 @@
           data: { current_position: currentPosition },
           success: callback
         });
+  }
+
+  var toggleStationMute = function() {
+    // change image
+    $('.muteButton').toggleClass('muted');
+
+    for (var i=0; i<gon.audioQueue.length; i++) {
+      gon.audioQueue[i].audio.muted = !gon.audioQueue[i].audio.muted;
+    }
   }
 
 

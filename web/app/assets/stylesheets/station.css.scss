@@ -253,9 +253,28 @@ fieldset {
 .nowPlayingTimes {
   .elapsedTime {
     float: left;
+    width: 48%;
+    text-align: left;
+  }
+  .muteButton {
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 4%;
+    float: left;
+    background-size: cover;
+    background-image: url('../images/sound.png');
+    height: 25px;
+    &.muted {
+      height: 25px;
+      background-image: url('../images/mute.png');
+    }
   }
   .timeRemaining {
     float: right;
+    text-align: right;
+    width: 48%;
   }
 }
 
