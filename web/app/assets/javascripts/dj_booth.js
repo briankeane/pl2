@@ -28,11 +28,15 @@
           gon.audioQueue[0].audio.play();
           gon.audioQueue[0].audio.currentTime = (Date.now() - gon.audioQueue[0].airtime_in_ms)/1000;
         }, 5000);
+          gon.audioQueue[0].audio.addEventListener('play', function() {
+
+    setInterval(function() { updateProgressBar() }, 1000);
+          });
       }
     });
     
     // set up the progress bar
-    gon.audioQueue[0].audio.addEventListener('timeupdate', function() { updateProgressBar(); });
+    //gon.audioQueue[0].audio.addEventListener('timeupdate', function() { updateProgressBar(); });
 
     $('#searchbox').keyup(function(event) {
       var searchText = $('#searchbox').val();
@@ -363,9 +367,21 @@
   // *********************************************
   var updateProgressBar = function() {
     var elapsedTime = gon.audioQueue[0].audio.currentTime;
-    var totalTime = gon.audioQueue[0].audio.duration;
-    var percentComplete = elapsedTime/totalTime * 100;
+    var msRemaining = (gon.audioQueue[1].airtime_in_ms - Date.now());
+    var percentComplete = elapsedTime/(elapsedTime + msRemaining/1000)*100;
     $('.progress .meter').css('width', percentComplete + '%');
+    $('.nowPlayingTimes .elapsedTime').text(formatSongFromMS(Math.round(elapsedTime) * 1000));
+    
+    $('.nowPlayingTimes .timeRemaining').text('-' + formatSongFromMS(msRemaining));
+
+    // if there's less than 10 secs left
+    if (msRemaining <= 10000) {
+      // set the color to red
+      $('.nowPlayingTimes .timeRemaining').css('color', 'red');
+    } else {
+      $('.nowPlayingTimes .timeRemaining').css('color', 'black');
+    }
+
   };
 
   var advanceSpin= function() { 
@@ -378,11 +394,31 @@
       return result;
     }
 
-    getSpinByCurrentPosition(gon.audioQueue[0].currentPosition + 1, updateQueue);
+    getSpinByCurrentPosition(gon.audioQueue[gon.audioQueue.length-1].currentPosition + 1, updateQueue);
 
     // play the new song
     gon.audioQueue[0].audio.play();
     var msTillAdvanceSpin = (gon.audioQueue[1].airtime_in_ms - Date.now());
+
+    // clear the previous class
+    $('#nowPlayingList .nowPlaying').removeClass('song');
+    $('#nowPlayingList .nowPlaying').removeClass('commercialBlock');
+    $('#nowPlayingList .nowPlaying').removeClass('commentary');
+    
+    // update the class and info
+    if (gon.audioQueue[0].type === 'Song') {
+      $('#nowPlayingList .nowPlaying').addClass('song');
+      $('#nowPlayingList .nowPlaying .title b').text(gon.audioQueue[0].title);
+      $('#nowPlayingList .nowPlaying .artist').text(gon.audioQueue[0].artist);
+    } else if (gon.audioQueue[0].type === 'Commentary') {
+      $('#nowPlayingList .nowPlaying').addClass('commentary');
+      $('#nowPlayingList .nowPlaying .title b').text('Commentary');
+      $('#nowPlayingList .nowPlaying .artist').text('');
+
+    } else if (gon.audioQueue.type === 'CommercialBlock') {
+      $('#nowPlayingList .nowPlaying').addClass('commercialBlock');
+    }
+    // set up next advance
     setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
   };
 

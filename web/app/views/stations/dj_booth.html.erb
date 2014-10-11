@@ -10,7 +10,7 @@
       <div class="small-12 columns">
           <fieldset id="nowPlayingFieldset">
             <legend>Now Playing</legend>
-
+  
           <ul id="nowPlayingList">
             <% if @now_playing.audio_block.is_a?(PL::CommercialBlock) %>              
               <li class='nowPlaying commercialBlock'>
@@ -26,6 +26,11 @@
             <div class="progress">
               <span class="meter"></span>
             </div>
+            <div class='nowPlayingTimes'>
+              <div class='elapsedTime'></div>
+              <div class='timeRemaining'></div>
+            </div>
+
           </li>  
           </ul>       
         </fieldset>

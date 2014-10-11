@@ -184,10 +184,11 @@ fieldset {
 
   #nowPlayingList {
     list-style: none;
+    overflow: hidden;
     
     .nowPlaying {
       background-color: $darker-item;
-      height: 70px;
+      height: 77px;
       border: black solid 1px;
       padding-left: 6px;
       padding-right: 6px;
@@ -209,6 +210,7 @@ fieldset {
     .progress {
       float: right;
       width: 100%;
+      margin-bottom: 0;
     }
   }
 }
@@ -245,6 +247,15 @@ fieldset {
       width: 80%;
       display: block;
     }
+  }
+}
+
+.nowPlayingTimes {
+  .elapsedTime {
+    float: left;
+  }
+  .timeRemaining {
+    float: right;
   }
 }
 

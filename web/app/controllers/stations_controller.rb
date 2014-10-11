@@ -21,9 +21,11 @@ class StationsController < ApplicationController
       when spin.audio_block.is_a?(PL::Song)
         obj[:type] = 'Song'
         obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
+        obj[:artist] = spin.audio_block.artist
+        obj[:title] = spin.audio_block.title
       when spin.audio_block.is_a?(PL::Commentary)
         obj[:type] = 'Commentary'
-        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
+        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolacommentaries/' + spin.audio_block.key
       end
 
       obj[:currentPosition] = spin.current_position
