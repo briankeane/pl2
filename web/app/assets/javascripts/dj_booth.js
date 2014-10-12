@@ -206,7 +206,7 @@
 
     $('#schedule-list').disableSelection();
     
-    $('#schedule-list li .close').on('click', function(event) {
+    $(document).on('click', '#schedule-list li .close', function(event) {
       event.preventDefault();
       var currentPosition = parseInt($(this).parent().attr('data-currentPosition'));
       removeSpin(currentPosition);
@@ -298,7 +298,8 @@
       var html = '<li class="song ui-sortable-handle" data-currentPosition="' + 
                   currentPosition + '"><span class="songlist-title">' + spinInfo.title + 
                   '</span><span class="songlist-artist">' + spinInfo.artist + '</span>' +
-                  '<span class="songlist-airtime">' + spinInfo.estimated_airtime + '</span></li>';
+                  '<span class="songlist-airtime">' + spinInfo.estimated_airtime + 
+                  '</span><a href="#" class="close" title="delete">×</a></li>';
       return html;
     }
      // *******************************************
