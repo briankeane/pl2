@@ -26,7 +26,7 @@ module PL
 
       replace_time = Time.new(old_airtime.year, old_airtime.month, day, 3)
 
-      program = schedule.get_program({start_time: replace_time, end_time: (replace_time + 5*60) })
+      program = schedule.get_program({start_time: replace_time })
       new_position = program[0].current_position
 
       schedule.move_spin({ old_position: spin_to_remove.current_position, new_position: new_position,

@@ -92,5 +92,22 @@ class SchedulesController < ApplicationController
 
 
   def remove_spin
+    result = PL::RemoveSpin.run({ schedule_id: current_schedule.id,
+                                   current_position: params[:current_position] })
+    if result.success?
+      result.min_position = params[:current_position] - 1
+      result.max_position = params[:last_current_position].to_i + 1
+      result.new_program = current_schedule.get_program_by_current_positions({ schedule_id: current_schedule.id,
+                                                                            starting_current_position: result.min_position,
+                                                                            ending_current_position: result.max_position })
+
+      # format estimated_air_times
+      result.new_program.each do |spin|
+        if spin.estimated_airtime
+          spin.estimated_airtime = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
+        end
+      end
+      render :json => result
+    end
   end
 end

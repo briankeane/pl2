@@ -206,8 +206,10 @@
 
     $('#schedule-list').disableSelection();
     
-    $('#schedule-list li .close').on('click', function() {
-      console.log(this);
+    $('#schedule-list li .close').on('click', function(event) {
+      event.preventDefault();
+      var currentPosition = parseInt($(this).parent().attr('data-currentPosition'));
+      removeSpin(currentPosition);
     });
 
 
@@ -242,7 +244,7 @@
       var maxIndex = $('*[data-currentPosition="' + result.max_position +'"]').index();
 
       // adjust for cases where full schedule is updated
-      if (!maxIndex === -1) {
+      if (maxIndex === -1) {
         maxIndex = $('#schedule-list li').last().index();
       }
 
@@ -431,12 +433,16 @@
 
 
   var getSpinByCurrentPosition = function(currentPosition, callback) {
+    var getSpinInfo = {};
+    getSpinInfo.last_current_position = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
+    getSpinInfo.current_position = currentPosition;
+
     $.ajax({
           type: 'GET',
           dataType: 'json',
           url: 'schedules/get_spin_by_current_position',
           contentType: 'application/json',
-          data: { current_position: currentPosition },
+          data: JSON.stringify(getSpinInfo),
           success: callback
         });
   }
@@ -448,6 +454,27 @@
     for (var i=0; i<gon.audioQueue.length; i++) {
       gon.audioQueue[i].audio.muted = !gon.audioQueue[i].audio.muted;
     }
+  }
+
+  var removeSpin = function(currentPosition) {
+    var removeSpinInfo = {};
+    removeSpinInfo.last_current_position = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
+    removeSpinInfo.current_position = currentPosition;
+
+    $.ajax({
+          type: 'DELETE',
+          dataType: 'json',
+          url: 'schedules/remove_spin',
+          contentType: 'application/json',
+          data: JSON.stringify(removeSpinInfo),
+          success: function(result) {
+            $('*[data-currentPosition="' + result.table.removed_spin.current_position +'"]').remove();
+            result.max_index = -1;
+            refreshScheduleList(result.table);
+          }
+    });
+  
+
   }
 
 

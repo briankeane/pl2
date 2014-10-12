@@ -38,7 +38,7 @@ Rails.application.routes.draw do
   match '/schedules/process_commentary',            to: 'schedules#process_commentary',              via: 'post'
   match '/listens/index',                           to: 'listens#index',                             via: 'get'
   match '/schedules/get_spin_by_current_position',  to: 'schedules#get_spin_by_current_position',    via: 'get'
-  
+  match '/schedules/remove_spin',                   to: 'schedules#remove_spin',                     via: 'delete'
   # sessions_controller paths
   get '/auth/twitter/callback', to: 'sessions#create_with_twitter'
 
