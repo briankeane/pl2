@@ -132,7 +132,7 @@ describe 'schedule' do
       
       @schedule = PL.db.update_schedule({ id: @schedule.id,
                                             last_accurate_current_position: 34 })
-      @schedule.update_estimated_airtimes({ endtime: Time.local(2014,5,9, 12) })
+      @schedule.update_estimated_airtimes({ end_time: Time.local(2014,5,9, 12) })
       expect(@schedule.last_accurate_current_position).to eq(37)
       expect(@schedule.last_accurate_airtime.to_s).to eq(Time.local(2014,5,9, 12,6).to_s)
       expect(PL.db.get_full_playlist(@schedule.id)[34].estimated_airtime.to_s).to eq(Time.local(2014,5,9, 11,59,50).to_s)
@@ -145,7 +145,7 @@ describe 'schedule' do
                         })
       @schedule = PL.db.update_schedule({ id: @schedule.id,
                                             last_accurate_current_position: 37 })
-      @schedule.update_estimated_airtimes({ endtime: Time.local(2014,5,9, 12,10) })
+      @schedule.update_estimated_airtimes({ end_time: Time.local(2014,5,9, 12,10) })
       playlist = PL.db.get_full_playlist(@schedule.id)
       expect(playlist[36].current_position).to eq(38)
       expect(playlist[36].estimated_airtime.to_s).to eq(Time.local(2014,5,9,12,9,10).to_s)

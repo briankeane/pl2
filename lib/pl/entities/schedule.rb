@@ -155,8 +155,8 @@ module PL
         return false
       end
 
-      # exit if an endtime is provided and it's already accurate
-      if attrs[:endtime] && (attrs[:endtime] < last_accurate_airtime)
+      # exit if an end_time is provided and it's already accurate
+      if attrs[:end_time] && (attrs[:end_time] < last_accurate_airtime)
         return false
       end
 
@@ -198,8 +198,8 @@ module PL
         end
 
         # break out if job finishes early
-        if attrs[:endtime]
-          if spin.estimated_airtime > attrs[:endtime]
+        if attrs[:end_time]
+          if spin.estimated_airtime > attrs[:end_time]
             break
           end
         end
@@ -227,7 +227,7 @@ module PL
         return
       end
       
-      self.update_estimated_airtimes({ endtime: Time.now })
+      self.update_estimated_airtimes({ end_time: Time.now })
 
       playlist = PL.db.get_partial_playlist({ schedule_id: @id, end_time: Time.now })
 
@@ -344,7 +344,7 @@ module PL
       end
 
       if last_accurate_airtime < attrs[:end_time]
-        self.update_estimated_airtimes({ endtime: attrs[:end_time] + (60*60) })
+        self.update_estimated_airtimes({ end_time: attrs[:end_time] + (60*60) })
       end
 
       playlist = PL.db.get_partial_playlist({ start_time: attrs[:start_time], end_time: attrs[:end_time], schedule_id: @id })

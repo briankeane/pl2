@@ -15,8 +15,24 @@ module PL
         return failure(:invalid_current_position)
       end
 
-      PL.db.remove_spin({ current_position: attrs[:current_position],
-                          schedule_id: attrs[:schedule_id] })
+      # find the reinsert time (tomorrow 3am, day after tomorrow 3am if original time is between midnight and 3am)
+      old_airtime = spin_to_remove.estimated_airtime
+
+      if old_airtime.hour < 3
+        day = old_airtime.day + 2
+      else
+        day = old_airtime.day + 1
+      end
+
+      replace_time = Time.new(old_airtime.year, old_airtime.month, day, 3)
+
+      program = schedule.get_program({start_time: replace_time, end_time: (replace_time + 5*60) })
+      new_position = program[0].current_position
+
+      schedule.move_spin({ old_position: spin_to_remove.current_position, new_position: new_position,
+                            schedule_id: schedule.id })
+
+      return success :removed_spin => spin_to_remove
     end
   end
 end
