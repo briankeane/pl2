@@ -206,10 +206,8 @@
 
     $('#schedule-list').disableSelection();
     
-    $(document).on('click', '#schedule-list li .close', function(event) {
-      event.preventDefault();
-      var currentPosition = parseInt($(this).parent().attr('data-currentPosition'));
-      removeSpin(currentPosition);
+    $(document).on('click', '#schedule-list li .close', function() { 
+      removeSpin();
     });
 
 
@@ -432,7 +430,6 @@
   };
 
 
-
   var getSpinByCurrentPosition = function(currentPosition, callback) {
     var getSpinInfo = {};
     getSpinInfo.last_current_position = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
@@ -457,10 +454,27 @@
     }
   }
 
-  var removeSpin = function(currentPosition) {
+  var removeSpin = function() {
+    event.preventDefault();
+
+    // if the list is deactivated, do nothing
+    if ($('#schedule-list').hasClass('ui-sortable-disabled')) {
+      return;
+    }
+
+    var currentPosition = parseInt($(event.target).parent().attr('data-currentposition'));
     var removeSpinInfo = {};
     removeSpinInfo.last_current_position = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
     removeSpinInfo.current_position = currentPosition;
+    
+    //remove airtime and replace with processing icon
+    var spinLiSelector = '*[data-currentPosition="' + currentPosition +'"]';
+    $(spinLiSelector + ' .songlist-airtime').remove();
+    $(spinLiSelector + ' .close').remove();
+    $(spinLiSelector).append('<img src="/images/processing_icon.gif" class="processing-icon" />');
+
+    // disable list until results come back
+    $('#schedule-list').sortable('disable');
 
     $.ajax({
           type: 'DELETE',
@@ -472,6 +486,7 @@
             $('*[data-currentPosition="' + result.table.removed_spin.current_position +'"]').remove();
             result.max_index = -1;
             refreshScheduleList(result.table);
+            $('#schedule-list').sortable('enable');
           }
     });
   

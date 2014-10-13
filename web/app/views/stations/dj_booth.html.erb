@@ -45,7 +45,6 @@
                 <li class='commercialBlock disabled'>
                   <span class="songlist-title">Commercial Block</span>
                   <span class="songlist-airtime"><%= time_formatter(spin.estimated_airtime) %></span>
-                  <a href="#" class="close" title="delete">×</a>
                 </li>
               <% elsif spin.audio_block.is_a?(PL::Song) %>
                 <li class='song' data-currentPosition="<%= spin.current_position %>">
