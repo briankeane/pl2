@@ -484,14 +484,38 @@
           data: JSON.stringify(removeSpinInfo),
           success: function(result) {
             $('*[data-currentPosition="' + result.table.removed_spin.current_position +'"]').remove();
-            result.max_index = -1;
+
+            // adjust lastCurrentPosition
+            var oldLastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
+            $('#schedule-list').attr('data-lastCurrentPosition', oldLastCurrentPosition - 1);
+
             refreshScheduleList(result.table);
             $('#schedule-list').sortable('enable');
+            appendNextSpin();
           }
     });
-  
-
   }
 
+  var appendNextSpin = function() {
+    var nextCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition')) + 1;
+      $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: 'schedules/get_spin_by_current_position',
+        contentType: 'application/json',
+        data: { current_position: nextCurrentPosition},
+        success: function(result) {
+          var html = renderSpin({ estimated_airtime: result.estimated_airtime,
+                                   current_position: result.current_position,
+                                   title: result.audio_block.title,
+                                   artist: result.audio_block.artist });
+          $('#schedule-list').append(html);
+
+          // increment lastCurrentPosition
+          var oldLastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
+          $('#schedule-list').attr('data-lastCurrentPosition', oldLastCurrentPosition + 1);
+        }
+      });
+  }
 
 })();

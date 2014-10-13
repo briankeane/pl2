@@ -87,6 +87,9 @@ class SchedulesController < ApplicationController
     # 'touch' audioBlock so it's not blank for js
     spin.audio_block
 
+    # format time
+    spin.estimated_airtime = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
+
     render :json => spin
   end
 
