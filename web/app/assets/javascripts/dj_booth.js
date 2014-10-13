@@ -421,12 +421,17 @@
       $('#nowPlayingList .nowPlaying').addClass('commentary');
       $('#nowPlayingList .nowPlaying .title b').text('Commentary');
       $('#nowPlayingList .nowPlaying .artist').text('');
-
     } else if (gon.audioQueue.type === 'CommercialBlock') {
       $('#nowPlayingList .nowPlaying').addClass('commercialBlock');
     }
     // set up next advance
     setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
+
+    // if the station is live, advance it.
+    if (parseInt($('#schedule-list li').attr('data-currentPosition')) === gon.audioQueue[0].currentPosition)  {
+      $('#schedule-list li').first().remove();
+      appendNextSpin();
+    }
   };
 
 
