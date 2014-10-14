@@ -126,7 +126,7 @@ class StationsController < ApplicationController
 
       @first_visit = true
 
-      redirect_to listens_index_path
+      render listens_index_path
     end
   end
 
