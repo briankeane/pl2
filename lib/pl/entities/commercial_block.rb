@@ -17,5 +17,9 @@ module PL
     def estimated_end_time
       estimated_airtime + @duration/1000
     end
+
+    def airtime_in_ms
+      @estimated_airtime.to_f * 1000
+    end
   end
 end

@@ -35,8 +35,6 @@
       }
     });
     
-    // set up the progress bar
-    //gon.audioQueue[0].audio.addEventListener('timeupdate', function() { updateProgressBar(); });
 
     $('#searchbox').keyup(function(event) {
       var searchText = $('#searchbox').val();
@@ -381,6 +379,11 @@
     
     $('.nowPlayingTimes .timeRemaining').text('-' + formatSongFromMS(msRemaining));
 
+    // show the muteButton if it's invisible
+    if($('.muteButton').css('display') === 'none') {
+      $('.muteButton').show();
+    }
+
     // if there's less than 10 secs left
     if (msRemaining <= 10000) {
       // set the color to red
@@ -407,7 +410,10 @@
 
       gon.audioQueue.push(result);
 
-
+      // if commercials follow that spin
+      if (result["commercials_follow?"]) {
+        gon.audioQueue.push(getCommercialBlock(result.currentPosition));
+      }
       return result;
     }
 
@@ -429,10 +435,12 @@
       $('#nowPlayingList .nowPlaying .artist').text(gon.audioQueue[0].artist);
     } else if (gon.audioQueue[0].type === 'Commentary') {
       $('#nowPlayingList .nowPlaying').addClass('commentary');
-      $('#nowPlayingList .nowPlaying .title b').text('Commentary');
+      $('#nowPlayingList .nowPlaying .title').text('Commentary');
       $('#nowPlayingList .nowPlaying .artist').text('');
     } else if (gon.audioQueue.type === 'CommercialBlock') {
       $('#nowPlayingList .nowPlaying').addClass('commercialBlock');
+      $('#nowPlayingList .nowPlaying .title').text('Commercial Block');
+      $('#nowPlayingList .nowPlaying .artist').text('');
     }
     // set up next advance
     setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
@@ -509,6 +517,18 @@
             appendNextSpin();
           }
     });
+  }
+  // *********************************************
+  // *          getCommercialBlock               *
+  // *                                           *
+  // *  -- STUB - to be replaced when commercial *
+  // * system is complete on backend             *
+  // *********************************************
+  var getCommercialBlock = function(currentPosition) {
+    var lastAudioQueueIndex = gon.audiQueue.length - 1;
+    return { type: "CommercialBlock", key: "STUBFORKEY", currentPosition: 1990,
+                  "commercials_follow?": "false", 
+                  airtime_in_ms: gon.audioQueue[lastAudioQueueIndex].airtime_in_ms + (gon.audioQueue[lastAudioQueueIndex].audio.duration*1000) }
   }
 
   var appendNextSpin = function() {

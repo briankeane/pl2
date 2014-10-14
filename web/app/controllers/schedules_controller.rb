@@ -91,6 +91,7 @@ class SchedulesController < ApplicationController
 
     spin_as_hash["commercials_follow?"] = spin.commercials_follow?
     spin_as_hash["airtime_in_ms"] = spin.airtime_in_ms
+    spin_as_hash["currentPosition"] = spin.current_position
     # format time
     spin_as_hash["estimated_airtime"] = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
 
