@@ -140,22 +140,6 @@
 
   });
 
-  $('#random').on('click', function() {
-    while ($('#heavy li').length < 13) {
-      var allSongsList = $('#all-songs-list li');
-      moveAnimate(allSongsList.eq(Math.floor((Math.random()) * allSongsList.length)), $('#heavy'));
-    }
-
-    while ($('#medium li').length < 30) {
-      var allSongsList = $('#all-songs-list li');
-      moveAnimate(allSongsList.eq(Math.floor((Math.random()) * allSongsList.length)), $('#medium'));
-    }
-
-    while ($('#light li').length < 13) {
-      var allSongsList = $('#all-songs-list li');
-      moveAnimate(allSongsList.eq(Math.floor((Math.random()) * allSongsList.length)), $('#light'));
-    }
-  });
 
   $('#create').on('click', function() {
     if ($('#heavy li').length < 13) {

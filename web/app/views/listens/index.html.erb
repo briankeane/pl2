@@ -1,2 +1,24 @@
+<!-- Modal for First Time -->
+
+<%= content_tag "div", id: "firstSongNotificationModal", class: "reveal-modal medium", data: { first_visit: @first_visit, reveal: true } do %>
+  <h2>Congratulations!</h2>
+  <p>Your Playola Station is Now Broadcasting it's First Song:</p>
+  <p><b> <%= @current_schedule.now_playing.audio_block.title || 'Commercial' %></b></p>
+
+  <p>by</p>
+
+  <p><b> <%= @current_schedule.now_playing.audio_block.artist || '' %></p></b>
+  
+  <div class="row">
+    <div class="large-12 large-centered columns">
+
+        <a href='#'class="button large close-reveal-modal">Continue</a>
+
+    </div>
+  </div>
+
+<% end %>
+
 <h1>Listens#index</h1>
 <p>This is where you will be able to find and listen to each other's stations, once Brian finishes building it. Please explore the other stuff (under 'Broadcast' in the menu above) in the meantime.</p>
+
