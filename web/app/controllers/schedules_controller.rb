@@ -87,10 +87,22 @@ class SchedulesController < ApplicationController
     # 'touch' audioBlock so it's not blank for js
     spin.audio_block
 
-    # format time
-    spin.estimated_airtime = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
+    spin_as_hash = spin.as_json
 
-    render :json => spin
+    spin_as_hash["commercials_follow?"] = spin.commercials_follow?
+    spin_as_hash["airtime_in_ms"] = spin.airtime_in_ms
+    # format time
+    spin_as_hash["estimated_airtime"] = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
+
+    if spin.audio_block.is_a?(PL::Song)
+      spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
+      spin_as_hash["type"] = "Song"
+    elsif spin.audio_block.is_a?(PL::Commentary)
+      spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolacommentaries' + spin.audio_block.key
+      spin_as_hash["type"] = "Commentary"
+    end
+
+    render :json => spin_as_hash
   end
 
 

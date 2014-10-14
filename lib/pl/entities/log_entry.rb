@@ -23,6 +23,10 @@ module PL
       end
     end
 
+    def airtime_in_ms
+      @airtime.to_f * 1000
+    end
+
     def to_hash
       hash = {}
       self.instance_variables.each { |var| hash[var.to_s.delete('@').to_sym] = self.instance_variable_get(var) }

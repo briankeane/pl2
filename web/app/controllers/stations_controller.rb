@@ -31,9 +31,9 @@ class StationsController < ApplicationController
       obj[:currentPosition] = spin.current_position
       obj[:commercialsFollow?] = spin.commercials_follow?
       if spin.is_a?(PL::LogEntry)
-        obj[:airtime_in_ms] = spin.airtime.to_f * 1000
+        obj[:airtime_in_ms] = spin.airtime_in_ms
       else
-        obj[:airtime_in_ms] = spin.estimated_airtime.to_f * 1000
+        obj[:airtime_in_ms] = spin.airtime_in_ms
       end
       obj
     end

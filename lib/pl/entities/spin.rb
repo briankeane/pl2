@@ -39,5 +39,9 @@ module PL
         return false
       end
     end
+
+    def airtime_in_ms
+      @estimated_airtime.to_f * 1000
+    end
   end
 end

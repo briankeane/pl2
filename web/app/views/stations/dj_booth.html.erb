@@ -18,7 +18,7 @@
               
             <% elsif @now_playing.audio_block.is_a?(PL::Song) %>
               <li class='nowPlaying song'>
-                <span class='title'><b><%= @now_playing.audio_block.title %></b></span>
+                <span class='title'><%= @now_playing.audio_block.title %></span>
                 <span class='artist'><%= @now_playing.audio_block.artist %></span>
             <% elsif @now_playing.is_a?(PL::Commentary) %>
               <span class='title'><b>Commentary</b></span>

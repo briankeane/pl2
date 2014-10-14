@@ -398,6 +398,16 @@
     // create callback for ajax request
     var updateQueue = function(result) {
       console.log(result);
+      var newSong = {};
+      
+      // reformat response for js  (TODO: MAKE THESE RESPONSES UNIFORM LATER)
+      result.artist = result.audio_block.artist;
+      result.title = result.audio_block.title;
+      result.audio = new Audio(result.key);
+
+      gon.audioQueue.push(result);
+
+
       return result;
     }
 
@@ -415,7 +425,7 @@
     // update the class and info
     if (gon.audioQueue[0].type === 'Song') {
       $('#nowPlayingList .nowPlaying').addClass('song');
-      $('#nowPlayingList .nowPlaying .title b').text(gon.audioQueue[0].title);
+      $('#nowPlayingList .nowPlaying .title').text(gon.audioQueue[0].title);
       $('#nowPlayingList .nowPlaying .artist').text(gon.audioQueue[0].artist);
     } else if (gon.audioQueue[0].type === 'Commentary') {
       $('#nowPlayingList .nowPlaying').addClass('commentary');
@@ -427,7 +437,7 @@
     // set up next advance
     setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
 
-    // if the station is live, advance it.
+    // if the station is live, advance #schedule-list
     if (parseInt($('#schedule-list li').attr('data-currentPosition')) === gon.audioQueue[0].currentPosition)  {
       $('#schedule-list li').first().remove();
       appendNextSpin();
@@ -445,7 +455,7 @@
           dataType: 'json',
           url: 'schedules/get_spin_by_current_position',
           contentType: 'application/json',
-          data: JSON.stringify(getSpinInfo),
+          data: getSpinInfo,
           success: callback
         });
   }
@@ -515,6 +525,8 @@
                                    title: result.audio_block.title,
                                    artist: result.audio_block.artist });
           $('#schedule-list').append(html);
+
+          // TODO: Figure out CommercialBlock Situation -- why is it working?
 
           // increment lastCurrentPosition
           var oldLastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
