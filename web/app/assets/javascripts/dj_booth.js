@@ -7,8 +7,8 @@
           post_ride_callback : function () {
             !$.cookie('joyride') ? $.cookie('joyride', 'ridden') : null;
 
-          }    // not cookieMonster
-        } // * edited original answer, missing closing bracket
+          }   
+        }
     }).foundation('joyride', 'start');
     
     $('#tour').foundation({
