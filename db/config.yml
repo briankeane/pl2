@@ -10,8 +10,8 @@ development:
   encoding: unicode
   host: localhost
 
-production:
-  adapter: postgresql
-  database: playola
-  encoding: unicode
-  host: localhost
+# production:
+#   adapter: postgresql
+#   database: playola
+#   encoding: unicode
+#   host: localhost
