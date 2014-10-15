@@ -1,6 +1,18 @@
 (function() {
-  if ($('body.stations').length) {
+  if ($('body.stations.song_manager').length) {
     
+    $(document).foundation({
+      'joyride': 
+        { 'cookie_monster': !$.cookie('joyride-song-manager') ? false : true,
+          post_ride_callback : function () {
+            !$.cookie('joyride-song-manager') ? $.cookie('joyride-song-manager', 'ridden') : null;
+          },
+          'modal': false   
+        }
+    }).foundation('joyride', 'start');
+
+
+
     $('#searchbox').keyup(function() {
       var searchText = $('#searchbox').val();
       searchSonglist(searchText, ['#catalog-list']);
@@ -60,7 +72,7 @@
         var data = $(this).data();
         var html = buildSpinPerWeekListItem(data);
         data.spinFrequency = 'Medium';
-        $('#spinsPerWeekList li:last').after(html);
+        $('#spinsPerWeekList li:first').before(html);
         $(this).addClass('disabled');
         createSpinPerWeekListItem(data);
       }
