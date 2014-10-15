@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
+//= require jquery.cookie
 //= require foundation
 //= require_tree ./libraries
 //= require_tree .

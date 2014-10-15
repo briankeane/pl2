@@ -1,6 +1,28 @@
 (function(){
   if ($('body.stations.dj_booth').length) {
     
+    $(document).foundation({
+      'joyride': 
+        { 'cookie_monster': !$.cookie('joyride') ? false : true,
+          post_ride_callback : function () {
+            !$.cookie('joyride') ? $.cookie('joyride', 'ridden') : null;
+
+          }    // not cookieMonster
+        } // * edited original answer, missing closing bracket
+    }).foundation('joyride', 'start');
+    
+    $('#tour').foundation({
+        joyride: {
+          cookie_monster: true,
+          cookie_name: 'joyride',
+          cookie_domain: true,
+          cookie_expires: 365,
+          modal: false
+        }
+      });
+
+    //$(document).foundation('joyride','start')
+
     // load audioQueue
     for (var i=0;i<gon.audioQueue.length;i++) {
       gon.audioQueue[i].audio = new Audio(gon.audioQueue[i].key);
@@ -407,6 +429,7 @@
       result.artist = result.audio_block.artist;
       result.title = result.audio_block.title;
       result.audio = new Audio(result.key);
+      result.audio.muted = gon.audioQueue[0].muted;
 
       gon.audioQueue.push(result);
 

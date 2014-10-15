@@ -15,5 +15,5 @@ production:
   database: playola
   encoding: unicode
   host: localhost
-  username: postgres
+  username: playola
   password: rloy4eva
