@@ -15,5 +15,3 @@ production:
   database: playola
   encoding: unicode
   host: localhost
-  username: playola
-  password: rloy4eva
