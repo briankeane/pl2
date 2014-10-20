@@ -1,8 +1,27 @@
+require 'twitter'
+
 class SessionsController < ApplicationController
   
 
   def create_with_twitter
     auth = request.env['omniauth.auth']
+    
+
+    client = Twitter::REST::Client.new do |config|
+      config.consumer_key        = TWITTER_KEYS['CONSUMER_KEY']
+      config.consumer_secret     = TWITTER_KEYS['CONSUMER_SECRET']
+      config.access_token        = auth.extra.access_token.params[:oauth_token]
+      config.access_token_secret = auth.extra.access_token.params[:oauth_token_secret]
+    end
+
+    friends_names = client.friends.to_a.map { |friend| friend.screen_name }
+
+    binding.pry
+
+
+
+
+
     result = PL::SignInWithTwitter.run({ twitter: auth["info"]["nickname"], twitter_uid: auth['uid'].to_s })
     if result.success?
       if result.new_user
