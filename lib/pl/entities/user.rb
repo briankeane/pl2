@@ -6,5 +6,9 @@ module PL
     def intialize(attrs)
       super(attrs)
     end
+
+    def station
+      PL.db.get_station_by_uid(@id)
+    end
   end
 end

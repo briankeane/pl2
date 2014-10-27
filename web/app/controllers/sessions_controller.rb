@@ -16,18 +16,21 @@ class SessionsController < ApplicationController
 
     begin
       user = client.user.attrs    # so we're only making one API call
-      user[:friend_ids] = client.friend_ids
+      session[:friend_ids] = client.friend_ids.attrs[:ids]
     rescue Twitter::Error::TooManyRequests => error
-      sleep error.rate_limit.reset_in
+      sleepy_time = error.rate_limit.reset_in
+      puts "Sleeping for #{sleepy_time} secs ...."
+      sleep sleepy_time
       retry
     end
+    
 
     #format profile pic string for original size
     user[:profile_image_url].slice!('_normal')
 
     result = PL::SignInWithTwitter.run({ twitter: auth["info"]["nickname"], 
                                           twitter_uid: auth['uid'].to_s,
-                                          profile_pic_url: user[:profile_image_url] })
+                                          profile_image_url: user[:profile_image_url] })
     if result.success?
       if result.new_user
         session[:pl_session_id] = result.session_id

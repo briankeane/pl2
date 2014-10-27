@@ -20,5 +20,12 @@
 <% end %>
 
 <h1>Listens#index</h1>
+
+<% twitter_friends.each do |friend| %>
+<% binding.pry %>
+
+  <p>Name: @<%= friend.twitter %> Pic: <img src="<%= friend.profile_image_url %>" /></p>
+<% end %> 
+
 <p>This is where you will be able to find and listen to each other's stations, once Brian finishes building it. Please explore the other stuff (under 'Broadcast' in the menu above) in the meantime.</p>
 

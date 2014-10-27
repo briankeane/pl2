@@ -2,8 +2,6 @@ class StationsController < ApplicationController
   
   def dj_booth
 
-
-
     return redirect_to station_new_path unless current_station
 
     result = PL::GetProgram.run({ schedule_id: current_schedule.id })
@@ -81,6 +79,8 @@ class StationsController < ApplicationController
     if !current_station
       @station_info_complete = false
     end
+
+    @twitter_friends = session[:twitter_friends]
   end
 
   def create
@@ -127,6 +127,8 @@ class StationsController < ApplicationController
       @current_schedule = PL.db.get_schedule(current_schedule.id)
 
       @first_visit = true
+
+      @twitter_friends = session[:twitter_friends]
 
       render listens_index_path
     end
