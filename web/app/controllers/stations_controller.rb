@@ -2,6 +2,8 @@ class StationsController < ApplicationController
   
   def dj_booth
 
+
+
     return redirect_to station_new_path unless current_station
 
     result = PL::GetProgram.run({ schedule_id: current_schedule.id })

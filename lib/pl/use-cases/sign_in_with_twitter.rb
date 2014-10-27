@@ -5,7 +5,8 @@ module PL
       new_user = false
       if user == nil
         # create the user if there's no user
-        user = PL.db.create_user({ twitter: attrs[:twitter], twitter_uid: attrs[:twitter_uid] })
+        user = PL.db.create_user({ twitter: attrs[:twitter], twitter_uid: attrs[:twitter_uid],
+                                  profile_image_url: attrs[:profile_image_url] })
         new_user = true
       end
 

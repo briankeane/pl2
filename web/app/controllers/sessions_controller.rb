@@ -14,15 +14,20 @@ class SessionsController < ApplicationController
       config.access_token_secret = auth.extra.access_token.params[:oauth_token_secret]
     end
 
-    friends_names = client.friends.to_a.map { |friend| friend.screen_name }
+    begin
+      user = client.user.attrs    # so we're only making one API call
+      user[:friend_ids] = client.friend_ids
+    rescue Twitter::Error::TooManyRequests => error
+      sleep error.rate_limit.reset_in
+      retry
+    end
 
-    binding.pry
+    #format profile pic string for original size
+    user[:profile_image_url].slice!('_normal')
 
-
-
-
-
-    result = PL::SignInWithTwitter.run({ twitter: auth["info"]["nickname"], twitter_uid: auth['uid'].to_s })
+    result = PL::SignInWithTwitter.run({ twitter: auth["info"]["nickname"], 
+                                          twitter_uid: auth['uid'].to_s,
+                                          profile_pic_url: user[:profile_image_url] })
     if result.success?
       if result.new_user
         session[:pl_session_id] = result.session_id
