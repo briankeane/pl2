@@ -1,5 +1,4 @@
 <!-- Modal for First Time -->
-
 <%= content_tag "div", id: "firstSongNotificationModal", class: "reveal-modal medium", data: { first_visit: @first_visit, reveal: true } do %>
   <h2>Congratulations!</h2>
   <p>Your Playola Station is Now Broadcasting it's First Song:</p>
@@ -16,16 +15,56 @@
 
     </div>
   </div>
-
 <% end %>
+<!-- End Modal -->
+<div class="mic-image-inverse">
+  <div class="row top-row">
 
-<h1>Listens#index</h1>
+    <div class="container small-8 columns">
 
-<% twitter_friends.each do |friend| %>
-<% binding.pry %>
+      <div class="small-12 columns">
+        <fieldset id="friend-stations">
+          <legend>Your Twitter Friends:</legend>
 
-  <p>Name: @<%= friend.twitter %> Pic: <img src="<%= friend.profile_image_url %>" /></p>
-<% end %> 
+          <ul id="twitter-friends">
+            
+            <% twitter_friends.each do |friend| %>
 
-<p>This is where you will be able to find and listen to each other's stations, once Brian finishes building it. Please explore the other stuff (under 'Broadcast' in the menu above) in the meantime.</p>
+              <li class="twitter-friend">
+                <img class="twitter-pic" src="<%= friend.profile_image_url %>" />
+                <span class="twitter-handle">@<%= friend.twitter %></span>
+                <span class="twitter-now-playing">
+                  <span class="now-playing-label">Now Playing:</span>
+                  <span class="now-playing-title"><%= friend.station.now_playing.audio_block.title || 'Commercial Break' %></span>
+                  <span class="now-playing-artist"><%= friend.station.now_playing.audio_block.artist || '' %></span>
+                </span>
+              </li>
+            <% end %> 
+
+
+
+          </ul>
+        </fieldset>
+      </div>
+    </div>
+        
+    <div class="small-4 columns">
+      <fieldset id="catalog-fieldset">
+      </fieldset>
+    </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
 

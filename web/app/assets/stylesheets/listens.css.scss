@@ -1,3 +1,67 @@
+@import "sass_variables.css.scss";
+
+
 #firstSongNotificationModal {
   text-align: center;
+}
+
+#twitter-friends {
+  li {
+    //transition: all 0.2s ease-out;
+    margin: 2px 0 2px 0;
+    background-color: $darker-item;
+    overflow-x: hidden;
+    list-style-type: none;
+    border: 1px solid $darker-item-border;
+    font-size: 0.8em;
+
+    select {
+      height: 100%;
+      width: 65px;
+      border: 0;
+      padding: 0;
+      margin: 0 3px 0 0;
+      float: right;
+      background-color: $lighter-item;
+      font-size: 0.7em;
+    }
+
+    .twitter-pic {
+      float: left;
+      overflow-x: hidden;
+      width: 75px;
+      height: 75px;
+
+    }
+    .twitter-handle {
+      float: left;
+      width: 25%;
+      overflow-x: hidden;
+      text-align: center;
+    }
+    
+    .twitter-now-playing {
+      float: right;
+      overflow-x: hidden;
+      width: 60%;
+      margin-left: 14px;
+      text-align: center;
+      
+      .now-playing-label {
+        height: 50%;
+        width: 100%;
+        float: left;
+      }
+
+      .now-playing-title {
+        float: left;
+        width: 50%;
+      }
+
+      .now-playing-artist {
+        float: left;
+      }
+
+    }
+  }
 }
