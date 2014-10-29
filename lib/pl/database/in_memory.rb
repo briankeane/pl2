@@ -660,6 +660,14 @@ module PL
         @log_entries = {}
       end
 
+      def log_exists?(station_id)
+        if  @log_entries.values.find { |entry| entry.station_id == station_id }
+          return true
+        else
+          return false
+        end
+      end
+
       ###############
       #  Schedules  #
       ###############

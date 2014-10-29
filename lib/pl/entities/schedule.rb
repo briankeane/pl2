@@ -25,6 +25,10 @@ module PL
       PL.db.playlist_exists?(@id)
     end
 
+    def log_exists?
+      PL.db.log_exists?(@station_id)
+    end
+
     def timezone
       if !station
         'Central Time (US & Canada)'
@@ -58,9 +62,20 @@ module PL
         playlist_end_time = next_thursday_midnight
       end
 
+      sample_array = station.create_sample_array
+      
+      # if playlist exists but is used up
+      if (current_playlist.size == 0) && log_exists?
+
+        # schedule 1 spin to get things started
+        spin =  PL.db.create_spin({ schedule_id: @id,
+                            audio_block_id: sample_array.sample.id,
+                            current_position: station.final_log_entry.current_position + 1,
+                            estimated_airtime: station.final_log_entry.estimated_end_time })
+        current_playlist = PL.db.get_full_playlist(@id)
+      end
 
       # set max_position and time_tracker initial values
-
       if current_playlist.size == 0
         max_position = 0
         time_tracker = Time.zone.now
@@ -72,7 +87,6 @@ module PL
         end
       end
 
-      sample_array = station.create_sample_array
 
       recently_played_song_ids = []
       spins = []
@@ -223,13 +237,20 @@ module PL
 
     def bring_current
       # if the station is already active or no playlist has been created, yet, do nothing
-      if station.active? || !playlist_exists?
+      if self.active? || (!playlist_exists? && !log_exists?)
         return
       end
       
-      self.update_estimated_airtimes({ end_time: Time.now })
+      self.update_estimated_airtimes({ end_time: Time.now }) 
 
       playlist = PL.db.get_partial_playlist({ schedule_id: @id, end_time: Time.now })
+
+      binding.pry
+      # if the playlist does not extend past now, regenerate
+      if (playlist.size == 0) || (playlist.last.estimated_end_time < Time.now)
+        self.generate_playlist(Time.now)
+        playlist = PL.db.get_partial_playlist({ schedule_id: @id, end_time: Time.now })
+      end
 
       # mark the last-started song as finished, add a commercial block if necessary
       log_entry = final_log_entry

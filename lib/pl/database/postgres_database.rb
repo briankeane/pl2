@@ -823,6 +823,10 @@ module PL
         LogEntry.delete_all
       end
 
+      def log_exists?(station_id)
+        LogEntry.exists?(:station_id => station_id)
+      end
+
 
       ###############
       #  Schedules  #

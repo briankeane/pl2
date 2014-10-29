@@ -1,20 +1,22 @@
 <!-- Modal for First Time -->
-<%= content_tag "div", id: "firstSongNotificationModal", class: "reveal-modal medium", data: { first_visit: @first_visit, reveal: true } do %>
-  <h2>Congratulations!</h2>
-  <p>Your Playola Station is Now Broadcasting it's First Song:</p>
-  <p><b> <%= @current_schedule.now_playing.audio_block.title || 'Commercial' %></b></p>
+<% if @first_visit %>
+  <%= content_tag "div", id: "firstSongNotificationModal", class: "reveal-modal medium", data: { first_visit: @first_visit, reveal: true } do %>
+    <h2>Congratulations!</h2>
+    <p>Your Playola Station is Now Broadcasting it's First Song:</p>
+    <p><b> <%= @current_schedule.now_playing.audio_block.title || 'Commercial' %></b></p>
 
-  <p>by</p>
+    <p>by</p>
 
-  <p><b> <%= @current_schedule.now_playing.audio_block.artist || '' %></p></b>
-  
-  <div class="row">
-    <div class="large-12 large-centered columns">
+    <p><b> <%= @current_schedule.now_playing.audio_block.artist || '' %></p></b>
+    
+    <div class="row">
+      <div class="large-12 large-centered columns">
 
-        <a href='#'class="button large close-reveal-modal">Continue</a>
+          <a href='#'class="button large close-reveal-modal">Continue</a>
 
+      </div>
     </div>
-  </div>
+    <% end %>
 <% end %>
 <!-- End Modal -->
 <div class="mic-image-inverse">
@@ -27,17 +29,26 @@
           <legend>Your Twitter Friends:</legend>
 
           <ul id="twitter-friends">
-            
+
             <% twitter_friends.each do |friend| %>
 
               <li class="twitter-friend">
                 <img class="twitter-pic" src="<%= friend.profile_image_url %>" />
-                <span class="twitter-handle">@<%= friend.twitter %></span>
+
+                <a href="/listens/<%= friend.station.id %>"<span class="twitter-handle">@<%= friend.twitter %></span></a>
                 <span class="twitter-now-playing">
                   <span class="now-playing-label">Now Playing:</span>
-                  <span class="now-playing-title"><%= friend.station.now_playing.audio_block.title || 'Commercial Break' %></span>
-                  <span class="now-playing-artist"><%= friend.station.now_playing.audio_block.artist || '' %></span>
-                </span>
+
+                  <% if friend.station.now_playing.is_a?(PL::CommercialBlock) %>
+                    <span class="now-playing-title"><b>Commercial Block</b></span>
+
+                  <% else %>
+
+                   <span class="now-playing-title"><%= friend.station.now_playing.audio_block.title || 'Commercial Break' %></span>
+                    <span class="now-playing-artist"><%= friend.station.now_playing.audio_block.artist || '' %></span>
+                  </span>
+
+                <% end %>
               </li>
             <% end %> 
 

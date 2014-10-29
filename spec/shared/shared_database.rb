@@ -736,6 +736,12 @@ shared_examples 'a badass database' do
       db.destroy_all_log_entries
       expect(PL.db.get_recent_log_entries({ station_id: 4, count:15}).size).to eq(0)
     end
+
+    it 'can tell if a log exists' do
+      expect(db.log_exists?(4)).to eq(true)
+      db.destroy_all_log_entries
+      expect(db.log_exists?(4)).to eq(false)
+    end
   end
 
   ###############

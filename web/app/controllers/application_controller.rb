@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
 
       session[:friend_ids].each do |id|
         friend = PL.db.get_user_by_twitter_uid(id.to_s)
-        @twitter_friends << friend unless !friend
+        @twitter_friends << friend unless (!friend || !friend.station)
       end
     end
 
