@@ -386,12 +386,19 @@ module PL
       
       playlist_with_commercial_blocks = []
 
+
+      if !attrs[:start_time]
+        previous_spin = now_playing
+      else
+        previous_spin = PL.db.get_spin_by_current_position({ schedule_id: @id, current_position: playlist[0].current_position - 1 })
+      end
+
       # if it starts with a commercial, add it before starting
-      if now_playing.commercials_follow?
+      if previous_spin && previous_spin.commercials_follow?
         playlist_with_commercial_blocks << PL::CommercialBlock.new({ schedule_id: @id,
-                                                estimated_airtime: now_playing.estimated_end_time,
+                                                estimated_airtime: previous_spin.estimated_end_time,
                                                 duration: station.secs_of_commercial_per_hour/2,
-                                                current_position: now_playing.current_position })
+                                                current_position: previous_spin.current_position })
       end
 
       playlist.each do |spin|
