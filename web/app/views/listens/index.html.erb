@@ -39,7 +39,8 @@
                 <span class="twitter-now-playing">
                   <span class="now-playing-label">Now Playing:</span>
 
-                  <% if friend.station.now_playing.is_a?(PL::CommercialBlock) %>
+                  <% binding.pry %>
+                  <% if friend.station.now_playing.audio_block.is_a?(PL::CommercialBlock) %>
                     <span class="now-playing-title"><b>Commercial Block</b></span>
 
                   <% else %>

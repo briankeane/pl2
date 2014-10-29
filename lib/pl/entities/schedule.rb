@@ -72,6 +72,7 @@ module PL
                             audio_block_id: sample_array.sample.id,
                             current_position: station.final_log_entry.current_position + 1,
                             estimated_airtime: station.final_log_entry.estimated_end_time })
+        @last_accurate_current_position = spin.current_position
         current_playlist = PL.db.get_full_playlist(@id)
       end
 
@@ -87,10 +88,8 @@ module PL
         end
       end
 
-
       recently_played_song_ids = []
       spins = []
-
 
       while time_tracker < playlist_end_time
         song = sample_array.sample
@@ -125,7 +124,8 @@ module PL
       PL.db.mass_add_spins(spins)
 
       @original_playlist_end_time = time_tracker
-      @last_accurate_current_position = spins.last.current_position
+      
+      @last_accurate_current_position = spins.last.current_position unless (spins.size == 0)
       PL.db.update_schedule({ id: @id, last_accurate_current_position: @last_accurate_current_position })
       @current_playlist_end_time = time_tracker
 
@@ -245,7 +245,6 @@ module PL
 
       playlist = PL.db.get_partial_playlist({ schedule_id: @id, end_time: Time.now })
 
-      binding.pry
       # if the playlist does not extend past now, regenerate
       if (playlist.size == 0) || (playlist.last.estimated_end_time < Time.now)
         self.generate_playlist(Time.now)
