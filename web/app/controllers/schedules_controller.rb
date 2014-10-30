@@ -81,8 +81,8 @@ class SchedulesController < ApplicationController
   end
 
   def get_spin_by_current_position
-    spin = PL.db.get_spin_by_current_position({ schedule_id: current_schedule.id,
-                                                current_position: params["current_position"] })
+    spin = PL.db.get_spin_by_current_position({ schedule_id: params["schedule_id"].to_i,
+                                                current_position: params["current_position"].to_i })
 
     # 'touch' audioBlock so it's not blank for js
     spin.audio_block unless spin.is_a?(PL::CommercialBlock)  # 

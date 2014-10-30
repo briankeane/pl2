@@ -16,6 +16,7 @@
 //= require jquery.cookie
 //= require foundation
 //= require_tree ./libraries
+//= require_tree ./constructors
 //= require_tree .
 
 $(function(){ $(document).foundation(); });

@@ -33,6 +33,5 @@ module PL
       hash[:audio_block] = audio_block.to_hash
       hash
     end
-    
   end
 end

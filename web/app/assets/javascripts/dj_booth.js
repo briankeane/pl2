@@ -51,8 +51,7 @@
           gon.audioQueue[0].audio.currentTime = (Date.now() - gon.audioQueue[0].airtime_in_ms)/1000;
         }, 5000);
           gon.audioQueue[0].audio.addEventListener('play', function() {
-
-    setInterval(function() { updateProgressBar() }, 1000);
+            setInterval(function() { updateProgressBar() }, 1000);
           });
       }
     });
@@ -480,6 +479,7 @@
     var getSpinInfo = {};
     getSpinInfo.last_current_position = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
     getSpinInfo.current_position = currentPosition;
+    getSpinInfo.schedule_id = gon.scheduleId;
 
     $.ajax({
           type: 'GET',
@@ -561,7 +561,8 @@
         dataType: 'json',
         url: 'schedules/get_spin_by_current_position',
         contentType: 'application/json',
-        data: { current_position: nextCurrentPosition},
+        data: { current_position: nextCurrentPosition,
+                schedule_id: gon.scheduleId },
         success: function(result) {
           var html = renderSpin({ estimated_airtime: result.estimated_airtime,
                                    current_position: result.current_position,

@@ -20,6 +20,8 @@ class ListensController < ApplicationController
     # 'touch' audio_blocks
     gon.station_log.each { |log| log.audio_block }
 
+    gon.schedule_id = station.schedule_id
+
     # load audioQueue array
     gon.audioQueue = now_playing[0..2].map do |spin|
       obj = {}
