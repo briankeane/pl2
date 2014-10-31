@@ -50,6 +50,7 @@ class StationsController < ApplicationController
       @first_current_position = @program[0].current_position
     end
 
+    gon.stationId = current_station.id
     gon.scheduleId = current_schedule.id
     @now_playing = current_station.now_playing
     @all_songs = PL.db.get_all_songs

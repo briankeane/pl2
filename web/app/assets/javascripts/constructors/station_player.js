@@ -31,6 +31,11 @@ var StationPlayer = function(attrs) {
     // advance audioQueue
     self.audioQueue.shift();
     self.audioQueue[0].audio.play();
+
+    // set the next advance
+    var msTillAdvanceSpin = (self.audioQueue[1].airtime_in_ms - Date.now());
+    setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
+
     // create callback for ajax request
     var updateQueue = function(result) {
       console.log(result);

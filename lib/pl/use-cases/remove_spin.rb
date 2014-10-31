@@ -23,8 +23,8 @@ module PL
       else
         day = old_airtime.day + 1
       end
-
-      replace_time = Time.new(old_airtime.year, old_airtime.month, day, 3)
+      
+      replace_time = Time.new(old_airtime.year, old_airtime.month, old_airtime.day, 3) + (24*60*60*day)
       program = schedule.get_program({start_time: replace_time })
       new_position = program[0].current_position + 1     #add one to make sure it's not a commercial
 

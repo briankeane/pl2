@@ -108,6 +108,7 @@ class SchedulesController < ApplicationController
 
 
   def remove_spin
+    binding.pry
     result = PL::RemoveSpin.run({ schedule_id: current_schedule.id,
                                    current_position: params[:current_position] })
     if result.success?

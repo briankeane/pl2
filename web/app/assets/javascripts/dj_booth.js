@@ -1,6 +1,9 @@
 (function(){
   if ($('body.stations.dj_booth').length) {
     
+    // ********************************************
+    // *           joyRide Tour                   *
+    // ********************************************
     $(document).foundation({
       'joyride': 
         { 'cookie_monster': !$.cookie('joyride') ? false : true,
@@ -21,41 +24,22 @@
         }
       });
 
-    //$(document).foundation('joyride','start')
-
-    // load audioQueue
-    for (var i=0;i<gon.audioQueue.length;i++) {
-      gon.audioQueue[i].audio = new Audio(gon.audioQueue[i].key);
-    }
-    
-    // set the next advance
-    var msTillAdvanceSpin = (gon.audioQueue[1].airtime_in_ms - Date.now());
-    setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
-
-    // seek the proper place in the first song and play it
-    gon.audioQueue[0].audio.addEventListener('canplaythrough', function() {
-
-      // set timer for next advance
-      setTimeout(function() {
-
-      });
-
-      // if it hasn't already started
-      if (!gon["musicStarted"]) {
-        // set flag so it only executes once
-        gon["musicStarted"] = true;
-
-        // give it a few seconds to load or it'll be choppy
-        var t = setTimeout(function() { 
-          gon.audioQueue[0].audio.play();
-          gon.audioQueue[0].audio.currentTime = (Date.now() - gon.audioQueue[0].airtime_in_ms)/1000;
-        }, 5000);
-          gon.audioQueue[0].audio.addEventListener('play', function() {
-            setInterval(function() { updateProgressBar() }, 1000);
-          });
-      }
+    // ********************************************
+    // *           stationPlayer                  *
+    // ********************************************
+    // set up progressbar updating
+    $(document).on('playerStarted', function() {
+       setInterval(function() { updateProgressBar(); }, 500);
     });
-    
+
+    $(document).on('spinAdvanced', function() {
+      updateSpinDisplay();
+    });
+
+    // create and start player
+    var player = new StationPlayer(gon);
+    player.startPlayer();
+
 
     $('#searchbox').keyup(function(event) {
       var searchText = $('#searchbox').val();
@@ -64,8 +48,7 @@
 
     $('#recording').sortable({
                             dropOnEmpty: true,
-                            connectWith: '#schedule-list',
-                            
+                            connectWith: '#schedule-list'              
     });
 
     $('#all-songs-source-list').sortable({ 
@@ -229,7 +212,6 @@
       removeSpin();
     });
 
-
     // set up mute button
     $('.muteButton').click(function() {
       toggleStationMute();
@@ -392,8 +374,8 @@
   // *  -- updates the per-song station progress *
   // *********************************************
   var updateProgressBar = function() {
-    var elapsedTime = gon.audioQueue[0].audio.currentTime;
-    var msRemaining = (gon.audioQueue[1].airtime_in_ms - Date.now());
+    var elapsedTime = player.audioQueue[0].audio.currentTime;
+    var msRemaining = (player.audioQueue[1].airtime_in_ms - Date.now());
     var percentComplete = elapsedTime/(elapsedTime + msRemaining/1000)*100;
     $('.progress .meter').css('width', percentComplete + '%');
     $('.nowPlayingTimes .elapsedTime').text(formatSongFromMS(Math.round(elapsedTime) * 1000));
@@ -412,63 +394,31 @@
     } else {
       $('.nowPlayingTimes .timeRemaining').css('color', 'black');
     }
-
   };
 
-  var advanceSpin= function() { 
-    // advance audioQueue
-    gon.audioQueue.shift();
-
-    // create callback for ajax request
-    var updateQueue = function(result) {
-      console.log(result);
-      var newSong = {};
-      
-      // reformat response for js  (TODO: MAKE THESE RESPONSES UNIFORM LATER)
-      result.artist = result.audio_block.artist;
-      result.title = result.audio_block.title;
-      result.audio = new Audio(result.key);
-      result.audio.muted = gon.audioQueue[0].muted;
-
-      gon.audioQueue.push(result);
-
-      // if commercials follow that spin
-      if (result["commercials_follow?"]) {
-        gon.audioQueue.push(getCommercialBlock(result.currentPosition));
-      }
-      return result;
-    }
-
-    getSpinByCurrentPosition(gon.audioQueue[gon.audioQueue.length-1].currentPosition + 1, updateQueue);
-
-    // play the new song
-    gon.audioQueue[0].audio.play();
-    var msTillAdvanceSpin = (gon.audioQueue[1].airtime_in_ms - Date.now());
-
+  var updateSpinDisplay= function() { 
     // clear the previous class
     $('#nowPlayingList .nowPlaying').removeClass('song');
     $('#nowPlayingList .nowPlaying').removeClass('commercialBlock');
     $('#nowPlayingList .nowPlaying').removeClass('commentary');
     
     // update the class and info
-    if (gon.audioQueue[0].type === 'Song') {
+    if (player.audioQueue[0].type === 'Song') {
       $('#nowPlayingList .nowPlaying').addClass('song');
-      $('#nowPlayingList .nowPlaying .title').text(gon.audioQueue[0].title);
-      $('#nowPlayingList .nowPlaying .artist').text(gon.audioQueue[0].artist);
-    } else if (gon.audioQueue[0].type === 'Commentary') {
+      $('#nowPlayingList .nowPlaying .title').text(player.audioQueue[0].title);
+      $('#nowPlayingList .nowPlaying .artist').text(player.audioQueue[0].artist);
+    } else if (player.audioQueue[0].type === 'Commentary') {
       $('#nowPlayingList .nowPlaying').addClass('commentary');
       $('#nowPlayingList .nowPlaying .title').text('Commentary');
       $('#nowPlayingList .nowPlaying .artist').text('');
-    } else if (gon.audioQueue.type === 'CommercialBlock') {
+    } else if (player.audioQueue.type === 'CommercialBlock') {
       $('#nowPlayingList .nowPlaying').addClass('commercialBlock');
       $('#nowPlayingList .nowPlaying .title').text('Commercial Block');
       $('#nowPlayingList .nowPlaying .artist').text('');
     }
-    // set up next advance
-    setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
 
     // if the station is live, advance #schedule-list
-    if (parseInt($('#schedule-list li').attr('data-currentPosition')) === gon.audioQueue[0].currentPosition)  {
+    if (parseInt($('#schedule-list li').attr('data-currentPosition')) === player.audioQueue[0].currentPosition)  {
       $('#schedule-list li').first().remove();
       appendNextSpin();
     }
