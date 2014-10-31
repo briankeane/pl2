@@ -1,3 +1,23 @@
-<p>LISTENS#SHOW</p>
-<p> Radio Station of @<%= @listen_user.twitter %></p>
-<img src="<%= @listen_user.profile_image_url %>" />
+<div class="mic-image-inverse">
+  <div class="row top-row">
+
+    <div class="row">
+        <div class="listens-station small-4 columns">
+          <h1 class="listens-title">@<%= @listen_user.twitter %></h1>
+          <img id="listens-pic" src="<%= @listen_user.profile_image_url %>" />
+        </div>
+
+      <div class="small-7 columns">
+        <fieldset id="nowPlayingFieldset">
+          <legend>Now Playing</legend>
+          <ul id="nowPlayingList">
+            <li class='nowPlaying'>
+              <span class='title'></span>
+              <span class='artist'></span>
+            </li>
+          </ul>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
