@@ -29,7 +29,6 @@
     // ********************************************
     // set up progressbar updating
     $(document).on('playerStarted', function() {
-      alert('hi');
        setInterval(function() { updateProgressBar(); }, 500);
     });
 
