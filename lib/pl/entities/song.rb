@@ -1,5 +1,3 @@
-require 'pry-debugger'
-
 module PL
   class Song < Entity
     attr_accessor :id, :artist, :title, :album, :duration
