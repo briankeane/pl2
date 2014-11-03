@@ -10,7 +10,7 @@ module PL
         return failure :song_not_found
       else
         updated_station = PL.db.create_spin_frequency(attrs)
-        return success :station => station
+        return success :station => updated_station
       end
     end
   end

@@ -152,6 +152,8 @@ class StationsController < ApplicationController
     # update station
     @current_station = result.station unless !result.success?
 
+    binding.pry
+
     render :json => result
   end
 
@@ -171,6 +173,8 @@ class StationsController < ApplicationController
     # update station
     @current_station = result.station unless !result.success?
 
+    binding.pry
+    
     render :json => result
   end
 

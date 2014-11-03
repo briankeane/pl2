@@ -45,7 +45,7 @@
                                 receive: function(event, ui) {
                                   var data = $(ui.item).data();
                                   var html = buildSpinPerWeekListItem(data);
-                                  data.spinFrequency = $('#selectBox' + ui.item.data().id + ' option:selected').text();
+                                  data.spinFrequency = 'Medium';
 
                                   $(ui.item).after(html);
                                   $('#catalog-list').sortable('cancel');
