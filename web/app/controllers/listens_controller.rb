@@ -26,7 +26,7 @@ class ListensController < ApplicationController
     gon.audioQueue = now_playing[0..2].map do |spin|
       obj = {}
       case
-      when spin.is_a?(PL::CommercialBlock)
+      when spin.audio_block.is_a?(PL::CommercialBlock)
         obj[:type] = 'CommercialBlock'
         obj[:key] = 'STUBFORCBKEY'
       when spin.audio_block.is_a?(PL::Song)
@@ -34,6 +34,7 @@ class ListensController < ApplicationController
         obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
         obj[:artist] = spin.audio_block.artist
         obj[:title] = spin.audio_block.title
+        obj[:audio_block_id] = spin.audio_block_id
       when spin.audio_block.is_a?(PL::Commentary)
         obj[:type] = 'Commentary'
         obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolacommentaries/' + spin.audio_block.key
@@ -48,5 +49,14 @@ class ListensController < ApplicationController
       end
       obj
     end
+
+    gon.current_station = current_station
+
+    # grab the 10 most recent songs
+    @log = PL.db.get_recent_log_entries({ station_id: @listen_station.id, count: 30 })
+    @log.shift  # get rid of now_playing
+    @log.select! { |log_entry| log_entry.audio_block.is_a?(PL::Song)}
+    @log = @log[0..9] unless (@log.size < 10)
+
   end
 end

@@ -10,11 +10,28 @@
       <div class="small-7 columns">
         <fieldset id="nowPlayingFieldset">
           <legend>Now Playing</legend>
-          <ul id="nowPlayingList">
+          <ul id="nowPlayingList" class="listens">
             <li class='nowPlaying'>
               <span class='title'></span>
+              <button class='addToMyStationButton'>Add Song To My Station</button>
               <span class='artist'></span>
             </li>
+          </ul>
+        </fieldset>
+        <fieldset id="songHistoryFieldset">
+          <legend>Song History</legend>
+          <ul id="songHistoryList" class="listens">
+            <% @log.each do |log_entry| %>
+              <li class="song">
+                <span class='title'><%= log_entry.audio_block.title %></span>
+                <% if current_station.spins_per_week.has_key?(log_entry.audio_block_id) %>
+                  <button class='addToMyStationButton disabled'>Song Added</button>
+                <% else %>
+                  <button class='addToMyStationButton'>Add Song To My Station</button>
+                <% end %> 
+                <span class='artist'><%= log_entry.audio_block.artist %></span>
+              </li>
+            <% end %>
           </ul>
         </fieldset>
       </div>

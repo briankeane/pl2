@@ -5,13 +5,62 @@
   text-align: center;
 }
 
-.listens-station {
-  
+.listens-station {  
   img {
     height: 100px;
     width: 100px;
   }
 }
+
+#nowPlayingFieldset {
+  #nowPlayingList {
+    &.listens {
+      .nowPlaying {
+        .title {
+          width: 35%;
+        }
+        .artist {
+          width: 30%;
+        }
+      }
+    }
+  }
+}
+
+.addToMyStationButton {
+  width: 30%;
+  height: 90%;
+  font-size: 0.8em;
+  margin-top: 3px;
+  margin-bottom: 0px;
+}
+
+#songHistoryFieldset {
+  #songHistoryList {
+    list-style: none;
+    .song {
+      background-color: #e9d4c3;
+      height: 77px;
+      border: black solid 1px;
+      padding-left: 6px;
+      padding-right: 6px;
+
+      .title {
+        width: 35%;
+        font-size: 0.9em;
+        float: left;
+        color: black;
+        font-weight: bold;  
+      }
+      .artist {
+        width: 30%;
+        float: right;
+        text-align: right;
+      }
+    }
+  }
+}
+
 #twitter-friends {
   li {
     //transition: all 0.2s ease-out;
