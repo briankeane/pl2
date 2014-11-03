@@ -52,3 +52,19 @@ function guid() {
     }
     return _p8() + _p8(true) + _p8(true) + _p8();
 }
+
+// functions for editing spins_per_week
+var createSpinPerWeekListItem = function(data) {
+  $.ajax({
+    type: "POST",
+    dataType: "json",
+    url: '/stations/playlist/create_spin_frequency',
+    contentType: 'application/json',
+    data: JSON.stringify({ song_id: data.id,
+                          spins_per_week: data.spinFrequency }),
+    success: function(result) {
+      console.log('Success! Created!');
+      console.log(result);
+    }
+  });
+}

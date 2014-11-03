@@ -29,7 +29,7 @@
         $('#nowPlayingList .nowPlaying').addClass('commentary');
         $('#nowPlayingList .nowPlaying .title').text('Commentary');
         $('#nowPlayingList .nowPlaying .artist').text('');
-      } else if (player.audioQueue.type === 'CommercialBlock') {
+      } else if (player.audioQueue[0].type === 'CommercialBlock') {
         $('#nowPlayingList .nowPlaying').addClass('commercialBlock');
         $('#nowPlayingList .nowPlaying .title').text('Commercial Block');
         $('#nowPlayingList .nowPlaying .artist').text('');
@@ -51,10 +51,18 @@
       updateNowPlaying();
     });
 
+    $(document).on('click', '.addToMyStationButton', function() {
+      if (!$(this).hasClass('disabled')) {
+        createSpinPerWeekListItem({ id: parseInt($(this).attr('data-songId')),
+                      spinFrequency: 'Medium' });
+        $(this).addClass('disabled');
+        $(this).text('Song Added');
+      }
+    });
+
     // create the station and start it
     var player = new StationPlayer(obj);
     player.startPlayer();
-
   }
   
 })();

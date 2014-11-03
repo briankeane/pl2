@@ -27,7 +27,7 @@
                 <% if current_station.spins_per_week.has_key?(log_entry.audio_block_id) %>
                   <button class='addToMyStationButton disabled'>Song Added</button>
                 <% else %>
-                  <button class='addToMyStationButton'>Add Song To My Station</button>
+                  <button class='addToMyStationButton' data-songId="<%= log_entry.audio_block_id %>">Add Song To My Station</button>
                 <% end %> 
                 <span class='artist'><%= log_entry.audio_block.artist %></span>
               </li>

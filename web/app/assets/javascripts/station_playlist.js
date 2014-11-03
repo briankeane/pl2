@@ -112,21 +112,6 @@
       });
     }
 
-    createSpinPerWeekListItem = function(data) {
-      $.ajax({
-        type: "POST",
-        dataType: "json",
-        url: '/stations/playlist/create_spin_frequency',
-        contentType: 'application/json',
-        data: JSON.stringify({ song_id: data.id,
-                              spins_per_week: data.spinFrequency }),
-        success: function(result) {
-          console.log('Success! Created!');
-          console.log(result);
-        }
-      });
-    }
-
     updateSpinPerWeekListItem = function(data) {
       $.ajax({
         type: "POST",
