@@ -1,5 +1,5 @@
 source "https://rubygems.org"
-ruby '2.0.0'
+ruby '2.1.1'
 
 group :development, :test do
   gem 'pry-debugger'
@@ -29,3 +29,4 @@ gem 'timezone'
 gem 'rails_12factor'
 
 gem 'gon'
+gem 'sprockets', '~> 2.11.0'
