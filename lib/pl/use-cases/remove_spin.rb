@@ -19,12 +19,12 @@ module PL
       old_airtime = spin_to_remove.estimated_airtime
 
       if old_airtime.hour < 3
-        day = old_airtime.day + 2
+        extra_days = 2
       else
-        day = old_airtime.day + 1
+        extra_days = 1
       end
       
-      replace_time = Time.new(old_airtime.year, old_airtime.month, old_airtime.day, 3) + (24*60*60*day)
+      replace_time = Time.new(old_airtime.year, old_airtime.month, old_airtime.day, 3) + (24*60*60*extra_days)
       program = schedule.get_program({start_time: replace_time })
       new_position = program[0].current_position + 1     #add one to make sure it's not a commercial
 

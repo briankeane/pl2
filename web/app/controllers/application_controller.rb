@@ -26,7 +26,6 @@ class ApplicationController < ActionController::Base
   def twitter_friends
     if !@twitter_friends
 
-      # binding.pry
       # build list of all twitter friends with playola
       @twitter_friends = []
 
