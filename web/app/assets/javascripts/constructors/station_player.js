@@ -29,7 +29,7 @@ var StationPlayer = function(attrs) {
     
     console.log('advancing spin...')
     // advance audioQueue
-    self.audioQueue.shift();
+    self.justPlayed = self.audioQueue.shift();
     self.audioQueue[0].audio.play();
 
     // set the next advance

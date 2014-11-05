@@ -1,5 +1,10 @@
 class ApplicationController < ActionController::Base
-  helper_method :signed_in?, :current_user, :current_station, :twitter_friends
+
+  def twitter_friend_ids2(ids)
+    @@twitter_friend_ids = ids
+  end
+
+  helper_method :signed_in?, :current_user, :current_station, :twitter_friends, :twitter_friend_ids
 
   def current_user
     @current_user ||= PL.db.get_user(PL.db.get_uid_by_sid(session[:pl_session_id]))
@@ -21,10 +26,11 @@ class ApplicationController < ActionController::Base
   def twitter_friends
     if !@twitter_friends
 
+      # binding.pry
       # build list of all twitter friends with playola
       @twitter_friends = []
 
-      session[:friend_ids].each do |id|
+      @@twitter_friend_ids.each do |id|
         friend = PL.db.get_user_by_twitter_uid(id.to_s)
         @twitter_friends << friend unless (!friend || !friend.station)
       end
@@ -33,6 +39,9 @@ class ApplicationController < ActionController::Base
     @twitter_friends
   end
 
+  def set_twitter_friend_ids(ids)
+    @@twitter_friend_ids = ids
+  end
   
   protect_from_forgery with: :exception
 end

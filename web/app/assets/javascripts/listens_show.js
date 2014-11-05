@@ -35,6 +35,24 @@
         $('#nowPlayingList .nowPlaying .artist').text('');
       }
     }
+
+    var advanceSongHistory = function() {
+      var html = '<li class="song">' + 
+                    '<span class="title">' + player.justPlayed.title + '</span>';
+
+      
+      if (player.justPlayed.audio_block_id in gon.current_station.spins_per_week) {
+        html = html + '<button class="addToMyStationButton disabled">Song Added</button>'
+      } else {
+        html = html + '<button class="addToMyStationButton">Add Song To My Station</button>'
+      }
+      
+      html = html + '<span class="artist">' + player.justPlayed.artist + '</span>' + 
+              '</li>'
+
+      $('#songHistoryList li:first').before(html);
+      $('#songHistoryList li:last').remove();
+    }
     
     // construct initialization obj for stationPlayer
     var obj = {};
@@ -49,14 +67,21 @@
 
     $(document).on('spinAdvanced', function() {
       updateNowPlaying();
+      if (player.justPlayed.type === 'Song') {
+        advanceSongHistory();
+      }
     });
 
     $(document).on('click', '.addToMyStationButton', function() {
       if (!$(this).hasClass('disabled')) {
-        createSpinPerWeekListItem({ id: parseInt($(this).attr('data-songId')),
+        var songId = parseInt($(this).attr('data-songId'));
+        createSpinPerWeekListItem({ id: songId,
                       spinFrequency: 'Medium' });
         $(this).addClass('disabled');
         $(this).text('Song Added');
+
+        // edit the current_station object in the browser
+        gon.current_station.spins_per_week[songId] = 17;
       }
     });
 
