@@ -1,8 +1,8 @@
 source "https://rubygems.org"
-ruby '2.1.1'
+ruby '2.1.2'
 
 group :development, :test do
-  gem 'pry-debugger'
+  gem 'pry-byebug'
 end
 
 group :test do
