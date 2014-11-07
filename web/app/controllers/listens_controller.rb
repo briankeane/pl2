@@ -26,7 +26,7 @@ class ListensController < ApplicationController
     gon.audioQueue = now_playing[0..2].map do |spin|
       obj = {}
       case
-      when spin.audio_block.is_a?(PL::CommercialBlock)
+      when spin.is_a?(PL::CommercialBlock)
         obj[:type] = 'CommercialBlock'
         obj[:key] = 'STUBFORCBKEY'
       when spin.audio_block.is_a?(PL::Song)

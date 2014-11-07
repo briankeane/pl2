@@ -61,8 +61,6 @@ class StationsController < ApplicationController
       return redirect_to station_new_path
     end
 
-    binding.pry
-
     @spins_per_week = {}
     current_station.spins_per_week.each { |k,v| @spins_per_week[PL.db.get_song(k)] = v }
 
