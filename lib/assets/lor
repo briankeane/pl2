@@ -1,0 +1,67 @@
+Run options: include {:focus=>true}
+
+All examples were filtered out; ignoring {:focus=>true}
+[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m*[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[33m*[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[32m.[0m[31mF[0m[31mF[0m[32m.[0m
+
+Pending:
+  [33maudio_file_storage_handler gets unprocessed song audio[0m
+    # [36mTemporarily skipped with xit[0m
+    # [36m./spec/verbs/audio_file_storage_handler_spec.rb:160[0m
+  [33mSongPoolHandler clears all songs from the song pool[0m
+    # [36mTemporarily skipped with xit[0m
+    # [36m./spec/verbs/song_pool_handler_spec.rb:67[0m
+
+Failures:
+
+  1) a station make_log_current just_played gets the last log entry
+     [31mFailure/Error: expect(@station.just_played.current_position).to eq(14)[0m
+     [31mNoMethodError:[0m
+     [31m  undefined method `current_position' for nil:NilClass[0m
+     [36m# ./spec/entities/station_spec.rb:82:in `block (4 levels) in <top (required)>'[0m
+
+  2) a station make_log_current just_played still gets the last log entry
+     [31mFailure/Error: expect(@station.just_played.current_position).to eq(999)[0m
+     [31m  [0m
+     [31m  expected: 999[0m
+     [31m       got: 14[0m
+     [31m  [0m
+     [31m  (compared using ==)[0m
+     [36m# ./spec/entities/station_spec.rb:89:in `block (4 levels) in <top (required)>'[0m
+
+  3) GetSongSuggestions takes in artists and returns a list of available songs
+     [31mFailure/Error: expect(result[:song_suggestions].size).to eq(1)[0m
+     [31m  [0m
+     [31m  expected: 1[0m
+     [31m       got: 0[0m
+     [31m  [0m
+     [31m  (compared using ==)[0m
+     [36m# ./spec/use-cases/get_song_suggestions_spec.rb:7:in `block (2 levels) in <top (required)>'[0m
+
+  4) song_suggester suggests a playlist based on 1 artist
+     [31mFailure/Error: expect(playlist.size > 0).to eq(true)[0m
+     [31m  [0m
+     [31m  expected: true[0m
+     [31m       got: false[0m
+     [31m  [0m
+     [31m  (compared using ==)[0m
+     [36m# ./spec/verbs/song_suggester_spec.rb:10:in `block (2 levels) in <top (required)>'[0m
+
+  5) song_suggester suggests a playlist based on 5 artists
+     [31mFailure/Error: expect(playlist.size > 0).to eq(true)[0m
+     [31m  [0m
+     [31m  expected: true[0m
+     [31m       got: false[0m
+     [31m  [0m
+     [31m  (compared using ==)[0m
+     [36m# ./spec/verbs/song_suggester_spec.rb:17:in `block (2 levels) in <top (required)>'[0m
+
+Finished in 3 minutes 28.4 seconds (files took 1.28 seconds to load)
+[31m319 examples, 5 failures, 2 pending[0m
+
+Failed examples:
+
+[31mrspec ./spec/entities/station_spec.rb:81[0m [36m# a station make_log_current just_played gets the last log entry[0m
+[31mrspec ./spec/entities/station_spec.rb:85[0m [36m# a station make_log_current just_played still gets the last log entry[0m
+[31mrspec ./spec/use-cases/get_song_suggestions_spec.rb:4[0m [36m# GetSongSuggestions takes in artists and returns a list of available songs[0m
+[31mrspec ./spec/verbs/song_suggester_spec.rb:8[0m [36m# song_suggester suggests a playlist based on 1 artist[0m
+[31mrspec ./spec/verbs/song_suggester_spec.rb:15[0m [36m# song_suggester suggests a playlist based on 5 artists[0m
