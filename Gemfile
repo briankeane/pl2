@@ -5,8 +5,8 @@ ruby '2.1.2'
 test_gemfile_path = File.expand_path('../app/test/Gemfile', __FILE__)
 eval File.read(test_gemfile_path)
 
-app_gemfile_path = File.expand_path('../lib/pl2/Gemfile', __FILE__)
-eval File.read(app_gemfile_path)
+# app_gemfile_path = File.expand_path('../lib/pl2/Gemfile', __FILE__)
+# eval File.read(app_gemfile_path)
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 4.1.4'
