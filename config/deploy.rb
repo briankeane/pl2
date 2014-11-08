@@ -32,7 +32,7 @@ lock '3.1.0'
 # set :keep_releases, 5
 
 set :application, 'pl2'
-set :repo_url, 'git@github.com:briankeane/pl2.git'
+set :repo_url, 'https://github.com/briankeane/pl2.git'
 
 set :branch, ENV['BRANCH'] || "master"
 
