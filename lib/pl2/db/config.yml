@@ -12,7 +12,7 @@ development:
 
 production:
   adapter: postgresql
-  database: playola
+  # database: playola
   # username: playola
   # password: rloy4eva
   encoding: unicode
