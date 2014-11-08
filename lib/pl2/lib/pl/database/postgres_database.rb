@@ -2,6 +2,7 @@ require 'active_record'
 require 'yaml'
 require 'securerandom'
 
+
 module PL
   module Database
 
@@ -12,7 +13,13 @@ module PL
     class PostgresDatabase
 
       def initialize(env)
-        config_path = File.join(File.dirname(__FILE__), '../../../db/config.yml')
+
+        if ENV['RAILS_ENV'] == 'production'
+          config_path = File.join(File.dirname(__FILE__), 'config/database.yml')
+        else
+          config_path = File.join(File.dirname(__FILE__), '../../../db/config.yml')
+        end
+
         db_config = YAML.load ERB.new(File.read config_path).result
         print "  -- USING: #{env} - #{YAML.load_file(config_path)[env]}"  
         ActiveRecord::Base.establish_connection(db_config[env])
