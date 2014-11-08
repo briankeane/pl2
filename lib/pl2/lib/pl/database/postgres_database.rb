@@ -15,7 +15,7 @@ module PL
       def initialize(env)
 
         if ENV['RAILS_ENV'] == 'production'
-          config_path = File.join(File.dirname(__FILE__), 'config/database.yml')
+          config_path = File.join(File.dirname(__FILE__), '/config/database.yml')
         else
           config_path = File.join(File.dirname(__FILE__), '../../../db/config.yml')
         end
