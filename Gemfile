@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 ruby '2.1.2'
 
 # include Gemfile
+test_gemfile_path = File.expand_path('../app/test/Gemfile', __FILE__)
+eval File.read(test_gemfile_path)
+
 app_gemfile_path = File.expand_path('../lib/pl2/Gemfile', __FILE__)
 eval File.read(app_gemfile_path)
 
