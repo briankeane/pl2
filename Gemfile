@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 ruby '2.1.2'
 
 # include Gemfile
-app_gemfile_path = File.expand_path('../../Gemfile', __FILE__)
+app_gemfile_path = File.expand_path('../lib/pl2/Gemfile', __FILE__)
 eval File.read(app_gemfile_path)
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

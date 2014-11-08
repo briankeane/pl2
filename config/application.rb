@@ -29,7 +29,7 @@ module Web
     if ENV['FILEPICKER_API_KEY']
         FILEPICKER_KEYS = { 'API_KEY' => ENV['FILEPICKER_API_KEY'] }
     else
-        FILEPICKER_KEYS = YAML.load_file("#{::Rails.root}/../secrets/filepicker_config.yml")[::Rails.env]
+        FILEPICKER_KEYS = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/filepicker_config.yml")[::Rails.env]
     end
     config.filepicker_rails.api_key = FILEPICKER_KEYS['API_KEY']
   end
