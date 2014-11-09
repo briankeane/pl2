@@ -51,7 +51,7 @@ namespace :config do
   end
 end
 
-after "deploy", "config:symlink"
+before "deploy:assets:precompile", "config:symlink"
 
 namespace :deploy do
 
