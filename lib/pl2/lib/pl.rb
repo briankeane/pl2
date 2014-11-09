@@ -22,10 +22,10 @@ if !defined? TWITTER_KEYS
                        'TASTE_PROFILE_ID' => ENV['ECHONEST_TASTE_PROFILE_ID'] }
 
   else    #load from yamls
-    TWITTER_KEYS = YAML.load_file("secrets/twitter_config.yml")[ENV['RAILS_ENV']]
-    S3 = YAML.load_file("secrets/s3_config.yml")[ENV['RAILS_ENV']]
-    ECHONEST_KEYS = YAML.load_file("secrets/echonest_config.yml")[ENV['RAILS_ENV']]
-    FILEPICKER_KEYS = YAML.load_file("secrets/filepicker_config.yml")[ENV['RAILS_ENV']]
+    TWITTER_KEYS = YAML.load_file("lib/pl2/secrets/twitter_config.yml")[ENV['RAILS_ENV']]
+    S3 = YAML.load_file("lib/pl2/secrets/s3_config.yml")[ENV['RAILS_ENV']]
+    ECHONEST_KEYS = YAML.load_file("lib/pl2/secrets/echonest_config.yml")[ENV['RAILS_ENV']]
+    FILEPICKER_KEYS = YAML.load_file("lib/pl2/secrets/filepicker_config.yml")[ENV['RAILS_ENV']]
   end
 end
 
