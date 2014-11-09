@@ -39,12 +39,12 @@ set :branch, ENV['BRANCH'] || "master"
 set :deploy_to, '/home/deploy/pl2'
 
 # set :linked_files, %w{config/database.yml}
-set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
-set :linked_files, %w{secrets/database.yml config/config.yml}
-set :linked_files, %w{secrets/echonest_config.yml lib/pl2/secrets/echonest_config.yml}
-set :linked_files, %w{secrets/filepicker_config.yml lib/pl2/secrets/filepicker_config.yml}
-set :linked_files, %w{secrets/s3_config.yml lib/pl2/secrets/s3_config.yml}
-set :linked_files, %w{secrets/twitter_config.yml lib/pl2/secrets/twitter_config.yml}
+set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system lib/pl2/secrets}
+# set :linked_files, %w{secrets/database.yml config/config.yml}
+# set :linked_files, %w{secrets/echonest_config.yml lib/pl2/secrets/echonest_config.yml}
+# set :linked_files, %w{secrets/filepicker_config.yml lib/pl2/secrets/filepicker_config.yml}
+# set :linked_files, %w{secrets/s3_config.yml lib/pl2/secrets/s3_config.yml}
+# set :linked_files, %w{secrets/twitter_config.yml lib/pl2/secrets/twitter_config.yml}
 
 
 # namespace :config do
