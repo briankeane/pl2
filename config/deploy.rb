@@ -57,7 +57,8 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 #   end
 # end
 
-before "deploy:assets:precompile", "config:symlink"
+
+#before "deploy:assets:precompile", "config:symlink"
 
 namespace :deploy do
 
