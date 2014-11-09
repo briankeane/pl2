@@ -41,6 +41,18 @@ set :deploy_to, '/home/deploy/pl2'
 # set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
 
+namespace :config do
+  desc "Symlink application config files."
+  task :symlink do
+    run "ln -s {#{shared_path}/secrets/echonest_config.yml,#{release_path}}/lib/pl2/secrets/echonest_config.yml"  
+    run "ln -s {#{shared_path}/secrets/filepicker_config.yml,#{release_path}}/lib/pl2/secrets/filepicker_config.yml"  
+    run "ln -s {#{shared_path}/secrets/s3_config.yml,#{release_path}}/lib/pl2/secrets/s3_config.yml"  
+    run "ln -s {#{shared_path}/secrets/twitter_config.yml,#{release_path}}/lib/pl2/secrets/twitter_config.yml"  
+  end
+end
+
+after "deploy", "config:symlink"
+
 namespace :deploy do
 
   desc 'Restart application'
