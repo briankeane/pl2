@@ -40,16 +40,22 @@ set :deploy_to, '/home/deploy/pl2'
 
 # set :linked_files, %w{config/database.yml}
 set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :linked_files, %w{secrets/database.yml config/config.yml}
+set :linked_files, %w{secrets/echonest_config.yml lib/pl2/secrets/echonest_config.yml}
+set :linked_files, %w{secrets/filepicker_config.yml lib/pl2/secrets/filepicker_config.yml}
+set :linked_files, %w{secrets/s3_config.yml lib/pl2/secrets/s3_config.yml}
+set :linked_files, %w{secrets/twitter_config.yml lib/pl2/secrets/twitter_config.yml}
 
-namespace :config do
-  desc "Symlink application config files."
-  task :symlink do
-    execute :ln "-s {#{shared_path}/secrets/echonest_config.yml,#{release_path}}/lib/pl2/secrets/echonest_config.yml"  
-    execute :ln "-s {#{shared_path}/secrets/filepicker_config.yml,#{release_path}}/lib/pl2/secrets/filepicker_config.yml"  
-    execute :ln "-s {#{shared_path}/secrets/s3_config.yml,#{release_path}}/lib/pl2/secrets/s3_config.yml"  
-    execute :ln "-s {#{shared_path}/secrets/twitter_config.yml,#{release_path}}/lib/pl2/secrets/twitter_config.yml"  
-  end
-end
+
+# namespace :config do
+#   desc "Symlink application config files."
+#   task :symlink do
+#     execute :ln "-s {#{shared_path}/secrets/echonest_config.yml,#{release_path}}/lib/pl2/secrets/echonest_config.yml"  
+#     execute :ln "-s {#{shared_path}/secrets/filepicker_config.yml,#{release_path}}/lib/pl2/secrets/filepicker_config.yml"  
+#     execute :ln "-s {#{shared_path}/secrets/s3_config.yml,#{release_path}}/lib/pl2/secrets/s3_config.yml"  
+#     execute :ln "-s {#{shared_path}/secrets/twitter_config.yml,#{release_path}}/lib/pl2/secrets/twitter_config.yml"  
+#   end
+# end
 
 before "deploy:assets:precompile", "config:symlink"
 
