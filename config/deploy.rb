@@ -44,10 +44,10 @@ set :linked_dirs, %w{bin log tmp/pids tmp/cache tmp/sockets vendor/bundle public
 namespace :config do
   desc "Symlink application config files."
   task :symlink do
-    run "ln -s {#{shared_path}/secrets/echonest_config.yml,#{release_path}}/lib/pl2/secrets/echonest_config.yml"  
-    run "ln -s {#{shared_path}/secrets/filepicker_config.yml,#{release_path}}/lib/pl2/secrets/filepicker_config.yml"  
-    run "ln -s {#{shared_path}/secrets/s3_config.yml,#{release_path}}/lib/pl2/secrets/s3_config.yml"  
-    run "ln -s {#{shared_path}/secrets/twitter_config.yml,#{release_path}}/lib/pl2/secrets/twitter_config.yml"  
+    execute "ln -s {#{shared_path}/secrets/echonest_config.yml,#{release_path}}/lib/pl2/secrets/echonest_config.yml"  
+    execute "ln -s {#{shared_path}/secrets/filepicker_config.yml,#{release_path}}/lib/pl2/secrets/filepicker_config.yml"  
+    execute "ln -s {#{shared_path}/secrets/s3_config.yml,#{release_path}}/lib/pl2/secrets/s3_config.yml"  
+    execute "ln -s {#{shared_path}/secrets/twitter_config.yml,#{release_path}}/lib/pl2/secrets/twitter_config.yml"  
   end
 end
 
