@@ -21,7 +21,7 @@ module PL
       when 'test'
         path = 'lib/docs/cityzip.csv'
       else
-        path = '../lib/docs/cityzip.csv'
+        path = 'lib/pl2/lib/docs/cityzip.csv'
       end
 
       CSV.foreach(path) do |line|
