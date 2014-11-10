@@ -16,7 +16,7 @@ class SessionsController < ApplicationController
 
     begin
       user = client.user.attrs    # so we're only making one API call
-      set_twitter_friend_ids(client.friend_ids.attrs[:ids])
+      PL::StoreTwitterFriendStations.run({ user_id: current_user.id, friend_ids: client.friend_ids.attrs[:ids] })
     rescue Twitter::Error::TooManyRequests => error
       sleepy_time = error.rate_limit.reset_in
       puts "Sleeping for #{sleepy_time} secs ...."
