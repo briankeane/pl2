@@ -1,5 +1,4 @@
 require 'twitter'
-require 'pry-byebug'
 
 class SessionsController < ApplicationController
   

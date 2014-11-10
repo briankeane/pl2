@@ -1,6 +1,5 @@
 require 'spec_helper'
 require 'Timecop'
-require 'pry-byebug'
 
 describe "RemoveSpin" do
 

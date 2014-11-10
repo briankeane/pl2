@@ -1,6 +1,6 @@
 require 'spec_helper'
 require 'timecop'
-require 'pry-byebug'
+
 
 describe 'schedule' do
   describe 'crud' do

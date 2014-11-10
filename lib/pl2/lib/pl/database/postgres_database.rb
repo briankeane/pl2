@@ -1,7 +1,6 @@
 require 'active_record'
 require 'yaml'
 require 'securerandom'
-require 'pry-byebug'
 
 module PL
   module Database
