@@ -94,6 +94,11 @@ module PL
         belongs_to :user
       end
 
+      class TwitterFriend < ActiveRecord::Base
+        belongs_to :user
+        belongs_to :station
+      end
+
       ########################
       # ActiveRecord Methods #
       ########################
@@ -919,6 +924,25 @@ module PL
           return nil
         end
       end
+
+      #####################
+      #  Twitter Friends  #
+      #####################
+      def store_twitter_friends(attrs)
+        # delete old list
+        old_friends = TwitterFriend.where("follower_uid = ?", attrs[:follower_uid])
+        old_friends.delete_all
+        attrs[:followed_station_ids].each do |station_id|
+          twitter_friend = TwitterFriend.create({ follower_uid: attrs[:follower_uid], followed_station_id: station_id })
+          twitter_friend.save
+        end
+      end
+
+      def get_followed_stations_list(attrs)
+        station_ids = TwitterFriend.where("follower_uid = ?", attrs[:follower_uid]).map { |friend| friend[:followed_station_id] }.sort
+        return station_ids
+      end
+
     end
   end
 end

@@ -746,11 +746,11 @@ module PL
       #  Twitter Friends  #
       #####################
       def store_twitter_friends(attrs)
-        @twitter_friends[attrs[:follower_uid]] = attrs[:followed_station_uids]
+        @twitter_friends[attrs[:follower_uid]] = attrs[:followed_station_ids]
       end
 
-      def get_followed_stations_list(uid)
-        @twitter_friends[uid].sort
+      def get_followed_stations_list(id)
+        @twitter_friends[id].sort
       end
 
     end
