@@ -16,7 +16,6 @@ class SessionsController < ApplicationController
 
     begin
       user = client.user.attrs    # so we're only making one API call
-      PL::StoreTwitterFriendStations.run({ user_id: current_user.id, friend_ids: client.friend_ids.attrs[:ids] })
     rescue Twitter::Error::TooManyRequests => error
       sleepy_time = error.rate_limit.reset_in
       puts "Sleeping for #{sleepy_time} secs ...."
@@ -30,16 +29,22 @@ class SessionsController < ApplicationController
     result = PL::SignInWithTwitter.run({ twitter: auth["info"]["nickname"], 
                                           twitter_uid: auth['uid'].to_s,
                                           profile_image_url: user[:profile_image_url] })
+    
+    # store the session_id or redirect to the welcome page if they couldn't be signed in
     if result.success?
-      if result.new_user
-        session[:pl_session_id] = result.session_id
-        redirect_to station_new_path
-      else
-        session[:pl_session_id] = result.session_id
-        return redirect_to dj_booth_path
-      end
+      session[:pl_session_id] = result.session_id
     else
       redirect_to sign_in_path
+    end
+
+    # Store their twitter friends
+    PL::StoreTwitterFriendStations.run({ user_id: current_user.id, friend_twitter_uids: client.friend_ids.attrs[:ids].map { |id| id.to_s } })
+
+
+    if result.new_user
+      redirect_to station_new_path
+    else
+      return redirect_to dj_booth_path
     end
   end
 

@@ -130,10 +130,6 @@ class StationsController < ApplicationController
 
       @first_visit = true
 
-      binding.pry
-
-      @twitter_friends = session[:twitter_friends]
-
       render listens_index_path
     end
   end

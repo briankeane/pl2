@@ -30,22 +30,22 @@
 
           <ul id="twitter-friends">
 
-            <% twitter_friends.each do |friend| %>
+            <% twitter_friends_stations.each do |station| %>
 
               <li class="twitter-friend">
-                <img class="twitter-pic" src="<%= friend.profile_image_url %>" />
+                <img class="twitter-pic" src="<%= station.user.profile_image_url %>" />
 
-                <a href="/listens/<%= friend.station.id %>"<span class="twitter-handle">@<%= friend.twitter %></span></a>
+                <a href="/listens/<%= station.id %>"<span class="twitter-handle">@<%= station.user.twitter %></span></a>
                 <span class="twitter-now-playing">
                   <span class="now-playing-label">Now Playing:</span>
 
-                  <% if friend.station.now_playing.audio_block.is_a?(PL::CommercialBlock) %>
+                  <% if station.now_playing.audio_block.is_a?(PL::CommercialBlock) %>
                     <span class="now-playing-title"><b>Commercial Block</b></span>
 
                   <% else %>
 
-                   <span class="now-playing-title"><%= friend.station.now_playing.audio_block.title || 'Commercial Break' %></span>
-                    <span class="now-playing-artist"><%= friend.station.now_playing.audio_block.artist || '' %></span>
+                   <span class="now-playing-title"><%= station.now_playing.audio_block.title || 'Commercial Break' %></span>
+                    <span class="now-playing-artist"><%= station.now_playing.audio_block.artist || '' %></span>
                   </span>
 
                 <% end %>
