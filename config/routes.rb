@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   match 'station/song_manager',                     to: 'stations#song_manager',                     via: 'get'
   match 'station/create',                           to: 'stations#create',                           via: 'post'
   match 'session/destroy',                          to: 'sessions#destroy',                          via: 'get'
+  match 'sessions/create',                          to: 'sessions#create_with_twitter',              via: 'get'
   match 'users/update',                             to: 'users#update',                              via: 'post'
   match 'uploads/new',                              to: 'uploads#new',                               via: 'get'
   match 'upload/process_song',                      to: 'uploads#process_song',                      via: 'post'

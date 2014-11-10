@@ -1,4 +1,5 @@
 require 'twitter'
+require 'pry-byebug'
 
 class SessionsController < ApplicationController
   
@@ -6,7 +7,6 @@ class SessionsController < ApplicationController
   def create_with_twitter
     auth = request.env['omniauth.auth']
     
-
     client = Twitter::REST::Client.new do |config|
       config.consumer_key        = TWITTER_KEYS['CONSUMER_KEY']
       config.consumer_secret     = TWITTER_KEYS['CONSUMER_SECRET']
@@ -23,6 +23,8 @@ class SessionsController < ApplicationController
       sleep sleepy_time
       retry
     end
+
+    binding.pry
 
     #format profile pic string for original size
     user[:profile_image_url].slice!('_normal')
