@@ -1,7 +1,7 @@
 require 'active_record'
 require 'yaml'
 require 'securerandom'
-
+require 'pry-byebug'
 
 module PL
   module Database
@@ -938,9 +938,13 @@ module PL
         end
       end
 
-      def get_followed_stations_list(attrs)
-        station_ids = TwitterFriend.where("follower_uid = ?", attrs[:follower_uid]).map { |friend| friend[:followed_station_id] }.sort
-        return station_ids
+      def get_followed_stations_list(follower_uid)
+        station_ids = TwitterFriend.where("follower_uid = ?", follower_uid).map { |friend| friend[:followed_station_id] }
+        if !station_ids
+          return []
+        else
+          return station_ids.sort
+        end
       end
 
     end

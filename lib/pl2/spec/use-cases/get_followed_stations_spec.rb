@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'StoreTwitterFriendsStations' do
+describe 'GetTwitterFriendsStations' do
   before(:each) do
     @users = []
     @stations = []
@@ -14,17 +14,18 @@ describe 'StoreTwitterFriendsStations' do
   end
 
   it 'calls bullshit when the user is not found' do
-    result = PL::StoreTwitterFriendStations.run({ user_id: 9999, friend_twitter_uids: [1,2,3,4,5,6] })
+    result = PL::GetFollowedStations.run(9999)
     expect(result.success?).to eq(false)
     expect(result.error).to eq(:user_not_found)
   end
 
-  it 'takes in an array of twitter_ids, returns an array of existing stations, and stores their ids in the db' do
+  it 'returns an array of the followed stations' do
     following_user = PL.db.create_user({ twitter: 'Bob' })
-    result = PL::StoreTwitterFriendStations.run({ user_id: following_user.id,
-                                                  friend_twitter_uids: [9999,99998,99997,999996,99995, @users[0].twitter_uid, @users[1].twitter_uid, @users[2].twitter_uid] })
+    PL.db.store_twitter_friends({ follower_uid: following_user.id,
+                                followed_station_ids: [@users[0].station.id, @users[1].station.id, @users[2].station.id] })
+    result = PL::GetFollowedStations.run(following_user.id)
     ids = result.followed_stations_list.map { |station| station.id }
-
+    
     expect(result.success?).to eq(true)
     expect(result.followed_stations_list.size).to eq(3)
     expect(ids.include?(@stations[0].id)).to eq(true)

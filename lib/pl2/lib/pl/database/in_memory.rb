@@ -750,7 +750,11 @@ module PL
       end
 
       def get_followed_stations_list(id)
-        @twitter_friends[id].sort
+        if !@twitter_friends[id]
+          return []
+        else
+          return @twitter_friends[id].sort
+        end
       end
 
     end
