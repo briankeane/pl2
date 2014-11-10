@@ -821,4 +821,22 @@ shared_examples 'a badass database' do
       expect(db.get_uid_by_sid(session_id)).to be_nil
     end
   end
+
+  #####################
+  #  Twitter Friends  #
+  #####################
+  describe 'twitter_friends' do
+    it 'creates a follower entry' do
+      entry = store_twitter_friends({ follower_uid: 1,
+                                followed_station_uid: 100 })
+      expect(db.get_followed_stations_list(1)).to eq([100])
+    end
+
+    it 'returns a list of followed stations' do
+      store_twitter_friends({ follower_uid: 1, followed_station_uids: [100,101,102,103] })
+      store_twitter_friends({ follower_uid: 2, followed_station_uids: [104] })
+      list = db.get_followed_stations_list(1)
+      expect(list).to eq([100,101,102,103])
+    end
+  end
 end

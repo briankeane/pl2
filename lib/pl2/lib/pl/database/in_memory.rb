@@ -29,7 +29,7 @@ module PL
         @sessions = {}
         @schedule_id_counter = 950
         @schedules = {}
-
+        @twitter_friends = {}
       end
 
       ##############
@@ -741,6 +741,18 @@ module PL
           return false
         end
       end
+
+      #####################
+      #  Twitter Friends  #
+      #####################
+      def store_twitter_friends(attrs)
+        @twitter_friends[attrs[:follower_uid]] = attrs[:followed_station_uids]
+      end
+
+      def get_followed_stations_list(uid)
+        @twitter_friends[uid].sort
+      end
+
     end
   end
 end

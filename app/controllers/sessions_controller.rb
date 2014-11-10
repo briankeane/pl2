@@ -24,8 +24,6 @@ class SessionsController < ApplicationController
       retry
     end
 
-    binding.pry
-
     #format profile pic string for original size
     user[:profile_image_url].slice!('_normal')
 
