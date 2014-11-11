@@ -8,7 +8,7 @@ class StationsController < ApplicationController
     @program = result.program unless !result.success?
     
     now_playing = PL::GetProgram.run({ schedule_id: current_schedule.id }).program
-    
+
     now_playing.unshift(current_schedule.now_playing)
 
     # load audioQueue array
@@ -38,7 +38,7 @@ class StationsController < ApplicationController
       obj
     end
     
-    # convert to local time
+    # format for local station time
     @program.each do |spin|
       spin.estimated_airtime = spin.estimated_airtime.in_time_zone(current_station.timezone)
     end
@@ -52,7 +52,6 @@ class StationsController < ApplicationController
 
     gon.stationId = current_station.id
     gon.scheduleId = current_schedule.id
-    @now_playing = current_station.now_playing
     @all_songs = PL.db.get_all_songs
   end
 
@@ -78,11 +77,10 @@ class StationsController < ApplicationController
       @user_info_complete = false
     end
 
+    # tell the browser whether or not to collect the station info
     if !current_station
       @station_info_complete = false
     end
-
-    @twitter_friends = session[:twitter_friends]
   end
 
   def create
@@ -90,47 +88,42 @@ class StationsController < ApplicationController
 
     result = PL::GetSongSuggestions.run(artists)
 
-    if params["createType"] == "manual"
-    else
-      spins_per_week = {}
-
-      # if the returned sample is too small, add random songs to make it
-      # big enough to work with
-      if result.song_suggestions.size < 54
-        all_songs_result = PL::GetAllSongs.run()
-        all_songs = PL.db.get_all_songs
-        result.song_suggestions.each { |song| all_songs_result.all_songs.delete(song.id) }
-        
-        while result.song_suggestions.size < 54
-          random_song = all_songs_result.all_songs.sample
-          result.song_suggestions.push(random_song)
-          all_songs_result.all_songs.delete(random_song.id)
-        end
-      end
+    # if the returned sample is too small, add random songs to make it
+    # big enough to work with
+    if result.song_suggestions.size < 54
+      all_songs_result = PL::GetAllSongs.run()
+      all_songs = PL.db.get_all_songs
+      result.song_suggestions.each { |song| all_songs_result.all_songs.delete(song.id) }
       
-      @spins_per_week = {}
-
-      result.song_suggestions[0..12].each do |song|
-        @spins_per_week[song.id] = PL::HEAVY_ROTATION
+      while result.song_suggestions.size < 54
+        random_song = all_songs_result.all_songs.sample
+        result.song_suggestions.push(random_song)
+        all_songs_result.all_songs.delete(random_song.id)
       end
-
-      result.song_suggestions[13..40].each do |song|
-        @spins_per_week[song.id] = PL::MEDIUM_ROTATION 
-      end
-
-      result.song_suggestions[41..53].each do |song|
-        @spins_per_week[song.id] = PL::MEDIUM_ROTATION
-      end
-
-      result = PL::CreateStation.run({ user_id: current_user.id,
-                                       spins_per_week: @spins_per_week })
-
-      current_schedule.generate_playlist(Time.now + (24*60*60))
-
-      @first_visit = true
-
-      render listens_index_path
     end
+    
+    spins_per_week = {}
+
+    result.song_suggestions[0..12].each do |song|
+      spins_per_week[song.id] = PL::HEAVY_ROTATION
+    end
+
+    result.song_suggestions[13..40].each do |song|
+      spins_per_week[song.id] = PL::MEDIUM_ROTATION 
+    end
+
+    result.song_suggestions[41..53].each do |song|
+      spins_per_week[song.id] = PL::MEDIUM_ROTATION
+    end
+
+    result = PL::CreateStation.run({ user_id: current_user.id,
+                                     spins_per_week: spins_per_week })
+
+    current_schedule.generate_playlist(Time.now + (24*60*60))
+
+    @first_visit = true
+
+    render listens_index_path
   end
 
   def create_spin_frequency
