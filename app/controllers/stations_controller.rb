@@ -126,7 +126,6 @@ class StationsController < ApplicationController
                                        spins_per_week: @spins_per_week })
 
       current_schedule.generate_playlist(Time.now + (24*60*60))
-      @current_schedule = PL.db.get_schedule(current_schedule.id)
 
       @first_visit = true
 

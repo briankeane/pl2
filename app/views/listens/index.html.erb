@@ -3,11 +3,11 @@
   <%= content_tag "div", id: "firstSongNotificationModal", class: "reveal-modal medium", data: { first_visit: @first_visit, reveal: true } do %>
     <h2>Congratulations!</h2>
     <p>Your Playola Station is Now Broadcasting it's First Song:</p>
-    <p><b> <%= @current_schedule.now_playing.audio_block.title || 'Commercial' %></b></p>
+    <p><b> <%= current_schedule.now_playing.audio_block.title || 'Commercial' %></b></p>
 
     <p>by</p>
 
-    <p><b> <%= @current_schedule.now_playing.audio_block.artist || '' %></p></b>
+    <p><b> <%= current_schedule.now_playing.audio_block.artist || '' %></p></b>
     
     <div class="row">
       <div class="large-12 large-centered columns">

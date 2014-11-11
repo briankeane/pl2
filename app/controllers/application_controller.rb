@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :signed_in?, :current_user, :current_station, :twitter_friends_stations, :twitter_friend_ids
+  helper_method :signed_in?, :current_user, :current_station, :current_schedule, :twitter_friends_stations
 
   def current_user
     @current_user ||= PL.db.get_user(PL.db.get_uid_by_sid(session[:pl_session_id]))
