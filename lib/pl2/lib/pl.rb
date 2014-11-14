@@ -52,6 +52,7 @@ module PL
   MIN_HEAVY_COUNT = 10
   MIN_MEDIUM_COUNT = 10
   MIN_LIGHT_COUNT = 5
+  FINAL_COMMERCIAL_BLOCK = 27
 
   def self.db
     case ENV['RAILS_ENV']
