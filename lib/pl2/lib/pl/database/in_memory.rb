@@ -372,7 +372,7 @@ module PL
       # schedule_id          #
       # current_position     #
       # audio_block_id       #
-      # estimated_airtime    #
+      # airtime    #
       # duration             #
       ########################
       def create_spin(attrs)
@@ -421,7 +421,7 @@ module PL
           self.create_spin({ schedule_id: spin.schedule_id,
                               audio_block_id: spin.audio_block_id,
                               current_position: spin.current_position,
-                              estimated_airtime: spin.estimated_airtime,
+                              airtime: spin.airtime,
                               created_at: Time.now,
                               updated_at: Time.now })
         end 
@@ -465,20 +465,20 @@ module PL
       ################################################################
       def insert_spin(attrs)
         station = self.get_station(attrs[:station_id])
-        station.update_estimated_airtimes
+        station.update_airtimes
         playlist = self.get_full_playlist(station.schedule_id)
         index = playlist.find_index { |spin| spin.current_position == attrs[:insert_position] }
         current_position_tracker = attrs[:insert_position]
 
         # if insert happens in the 3am hour, set marker to the following 1am
-        if playlist[index].estimated_airtime.hour == 3
+        if playlist[index].airtime.hour == 3
           change_hour = 2
         else
           change_hour = 3
         end
 
         # adjust current_position until change_hour
-        while (playlist[index].estimated_airtime.hour != change_hour) && (index < playlist.size)
+        while (playlist[index].airtime.hour != change_hour) && (index < playlist.size)
           self.update_spin({ id: playlist[index].id, 
                             current_position: (playlist[index].current_position + 1) 
                           })
@@ -518,14 +518,14 @@ module PL
         case
         when !attrs[:start_time]
           spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
-                                                  (spin.estimated_airtime <= attrs[:end_time]) }
+                                                  (spin.airtime <= attrs[:end_time]) }
         when !attrs[:end_time]
           spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
-                                                (spin.estimated_airtime >= attrs[:start_time]) }
+                                                (spin.airtime >= attrs[:start_time]) }
         else
           spins = @spins.values.select { |spin| (spin.schedule_id == attrs[:schedule_id]) &&
-                                              (spin.estimated_airtime >= attrs[:start_time]) &&
-                                              (spin.estimated_airtime <= attrs[:end_time]) }
+                                              (spin.airtime >= attrs[:start_time]) &&
+                                              (spin.airtime <= attrs[:end_time]) }
         spins = spins.sort_by { |spin| spin.current_position }
         spins
         end

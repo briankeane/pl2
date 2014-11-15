@@ -18,10 +18,16 @@ module PL
       # construct key
       commercial_block_key = this_commercial_block.to_s.rjust(4, padstr='0') + '_commercial_block.mp3'  
       
+      # grab the airtime
+      leading_spin = PL.db.get_spin_by_current_position({ schedule_id: attrs[:station].schedule_id, current_position: attrs[:current_position]})
+
+      airtime = leading_spin.estimated_end_time
+      
       commercial_block = PL.db.create_commercial_block({ duration: attrs[:station].secs_of_commercial_per_hour*1000,
                                                           station_id: attrs[:station].id,
                                                           key: commercial_block_key,
-                                                          current_position: attrs[:current_position] })
+                                                          current_position: attrs[:current_position],
+                                                          airtime: airtime })
 
       
       # reset lastCommecialBlockAired and store it in the db

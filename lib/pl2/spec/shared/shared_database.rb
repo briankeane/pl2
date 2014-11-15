@@ -319,7 +319,7 @@ shared_examples 'a badass database' do
     end
 
     it 'can be edited' do
-      updated_cb = db.update_commercial_block({ id: @commercial_block.id, duration: 1, estimated_airtime: Time.new(1985,1,1), current_position: 7 })
+      updated_cb = db.update_commercial_block({ id: @commercial_block.id, duration: 1, airtime: Time.new(1985,1,1), current_position: 7 })
       expect(updated_cb.id).to eq(@commercial_block.id)
       expect(db.get_commercial_block(@commercial_block.id).current_position).to eq(7)
     end
@@ -454,7 +454,7 @@ shared_examples 'a badass database' do
         spins << PL::Spin.new({ schedule_id: 1,
                                   current_position: (i+1),
                                   audio_block_id: (i+2),
-                                  estimated_airtime: starting_airtime += 180 })
+                                  airtime: starting_airtime += 180 })
       end
       
       db.mass_add_spins(spins)
@@ -472,7 +472,7 @@ shared_examples 'a badass database' do
         @spins[i] = db.create_spin({ schedule_id: 1,
                                   current_position: (i+1),
                                   audio_block_id: (i+2),
-                                  estimated_airtime: starting_airtime += 180 })
+                                  airtime: starting_airtime += 180 })
       end
     end
 
@@ -576,18 +576,18 @@ shared_examples 'a badass database' do
       spin = db.create_spin({ schedule_id: 1,
                               current_position: 2,
                               audio_block_id: 3,
-                              estimated_airtime: Time.new(2014),
+                              airtime: Time.new(2014),
                             })
       updated_spin = db.update_spin({ id: spin.id,
                                       schedule_id: 10,
                                       current_position: 20,
                                       audio_block_id: 30,
-                                      estimated_airtime: Time.new(2015) 
+                                      airtime: Time.new(2015) 
                                     })
       expect(spin.id).to eq(updated_spin.id)
       expect(db.get_spin(spin.id).current_position).to eq(20)
       expect(db.get_spin(spin.id).audio_block_id).to eq(30)
-      expect(updated_spin.estimated_airtime.to_f.floor).to eq(Time.new(2015).to_f.floor)
+      expect(updated_spin.airtime.to_f.floor).to eq(Time.new(2015).to_f.floor)
     end
 
     it "returns false if spin to be updated doesn't exist" do

@@ -126,7 +126,7 @@
         // if it was a song
         if (ui.item.type === 'song') {
           // create the new html spin and add it
-          var html = renderSpin({ estimated_airtime: '',
+          var html = renderSpin({ airtime: '',
                                    current_position: insertSpinInfo.addPosition,
                                    title: $(ui.item).find('.songlist-title').text(),
                                    artist: $(ui.item).find('.songlist-artist').text() });
@@ -154,7 +154,7 @@
           });
 
         } else {  // otherwise if it was a commentary
-          var html = renderCommentary({ estimated_airtime: '',
+          var html = renderCommentary({ airtime: '',
                                    current_position: insertSpinInfo.addPosition,
                                    sourceLink: ui.item.children()[0].src });
           
@@ -259,7 +259,7 @@
       for(var i=0; i<newProgram.length; i++) {
         if (!newProgram[i].hasOwnProperty('commercials')) {
           var currentSpinLi = ('*[data-currentPosition="' + newProgram[i].current_position +'"]');
-          $(currentSpinLi + ' .songlist-airtime').text(newProgram[i].estimated_airtime);
+          $(currentSpinLi + ' .songlist-airtime').text(newProgram[i].airtime);
         } else {
           // if the last entry is a commercial, delete the following commercial so there are no duplicates
           if (i === newProgram.length - 1) {
@@ -268,7 +268,7 @@
           
           $(currentSpinLi).after("<li class='commercialBlock disabled'>" + 
                                   "<span class='songlist-title'>Commercial Block</span>" + 
-                                  "<span class='songlist-airtime'>" +   newProgram[i].estimated_airtime + "</span></li>");
+                                  "<span class='songlist-airtime'>" +   newProgram[i].airtime + "</span></li>");
         }
       } //endFor
       
@@ -297,7 +297,7 @@
       var html = '<li class="song ui-sortable-handle" data-currentPosition="' + 
                   currentPosition + '"><span class="songlist-title">' + spinInfo.title + 
                   '</span><span class="songlist-artist">' + spinInfo.artist + '</span>' +
-                  '<span class="songlist-airtime">' + spinInfo.estimated_airtime + 
+                  '<span class="songlist-airtime">' + spinInfo.airtime + 
                   '</span><a href="#" class="close" title="delete">×</a></li>';
       return html;
     }
@@ -318,7 +318,7 @@
       var html = '<li class="commentary ui-sortable-handle" data-currentPosition="' + 
                   spinInfo.currentPosition + '"><span class="songlist-title">Commentary' + 
                   '</span><span class="songlist-artist"><audio controls src="' + spinInfo.sourceLink + '"></audio></span>' +
-                  '<span class="songlist-airtime">' + spinInfo.estimated_airtime + '</span><a href="#" class="close">&times;</a></li>';
+                  '<span class="songlist-airtime">' + spinInfo.airtime + '</span><a href="#" class="close">&times;</a></li>';
       return html;
     }
 
@@ -514,7 +514,7 @@
       data: { current_position: nextCurrentPosition,
               schedule_id: gon.scheduleId },
       success: function(result) {
-        var html = renderSpin({ estimated_airtime: result.estimated_airtime,
+        var html = renderSpin({ airtime: result.airtime,
                                  current_position: result.current_position,
                                  title: result.audio_block.title,
                                  artist: result.audio_block.artist });

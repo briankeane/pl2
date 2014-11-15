@@ -7,6 +7,9 @@ describe 'commercial_block_factory' do
                                       last_commercial_block_aired: 10 })
     @schedule = PL.db.create_schedule({ station_id: @station.id })
     @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
+    @song = PL.db.create_song({ title: 'bla', duration: 3000 })
+    PL.db.create_spin({ audio_block_id: @song.id, airtime: Time.new(2020,10,11, 10), current_position: 10,
+                        schedule_id: @schedule.id })
     @commercial_block_factory = PL::CommercialBlockFactory.new
   end
 

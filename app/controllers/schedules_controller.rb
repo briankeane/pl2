@@ -20,8 +20,8 @@ class SchedulesController < ApplicationController
 
     # format estimated_air_times
     result.new_program.each do |spin|
-      if spin.estimated_airtime
-        spin.estimated_airtime = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
+      if spin.airtime
+        spin.airtime = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
       end
     end
 
@@ -43,8 +43,8 @@ class SchedulesController < ApplicationController
     
     # format estimated_air_times
     result.new_program.each do |spin|
-      if spin.estimated_airtime
-        spin.estimated_airtime = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
+      if spin.airtime
+        spin.airtime = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
       end
     end
 
@@ -72,8 +72,8 @@ class SchedulesController < ApplicationController
     
     # format estimated_air_times
     result.new_program.each do |spin|
-      if spin.estimated_airtime
-        spin.estimated_airtime = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
+      if spin.airtime
+        spin.airtime = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
       end
     end
 
@@ -93,7 +93,7 @@ class SchedulesController < ApplicationController
     spin_as_hash["airtime_in_ms"] = spin.airtime_in_ms
     spin_as_hash["currentPosition"] = spin.current_position
     # format time
-    spin_as_hash["estimated_airtime"] = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
+    spin_as_hash["airtime"] = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
 
     if spin.audio_block.is_a?(PL::Song)
       spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
@@ -119,8 +119,8 @@ class SchedulesController < ApplicationController
 
       # format estimated_air_times
       result.new_program.each do |spin|
-        if spin.estimated_airtime
-          spin.estimated_airtime = time_formatter(spin.estimated_airtime.in_time_zone(current_station.timezone))
+        if spin.airtime
+          spin.airtime = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
         end
       end
       render :json => result

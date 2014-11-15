@@ -40,7 +40,7 @@ class StationsController < ApplicationController
     
     # format for local station time
     @program.each do |spin|
-      spin.estimated_airtime = spin.estimated_airtime.in_time_zone(current_station.timezone)
+      spin.airtime = spin.airtime.in_time_zone(current_station.timezone)
     end
 
     # set first_current_position if commercial block is first

@@ -13,21 +13,21 @@ describe 'a spin' do
                           audio_block_id: @song.id,
                           created_at: Time.new(1970),
                           updated_at: Time.new(1970, 1, 2),
-                          estimated_airtime: Time.new(2014,1,1, 12) })
+                          airtime: Time.new(2014,1,1, 12) })
     @spin2 = PL::Spin.new({ id: 1, 
                           schedule_id: 3,
                           current_position: 3, 
                           audio_block_id: @commercial.id,
                           created_at: Time.new(1970),
                           updated_at: Time.new(1970, 1, 2),
-                          estimated_airtime: 4000 })
+                          airtime: 4000 })
     @spin3 = PL::Spin.new({ id: 1, 
                           schedule_id: 3,
                           current_position: 4,
                           audio_block_id: @commentary.id,
                           created_at: Time.new(1970),
                           updated_at: Time.new(1970, 1, 2),
-                          estimated_airtime: 4000 })
+                          airtime: 4000 })
   end
     
   it 'is created with an id, current_position, audio_block_id' do
@@ -37,7 +37,7 @@ describe 'a spin' do
     expect(@spin.created_at).to eq(Time.new(1970))
     expect(@spin.updated_at).to eq(Time.new(1970, 1, 2))
     expect(@spin.schedule_id).to eq(3)
-    expect(@spin.estimated_airtime.to_s).to eq('2014-01-01 12:00:00 -0600')
+    expect(@spin.airtime.to_s).to eq('2014-01-01 12:00:00 -0600')
   end
 
   it "grabs the audio_block if it's a song" do
@@ -64,9 +64,9 @@ describe 'a spin' do
   end
 
   it 'can tell if a commercial follows' do
-    spin = PL::Spin.new({ estimated_airtime: Time.new(2014,1,1, 12,01), audio_block_id: @song.id })
+    spin = PL::Spin.new({ airtime: Time.new(2014,1,1, 12,01), audio_block_id: @song.id })
     expect(spin.commercials_follow?).to eq(false)
-    spin.estimated_airtime = Time.new(2014,1,1, 11,59,59)
+    spin.airtime = Time.new(2014,1,1, 11,59,59)
     expect(spin.commercials_follow?).to eq(true)
   end
 end

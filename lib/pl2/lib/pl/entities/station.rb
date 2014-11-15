@@ -84,8 +84,8 @@ module PL
     def get_commercial_block_for_broadcast(current_position)
       cb = PL.db.get_commercial_block_by_current_position(current_position)
       if !cb
-        cf = PL::CommercialBlockFactory
-        cb = cf.construct_block(self)
+        cf = PL::CommercialBlockFactory.new
+        cb = cf.construct_block({ station: self, current_position: current_position })
       end
 
       cb
@@ -118,9 +118,9 @@ module PL
     end
 
     def end_time
-      schedule.update_estimated_airtimes
+      schedule.update_airtimes
       last_scheduled_spin = PL.db.get_last_spin(@id)
-      last_scheduled_spin.estimated_airtime + last_scheduled_spin.duration/1000
+      last_scheduled_spin.airtime + last_scheduled_spin.duration/1000
     end
 
     def offset   # measurement of shift in end_time
@@ -134,8 +134,8 @@ module PL
     def adjust_offset(adjustment_date)  
       offset = self.offset
       current_playlist = PL.db.get_full_playlist(@id)
-      first_spin_after_3am = current_playlist.find_by { |spin| (spin.estimated_airtime.day == adjustment_date.day + 1) &&
-                                                                (spin.estimated_airtime.hour == 3) }
+      first_spin_after_3am = current_playlist.find_by { |spin| (spin.airtime.day == adjustment_date.day + 1) &&
+                                                                (spin.airtime.hour == 3) }
 
       if offset < 0
         # search for a song to add
@@ -146,7 +146,7 @@ module PL
           PL.db.add_spin({  station_id: @id,
                                current_position: (PL.first_spin_after_3am.current_position),
                                audio_block_id: closest_in_duration.id,
-                               airtime: first_spin.estimated_airtime,
+                               airtime: first_spin.airtime,
                                duration: first_spin.duration
                               })
         end

@@ -16,7 +16,7 @@ module PL
       end
 
       # find the reinsert time (tomorrow 3am, day after tomorrow 3am if original time is between midnight and 3am)
-      old_airtime = spin_to_remove.estimated_airtime
+      old_airtime = spin_to_remove.airtime
 
       if old_airtime.hour < 3
         extra_days = 2

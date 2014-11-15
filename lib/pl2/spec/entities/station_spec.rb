@@ -53,22 +53,22 @@ describe 'a station' do
       @spin1 = PL.db.create_spin({ current_position: 15,
                                       station_id: @station.id,
                                       audio_block_id: @song.id,
-                                      estimated_airtime: Time.new(2014, 4, 15, 11, 25) 
+                                      airtime: Time.new(2014, 4, 15, 11, 25) 
                                       })
       @spin2 = PL.db.create_spin({ current_position: 16,
                                       station_id: @station.id,
                                       audio_block_id: @song.id,                                     
-                                      estimated_airtime: Time.new(2014, 4, 15, 11, 28) 
+                                      airtime: Time.new(2014, 4, 15, 11, 28) 
                                       })
       @spin3 = PL.db.create_spin({ current_position: 17,
                                       station_id: @station.id,
                                       audio_block_id: @song.id,                                     
-                                      estimated_airtime: Time.new(2014, 4, 15, 12, 31) 
+                                      airtime: Time.new(2014, 4, 15, 12, 31) 
                                       })
       @spin4 = PL.db.create_spin({ current_position: 18,
                                       station_id: @station.id,
                                       audio_block_id: @song.id,
-                                      estimated_airtime: Time.new(2014, 4, 15, 12, 38) 
+                                      airtime: Time.new(2014, 4, 15, 12, 38) 
                                       })
       @log = PL.db.create_log_entry({ station_id: @station.id,
                                       current_position: 14,

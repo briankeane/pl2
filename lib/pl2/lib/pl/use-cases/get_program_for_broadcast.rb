@@ -3,13 +3,15 @@ module PL
     def run(attrs)
       schedule = PL.db.get_schedule(attrs[:schedule_id])
 
-      station = PL.db.get_station(schedule.station_id)
-
       if !schedule
         return failure :schedule_not_found
       end
 
+      station = PL.db.get_station(schedule.station_id)
 
+      if !station
+        return failure :station_not_found
+      end
 
       program = schedule.get_program({ schedule_id: attrs[:schedule_id],
                                       start_time: attrs[:start_time],
@@ -26,11 +28,14 @@ module PL
         end
 
         # 'touch' the audio-blocks so they are not passed to js as nil
-        program.map { |spin| spin.audio_block unless spin.is_a?(CommercialBlock) }
-
-        # make real commercial blocks
-        cb_factory = PL::CommercialBlockFactory.new
-        cb_factory.get_commercial_block
+        # also grab the commercial_blocks
+        program.map! do |spin|
+          if spin.is_a?(PL::CommercialBlock)
+            station.get_commercial_block_for_broadcast(spin.current_position)
+          else
+            spin.audio_block
+          end
+        end
 
         return success :program => program
       end

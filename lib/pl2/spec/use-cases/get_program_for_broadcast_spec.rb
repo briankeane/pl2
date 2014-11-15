@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'timecop'
+require 'pry-byebug'
 
 describe 'GetProgramForBroadcast' do
   it 'calls bullshit of the station is not found' do
@@ -52,6 +53,7 @@ describe 'GetProgramForBroadcast' do
       result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id,
                                     start_time: Time.local(2014,5,12) })
       expect(result.success?).to eq(true)
+      binding.pry
       expect(result.program.size).to eq(3)
     end
 

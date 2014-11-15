@@ -677,11 +677,11 @@ module PL
       def get_partial_playlist(attrs)
         case 
         when !attrs[:start_time]
-          ar_spins = Spin.where('schedule_id = ? and estimated_airtime <= ?', attrs[:schedule_id], attrs[:end_time]).order(:current_position)
+          ar_spins = Spin.where('schedule_id = ? and airtime <= ?', attrs[:schedule_id], attrs[:end_time]).order(:current_position)
         when !attrs[:end_time]
-          ar_spins = Spin.where('schedule_id = ? and estimated_airtime >= ?', attrs[:schedule_id], attrs[:start_time]).order(:current_position)
+          ar_spins = Spin.where('schedule_id = ? and airtime >= ?', attrs[:schedule_id], attrs[:start_time]).order(:current_position)
         else
-          ar_spins = Spin.where('schedule_id = ? and estimated_airtime >= ? and estimated_airtime <= ?', attrs[:schedule_id], attrs[:start_time], attrs[:end_time]).order(:current_position)
+          ar_spins = Spin.where('schedule_id = ? and airtime >= ? and airtime <= ?', attrs[:schedule_id], attrs[:start_time], attrs[:end_time]).order(:current_position)
         end
         
         spins = ar_spins.map { |ar_spin| ar_spin.to_pl }
@@ -734,7 +734,7 @@ module PL
         stringified_spins = spins.map { |spin| (spin.schedule_id.to_s + ', ' + 
                                                 spin.audio_block_id.to_s + ', ' + 
                                                 spin.current_position.to_s + ', ' + 
-                                                spin.estimated_airtime.utc.to_s + ', ' + 
+                                                spin.airtime.utc.to_s + ', ' + 
                                                 Time.now.utc.to_s + ', ' + 
                                                 Time.now.utc.to_s) }
 
@@ -746,7 +746,7 @@ module PL
 
           conn = ActiveRecord::Base.connection
           rc = conn.raw_connection
-          rc.exec("COPY spins (schedule_id, audio_block_id, current_position, estimated_airtime, created_at, updated_at) FROM STDIN WITH CSV")
+          rc.exec("COPY spins (schedule_id, audio_block_id, current_position, airtime, created_at, updated_at) FROM STDIN WITH CSV")
 
           while !temp_csv_file.eof?
             rc.put_copy_data(temp_csv_file.readline)
