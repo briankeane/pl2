@@ -24,7 +24,7 @@ module PL
       return new_file_path
     end
     
-    def trim_silences(file_path)
+    def trim_silence(file_path)
       # trim silences
       trimmed_file_path = file_path.gsub('.','trimmed.')
       system('sox ' + file_path + ' ' + trimmed_file_path + ' silence 1 0.1 0.1% reverse silence 1 0.1 0.1% reverse')

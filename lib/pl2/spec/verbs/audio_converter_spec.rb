@@ -27,7 +27,7 @@ describe 'audio_converter' do
     system('cp spec/test_files/silence_on_ends.mp3 spec/test_files/silence_on_ends_copy.mp3')
     duration = sp.get_id3_tags('spec/test_files/silence_on_ends_copy.mp3')[:duration]
     expect(duration).to eq(29231)
-    trimmed_file_path = @ac.trim_silences('spec/test_files/silence_on_ends_copy.mp3')
+    trimmed_file_path = @ac.trim_silence('spec/test_files/silence_on_ends_copy.mp3')
     duration = sp.get_id3_tags('spec/test_files/silence_on_ends_copy.mp3')[:duration]
     expect(File.size('spec/test_files/silence_on_ends_copy.mp3')).to eq(224862)
 
