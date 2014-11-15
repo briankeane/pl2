@@ -14,7 +14,7 @@ describe 'commercial_block_factory' do
     new_cb = @commercial_block_factory.construct_block(@station)
     expect(new_cb.duration).to eq(180*1000)
     expect(new_cb.station_id).to eq(@station.id)
-    expect(new_cb.key).to eq('011_commercial_block.mp3')
+    expect(new_cb.key).to eq('0011_commercial_block.mp3')
   end
 
   it 'updates the last_commercial_block_aired' do
@@ -26,7 +26,7 @@ describe 'commercial_block_factory' do
   it "resets last_commercial_block if it's at the end of available commercial blocks" do
     @station.last_commercial_block_aired = PL::FINAL_COMMERCIAL_BLOCK
     new_cb = @commercial_block_factory.construct_block(@station)
-    expect(new_cb.key).to eq('001_commercial_block.mp3')
+    expect(new_cb.key).to eq('0001_commercial_block.mp3')
     expect(@station.last_commercial_block_aired).to eq(1)
   end
 

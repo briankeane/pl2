@@ -19,6 +19,7 @@ module PL
       if song_file.path.match(/\.wav$/)
         audio_converter = PL::AudioConverter.new       
         song_file = File.open(audio_converter.wav_to_mp3(wav_file.path))
+        song_file = File.open(audio_converter.trim_silence(song_file.path))
       end
 
       # get id3 tags

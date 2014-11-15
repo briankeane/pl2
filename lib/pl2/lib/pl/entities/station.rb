@@ -81,22 +81,15 @@ module PL
       schedule.next_spin
     end
 
-    def next_commercial_block
-      if @next_commercial_block
-        return @next_commercial_block
-      else
-        cf = PL::CommercialBlockFactory.new
-        @next_commercial_block = cf.construct_block(self)
-        return @next_commercial_block
+    def get_commercial_block_for_broadcast(current_position)
+      cb = PL.db.get_commercial_block(current_position)
+      if !cb
+        cf = PL::CommercialBlockFactory
+        cb = cf.construct_block(self)
       end
-    end
 
-    def advance_commercial_block
-      cf = PL::CommercialBlockFactory.new
-      @next_commercial_block = cf.construct_block(self)
-      return @next_commercial_block
-    end
-    
+      cb
+    end  
 
     ##################################################################
     #     active?                                                    #

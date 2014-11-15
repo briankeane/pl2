@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'pry-byebug'
 
 describe 'audio_converter' do
   before(:all) do
@@ -18,4 +19,18 @@ describe 'audio_converter' do
     expect(File.exists?(wav_file_path)).to eq(true)
     File.delete(wav_file_path) if File.exists?(wav_file_path)
   end
+
+  it 'trims silences' do
+    sp = PL::SongProcessor.new
+
+    # make a new copy
+    system('cp spec/test_files/silence_on_ends.mp3 spec/test_files/silence_on_ends_copy.mp3')
+    duration = sp.get_id3_tags('spec/test_files/silence_on_ends_copy.mp3')[:duration]
+    expect(duration).to eq(29231)
+    trimmed_file_path = @ac.trim_silences('spec/test_files/silence_on_ends_copy.mp3')
+    duration = sp.get_id3_tags('spec/test_files/silence_on_ends_copy.mp3')[:duration]
+    expect(File.size('spec/test_files/silence_on_ends_copy.mp3')).to eq(224862)
+
+  end
+
 end

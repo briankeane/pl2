@@ -12,22 +12,24 @@ module PL
     end
 
     def wav_to_mp3(wav_file_path)
-      pretrim_file_path = wav_file_path.gsub(".wav", "pretrim.mp3")
       new_file_path = wav_file_path.gsub(".wav", ".mp3")
-
 
       # provide a different name if wav is not specified
       if new_file_path == wav_file_path
         new_file_path = new_file_path + '.mp3'
-        pretrim_file_path = new_file_path + 'pretrim.mp3'
       end
 
-      #convert file
-      system("lame -V2 -f " + wav_file_path + " " + pretrim_file_path)
+      system("lame -V2 -f " + wav_file_path + " " + new_file_path)
       
-      #trim silence from beginning and end
-      system("sox " + pretrim_file_path + " " + new_file_path + " silence 1 0.1 0.1% reverse silence 1 0.1 0.1% reverse")
       return new_file_path
+    end
+    
+    def trim_silences(file_path)
+      # trim silences
+      trimmed_file_path = file_path.gsub('.','trimmed.')
+      system('sox ' + file_path + ' ' + trimmed_file_path + ' silence 1 0.1 0.1% reverse silence 1 0.1 0.1% reverse')
+      system('cp ' + trimmed_file_path + ' ' + file_path)
+      system('rm -rf ' + trimmed_file_path)
     end
   end
 end

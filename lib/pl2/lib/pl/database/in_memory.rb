@@ -268,6 +268,12 @@ module PL
       def get_commercial_block(id)
         @audio_blocks[id]
       end
+
+      def get_commercial_block_by_current_position(attrs)
+        @audio_blocks.values.find { |commercial_block| commercial_block.is_a?(PL::CommercialBlock) && 
+                                      commercial_block.station_id == attrs[:station_id] && 
+                                      commercial_block.current_position = attrs[:current_position] }
+      end 
       
 
       ###########################################

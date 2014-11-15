@@ -15,7 +15,7 @@ module PL
       end
       
       # construct key
-      commercial_block_key = this_commercial_block.to_s.rjust(3, padstr='0') + '_commercial_block.mp3'  
+      commercial_block_key = this_commercial_block.to_s.rjust(4, padstr='0') + '_commercial_block.mp3'  
       
       commercial_block = PL.db.create_commercial_block({ duration: station.secs_of_commercial_per_hour*1000,
                                                           station_id: station.id,

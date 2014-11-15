@@ -323,7 +323,13 @@ shared_examples 'a badass database' do
       expect(updated_cb.id).to eq(@commercial_block.id)
       expect(db.get_commercial_block(@commercial_block.id).cb_position).to eq(7)
     end
-
+    it 'can find a commerical_block by current_position' do
+      cb = db.create_commercial_block({ station_id: 1, current_position: 99 })
+      gotten_cb = db.get_commercial_block_by_current_position({ station_id: 1, current_position: 99 })
+      expect(cb.id).to eq(gotten_cb.id)
+      expect(gotten_cb.current_position).to eq(99)
+      expect(gotten_cb.station_id).to eq(1)
+    end
     it 'can be deleted' do
       deleted_cb = db.delete_commercial_block(@commercial_block.id)
       expect(deleted_cb.commercials.map { |c| c.id }).to eq([@commercial1.id, @commercial2.id, @commercial3.id])

@@ -28,7 +28,7 @@ class ListensController < ApplicationController
       case
       when spin.is_a?(PL::CommercialBlock)
         obj[:type] = 'CommercialBlock'
-        obj[:key] = 'STUBFORCBKEY'
+        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.key
       when spin.audio_block.is_a?(PL::Song)
         obj[:type] = 'Song'
         obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
