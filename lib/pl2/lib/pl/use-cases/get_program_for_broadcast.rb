@@ -4,7 +4,7 @@ module PL
       schedule = PL.db.get_schedule(attrs[:schedule_id])
 
       station = PL.db.get_station(schedule.station_id)
-      
+
       if !schedule
         return failure :schedule_not_found
       end
@@ -29,6 +29,8 @@ module PL
         program.map { |spin| spin.audio_block unless spin.is_a?(CommercialBlock) }
 
         # make real commercial blocks
+        cb_factory = PL::CommercialBlockFactory.new
+        cb_factory.get_commercial_block
 
         return success :program => program
       end

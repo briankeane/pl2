@@ -14,10 +14,10 @@ describe 'a commercial_block' do
     expect(@commercial_block.station_id).to eq(2)
   end
 
-  it 'can store its cb_position' do
+  it 'can store its current_position' do
     commercial_block = PL::CommercialBlock.new({ id: 5, station_id: 2 })
-    commercial_block.cb_position = 1
-    expect(commercial_block.cb_position).to eq(1)
+    commercial_block.current_position = 1
+    expect(commercial_block.current_position).to eq(1)
   end
 
 end

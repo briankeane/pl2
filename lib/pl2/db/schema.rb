@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141113145940) do
+ActiveRecord::Schema.define(version: 20141115095036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,6 @@ ActiveRecord::Schema.define(version: 20141113145940) do
     t.integer  "commentary_following_overlap"
     t.integer  "commercial_following_overlap"
     t.integer  "song_following_overlap"
-    t.integer  "cb_position"
     t.string   "artist"
     t.string   "title"
     t.string   "album"
@@ -36,6 +35,7 @@ ActiveRecord::Schema.define(version: 20141113145940) do
     t.string   "echonest_id"
     t.integer  "schedule_id"
     t.integer  "station_id"
+    t.integer  "current_position"
   end
 
   create_table "commercial_links", force: true do |t|

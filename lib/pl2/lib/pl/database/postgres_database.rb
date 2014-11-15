@@ -2,6 +2,7 @@ require 'active_record'
 require 'yaml'
 require 'securerandom'
 
+
 module PL
   module Database
 
@@ -457,6 +458,16 @@ module PL
         if CommercialBlock.exists?(id)
           ar_cb = CommercialBlock.find(id)
           return ar_cb.to_pl
+        else
+          return nil
+        end
+      end
+
+      def get_commercial_block_by_current_position(attrs)
+        ar_cb = CommercialBlock.where(current_position: attrs[:current_position], station_id: attrs[:station_id])
+
+        if ar_cb.exists?
+          return ar_cb[0].to_pl
         else
           return nil
         end

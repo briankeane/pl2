@@ -529,7 +529,7 @@ response:
     t.integer  "commentary_following_overlap"
     t.integer  "commercial_following_overlap"
     t.integer  "song_following_overlap"
-    t.integer  "cb_position"
+    t.integer  "current_position"
     t.string   "artist"
     t.string   "title"
     t.string   "album"

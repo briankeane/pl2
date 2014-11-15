@@ -6,25 +6,27 @@
 
 module PL
   class CommercialBlockFactory
-    def construct_block(station)
-      this_commercial_block = (station.last_commercial_block_aired + 1) unless !station.last_commercial_block_aired
+    def construct_block(attrs)
       
-      # if it's past the last commercial
-      if this_commercial_block > PL::FINAL_COMMERCIAL_BLOCK
+      # if no commercial has aired yet or it's cycled through all commercial_blocks
+      if !attrs[:station].last_commercial_block_aired || attrs[:station].last_commercial_block_aired >= PL::FINAL_COMMERCIAL_BLOCK
         this_commercial_block = 1
+      else 
+        this_commercial_block = (attrs[:station].last_commercial_block_aired + 1)
       end
       
       # construct key
       commercial_block_key = this_commercial_block.to_s.rjust(4, padstr='0') + '_commercial_block.mp3'  
       
-      commercial_block = PL.db.create_commercial_block({ duration: station.secs_of_commercial_per_hour*1000,
-                                                          station_id: station.id,
-                                                          key: commercial_block_key })
+      commercial_block = PL.db.create_commercial_block({ duration: attrs[:station].secs_of_commercial_per_hour*1000,
+                                                          station_id: attrs[:station].id,
+                                                          key: commercial_block_key,
+                                                          current_position: attrs[:current_position] })
 
       
       # reset lastCommecialBlockAired and store it in the db
-      station.last_commercial_block_aired = this_commercial_block
-      PL.db.update_station({ id: station.id,
+      attrs[:station].last_commercial_block_aired = this_commercial_block
+      PL.db.update_station({ id: attrs[:station].id,
                               last_commercial_block_aired: this_commercial_block })
       
       commercial_block
