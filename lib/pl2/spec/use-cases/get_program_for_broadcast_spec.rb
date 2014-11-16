@@ -50,10 +50,8 @@ describe 'GetProgramForBroadcast' do
     end
 
     it 'gets a playlist' do
-      result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id,
-                                    start_time: Time.local(2014,5,12) })
+      result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id })
       expect(result.success?).to eq(true)
-      binding.pry
       expect(result.program.size).to eq(3)
     end
 

@@ -445,9 +445,7 @@
     // change image
     $('.muteButton').toggleClass('muted');
 
-    for (var i=0; i<gon.audioQueue.length; i++) {
-      gon.audioQueue[i].audio.muted = !gon.audioQueue[i].audio.muted;
-    }
+    player.mute();
   }
 
   var removeSpin = function() {

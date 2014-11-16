@@ -90,4 +90,11 @@ var StationPlayer = function(attrs) {
     return self.audioQueue[0];
   }
 
+  this.mute = function() {
+    self.muted = !self.muted;
+    for(var i=0;i<self.audioQueue.length;i++) {
+      self.audioQueue[i].audio.muted = self.muted;
+    }
+  }
+
 }
