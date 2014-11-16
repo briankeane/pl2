@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141115122716) do
+ActiveRecord::Schema.define(version: 20141116101931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 20141115122716) do
     t.integer  "listeners_at_start"
     t.integer  "listeners_at_finish"
     t.integer  "duration"
+    t.boolean  "is_commercial_block"
   end
 
   create_table "schedules", force: true do |t|
@@ -98,7 +99,7 @@ ActiveRecord::Schema.define(version: 20141115122716) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "schedule_id"
-    t.integer  "lastCommercialBlockAired"
+    t.integer  "last_commercial_block_aired"
   end
 
   create_table "twitter_friends", force: true do |t|

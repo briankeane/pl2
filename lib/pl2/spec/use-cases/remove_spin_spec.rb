@@ -45,9 +45,9 @@ describe "RemoveSpin" do
     program_after_ids = @schedule.get_program.map { |spin| spin.id }
     expect(result.success?).to eq(true)
     expect(program_before_ids[12]).to eq(program_after_ids[11])  # everything is shifted back one spin
-    expect(program_after_ids.include?(program_before_ids[7])).to eq(false)  #removed_spin is gone
+    expect(program_after_ids.include?(program_before_ids[8])).to eq(false)  #removed_spin is gone
     late_program_ids = @schedule.get_program(start_time: Time.new(2014,5,10,3)).map { |spin| spin.id }
-    expect(late_program_ids[1]).to eq(program_before_ids[7])  #removed spin has been inserted at 3am  
+    expect(late_program_ids[1]).to eq(program_before_ids[8])  #removed spin has been inserted at 3am  
   end
 
   after(:each) do

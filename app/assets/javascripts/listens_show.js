@@ -20,7 +20,7 @@
         $('#nowPlayingList .nowPlaying .artist').after(html);
         $('#nowPlayingList .nowPlaying .addToMyStationButton').attr('data-songId', player.audioQueue[0].audio_block_id);
 
-        if (player.audioQueue[0].audio_block_id in gon.current_station.spins_per_week) {
+        if (player.audioQueue[0].audio_block_id in gon.currentStation.spins_per_week) {
           $('#nowPlayingList .nowPlaying .addToMyStationButton').addClass('disabled');
           $('#nowPlayingList .nowPlaying .addToMyStationButton').text('Song Added');
         }
@@ -41,7 +41,7 @@
                     '<span class="title">' + player.justPlayed.title + '</span>';
 
       
-      if (player.justPlayed.audio_block_id in gon.current_station.spins_per_week) {
+      if (player.justPlayed.audio_block_id in gon.currentStation.spins_per_week) {
         html = html + '<button class="addToMyStationButton disabled">Song Added</button>'
       } else {
         html = html + '<button class="addToMyStationButton">Add Song To My Station</button>'
@@ -80,8 +80,8 @@
         $(this).addClass('disabled');
         $(this).text('Song Added');
 
-        // edit the current_station object in the browser
-        gon.current_station.spins_per_week[songId] = 17;
+        // edit the currentStation object in the browser
+        gon.currentStation.spins_per_week[songId] = 17;
       }
     });
 

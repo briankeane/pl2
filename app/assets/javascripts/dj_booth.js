@@ -411,7 +411,7 @@
       $('#nowPlayingList .nowPlaying').addClass('commentary');
       $('#nowPlayingList .nowPlaying .title').text('Commentary');
       $('#nowPlayingList .nowPlaying .artist').text('');
-    } else if (player.audioQueue.type === 'CommercialBlock') {
+    } else {
       $('#nowPlayingList .nowPlaying').addClass('commercialBlock');
       $('#nowPlayingList .nowPlaying .title').text('Commercial Block');
       $('#nowPlayingList .nowPlaying .artist').text('');

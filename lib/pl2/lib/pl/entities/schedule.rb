@@ -262,7 +262,7 @@ module PL
                                               listeners_at_start: 0,
                                               listeners_at_finish: 0,
                                               current_position: log_entry.current_position,
-                                              type: 'CommercialBlock',
+                                              is_commercial_block: true,
                                               duration: (station.secs_of_commercial_per_hour/2 * 1000)
                                             })
       end
@@ -290,7 +290,7 @@ module PL
                                               airtime: spin.estimated_end_time,
                                               listeners_at_start: 0,
                                               listeners_at_finish: 0,
-                                              type: 'CommercialBlock',
+                                              is_commercial_block: true,
                                               duration: (station.secs_of_commercial_per_hour/2 * 1000)
                                             })
         end
@@ -356,6 +356,7 @@ module PL
     def get_program(attrs={})
       if !attrs[:start_time]
         attrs[:start_time] = Time.now
+        current_program = true
       end
 
       if !attrs[:end_time]
@@ -386,7 +387,7 @@ module PL
       playlist_with_commercial_blocks = []
 
 
-      if !attrs[:start_time]
+      if current_program
         previous_spin = now_playing
       else
         previous_spin = PL.db.get_spin_by_current_position({ schedule_id: @id, current_position: playlist[0].current_position - 1 })
@@ -410,6 +411,17 @@ module PL
         end
       end
 
+      # add currently playing song if current playlist
+      if current_program
+        if self.now_playing.is_commercial_block
+          playlist_with_commercial_blocks.unshift(PL::CommercialBlock.new({ current_position: self.now_playing.current_position,
+                                                      airtime: self.now_playing.airtime,
+                                                      duration: self.now_playing.duration,
+                                                      schedule_id: self.id }))
+        else
+          playlist_with_commercial_blocks.unshift(self.now_playing)
+        end
+      end
 
       playlist_with_commercial_blocks 
     end

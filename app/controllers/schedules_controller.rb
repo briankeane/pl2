@@ -85,7 +85,7 @@ class SchedulesController < ApplicationController
                                                 current_position: params["current_position"].to_i })
 
     # 'touch' audioBlock so it's not blank for js
-    spin.audio_block unless spin.is_a?(PL::CommercialBlock)  # 
+    spin.audio_block unless spin.is_commercial_block 
 
     spin_as_hash = spin.as_json
 

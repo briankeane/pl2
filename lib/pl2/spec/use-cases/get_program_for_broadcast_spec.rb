@@ -40,13 +40,13 @@ describe 'GetProgramForBroadcast' do
       result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id })
       expect(result.success?).to eq(true)
       expect(result.program.size).to eq(3)
+      expect(result.program[0].id).to eq(@schedule.now_playing.id)
     end
 
     it 'gets a playlist if now_playing is a commercial' do
       Timecop.travel(Time.local(2014,5,9, 11))
       result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id })
       expect(result.success?).to eq(true)
-      binding.pry
       expect(result.program[0]).to be_a(PL::CommercialBlock)
     end
 

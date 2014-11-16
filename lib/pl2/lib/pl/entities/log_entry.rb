@@ -1,6 +1,6 @@
 module PL
   class LogEntry < Entity
-    attr_accessor :station_id, :current_position, :audio_block_id, :type
+    attr_accessor :station_id, :current_position, :audio_block_id, :type, :is_commercial_block
     attr_accessor :airtime, :listeners_at_start, :listeners_at_finish, :id, :duration
 
     def initialize(attrs)
@@ -30,7 +30,7 @@ module PL
     def to_hash
       hash = {}
       self.instance_variables.each {|var| hash[var.to_s.delete("@").to_sym] = self.instance_variable_get(var) }
-      hash[:audio_block] = audio_block.to_hash
+      hash[:audio_block] = audio_block.to_hash unless !audio_block
       hash
     end
   end

@@ -26,7 +26,6 @@ var StationPlayer = function(attrs) {
   }
 
   var advanceSpin = function() {
-    
     console.log('advancing spin...')
     // advance audioQueue
     self.justPlayed = self.audioQueue.shift();

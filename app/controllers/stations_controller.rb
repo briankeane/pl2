@@ -1,39 +1,13 @@
 class StationsController < ApplicationController
   
   def dj_booth
-
     return redirect_to station_new_path unless current_station
 
     result = PL::GetProgram.run({ schedule_id: current_schedule.id })
     @program = result.program unless !result.success?
-    
-    now_playing = PL::GetProgram.run({ schedule_id: current_schedule.id }).program
 
-    now_playing.unshift(current_schedule.now_playing)
-
-    # load audioQueue array
-    gon.audioQueue = now_playing[0..2].map do |spin|
-      obj = {}
-      case
-      when spin.is_a?(PL::CommercialBlock)
-        obj[:type] = 'CommercialBlock'
-        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolacommercialblocks/'
-      when spin.audio_block.is_a?(PL::Song)
-        obj[:type] = 'Song'
-        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
-        obj[:artist] = spin.audio_block.artist
-        obj[:title] = spin.audio_block.title
-      when spin.audio_block.is_a?(PL::Commentary)
-        obj[:type] = 'Commentary'
-        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolacommentaries/' + spin.audio_block.key
-      end
-
-      obj[:currentPosition] = spin.current_position
-      obj[:commercialsFollow?] = spin.commercials_follow?
-      obj[:airtime_in_ms] = spin.airtime_in_ms
-      
-      obj
-    end
+    # remove 'now playing' from program
+    @program.shift
     
     # format for local station time
     @program.each do |spin|
@@ -47,8 +21,10 @@ class StationsController < ApplicationController
       @first_current_position = @program[0].current_position
     end
 
+    gon.audioQueue = get_audio_queue(current_schedule.id)
     gon.stationId = current_station.id
     gon.scheduleId = current_schedule.id
+    
     @all_songs = PL.db.get_all_songs
   end
 
