@@ -82,7 +82,7 @@ module PL
     end
 
     def get_commercial_block_for_broadcast(current_position)
-      cb = PL.db.get_commercial_block_by_current_position(current_position)
+      cb = PL.db.get_commercial_block_by_current_position({ station_id: @id, current_position: current_position })
       if !cb
         cf = PL::CommercialBlockFactory.new
         cb = cf.construct_block({ station: self, current_position: current_position })

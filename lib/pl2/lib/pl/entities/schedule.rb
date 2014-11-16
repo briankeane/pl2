@@ -262,6 +262,7 @@ module PL
                                               listeners_at_start: 0,
                                               listeners_at_finish: 0,
                                               current_position: log_entry.current_position,
+                                              type: 'CommercialBlock',
                                               duration: (station.secs_of_commercial_per_hour/2 * 1000)
                                             })
       end
@@ -289,6 +290,7 @@ module PL
                                               airtime: spin.estimated_end_time,
                                               listeners_at_start: 0,
                                               listeners_at_finish: 0,
+                                              type: 'CommercialBlock',
                                               duration: (station.secs_of_commercial_per_hour/2 * 1000)
                                             })
         end
