@@ -674,6 +674,18 @@ module PL
         end
       end
 
+      def get_log_entry_by_current_position(attrs)
+        result = @log_entries.values.select { |entry| entry.station_id == attrs[:station_id] &&
+                                              entry.current_position == attrs[:current_position] &&
+                                              !entry.audio_block.is_a?(PL::CommercialBlock) }
+
+        if result.size
+          return result[0]
+        else
+          return nil
+        end
+      end
+
       ###############
       #  Schedules  #
       ###############

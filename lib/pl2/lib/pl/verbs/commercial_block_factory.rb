@@ -21,6 +21,10 @@ module PL
       # grab the airtime
       leading_spin = PL.db.get_spin_by_current_position({ schedule_id: attrs[:station].schedule_id, current_position: attrs[:current_position]})
 
+      if !leading_spin
+        leading_spin = PL.db.get_log_entry_by_current_position({ station_id: attrs[:station].id, current_position: attrs[:current_position] })
+      end
+
       airtime = leading_spin.estimated_end_time
       
       commercial_block = PL.db.create_commercial_block({ duration: attrs[:station].secs_of_commercial_per_hour*1000,

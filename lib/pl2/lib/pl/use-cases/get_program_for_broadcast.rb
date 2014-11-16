@@ -13,9 +13,8 @@ module PL
         return failure :station_not_found
       end
 
-      program = schedule.get_program({ schedule_id: attrs[:schedule_id],
-                                      start_time: attrs[:start_time],
-                                     end_time: attrs[:end_time] })
+      program = schedule.get_program
+
       if program.size == 0
         return failure(:no_playlist_for_requested_time)
       else
@@ -34,6 +33,7 @@ module PL
             station.get_commercial_block_for_broadcast(spin.current_position)
           else
             spin.audio_block
+            spin
           end
         end
 

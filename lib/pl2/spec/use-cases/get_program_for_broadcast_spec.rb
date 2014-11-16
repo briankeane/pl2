@@ -36,23 +36,17 @@ describe 'GetProgramForBroadcast' do
       @schedule.generate_playlist
     end
 
-    it 'calls bullshit if requested time does not exist' do
-      Timecop.travel(Time.local(2014,1,1, 10,30))
-      result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id,
-                        start_time: Time.local(2015,10,10, 10,30) })
-      expect(result.success?).to eq(false)
-      expect(result.error).to eq(:no_playlist_for_requested_time)
-      
-      result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id,
-                                start_time: Time.local(2011) })
-      expect(result.success?).to eq(false)
-      expect(result.error).to eq(:no_playlist_for_requested_time)
-    end
-
     it 'gets a playlist' do
       result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id })
       expect(result.success?).to eq(true)
       expect(result.program.size).to eq(3)
+    end
+
+    it 'gets a playlist if now_playing is a commercial' do
+      Timecop.travel(Time.local(2014,5,9, 11))
+      result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id })
+      expect(result.success?).to eq(true)
+      expect(result.program[0]).to be_a(PL::CommercialBlock)
     end
 
     after(:all) do

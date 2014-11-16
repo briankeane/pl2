@@ -750,6 +750,11 @@ shared_examples 'a badass database' do
       db.destroy_all_log_entries
       expect(db.log_exists?(4)).to eq(false)
     end
+
+    it 'can get an entry by current_position' do
+      log_entry = db.get_log_entry_by_current_position({ station_id: 4, current_position: 76 })
+      expect(log_entry.id).to eq(@log_entries[0].id)
+    end
   end
 
   ###############

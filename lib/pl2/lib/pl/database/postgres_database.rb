@@ -851,6 +851,18 @@ module PL
         LogEntry.exists?(:station_id => station_id)
       end
 
+      def get_log_entry_by_current_position(attrs)
+        ar_log_entries = LogEntry.where('station_id = ? and current_position = ?', attrs[:station_id], attrs[:current_position])
+        log_entries = ar_log_entries.map { |entry| entry.to_pl }
+        log_entries = log_entries.select { |entry| !entry.audio_block.is_a?(PL::CommercialBlock) }
+        
+        if log_entries.size > 0
+          return log_entries[0]
+        else
+          return nil
+        end
+      end
+
 
       ###############
       #  Schedules  #
