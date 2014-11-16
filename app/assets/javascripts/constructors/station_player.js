@@ -45,6 +45,7 @@ var StationPlayer = function(attrs) {
       result.artist = result.audio_block.artist;
       result.title = result.audio_block.title;
       result.audio = new Audio(result.key);
+      result.muted = self.muted;
 
       self.audioQueue.push(result);
 

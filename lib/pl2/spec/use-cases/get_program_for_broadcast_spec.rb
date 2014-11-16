@@ -46,7 +46,7 @@ describe 'GetProgramForBroadcast' do
       Timecop.travel(Time.local(2014,5,9, 11))
       result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id })
       expect(result.success?).to eq(true)
-      expect(result.program[0]).to be_a(PL::CommercialBlock)
+      expect(result.program[0].audio_block).to be_a(PL::CommercialBlock)
     end
 
     after(:all) do

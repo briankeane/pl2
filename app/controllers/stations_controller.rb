@@ -17,7 +17,7 @@ class StationsController < ApplicationController
       case
       when spin.is_a?(PL::CommercialBlock)
         obj[:type] = 'CommercialBlock'
-        obj[:key] = 'STUBFORCBKEY'
+        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolacommercialblocks/'
       when spin.audio_block.is_a?(PL::Song)
         obj[:type] = 'Song'
         obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
@@ -30,11 +30,8 @@ class StationsController < ApplicationController
 
       obj[:currentPosition] = spin.current_position
       obj[:commercialsFollow?] = spin.commercials_follow?
-      if spin.is_a?(PL::LogEntry)
-        obj[:airtime_in_ms] = spin.airtime_in_ms
-      else
-        obj[:airtime_in_ms] = spin.airtime_in_ms
-      end
+      obj[:airtime_in_ms] = spin.airtime_in_ms
+      
       obj
     end
     

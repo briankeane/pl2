@@ -15,6 +15,8 @@ module PL
 
       program = schedule.get_program
 
+      program.unshift(schedule.now_playing)
+
       if program.size == 0
         return failure(:no_playlist_for_requested_time)
       else
