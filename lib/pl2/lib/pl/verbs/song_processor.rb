@@ -2,7 +2,6 @@ require 'mp3info'
 require 'echowrap'
 require 'fuzzystringmatch'
 require 'aws-sdk'
-require 'pry-byebug'
 
 module PL
   class SongProcessor
