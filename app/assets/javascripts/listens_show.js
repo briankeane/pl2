@@ -53,12 +53,6 @@
       $('#songHistoryList li:first').before(html);
       $('#songHistoryList li:last').remove();
     }
-    
-    // construct initialization obj for stationPlayer
-    var obj = {};
-    obj.audioQueue = gon.audioQueue;
-    obj.stationId = gon.station_id;
-    obj.scheduleId = gon.schedule_id;
 
     // set response for nowplaying
     $(document).on('playerStarted', function() {
@@ -86,7 +80,7 @@
     });
 
     // create the station and start it
-    var player = new StationPlayer(obj);
+    var player = new StationPlayer(gon);
     player.startPlayer();
   }
   

@@ -10,11 +10,10 @@ var StationPlayer = function(attrs) {
 
   var getSpinByCurrentPosition = function(currentPosition, callback) {
     var getSpinInfo = {};
-    getSpinInfo.last_current_position = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
-    getSpinInfo.current_position = currentPosition;
-    getSpinInfo.station_id = self.stationId;
-    getSpinInfo.schedule_id = self.scheduleId;
-
+    getSpinInfo.lastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
+    getSpinInfo.currentPosition = currentPosition;
+    getSpinInfo.stationId = self.stationId;
+    getSpinInfo.scheduleId = self.scheduleId;
     $.ajax({
           type: 'GET',
           dataType: 'json',
