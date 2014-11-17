@@ -84,6 +84,10 @@ class SchedulesController < ApplicationController
     spin = PL.db.get_spin_by_current_position({ schedule_id: params["scheduleId"].to_i,
                                                 current_position: params["currentPosition"].to_i })
 
+    # 'touch' audioBlock so it's not blank for js
+    if !spin.is_a?(PL::CommercialBlock)
+      spin.audio_block
+    end
 
     spin_as_hash = spin.as_json
 

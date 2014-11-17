@@ -34,29 +34,33 @@ var StationPlayer = function(attrs) {
     var msTillAdvanceSpin = (self.audioQueue[1].airtime_in_ms - Date.now());
     setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
 
-    // create callback for ajax request
-    var updateQueue = function(result) {
-      console.log(result);
-      var newSong = {};
+    if (self.audioQueue.length<4) { 
+      // create callback for ajax request
+      var updateQueue = function(result) {
+        console.log(result);
+        var newSong = {};
 
-      // reformat response for js
-      result.artist = result.audio_block.artist;
-      result.title = result.audio_block.title;
-      result.audio = new Audio(result.key);
-      result.muted = self.muted;
+        // reformat response for js
+        if (result.type != 'CommercialBlock') {
+          result.artist = result.audio_block.artist;
+          result.title = result.audio_block.title;
+        }
+        result.audio = new Audio(result.key);
+        result.audio.muted = self.muted;
 
-      self.audioQueue.push(result);
+        self.audioQueue.push(result);
 
-      // if commercials follow that spin
-      if (result["commercials_follow?"]) {
-        self.audioQueue.push(getCommercialBlock(result.currentPosition));
+        // if commercials follow that spin
+        if (result["commercials_follow?"]) {
+          self.audioQueue.push(getCommercialBlock(result.currentPosition));
+        }
+        return result;
       }
-      return result;
+      
+      // get the newest spin
+      getSpinByCurrentPosition(self.audioQueue[self.audioQueue.length-1].currentPosition + 1, updateQueue);
+      $(document).trigger('spinAdvanced');
     }
-    
-    // get the newest spin
-    getSpinByCurrentPosition(self.audioQueue[self.audioQueue.length-1].currentPosition + 1, updateQueue);
-    $(document).trigger('spinAdvanced');
   }
 
   this.startPlayer = function() {
