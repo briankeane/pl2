@@ -1,5 +1,5 @@
 require 'spec_helper'
-
+require 'pry-byebug'
 describe 'a log entry' do
   before(:each) do
     @song = PL.db.create_song({ title: 'song', duration: 1000 })
@@ -35,5 +35,25 @@ describe 'a log entry' do
     expect(log_entry.commercials_follow?).to eq(false)
     log_entry.airtime = Time.new(1983,4,15, 12,59,59)
     expect(log_entry.commercials_follow?).to eq(true)
+  end
+
+  it 'calcultes airtime_in_ms' do
+    expect(@log.airtime_in_ms).to eq(Time.new(1983,4,15, 18).to_f*1000)
+  end
+
+  it 'creates a hash of itself' do
+    hash = @log.to_hash
+    expect(hash[:station_id]).to eq(4)
+    expect(hash[:current_position]).to eq(76)
+    expect(hash[:audio_block_id]).to eq(@song.id)
+    expect(hash[:airtime].to_s).to eq(Time.new(1983, 4, 15, 18).to_s)
+    expect(hash[:listeners_at_start]).to eq(55)
+    expect(hash[:listeners_at_finish]).to eq(57)
+    expect(hash[:duration]).to eq(1000)
+    expect(hash[:type]).to eq('test')
+    expect(hash[:estimated_end_time]).to eq(@log.estimated_end_time)
+    expect(hash[:audio_block][:id]).to eq(@song.id)
+    expect(hash[:audio_block][:title]).to eq('song')
+    expect(hash[:airtime_in_ms]).to eq(@log.airtime_in_ms)
   end
 end

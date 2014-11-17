@@ -9,7 +9,6 @@ class SchedulesController < ApplicationController
     max_position = [params[:oldPosition], params[:newPosition]].max
     min_position = [params[:oldPosition], params[:newPosition]].min - 1  # buffer for leading commercial blocks
     
-
     result.new_program = current_schedule.get_program_by_current_positions({ schedule_id: current_schedule.id,
                                                                              starting_current_position: min_position,
                                                                              ending_current_position: max_position })
@@ -47,7 +46,6 @@ class SchedulesController < ApplicationController
         spin.airtime = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
       end
     end
-
 
     render :json => result
   end
