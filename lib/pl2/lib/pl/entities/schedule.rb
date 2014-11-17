@@ -230,11 +230,6 @@ module PL
       PL.db.update_schedule({ id: @id, last_accurate_current_position: @last_accurate_current_position })
     end
 
-    # returns the 'block' number for the given time
-    def find_commercial_count(time)
-      (time.to_f/1800.0).floor
-    end
-
     def bring_current
       # if the station is already active or no playlist has been created, yet, do nothing
       if self.active? || (!playlist_exists? && !log_exists?)
@@ -324,28 +319,6 @@ module PL
 
       PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 })[0]
     end
-
-
-    def next_spin
-      self.bring_current
-
-      # if it should be a commercial
-      if find_commercial_count(now_playing.airtime) != find_commercial_count(now_playing.estimated_end_time)
-        return @station.next_commercial_block
-      else
-        return PL.db.get_next_spin(@id)
-      end
-    end
-
-    def spin_after_next
-            # if it should be a commercial
-      if next_spin.commercials_follow?
-        return @station.next_commercial_block
-      else
-        return PL.db.get_spin_after_next(@id)
-      end
-    end
-
 
     ########################################################
     #  get_program                                         #
@@ -476,7 +449,7 @@ module PL
       return moved_spin
     end
 
-    # unlike now_playing, final_log_entry does not bring the station current
+    # final_log_entry does not bring the station current
     def final_log_entry
       PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 })[0]
     end

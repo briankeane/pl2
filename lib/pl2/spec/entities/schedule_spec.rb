@@ -73,7 +73,6 @@ describe 'schedule' do
       expect(generated_playlist.last.estimated_end_time.day).to eq(23)
     end
 
-
     it 'generate_playlist continues the playlist' do
       Timecop.travel(Time.local(2014,5,21))
       @schedule.generate_playlist
@@ -123,6 +122,11 @@ describe 'schedule' do
       expect(@schedule.active?).to eq(true)
       Timecop.travel(Time.local(2014,5,10,17))
       expect(@schedule.active?).to eq(false)
+    end
+
+    it 'final_log_entry grabs the last log_entry without advancing station' do
+      Timecop.travel(Time.local(2014,5,10,17))
+      expect(@schedule.final_log_entry.id).to eq(801)
     end
 
     it 'updates estimated airtimes' do
