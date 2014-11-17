@@ -10,5 +10,11 @@ module PL
     def station
       PL.db.get_station_by_uid(@id)
     end
+
+    def to_hash
+      hash = {}
+      self.instance_variables.each {|var| hash[var.to_s.delete("@").to_sym] = self.instance_variable_get(var) }
+      hash
+    end
   end
 end

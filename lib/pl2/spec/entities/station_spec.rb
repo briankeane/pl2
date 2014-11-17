@@ -1,13 +1,14 @@
-  require 'spec_helper'
+require 'spec_helper'
 require 'Timecop'
+require 'pry-byebug'
 
 describe 'a station' do
   before(:each) do
     PL.db.clear_everything
     @user = PL.db.create_user({ twitter: 'bob' })
-    @song1 = PL::Song.new({ id: 1 })
-    @song2 = PL::Song.new({ id: 2 })
-    @song3 = PL::Song.new({ id: 3 })
+    @song1 = PL.db.create_song({ title: '1' })
+    @song2 = PL.db.create_song({ title: '2' })
+    @song3 = PL.db.create_song({ title: '3' })
     @station = PL::Station.new({ id: 1,
        secs_of_commercial_per_hour: 3,
                            user_id: @user.id,
@@ -41,6 +42,13 @@ describe 'a station' do
     @station.spins_per_week[5] = 10
     expect(@station.spins_per_week[5]).to eq(10)
   end
+  
+  it 'can create a sample array' do
+    sample_array = @station.create_sample_array
+    expect(sample_array.size > 20).to eq(true)
+  end
+
+
 
   after (:all) do
     Timecop.return
@@ -48,25 +56,28 @@ describe 'a station' do
 
   describe 'make_log_current' do
     before (:each) do
+      
       @station = PL.db.create_station({ user_id: 1, secs_of_commercial_per_hour: 300 })
+      @schedule = PL.db.create_schedule({ station_id: @station.id })
+      PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
       @song = PL.db.create_song({ duration: 180000 })
       @spin1 = PL.db.create_spin({ current_position: 15,
-                                      station_id: @station.id,
+                                      schedule_id: @schedule.id,
                                       audio_block_id: @song.id,
                                       airtime: Time.new(2014, 4, 15, 11, 25) 
                                       })
       @spin2 = PL.db.create_spin({ current_position: 16,
-                                      station_id: @station.id,
+                                      schedule_id: @schedule.id,
                                       audio_block_id: @song.id,                                     
                                       airtime: Time.new(2014, 4, 15, 11, 28) 
                                       })
       @spin3 = PL.db.create_spin({ current_position: 17,
-                                      station_id: @station.id,
+                                      schedule_id: @schedule.id,
                                       audio_block_id: @song.id,                                     
                                       airtime: Time.new(2014, 4, 15, 12, 31) 
                                       })
       @spin4 = PL.db.create_spin({ current_position: 18,
-                                      station_id: @station.id,
+                                      schedule_id: @schedule.id,
                                       audio_block_id: @song.id,
                                       airtime: Time.new(2014, 4, 15, 12, 38) 
                                       })
@@ -77,7 +88,19 @@ describe 'a station' do
                                       })
     end
 
+    it 'gets a commercial block for broadcast' do
+      cb = @station.get_commercial_block_for_broadcast(18)
+      expect(cb.is_a?(PL::CommercialBlock)).to eq(true)
+    end
+
+    it 'returns the same commercial block for 2nd request' do
+      cb = @station.get_commercial_block_for_broadcast(18)
+      cb2 = @station.get_commercial_block_for_broadcast(18)
+      expect(cb.id).to eq(cb2.id)
+    end
+
     describe 'just_played' do
+
       it 'gets the last log entry' do
         expect(@station.just_played.current_position).to eq(14)
       end

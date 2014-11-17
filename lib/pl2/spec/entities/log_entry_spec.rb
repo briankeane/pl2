@@ -37,7 +37,7 @@ describe 'a log entry' do
     expect(log_entry.commercials_follow?).to eq(true)
   end
 
-  it 'calcultes airtime_in_ms' do
+  it 'calculates airtime_in_ms' do
     expect(@log.airtime_in_ms).to eq(Time.new(1983,4,15, 18).to_f*1000)
   end
 

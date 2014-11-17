@@ -26,4 +26,15 @@ describe 'a user' do
     station = PL.db.create_station({ user_id: @user.id })
     expect(@user.station.id).to eq(station.id)
   end
+
+  it 'can return a hash of itself' do
+    hash = @user.to_hash
+    expect(hash[:id]).to_not be_nil
+    expect(hash[:twitter]).to eq('BrianKeaneTunes')
+    expect(hash[:twitter_uid]).to eq('756')
+    expect(hash[:birth_year]).to eq(1977)
+    expect(hash[:gender]).to eq('male')
+    expect(hash[:profile_image_url]).to eq('http://badass.jpg')
+  end
+
 end
