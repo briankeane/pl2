@@ -1,4 +1,6 @@
 require 'spec_helper'
+require 'pry-byebug'
+
 
 describe 'a spin' do
   before (:each) do
@@ -69,4 +71,25 @@ describe 'a spin' do
     spin.airtime = Time.new(2014,1,1, 11,59,59)
     expect(spin.commercials_follow?).to eq(true)
   end
+
+  it 'creates a hash of itself' do
+    hash = @spin.to_hash
+    expect(hash[:id]).to eq(1)
+    expect(hash[:current_position]).to eq(2)
+    expect(hash[:audio_block][:id]).to eq(@song.id)
+    expect(hash[:created_at]).to eq(Time.new(1970))
+    expect(hash[:updated_at]).to eq(Time.new(1970, 1, 2))
+    expect(hash[:schedule_id]).to eq(3)
+    expect(hash[:airtime].to_s).to eq('2014-01-01 12:00:00 -0600')
+    expect(hash[:airtime_in_ms]).to eq(@spin.airtime_in_ms)
+    expect(hash[:commercials_follow?]).to eq(@spin.commercials_follow?)
+  end
+
+  it 'creates a hash if theres no audio_block' do
+    spin = PL::Spin.new({ airtime: Time.new(2014,1,1, 12,01) })
+    hash = spin.to_hash
+    expect(hash[:audio_block]).to be_nil
+    expect(hash[:airtime]).to eq(spin.airtime)
+  end
+
 end

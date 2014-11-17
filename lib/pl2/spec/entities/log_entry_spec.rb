@@ -55,5 +55,6 @@ describe 'a log entry' do
     expect(hash[:audio_block][:id]).to eq(@song.id)
     expect(hash[:audio_block][:title]).to eq('song')
     expect(hash[:airtime_in_ms]).to eq(@log.airtime_in_ms)
+    expect(hash[:commercials_follow?]).to eq(@log.commercials_follow?)
   end
 end

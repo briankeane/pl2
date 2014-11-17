@@ -33,6 +33,7 @@ module PL
       hash[:audio_block] = audio_block.to_hash unless !audio_block
       hash[:estimated_end_time] = self.estimated_end_time
       hash[:airtime_in_ms] = self.airtime_in_ms
+      hash[:commercialsFollow?] = self.commercials_follow?
       hash
     end
   end
