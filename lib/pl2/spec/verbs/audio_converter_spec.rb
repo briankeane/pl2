@@ -25,12 +25,18 @@ describe 'audio_converter' do
 
     # make a new copy
     system('cp spec/test_files/silence_on_ends.mp3 spec/test_files/silence_on_ends_copy.mp3')
+    File.open('spec/test_files/silence_on_ends_copy.mp3') do |file|
+      sp.write_id3_tags({ song_file: file, title: 'title', artist: 'artist' })
+    end
     duration = sp.get_id3_tags('spec/test_files/silence_on_ends_copy.mp3')[:duration]
     expect(duration).to eq(29231)
     trimmed_file_path = @ac.trim_silence('spec/test_files/silence_on_ends_copy.mp3')
     duration = sp.get_id3_tags('spec/test_files/silence_on_ends_copy.mp3')[:duration]
-    expect(File.size('spec/test_files/silence_on_ends_copy.mp3')).to eq(224862)
+    expect(File.size('spec/test_files/silence_on_ends_copy.mp3')).to eq(225048)
 
+    after_tags = sp.get_id3_tags(File.open('spec/test_files/silence_on_ends_copy.mp3'))
+    expect(after_tags[:artist]).to eq('artist')
+    expect(after_tags[:title]).to eq('title')
   end
 
 end
