@@ -97,6 +97,7 @@ start_time = Time.now
         while recently_played_song_ids.include?(song.id)
           song = sample_array.sample
         end
+        
 pick_song_time = (Time.now - start_time)*1000
 pick_song_ms += pick_song_time
 

@@ -33,7 +33,6 @@ module PL
                                                           current_position: attrs[:current_position],
                                                           airtime: airtime })
 
-      
       # reset lastCommecialBlockAired and store it in the db
       attrs[:station].last_commercial_block_aired = this_commercial_block
       PL.db.update_station({ id: attrs[:station].id,

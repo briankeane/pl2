@@ -23,10 +23,17 @@ if !defined? TWITTER_KEYS
                        'TASTE_PROFILE_ID' => ENV['ECHONEST_TASTE_PROFILE_ID'] }
 
   else    #load from yamls
-  TWITTER_KEYS = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/twitter_config.yml")[::Rails.env]
-  S3 = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/s3_config.yml")[::Rails.env]
-  ECHONEST_KEYS = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/echonest_config.yml")[::Rails.env]
-  FILEPICKER_KEYS = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/filepicker_config.yml")[::Rails.env]
+    if ENV['RAILS_ENV'] == 'production'
+      TWITTER_KEYS = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/twitter_config.yml")[::Rails.env]
+      S3 = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/s3_config.yml")[::Rails.env]
+      ECHONEST_KEYS = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/echonest_config.yml")[::Rails.env]
+      FILEPICKER_KEYS = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/filepicker_config.yml")[::Rails.env]
+    else
+      TWITTER_KEYS = YAML.load_file("secrets/twitter_config.yml")['production']
+      S3 = YAML.load_file("secrets/s3_config.yml")['production']
+      ECHONEST_KEYS = YAML.load_file("secrets/echonest_config.yml")['production']
+      FILEPICKER_KEYS = YAML.load_file("secrets/filepicker_config.yml")['production']
+    end
   end
 end
 

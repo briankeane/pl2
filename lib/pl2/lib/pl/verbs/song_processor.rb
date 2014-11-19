@@ -14,7 +14,7 @@ module PL
     end
 
     def add_song_to_system(song_file)
-      
+
       audio_converter = PL::AudioConverter.new
       # Convert it to mp3 if it's a wav file
       if song_file.path.match(/\.wav$/)       
@@ -22,11 +22,12 @@ module PL
         song_file = File.open(audio_converter.trim_silence(song_file.path))
       end
 
-      # trim silences
-      #audio_converter.trim_silence(song_file.path)
       # get id3 tags
       tags = self.get_id3_tags(song_file)
 
+      # trim silences
+      audio_converter.trim_silence(song_file.path)
+      
       # get closest echonest tags
       echo_tags = self.get_echonest_info({ title: tags[:title], artist: tags[:artist] })
 

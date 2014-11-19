@@ -19,15 +19,15 @@ http_interactions:
       message: Bad Request
     headers:
       Date:
-      - Sun, 24 Aug 2014 14:10:22 GMT
+      - Wed, 19 Nov 2014 18:00:48 GMT
       Content-Type:
       - application/json; charset=utf-8
       Content-Length:
       - '134'
       X-Request-Id:
-      - y9CubHaVQ2eMvfjVS3j+5w
+      - JDGDSDnESn2jRiAqNU8UcA
       X-Ratelimit-Remaining:
-      - '109'
+      - '83'
       Server:
       - TornadoServer/3.1
       X-Ratelimit-Limit:
@@ -35,7 +35,7 @@ http_interactions:
       X-Api-Key:
       - 1EFRD4YMEN003A4N1
       X-Ratelimit-Used:
-      - '11'
+      - '37'
       Connection:
       - Keep-alive
       Keep-Alive:
@@ -47,5 +47,5 @@ http_interactions:
       string: '{"response": {"status": {"version": "4.2", "code": 5, "message": "id
         - Invalid parameter: id must be an Echo Nest id or foreign id"}}}'
     http_version: 
-  recorded_at: Sun, 24 Aug 2014 14:10:22 GMT
-recorded_with: VCR 2.9.2
+  recorded_at: Wed, 19 Nov 2014 18:00:48 GMT
+recorded_with: VCR 2.9.3
