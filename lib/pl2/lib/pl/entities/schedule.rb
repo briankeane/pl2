@@ -48,13 +48,6 @@ module PL
       
       self.update_airtimes
 
-      # exit if playlist is already maxxed out
-      if self.end_time
-        if self.end_time > next_thursday_midnight
-          return
-        end
-      end
-
       # keep end_time within range
       if playlist_end_time
         playlist_end_time = [playlist_end_time, next_thursday_midnight].min
@@ -91,36 +84,52 @@ module PL
       recently_played_song_ids = []
       spins = []
 
+pick_song_ms = 0
+add_spin_ms = 0
+shift_ms = 0
+
+
       while time_tracker < playlist_end_time
         song = sample_array.sample
 
+start_time = Time.now
         # pick again until it hasn't been played recently
         while recently_played_song_ids.include?(song.id)
           song = sample_array.sample
         end
+pick_song_time = (Time.now - start_time)*1000
+pick_song_ms += pick_song_time
 
         recently_played_song_ids << song.id
 
+start_time = Time.now
         # if the recently_played_song_ids is at max size, delete the first song
         if ((recently_played_song_ids.size >= SPINS_WITHOUT_REPEAT) ||
               (recently_played_song_ids.size >= station.spins_per_week.size - 1))
           recently_played_song_ids.shift
         end
-        
+shift_ms_time = (Time.now - start_time)*1000
+shift_ms += shift_ms_time
+
+start_time = Time.now
         spin =  Spin.new({ schedule_id: @id,
                             audio_block_id: song.id,
                             current_position: (max_position += 1),
                             airtime: time_tracker })
         spins << spin
-        
+add_spin_time = (Time.now - start_time)*1000
+add_spin_ms += add_spin_time
+
         time_tracker += (spin.duration/1000)
-        
+
         if spin.commercials_follow?
           time_tracker += station.secs_of_commercial_per_hour/2
         end
 
       end #end while
-
+puts "add_spin_ms: " + add_spin_ms.to_s
+puts "shift_ms: " + shift_ms.to_s
+puts "pick_song_ms: " + pick_song_ms.to_s
       PL.db.mass_add_spins(spins)
 
       @original_playlist_end_time = time_tracker

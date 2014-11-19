@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'Timecop'
+require 'pry-byebug'
 
 shared_examples 'a badass database' do
 
@@ -622,14 +623,14 @@ shared_examples 'a badass database' do
       Timecop.travel(Time.local(2014, 5, 9, 10))
       @user = db.create_user({ twitter: "Bob" })
       @songs = []
-      86.times do |i|
+      30.times do |i|
         @songs << db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
       end
 
       # build spins_per_week
-      heavy = @songs[0..30]
-      medium = @songs[31..65]
-      light = @songs[66..85]
+      heavy = @songs[0..10]
+      medium = @songs[11..20]
+      light = @songs[21..30]
 
       spins_per_week = {}
       heavy.each { |song| spins_per_week[song.id] = PL::HEAVY_ROTATION }
