@@ -71,7 +71,6 @@ namespace :db do
     PL.db.clear_everything
 
     song_pool = PL::SongPoolHandler.new
-    song_pool.clear_all_songs
 
     puts "getting stored songs..."
     @storage = PL::AudioFileStorageHandler.new

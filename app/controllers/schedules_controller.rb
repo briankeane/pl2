@@ -2,12 +2,15 @@ class SchedulesController < ApplicationController
   include ApplicationHelper
 
   def move_spin
-    result = PL::MoveSpin.run({ new_position: params[:newPosition],
-                                old_position: params[:oldPosition],
+    new_position = params[:new_position].to_i
+    old_position = params[:old_position].to_i
+
+    result = PL::MoveSpin.run({ new_position: newPosition,
+                                old_position: oldPosition,
                                 schedule_id: current_schedule.id })
 
-    max_position = [params[:oldPosition], params[:newPosition]].max
-    min_position = [params[:oldPosition], params[:newPosition]].min - 1  # buffer for leading commercial blocks
+    max_position = [old_position, new_position].max
+    min_position = [old_position, new_position].min - 1  # buffer for leading commercial blocks
     
     result.new_program = current_schedule.get_program_by_current_positions({ schedule_id: current_schedule.id,
                                                                              starting_current_position: min_position,

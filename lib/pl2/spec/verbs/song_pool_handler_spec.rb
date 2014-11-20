@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'SongPoolHandler' do
-  before(:all) do
+  before(:each) do
     @sph = PL::SongPoolHandler.new
     @song1 = PL::Song.new(artist: 'Rachel Loy',
                         title: 'Stepladder',
@@ -64,9 +64,12 @@ describe 'SongPoolHandler' do
     end
   end
 
-  xit 'clears all songs from the song pool' do
+  it 'clears all songs from the song pool' do
     VCR.use_cassette('song_pool_handler/clear_all_songs') do
+      @sph.add_songs(@song1, @song2)
       @sph.clear_all_songs
+
+      expect(@sph.all_songs.size).to eq(0)
     end
   end
 

@@ -33,6 +33,7 @@ module PL
       # while they have not yet all been added
       while (song_objects.size > 0)
 
+        puts "song_objects size: " + song_objects.size.to_s
         json_songs = song_objects.map do |song|
           ({    "item" => {
                   "item_id"=> song.key,
@@ -50,6 +51,7 @@ module PL
 
         data = '[' + json_songs.join(", \n") + ']'
         puts data
+
 
         Echowrap.taste_profile_update(id: ECHONEST_KEYS['TASTE_PROFILE_ID'], data: data)
 

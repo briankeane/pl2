@@ -26,6 +26,10 @@ require 'spec_helper'
       @old_playlist_ab_ids = PL.db.get_full_playlist(@schedule.id).map { |spin| spin.audio_block_id }
     end
 
+    xit 'calls bullshit if the schedule is not found' do
+    end
+    
+    end
     it 'adds a spin' do
       added_audio_block = PL.db.create_song({ duration: 50000 })
       result = PL::InsertSpin.run({ schedule_id: @schedule.id,

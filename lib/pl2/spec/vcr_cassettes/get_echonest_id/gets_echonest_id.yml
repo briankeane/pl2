@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 20 Nov 2014 21:16:03 GMT
+      - Thu, 20 Nov 2014 21:52:24 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -27,9 +27,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - CwmddEKiSWSMTKAwd3n+mw
+      - XbdNPIuQSGKC06tP7pw+yw
       X-Worker-Node:
-      - 20284:30451
+      - fe870:4331
       X-Ratelimit-Remaining:
       - '118'
       Server:
@@ -72,5 +72,5 @@ http_interactions:
         "id": "SOCNWSA130516E06B8", "artist_name": "Rachel Loy", "title": "Afraid
         to Steer"}]}}'
     http_version: 
-  recorded_at: Thu, 20 Nov 2014 21:16:04 GMT
+  recorded_at: Thu, 20 Nov 2014 21:52:24 GMT
 recorded_with: VCR 2.9.3
