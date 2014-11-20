@@ -29,6 +29,14 @@ module PL
       sp = SongProcessor.new
       tags = sp.get_id3_tags(file_path)
 
+      # if it needs to be renamed for SOX, do it
+      if !file_path.end_with?('.mp3')
+        old_file_path = file_path
+        File.rename(file_path, (file_path + '.mp3'))
+        file_path = file_path + '.mp3'
+        renamed = true
+      end
+
       # trim silences
       trimmed_file_path = file_path.gsub('.','trimmed.')
       system('sox ' + file_path + ' ' + trimmed_file_path + ' silence 1 0.1 0.1% reverse silence 1 0.1 0.1% reverse')
@@ -39,6 +47,10 @@ module PL
       File.open(file_path) do |file|
         tags[:song_file] = file
         sp.write_id3_tags(tags)
+      end
+
+      if renamed
+        File.rename(file_path, (old_file_path))
       end
     end
   end

@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CALBLSS14721C1C716&results=1000&start=0
+    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CAIQEUO1473A654C51&results=1000&start=0
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 19 Nov 2014 21:48:42 GMT
+      - Thu, 20 Nov 2014 04:40:30 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -27,9 +27,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - vICmcMWrTQqt8l6FVqSNuA
+      - dGUTjTQ+TJSSkLzzIQVgOw
       X-Worker-Node:
-      - 2902a:17603
+      - 7cbef:4087
       X-Ratelimit-Remaining:
       - '111'
       Server:
@@ -53,16 +53,16 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "catalog": {"name": "playolasongs", "items": [], "start": 0, "total": 0, "type":
-        "song", "id": "CALBLSS14721C1C716"}}}'
+        "catalog": {"name": "Playola Test", "items": [], "start": 0, "total": 0, "type":
+        "song", "id": "CAIQEUO1473A654C51"}}}'
     http_version: 
-  recorded_at: Wed, 19 Nov 2014 21:48:43 GMT
+  recorded_at: Thu, 20 Nov 2014 04:40:30 GMT
 - request:
     method: post
     uri: http://developer.echonest.com/api/v4/catalog/update
     body:
       encoding: UTF-8
-      string: api_key=1EFRD4YMEN003A4N1&data=%5B%7B%22item%22%3A%7B%22item_id%22%3A%22test_key.mp3%22%2C%22song_id%22%3A%22SOOWAAV13CF6D1B3FA%22%2C%22item_keyvalues%22%3A%7B%22pl_artist%22%3A%22Rachel+Loy%22%2C%22pl_key%22%3A%22test_key.mp3%22%2C%22pl_title%22%3A%22Stepladder%22%2C%22pl_album%22%3A%22Broken+Machine%22%2C%22pl_duration%22%3A999%7D%7D%7D%2C+%0A%7B%22item%22%3A%7B%22item_id%22%3A%22test_key2.mp3%22%2C%22song_id%22%3A%22SOTWSLV13CF6D275AF%22%2C%22item_keyvalues%22%3A%7B%22pl_artist%22%3A%22Rachel+Loy%22%2C%22pl_key%22%3A%22test_key2.mp3%22%2C%22pl_title%22%3A%22Cheater%22%2C%22pl_album%22%3A%22Broken+Machine%22%2C%22pl_duration%22%3A888%7D%7D%7D%5D&data_type=json&id=CALBLSS14721C1C716
+      string: api_key=1EFRD4YMEN003A4N1&data=%5B%7B%22item%22%3A%7B%22item_id%22%3A%22test_key.mp3%22%2C%22song_id%22%3A%22SOOWAAV13CF6D1B3FA%22%2C%22item_keyvalues%22%3A%7B%22pl_artist%22%3A%22Rachel+Loy%22%2C%22pl_key%22%3A%22test_key.mp3%22%2C%22pl_title%22%3A%22Stepladder%22%2C%22pl_album%22%3A%22Broken+Machine%22%2C%22pl_duration%22%3A999%7D%7D%7D%2C+%0A%7B%22item%22%3A%7B%22item_id%22%3A%22test_key2.mp3%22%2C%22song_id%22%3A%22SOTWSLV13CF6D275AF%22%2C%22item_keyvalues%22%3A%7B%22pl_artist%22%3A%22Rachel+Loy%22%2C%22pl_key%22%3A%22test_key2.mp3%22%2C%22pl_title%22%3A%22Cheater%22%2C%22pl_album%22%3A%22Broken+Machine%22%2C%22pl_duration%22%3A888%7D%7D%7D%5D&data_type=json&id=CAIQEUO1473A654C51
     headers:
       Accept:
       - application/json
@@ -78,7 +78,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 19 Nov 2014 21:48:42 GMT
+      - Thu, 20 Nov 2014 04:40:30 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -86,9 +86,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - qzREHtDqTK+HrEDOGj3paQ
+      - KH8dee2ESzy6Z0/YB1Yi7Q
       X-Worker-Node:
-      - c6357:8805
+      - 2902a:12755
       X-Ratelimit-Remaining:
       - '110'
       Server:
@@ -112,12 +112,12 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "ticket": "CALBLSS14721C1C716BF3251CBEA0844"}}'
+        "ticket": "CAIQEUO1473A654C51EE30CFA8617846"}}'
     http_version: 
-  recorded_at: Wed, 19 Nov 2014 21:48:43 GMT
+  recorded_at: Thu, 20 Nov 2014 04:40:30 GMT
 - request:
     method: get
-    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CALBLSS14721C1C716&results=1000&start=0
+    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CAIQEUO1473A654C51&results=1000&start=0
     body:
       encoding: US-ASCII
       string: ''
@@ -134,7 +134,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 19 Nov 2014 21:48:42 GMT
+      - Thu, 20 Nov 2014 04:40:30 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -142,9 +142,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - Jna3KoJ2TB6RhZ5eWl/drg
+      - SLgSG+GoReCbQPaEqs4iIQ
       X-Worker-Node:
-      - 746e1:16127
+      - d1c7d:1082
       X-Ratelimit-Remaining:
       - '109'
       Server:
@@ -168,25 +168,25 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "catalog": {"name": "playolasongs", "items": [{"song_name": "Stepladder",
+        "catalog": {"name": "Playola Test", "items": [{"song_name": "Stepladder",
         "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album": "Broken
         Machine", "pl_duration": 999, "pl_title": "Stepladder", "pl_key": "test_key.mp3",
         "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified":
-        "2014-11-19T21:48:42", "date_added": "2014-11-19T21:48:42", "foreign_id":
-        "CALBLSS14721C1C716:song:test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA", "request":
+        "2014-11-20T04:40:30", "date_added": "2014-11-20T04:40:30", "foreign_id":
+        "CAIQEUO1473A654C51:song:test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA", "request":
         {"item_id": "test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA"}}, {"song_name":
         "Cheater", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album":
         "Broken Machine", "pl_duration": 888, "pl_title": "Cheater", "pl_key": "test_key2.mp3",
         "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified":
-        "2014-11-19T21:48:42", "date_added": "2014-11-19T21:48:42", "foreign_id":
-        "CALBLSS14721C1C716:song:test_key2.mp3", "song_id": "SOTWSLV13CF6D275AF",
+        "2014-11-20T04:40:30", "date_added": "2014-11-20T04:40:30", "foreign_id":
+        "CAIQEUO1473A654C51:song:test_key2.mp3", "song_id": "SOTWSLV13CF6D275AF",
         "request": {"item_id": "test_key2.mp3", "song_id": "SOTWSLV13CF6D275AF"}}],
-        "start": 0, "total": 2, "type": "song", "id": "CALBLSS14721C1C716"}}}'
+        "start": 0, "total": 2, "type": "song", "id": "CAIQEUO1473A654C51"}}}'
     http_version: 
-  recorded_at: Wed, 19 Nov 2014 21:48:43 GMT
+  recorded_at: Thu, 20 Nov 2014 04:40:30 GMT
 - request:
     method: get
-    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CALBLSS14721C1C716&results=1000&start=0
+    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CAIQEUO1473A654C51&results=1000&start=0
     body:
       encoding: US-ASCII
       string: ''
@@ -203,7 +203,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 19 Nov 2014 21:48:42 GMT
+      - Thu, 20 Nov 2014 04:40:30 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -211,9 +211,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - DTZWI71vTHmr1/aOgRld1w
+      - MdNoi06cRiiNqLNa/9PGIw
       X-Worker-Node:
-      - 322a7:15336
+      - 9f840:14769
       X-Ratelimit-Remaining:
       - '108'
       Server:
@@ -237,20 +237,20 @@ http_interactions:
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "catalog": {"name": "playolasongs", "items": [{"song_name": "Stepladder",
+        "catalog": {"name": "Playola Test", "items": [{"song_name": "Stepladder",
         "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album": "Broken
         Machine", "pl_duration": 999, "pl_title": "Stepladder", "pl_key": "test_key.mp3",
         "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified":
-        "2014-11-19T21:48:42", "date_added": "2014-11-19T21:48:42", "foreign_id":
-        "CALBLSS14721C1C716:song:test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA", "request":
+        "2014-11-20T04:40:30", "date_added": "2014-11-20T04:40:30", "foreign_id":
+        "CAIQEUO1473A654C51:song:test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA", "request":
         {"item_id": "test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA"}}, {"song_name":
         "Cheater", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album":
         "Broken Machine", "pl_duration": 888, "pl_title": "Cheater", "pl_key": "test_key2.mp3",
         "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified":
-        "2014-11-19T21:48:42", "date_added": "2014-11-19T21:48:42", "foreign_id":
-        "CALBLSS14721C1C716:song:test_key2.mp3", "song_id": "SOTWSLV13CF6D275AF",
+        "2014-11-20T04:40:30", "date_added": "2014-11-20T04:40:30", "foreign_id":
+        "CAIQEUO1473A654C51:song:test_key2.mp3", "song_id": "SOTWSLV13CF6D275AF",
         "request": {"item_id": "test_key2.mp3", "song_id": "SOTWSLV13CF6D275AF"}}],
-        "start": 0, "total": 2, "type": "song", "id": "CALBLSS14721C1C716"}}}'
+        "start": 0, "total": 2, "type": "song", "id": "CAIQEUO1473A654C51"}}}'
     http_version: 
-  recorded_at: Wed, 19 Nov 2014 21:48:43 GMT
+  recorded_at: Thu, 20 Nov 2014 04:40:30 GMT
 recorded_with: VCR 2.9.3

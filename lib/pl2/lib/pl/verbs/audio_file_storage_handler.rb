@@ -165,7 +165,6 @@ module PL
     end
 
     def delete_unprocessed_song(key)
-      binding.pry
       s3_song_file = @s3.buckets[S3['UNPROCESSED_SONGS']].objects[key].delete
     end
 

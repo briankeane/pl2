@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 19 Nov 2014 21:30:47 GMT
+      - Thu, 20 Nov 2014 04:32:07 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -27,9 +27,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - blW9OpFaQie0muDTzpyJkA
+      - 1HeO1Xq+Rxq9WeVKd9FPYQ
       X-Worker-Node:
-      - 96cdc:22848
+      - c6357:3425
       X-Ratelimit-Remaining:
       - '118'
       Server:
@@ -49,7 +49,7 @@ http_interactions:
       Keep-Alive:
       - timeout=15, max=100
       Via:
-      - 1.1 ID-0000627501223746 uproxy-3
+      - 1.1 ID-0000627501223746 uproxy-2
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
@@ -71,5 +71,5 @@ http_interactions:
         "Rachel Loy", "title": "I Can Feel It (Lovin'' Me) Audioscape Transatlantic
         Remix"}]}}'
     http_version: 
-  recorded_at: Wed, 19 Nov 2014 21:30:48 GMT
+  recorded_at: Thu, 20 Nov 2014 04:32:07 GMT
 recorded_with: VCR 2.9.3
