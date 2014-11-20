@@ -2,3 +2,4 @@
 lib/pl2/vendor/
 lib/pl2/secrets
 tmp/*
+spec/vcr_cassettes/*
