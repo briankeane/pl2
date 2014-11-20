@@ -5,8 +5,8 @@ class SchedulesController < ApplicationController
     new_position = params[:new_position].to_i
     old_position = params[:old_position].to_i
 
-    result = PL::MoveSpin.run({ new_position: newPosition,
-                                old_position: oldPosition,
+    result = PL::MoveSpin.run({ new_position: new_position,
+                                old_position: old_position,
                                 schedule_id: current_schedule.id })
 
     max_position = [old_position, new_position].max
