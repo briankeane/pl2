@@ -173,5 +173,22 @@ module PL
       return true
     end
 
+    def song_exists?(key)
+      bucket = @s3.buckets[S3['SONGS_BUCKET']]
+
+      stored_song_keys = bucket.objects.collect(&:key)
+
+      return (stored_song_keys.include?(key))
+    end
+
+    def unprocessed_song_exists?(key)
+      bucket = @s3.buckets[S3['UNPROCESSED_SONGS']]
+
+      unprocessed_keys = bucket.objects.collect(&:key)
+
+      return (unprocessed_keys.include?(key))
+    end
+
+
   end
 end

@@ -206,9 +206,21 @@ describe 'audio_file_storage_handler' do
     end
   end
 
+  it 'checks to see if a song exists' do
+    song = @s3.buckets['playolasongstest'].objects.create('key', 'data')
+    expect(@grabber.song_exists?('key')).to eq(true)
+    expect(@grabber.song_exists?('asdfasdfasdfasdfasdf')).to eq(false)
+  end
+
+  it 'checks to see if an unprocessed song exists' do
+    song = @s3.buckets['playolaunprocessedsongstest'].objects.create('key', 'data')
+    expect(@grabber.unprocessed_song_exists?('key')).to eq(true)
+    expect(@grabber.unprocessed_song_exists?('asdfasdfasdfasdfasdf')).to eq(false)
+  end
+
   after(:all) do
     @s3.buckets['playolasongstest'].objects.delete_all
     @s3.buckets['playolacommentariestest'].objects.delete_all
+    @s3.buckets['playolaunprocessedsongstest'].objects.delete_all
   end
-
 end
