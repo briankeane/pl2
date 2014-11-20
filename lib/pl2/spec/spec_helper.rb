@@ -3,6 +3,7 @@ ENV['RAILS_ENV'] = 'test'
 require './lib/pl.rb'
 require 'rspec'
 require 'vcr'
+require 'pry-byebug'
 require_relative 'shared/shared_database.rb'
 
 VCR.configure do |c|

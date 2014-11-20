@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 20 Nov 2014 04:32:07 GMT
+      - Thu, 20 Nov 2014 21:16:03 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -27,9 +27,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - 1HeO1Xq+Rxq9WeVKd9FPYQ
+      - CwmddEKiSWSMTKAwd3n+mw
       X-Worker-Node:
-      - c6357:3425
+      - 20284:30451
       X-Ratelimit-Remaining:
       - '118'
       Server:
@@ -58,18 +58,19 @@ http_interactions:
         "id": "SOLCFXS12AB018A564", "artist_name": "Rachel Loy", "title": "Rachel
         talks about \"The Same Man\""}, {"artist_id": "ARZWZYC13BEDDDFA7F", "id":
         "SOPXTLW13D4328D660", "artist_name": "DJ B Loy", "title": "Ready to B-Loy"},
-        {"artist_id": "ARHBV1W1187B9B496C", "id": "SOFJZVS13152A75BF9", "artist_name":
-        "Rachel Loy", "title": "Love Me Too Much"}, {"artist_id": "ARHBV1W1187B9B496C",
-        "id": "SORHTJW13152A777E4", "artist_name": "Rachel Loy", "title": "After The
-        Storm"}, {"artist_id": "ARHBV1W1187B9B496C", "id": "SORGWUF13152A75938", "artist_name":
-        "Rachel Loy", "title": "Drive Around"}, {"artist_id": "ARHBV1W1187B9B496C",
-        "id": "SOSSVBU13152A74FB5", "artist_name": "Rachel Loy", "title": "Unscrew
-        You"}, {"artist_id": "ARHBV1W1187B9B496C", "id": "SOQSTRX13CF6D1AB37", "artist_name":
-        "Rachel Loy", "title": "Fade to Gray"}, {"artist_id": "ARHBV1W1187B9B496C",
-        "id": "SORZCTW1311AFDEA8C", "artist_name": "Rachel Loy", "title": "Maybe It''s
-        Me"}, {"artist_id": "ARHBV1W1187B9B496C", "id": "SOUJGUG137E01A4BF0", "artist_name":
-        "Rachel Loy", "title": "I Can Feel It (Lovin'' Me) Audioscape Transatlantic
-        Remix"}]}}'
+        {"artist_id": "ARHBV1W1187B9B496C", "id": "SOEMBZM137E01A4C85", "artist_name":
+        "Rachel Loy", "title": "I Can Feel It (Lovin'' Me) P.H.A.T.T. Radio Edit"},
+        {"artist_id": "ARHBV1W1187B9B496C", "id": "SOELUIG13CF6D1858A", "artist_name":
+        "Rachel Loy", "title": "Too Good to Be True"}, {"artist_id": "ARHBV1W1187B9B496C",
+        "id": "SODPILT131343943AF", "artist_name": "Rachel Loy", "title": "Stay"},
+        {"artist_id": "ARHBV1W1187B9B496C", "id": "SODKUSZ131BC1F79B5", "artist_name":
+        "Rachel Loy", "title": "You Win"}, {"artist_id": "ARHBV1W1187B9B496C", "id":
+        "SOCGYQY14620B0B4EC", "artist_name": "Rachel Loy", "title": "The Same Man
+        (For Matthew) (Acoustic Version)"}, {"artist_id": "ARHBV1W1187B9B496C", "id":
+        "SOCHFDJ137E01A4C92", "artist_name": "Rachel Loy", "title": "I Can Feel It
+        (Lovin'' Me) Audioscape Radio Edit"}, {"artist_id": "ARHBV1W1187B9B496C",
+        "id": "SOCNWSA130516E06B8", "artist_name": "Rachel Loy", "title": "Afraid
+        to Steer"}]}}'
     http_version: 
-  recorded_at: Thu, 20 Nov 2014 04:32:07 GMT
+  recorded_at: Thu, 20 Nov 2014 21:16:04 GMT
 recorded_with: VCR 2.9.3

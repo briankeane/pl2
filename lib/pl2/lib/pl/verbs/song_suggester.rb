@@ -28,7 +28,5 @@ module PL
       end
       final_list
     end
-
-  
   end
 end

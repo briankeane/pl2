@@ -17,7 +17,6 @@ module PL
     #########################################################
 
     def add_songs(*song_objects)
-
       # This allows 1 object, a list, or an array of objects to be passed
       if song_objects.is_a?(PL::Song)
         song_objects = [song_objects]
@@ -50,6 +49,7 @@ module PL
         end
 
         data = '[' + json_songs.join(", \n") + ']'
+        puts data
 
         Echowrap.taste_profile_update(id: ECHONEST_KEYS['TASTE_PROFILE_ID'], data: data)
 

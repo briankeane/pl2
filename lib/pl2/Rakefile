@@ -1,5 +1,5 @@
 require 'active_record_tasks'
-
+require 'pry-byebug'
 ActiveRecordTasks.configure do |config|
   # These are all the default values
   config.db_dir = 'db'
@@ -23,6 +23,7 @@ end
 
 task :sandbox => [:load_app] do
   binding.pry
+  puts ''
 end
 
 namespace :db do
