@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: put
-    uri: https://playolacommercialstest.s3-us-west-2.amazonaws.com/testCommercial.mp3
+    uri: https://playolacommercials.s3-us-west-2.amazonaws.com/testCommercial.mp3
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -2860,24 +2860,24 @@ http_interactions:
       Content-Length:
       - '128053'
       User-Agent:
-      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      - aws-sdk-ruby/1.43.3 ruby/2.1.2 x86_64-darwin13.0
       Date:
-      - Sun, 24 Aug 2014 14:06:56 GMT
+      - Wed, 19 Nov 2014 21:35:43 GMT
       Authorization:
-      - AWS AKIAI7LLKEWPT2P5JISQ:qGrOFRWOhKYIhljwA0wTWuUtZj4=
+      - AWS AKIAIV2K776MRUE245GA:a8qmaF4AByc46CPPSelEfwzvkzc=
       Accept:
-      - '*/*'
+      - "*/*"
   response:
     status:
       code: 200
       message: OK
     headers:
       X-Amz-Id-2:
-      - OGn7SWX17vxsvGVZvjOinbACpzGuVjYrKZsWhT5FloB/dBulIhbZM/qPXnGy5a37yNbLndbbNbs=
+      - wL94MiLWV2Bh61VK4KkIWol1lfTST0EB+xV+jGYN0NwYcPcBctdUwurYJVxLyUxsgTwcP17Ax94=
       X-Amz-Request-Id:
-      - 54DA7A8981348A52
+      - 7C70072EEB0EA59C
       Date:
-      - Sun, 24 Aug 2014 14:06:58 GMT
+      - Wed, 19 Nov 2014 21:35:43 GMT
       Etag:
       - '"959c1015dca93fb761e13646aa608e7d"'
       Content-Length:
@@ -2888,10 +2888,10 @@ http_interactions:
       encoding: UTF-8
       string: ''
     http_version: 
-  recorded_at: Sun, 24 Aug 2014 14:06:58 GMT
+  recorded_at: Wed, 19 Nov 2014 21:35:44 GMT
 - request:
     method: get
-    uri: https://playolacommercialstest.s3-us-west-2.amazonaws.com/testCommercial.mp3
+    uri: https://playolacommercials.s3-us-west-2.amazonaws.com/testCommercial.mp3
     body:
       encoding: US-ASCII
       string: ''
@@ -2901,26 +2901,26 @@ http_interactions:
       Accept-Encoding:
       - ''
       User-Agent:
-      - aws-sdk-ruby/1.43.3 ruby/2.0.0 x86_64-darwin13.1.0
+      - aws-sdk-ruby/1.43.3 ruby/2.1.2 x86_64-darwin13.0
       Date:
-      - Sun, 24 Aug 2014 14:06:58 GMT
+      - Wed, 19 Nov 2014 21:35:44 GMT
       Authorization:
-      - AWS AKIAI7LLKEWPT2P5JISQ:SwyQMKVXzVb9Uk04BaNsROBZomY=
+      - AWS AKIAIV2K776MRUE245GA:f6XSQxBORf8aNtEP2n6zPNAukO4=
       Accept:
-      - '*/*'
+      - "*/*"
   response:
     status:
       code: 200
       message: OK
     headers:
       X-Amz-Id-2:
-      - zbzGeXTRIbWrT2S9QuwEqJbFZRX3Azu+WPDtxBhsax2KnlTdwPL0FGfApOOQzygNGetcySRnnTk=
+      - BP8Gfm2KM+nvJarzJMEZqmxgL8rIfIBtSQPrYNMCY5NN6hsvBZWYs8KewyfaY06KRZ8OJc+g+Go=
       X-Amz-Request-Id:
-      - 8001744DCF85BF22
+      - 56884A133C3CA9FA
       Date:
-      - Sun, 24 Aug 2014 14:06:59 GMT
+      - Wed, 19 Nov 2014 21:35:45 GMT
       Last-Modified:
-      - Sun, 24 Aug 2014 14:06:58 GMT
+      - Wed, 19 Nov 2014 21:35:43 GMT
       Etag:
       - '"959c1015dca93fb761e13646aa608e7d"'
       Accept-Ranges:
@@ -5781,5 +5781,5 @@ http_interactions:
         NIAAAAR3ZVte/AAUpbQACAmklSQXwOYepDXA/kOVz68F6zM3qqt6qqqp6qql
         +qlxmYoGFHhKd6+CoLRKCp2tTEFNRTMuOTguMg==
     http_version: 
-  recorded_at: Sun, 24 Aug 2014 14:06:59 GMT
-recorded_with: VCR 2.9.2
+  recorded_at: Wed, 19 Nov 2014 21:35:46 GMT
+recorded_with: VCR 2.9.3

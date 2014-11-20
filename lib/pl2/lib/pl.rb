@@ -29,10 +29,10 @@ if !defined? TWITTER_KEYS
       ECHONEST_KEYS = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/echonest_config.yml")[::Rails.env]
       FILEPICKER_KEYS = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/filepicker_config.yml")[::Rails.env]
     else
-      TWITTER_KEYS = YAML.load_file("secrets/twitter_config.yml")['production']
-      S3 = YAML.load_file("secrets/s3_config.yml")['production']
-      ECHONEST_KEYS = YAML.load_file("secrets/echonest_config.yml")['production']
-      FILEPICKER_KEYS = YAML.load_file("secrets/filepicker_config.yml")['production']
+      TWITTER_KEYS = YAML.load_file("secrets/twitter_config.yml")[ENV['RAILS_ENV']]
+      S3 = YAML.load_file("secrets/s3_config.yml")[ENV['RAILS_ENV']]
+      ECHONEST_KEYS = YAML.load_file("secrets/echonest_config.yml")[ENV['RAILS_ENV']]
+      FILEPICKER_KEYS = YAML.load_file("secrets/filepicker_config.yml")[ENV['RAILS_ENV']]
     end
   end
 end

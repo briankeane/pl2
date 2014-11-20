@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CAIQEUO1473A654C51&results=1000&start=0
+    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CALBLSS14721C1C716&results=1000&start=0
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 24 Aug 2014 14:09:14 GMT
+      - Wed, 19 Nov 2014 21:48:46 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -27,9 +27,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - iI/4Qwx1RgW6xhHvCmH2aw
+      - mw/ZjZf0TDmlSjcsd2Wzmg
       X-Worker-Node:
-      - 20284:28148
+      - 7ab88:25966
       X-Ratelimit-Remaining:
       - '92'
       Server:
@@ -41,7 +41,7 @@ http_interactions:
       Cache-Control:
       - max-age=86400
       Access-Control-Allow-Origin:
-      - '*'
+      - "*"
       X-Ratelimit-Used:
       - '28'
       Connection:
@@ -49,17 +49,17 @@ http_interactions:
       Keep-Alive:
       - timeout=15, max=100
       Via:
-      - 1.1 ID-0000627501223746 uproxy-2
+      - 1.1 ID-0000627501223746 uproxy-3
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "catalog": {"name": "Playola Test", "items": [], "start": 0, "total": 0, "type":
-        "song", "id": "CAIQEUO1473A654C51"}}}'
+        "catalog": {"name": "playolasongs", "items": [], "start": 0, "total": 0, "type":
+        "song", "id": "CALBLSS14721C1C716"}}}'
     http_version: 
-  recorded_at: Sun, 24 Aug 2014 14:09:14 GMT
+  recorded_at: Wed, 19 Nov 2014 21:48:47 GMT
 - request:
     method: get
-    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CAIQEUO1473A654C51&results=1000&start=0
+    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CALBLSS14721C1C716&results=1000&start=0
     body:
       encoding: US-ASCII
       string: ''
@@ -76,7 +76,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 24 Aug 2014 14:09:14 GMT
+      - Wed, 19 Nov 2014 21:48:46 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -84,9 +84,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - vrTbccqSQHmw370wQ6/cxA
+      - iTq4MVgXSceTV1U2jfHDSQ
       X-Worker-Node:
-      - 14f18:31493
+      - d2362:6374
       X-Ratelimit-Remaining:
       - '91'
       Server:
@@ -98,7 +98,7 @@ http_interactions:
       Cache-Control:
       - max-age=86400
       Access-Control-Allow-Origin:
-      - '*'
+      - "*"
       X-Ratelimit-Used:
       - '29'
       Connection:
@@ -106,20 +106,20 @@ http_interactions:
       Keep-Alive:
       - timeout=15, max=100
       Via:
-      - 1.1 ID-0000627501223746 uproxy-3
+      - 1.1 ID-0000627501223746 uproxy-2
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "catalog": {"name": "Playola Test", "items": [], "start": 0, "total": 0, "type":
-        "song", "id": "CAIQEUO1473A654C51"}}}'
+        "catalog": {"name": "playolasongs", "items": [], "start": 0, "total": 0, "type":
+        "song", "id": "CALBLSS14721C1C716"}}}'
     http_version: 
-  recorded_at: Sun, 24 Aug 2014 14:09:14 GMT
+  recorded_at: Wed, 19 Nov 2014 21:48:47 GMT
 - request:
     method: post
     uri: http://developer.echonest.com/api/v4/catalog/update
     body:
       encoding: UTF-8
-      string: api_key=1EFRD4YMEN003A4N1&data=%5B%7B%22item%22%3A%7B%22item_id%22%3A%22test_key.mp3%22%2C%22song_id%22%3A%22SOOWAAV13CF6D1B3FA%22%2C%22item_keyvalues%22%3A%7B%22pl_artist%22%3A%22Rachel+Loy%22%2C%22pl_key%22%3A%22test_key.mp3%22%2C%22pl_title%22%3A%22Stepladder%22%2C%22pl_album%22%3A%22Broken+Machine%22%2C%22pl_duration%22%3A999%7D%7D%7D%5D&data_type=json&id=CAIQEUO1473A654C51
+      string: api_key=1EFRD4YMEN003A4N1&data=%5B%7B%22item%22%3A%7B%22item_id%22%3A%22test_key.mp3%22%2C%22song_id%22%3A%22SOOWAAV13CF6D1B3FA%22%2C%22item_keyvalues%22%3A%7B%22pl_artist%22%3A%22Rachel+Loy%22%2C%22pl_key%22%3A%22test_key.mp3%22%2C%22pl_title%22%3A%22Stepladder%22%2C%22pl_album%22%3A%22Broken+Machine%22%2C%22pl_duration%22%3A999%7D%7D%7D%5D&data_type=json&id=CALBLSS14721C1C716
     headers:
       Accept:
       - application/json
@@ -135,7 +135,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 24 Aug 2014 14:09:14 GMT
+      - Wed, 19 Nov 2014 21:48:46 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -143,9 +143,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - RkcIwgC1TBufu9wBYOrvEw
+      - eJ2sYhfYRV+Y6dh8Gpzhjg
       X-Worker-Node:
-      - fe870:359
+      - 746e1:16125
       X-Ratelimit-Remaining:
       - '90'
       Server:
@@ -157,7 +157,7 @@ http_interactions:
       Cache-Control:
       - max-age=86400
       Access-Control-Allow-Origin:
-      - '*'
+      - "*"
       X-Ratelimit-Used:
       - '30'
       Connection:
@@ -165,16 +165,16 @@ http_interactions:
       Keep-Alive:
       - timeout=15, max=100
       Via:
-      - 1.1 ID-0000627501223746 uproxy-2
+      - 1.1 ID-0000627501223746 uproxy-3
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "ticket": "CAIQEUO1473A654C5194DEB4BE547F42"}}'
+        "ticket": "CALBLSS14721C1C716D39D99203FDC4F"}}'
     http_version: 
-  recorded_at: Sun, 24 Aug 2014 14:09:14 GMT
+  recorded_at: Wed, 19 Nov 2014 21:48:47 GMT
 - request:
     method: get
-    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CAIQEUO1473A654C51&results=1000&start=0
+    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CALBLSS14721C1C716&results=1000&start=0
     body:
       encoding: US-ASCII
       string: ''
@@ -191,7 +191,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 24 Aug 2014 14:09:14 GMT
+      - Wed, 19 Nov 2014 21:48:46 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -199,9 +199,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - Fx8NOlmhQsmp//f7+2yKGQ
+      - 6O3EpJqXQO+UGS9vABRlYw
       X-Worker-Node:
-      - d1c7d:22924
+      - 322a7:15336
       X-Ratelimit-Remaining:
       - '89'
       Server:
@@ -213,7 +213,7 @@ http_interactions:
       Cache-Control:
       - max-age=86400
       Access-Control-Allow-Origin:
-      - '*'
+      - "*"
       X-Ratelimit-Used:
       - '31'
       Connection:
@@ -221,23 +221,23 @@ http_interactions:
       Keep-Alive:
       - timeout=15, max=100
       Via:
-      - 1.1 ID-0000627501223746 uproxy-3
+      - 1.1 ID-0000627501223746 uproxy-2
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "catalog": {"name": "Playola Test", "items": [{"song_name": "Stepladder",
+        "catalog": {"name": "playolasongs", "items": [{"song_name": "Stepladder",
         "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album": "Broken
         Machine", "pl_duration": 999, "pl_title": "Stepladder", "pl_key": "test_key.mp3",
         "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified":
-        "2014-08-24T14:09:14", "date_added": "2014-08-24T14:09:14", "foreign_id":
-        "CAIQEUO1473A654C51:song:test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA", "request":
+        "2014-11-19T21:48:46", "date_added": "2014-11-19T21:48:46", "foreign_id":
+        "CALBLSS14721C1C716:song:test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA", "request":
         {"item_id": "test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA"}}], "start": 0,
-        "total": 1, "type": "song", "id": "CAIQEUO1473A654C51"}}}'
+        "total": 1, "type": "song", "id": "CALBLSS14721C1C716"}}}'
     http_version: 
-  recorded_at: Sun, 24 Aug 2014 14:09:14 GMT
+  recorded_at: Wed, 19 Nov 2014 21:48:47 GMT
 - request:
     method: get
-    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CAIQEUO1473A654C51&results=1000&start=0
+    uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CALBLSS14721C1C716&results=1000&start=0
     body:
       encoding: US-ASCII
       string: ''
@@ -254,7 +254,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 24 Aug 2014 14:09:14 GMT
+      - Wed, 19 Nov 2014 21:48:46 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -262,9 +262,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - /O41h0PBQqavVXW86/aftA
+      - cN6Q6oO1TBqX51a8HRi58w
       X-Worker-Node:
-      - a0306:27840
+      - 20284:4242
       X-Ratelimit-Remaining:
       - '88'
       Server:
@@ -276,7 +276,7 @@ http_interactions:
       Cache-Control:
       - max-age=86400
       Access-Control-Allow-Origin:
-      - '*'
+      - "*"
       X-Ratelimit-Used:
       - '32'
       Connection:
@@ -284,18 +284,18 @@ http_interactions:
       Keep-Alive:
       - timeout=15, max=100
       Via:
-      - 1.1 ID-0000627501223746 uproxy-2
+      - 1.1 ID-0000627501223746 uproxy-3
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "catalog": {"name": "Playola Test", "items": [{"song_name": "Stepladder",
+        "catalog": {"name": "playolasongs", "items": [{"song_name": "Stepladder",
         "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album": "Broken
         Machine", "pl_duration": 999, "pl_title": "Stepladder", "pl_key": "test_key.mp3",
         "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified":
-        "2014-08-24T14:09:14", "date_added": "2014-08-24T14:09:14", "foreign_id":
-        "CAIQEUO1473A654C51:song:test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA", "request":
+        "2014-11-19T21:48:46", "date_added": "2014-11-19T21:48:46", "foreign_id":
+        "CALBLSS14721C1C716:song:test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA", "request":
         {"item_id": "test_key.mp3", "song_id": "SOOWAAV13CF6D1B3FA"}}], "start": 0,
-        "total": 1, "type": "song", "id": "CAIQEUO1473A654C51"}}}'
+        "total": 1, "type": "song", "id": "CALBLSS14721C1C716"}}}'
     http_version: 
-  recorded_at: Sun, 24 Aug 2014 14:09:14 GMT
-recorded_with: VCR 2.9.2
+  recorded_at: Wed, 19 Nov 2014 21:48:47 GMT
+recorded_with: VCR 2.9.3

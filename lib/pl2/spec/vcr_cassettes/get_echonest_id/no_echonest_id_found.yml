@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 24 Aug 2014 13:59:02 GMT
+      - Wed, 19 Nov 2014 21:30:47 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -27,9 +27,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - AzxNbmXrRlG2prGrAqY58g
+      - 1L+ghCvKSNeeOpYanYLwFA
       X-Worker-Node:
-      - 9f840:1527
+      - 9a059:11971
       X-Ratelimit-Remaining:
       - '119'
       Server:
@@ -41,7 +41,7 @@ http_interactions:
       Cache-Control:
       - max-age=86400
       Access-Control-Allow-Origin:
-      - '*'
+      - "*"
       X-Ratelimit-Used:
       - '1'
       Connection:
@@ -49,7 +49,7 @@ http_interactions:
       Keep-Alive:
       - timeout=15, max=100
       Via:
-      - 1.1 ID-0000627501223746 uproxy-3
+      - 1.1 ID-0000627501223746 uproxy-2
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
@@ -60,15 +60,14 @@ http_interactions:
         "ARKXNRJ13E0EC929D6", "id": "SOSAMLF142B3728A08", "artist_name": "Artist Drowning",
         "title": "Artist Drowning"}, {"artist_id": "ARSORMR141040305F0", "id": "SOZOWAI14134EAB59D",
         "artist_name": "Artist Sensey", "title": "Artist Statement"}, {"artist_id":
-        "AR9TO5Q1187FB47C19", "id": "SOOAXAG1313439EFAD", "artist_name": "Paza Rahm",
-        "title": "Asdf"}, {"artist_id": "ARJMPGH11F4C8429C6", "id": "SOPYMGE12A8C13E7E1",
-        "artist_name": "Space Ritual", "title": "ASDF"}, {"artist_id": "ARZFATG1257509C0A4",
-        "id": "SOYZNXR1312A8AD550", "artist_name": "Woman In Panic", "title": "Asdf"},
-        {"artist_id": "ARRMJHS13A23CD05ED", "id": "SOTVYFO1442DCFE770", "artist_name":
-        "Shade K", "title": "Asdf"}, {"artist_id": "ARCIZID12E30EB9650", "id": "SOGJZZD1474545A16A",
-        "artist_name": "Egart", "title": "Asdf"}, {"artist_id": "ARJHWUY122988FB14B",
-        "id": "SORYOOJ1315CD4EAF8", "artist_name": "Said El Artist", "title": "Artist
-        Bros."}]}}'
+        "ARRMJHS13A23CD05ED", "id": "SOTVYFO1442DCFE770", "artist_name": "Shade K",
+        "title": "Asdf"}, {"artist_id": "AR9TO5Q1187FB47C19", "id": "SOOAXAG1313439EFAD",
+        "artist_name": "Paza Rahm", "title": "Asdf"}, {"artist_id": "ARCIZID12E30EB9650",
+        "id": "SOGJZZD1474545A16A", "artist_name": "Egart", "title": "Asdf"}, {"artist_id":
+        "ARJMPGH11F4C8429C6", "id": "SOPYMGE12A8C13E7E1", "artist_name": "Space Ritual",
+        "title": "ASDF"}, {"artist_id": "ARCAOAL11F4C8446F0", "id": "SOSCCMZ148758E8490",
+        "artist_name": "C.A.R.", "title": "Asdf"}, {"artist_id": "ARZFATG1257509C0A4",
+        "id": "SOYZNXR1312A8AD550", "artist_name": "Woman In Panic", "title": "Asdf"}]}}'
     http_version: 
-  recorded_at: Sun, 24 Aug 2014 13:59:02 GMT
-recorded_with: VCR 2.9.2
+  recorded_at: Wed, 19 Nov 2014 21:30:48 GMT
+recorded_with: VCR 2.9.3
