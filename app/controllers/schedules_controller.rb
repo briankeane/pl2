@@ -2,15 +2,13 @@ class SchedulesController < ApplicationController
   include ApplicationHelper
 
   def move_spin
-    new_position = params[:new_position].to_i
-    old_position = params[:old_position].to_i
-
-    result = PL::MoveSpin.run({ new_position: new_position,
-                                old_position: old_position,
+    result = PL::MoveSpin.run({ new_position: params[:newPosition],
+                                old_position: params[:oldPosition],
                                 schedule_id: current_schedule.id })
 
-    max_position = [old_position, new_position].max
-    min_position = [old_position, new_position].min - 1  # buffer for leading commercial blocks
+    max_position = [params[:oldPosition], params[:newPosition]].max
+    min_position = [params[:oldPosition], params[:newPosition]].min - 1  # buffer for leading commercial blocks
+    
     
     result.new_program = current_schedule.get_program_by_current_positions({ schedule_id: current_schedule.id,
                                                                              starting_current_position: min_position,
@@ -20,11 +18,13 @@ class SchedulesController < ApplicationController
     result.max_position = max_position
     result.min_position = min_position
 
-    # format estimated_air_times
-    result.new_program.each do |spin|
+    #format airtimes
+    result.new_program.map! do |spin|
+      hash = spin.to_hash
       if spin.airtime
-        spin.airtime = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
+        hash[:airtimeForDisplay] = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
       end
+      hash
     end
 
     render :json => result

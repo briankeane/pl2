@@ -259,7 +259,7 @@
       for(var i=0; i<newProgram.length; i++) {
         if (!newProgram[i].hasOwnProperty('commercials')) {
           var currentSpinLi = ('*[data-currentPosition="' + newProgram[i].current_position +'"]');
-          $(currentSpinLi + ' .songlist-airtime').text(newProgram[i].airtime);
+          $(currentSpinLi + ' .songlist-airtime').text(newProgram[i].airtimeForDisplay);
         } else {
           // if the last entry is a commercial, delete the following commercial so there are no duplicates
           if (i === newProgram.length - 1) {
@@ -268,7 +268,7 @@
           
           $(currentSpinLi).after("<li class='commercialBlock disabled'>" + 
                                   "<span class='songlist-title'>Commercial Block</span>" + 
-                                  "<span class='songlist-airtime'>" +   newProgram[i].airtime + "</span></li>");
+                                  "<span class='songlist-airtime'>" +   newProgram[i].airtimeForDisplay + "</span></li>");
         }
       } //endFor
       
