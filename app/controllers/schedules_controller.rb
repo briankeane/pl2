@@ -44,10 +44,12 @@ class SchedulesController < ApplicationController
                                                                             ending_current_position: result.max_position })
     
     # format estimated_air_times
-    result.new_program.each do |spin|
-      if spin.airtime
-        spin.airtime = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
+    result.new_program.map! do |spin|
+      spin_as_hash = spin.to_hash
+      if spin_as_hash[:airtime]
+        spin_as_hash[:airtimeForDisplay] = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
       end
+      spin_as_hash
     end
 
     render :json => result
@@ -84,7 +86,6 @@ class SchedulesController < ApplicationController
   end
 
   def get_spin_by_current_position
-    binding.pry
     spin = PL.db.get_spin_by_current_position({ schedule_id: params["scheduleId"].to_i,
                                                 current_position: params["currentPosition"].to_i })
     
