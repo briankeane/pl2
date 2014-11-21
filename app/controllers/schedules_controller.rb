@@ -90,13 +90,14 @@ class SchedulesController < ApplicationController
       spin.audio_block
     end
 
-    spin_as_hash = spin.as_json
+    spin_as_hash = spin.to_json
 
     spin_as_hash["commercials_follow?"] = spin.commercials_follow?
     spin_as_hash["airtime_in_ms"] = spin.airtime_in_ms
     spin_as_hash["currentPosition"] = spin.current_position
     # format time
-    spin_as_hash["airtime"] = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
+    spin_as_hash["airtime"] = spin.airtime
+    spin_as_hash["airtimeForDisplay"] = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
 
     if spin.audio_block.is_a?(PL::Song)
       spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
