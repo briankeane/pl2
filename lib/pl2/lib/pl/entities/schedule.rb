@@ -352,6 +352,12 @@ puts "pick_song_ms: " + pick_song_ms.to_s
 
       playlist = PL.db.get_partial_playlist({ start_time: attrs[:start_time], end_time: attrs[:end_time], schedule_id: @id })
 
+      # if there's not enough songs, extend the playlist
+      if playlist.last.estimated_end_time < attrs[:end_time]
+        self.generate_playlist(attrs[:end_time])
+        playlist = PL.db.get_partial_playlist({ start_time: attrs[:start_time], end_time: attrs[:end_time], schedule_id: @id })
+      end
+
       # if it's out of range try extending the playlist
       if playlist.size == 0
         self.generate_playlist

@@ -10,6 +10,8 @@ module PL
       program = schedule.get_program({ schedule_id: attrs[:schedule_id],
                                       start_time: attrs[:start_time],
                                      end_time: attrs[:end_time] })
+
+      binding.pry
       if program.size == 0
         return failure(:no_playlist_for_requested_time)
       else
