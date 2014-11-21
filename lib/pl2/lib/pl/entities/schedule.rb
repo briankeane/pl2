@@ -440,7 +440,9 @@ puts "pick_song_ms: " + pick_song_ms.to_s
                                     schedule_id: @id,
                                     audio_block_id: attrs[:audio_block_id] })
       @last_accurate_current_position = attrs[:add_position] - 1
+      self.update_airtimes({ current_position: attrs[:add_position] })
       PL.db.update_schedule({ id: @id, last_accurate_current_position: @last_accurate_current_position })
+      added_spin = PL.db.get_spin(added_spin.id)   # for updated airtime
       return added_spin
     end
 

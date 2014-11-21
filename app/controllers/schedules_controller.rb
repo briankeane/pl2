@@ -60,7 +60,7 @@ class SchedulesController < ApplicationController
     File.open(new_path, 'r') do |file|
       result = PL::ProcessCommentary.run({ audio_file: params[:data].tempfile,
                                   add_position: params[:addPosition].to_i,
-                                  duration: params[:duration],
+                                  duration: params[:duration].to_i,
                                   schedule_id: current_schedule.id })
     end
 
@@ -72,10 +72,12 @@ class SchedulesController < ApplicationController
                                                                             ending_current_position: result.max_position })
     
     # format estimated_air_times
-    result.new_program.each do |spin|
-      if spin.airtime
-        spin.airtime = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
+    result.new_program.map! do |spin|
+      spin_as_hash = spin.to_hash
+      if spin_as_hash[:airtime]
+        spin_as_hash[:airtimeForDisplay] = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
       end
+      spin_as_hash
     end
 
     render :json => result
@@ -90,13 +92,9 @@ class SchedulesController < ApplicationController
       spin.audio_block
     end
 
-    spin_as_hash = spin.to_json
+    spin_as_hash = spin.to_hash
 
-    spin_as_hash["commercials_follow?"] = spin.commercials_follow?
-    spin_as_hash["airtime_in_ms"] = spin.airtime_in_ms
-    spin_as_hash["currentPosition"] = spin.current_position
     # format time
-    spin_as_hash["airtime"] = spin.airtime
     spin_as_hash["airtimeForDisplay"] = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
 
     if spin.audio_block.is_a?(PL::Song)
