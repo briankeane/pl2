@@ -89,6 +89,7 @@ class SchedulesController < ApplicationController
     spin = PL.db.get_spin_by_current_position({ schedule_id: params["scheduleId"].to_i,
                                                 current_position: params["currentPosition"].to_i })
     
+    binding.pry
     # 'touch' audioBlock so it's not blank for js
     if !spin.is_a?(PL::CommercialBlock)
       spin.audio_block
@@ -129,5 +130,11 @@ class SchedulesController < ApplicationController
       end
       render :json => result
     end
+  end
+
+  def report_spin_started
+  end
+
+  def report_spin_finished
   end
 end
