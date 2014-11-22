@@ -7,12 +7,12 @@ module PL
         return failure :schedule_not_found
       end
 
-      program = schedule.get_program({ starting_current_position: attrs[:current_position],
+      spin = schedule.get_program_by_current_positions({ starting_current_position: attrs[:current_position],
                                      ending_current_position: attrs[:current_position] })[0]
 
       if !spin
         # see if it's already played
-        spin = get_log_entry_by_current_position({ station_id: schedule.station_id,
+        spin = PL.db.get_log_entry_by_current_position({ station_id: schedule.station_id,
                                                     current_position: attrs[:current_position] })
         if !spin
           return failure(:spin_not_found)

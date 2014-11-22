@@ -38,22 +38,17 @@ describe 'GetSpinByCurrentPosition' do
     it 'calls bullshit if current_position is out of range' do
       Timecop.travel(Time.local(2014,1,1, 10,30))
       result = PL::GetSpinByCurrentPosition.run({ schedule_id: @schedule.id,
-                        current_position: 3000 })
+                        current_position: 7000 })
       expect(result.success?).to eq(false)
       expect(result.error).to eq(:spin_not_found)
-      
-      result = PL::GetSpinByCurrentPosition.run({ schedule_id: @schedule.id,
-                                start_time: Time.local(2011) })
-      expect(result.success?).to eq(false)
-      expect(result.error).to eq(:no_playlist_for_requested_time)
     end
 
     it 'gets a spin' do
-      result = PL::GetProgram.run({ schedule_id: @schedule.id,
-                                    current_position: Time.local(2014,5,12) })
+      result = PL::GetSpinByCurrentPosition.run({ schedule_id: @schedule.id,
+                                    current_position: 1060 })
       expect(result.success?).to eq(true)
       expect(result.spin.current_position).to eq(1060)
-      expect(result.airtime.to_s).to eq('Mon, 12 May 2014 00:05:30 CDT -05:00')
+      expect(result.spin.airtime.to_s).to eq('2014-05-12 00:05:30 -0500')
     end
 
     after(:all) do

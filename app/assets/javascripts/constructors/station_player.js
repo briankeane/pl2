@@ -8,22 +8,6 @@ var StationPlayer = function(attrs) {
   this.muted = false;
   var self = this;
 
-  var getSpinByCurrentPosition = function(currentPosition, callback) {
-    var getSpinInfo = {};
-    getSpinInfo.lastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
-    getSpinInfo.currentPosition = currentPosition;
-    getSpinInfo.stationId = self.stationId;
-    getSpinInfo.scheduleId = self.scheduleId;
-    $.ajax({
-          type: 'GET',
-          dataType: 'json',
-          url: '/schedules/get_spin_by_current_position',
-          contentType: 'application/json',
-          data: getSpinInfo,
-          success: callback
-    });
-  }
-
   var advanceSpin = function() {
     console.log('advancing spin...')
     // advance audioQueue
@@ -56,9 +40,15 @@ var StationPlayer = function(attrs) {
         }
         return result;
       }
-      
+        
       // get the newest spin
-      getSpinByCurrentPosition(self.audioQueue[self.audioQueue.length-1].currentPosition + 1, updateQueue);
+      var spinInfo = {};
+      spinInfo.currentPosition = self.audioQueue[self.audioQueue.length - 1].currentPosition + 1;
+      spinInfo.lastCurrentPosition = spinInfo.currentPosition;
+      spinInfo.scheduleId = self.scheduleId;
+      
+      getSpinByCurrentPosition(spinInfo, updateQueue);
+      
       $(document).trigger('spinAdvanced');
     }
   }

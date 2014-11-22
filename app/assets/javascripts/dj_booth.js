@@ -425,21 +425,21 @@
   };
 
 
-  var getSpinByCurrentPosition = function(currentPosition, callback) {
-    var getSpinInfo = {};
-    getSpinInfo.last_current_position = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
-    getSpinInfo.current_position = currentPosition;
-    getSpinInfo.schedule_id = gon.scheduleId;
+  // var getSpinByCurrentPosition = function(currentPosition, callback) {
+  //   var getSpinInfo = {};
+  //   getSpinInfo.last_current_position = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
+  //   getSpinInfo.current_position = currentPosition;
+  //   getSpinInfo.schedule_id = gon.scheduleId;
 
-    $.ajax({
-          type: 'GET',
-          dataType: 'json',
-          url: 'schedules/get_spin_by_current_position',
-          contentType: 'application/json',
-          data: getSpinInfo,
-          success: callback
-        });
-  }
+  //   $.ajax({
+  //         type: 'GET',
+  //         dataType: 'json',
+  //         url: 'schedules/get_spin_by_current_position',
+  //         contentType: 'application/json',
+  //         data: getSpinInfo,
+  //         success: callback
+  //       });
+  // }
 
   var toggleStationMute = function() {
     // change image
@@ -504,27 +504,25 @@
 
   var appendNextSpin = function() {
     var nextCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition')) + 1;
-    $.ajax({
-      type: 'GET',
-      dataType: 'json',
-      url: 'schedules/get_spin_by_current_position',
-      contentType: 'application/json',
-      data: { current_position: nextCurrentPosition,
-              schedule_id: gon.scheduleId },
-      success: function(result) {
-        var html = renderSpin({ airtime: result.airtime,
+    var callback = function(result) {
+      var html = renderSpin({ airtime: result.airtimeForDisplay,
                                  current_position: result.current_position,
                                  title: result.audio_block.title,
                                  artist: result.audio_block.artist });
-        $('#schedule-list').append(html);
+      $('#schedule-list').append(html); 
 
-        // TODO: Figure out CommercialBlock Situation -- why is it working?
+      // increment lastCurrentPosition
+      var oldLastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
+      $('#schedule-list').attr('data-lastCurrentPosition', oldLastCurrentPosition + 1);
+    }
 
-        // increment lastCurrentPosition
-        var oldLastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
-        $('#schedule-list').attr('data-lastCurrentPosition', oldLastCurrentPosition + 1);
-      }
-    });
+    // build spinInfo object for getSpinByCurrentPosition
+    var spinInfo = {};
+    spinInfo.lastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
+    spinInfo.currentPosition = nextCurrentPosition;
+    spinInfo.scheduleId = gon.scheduleId;
+    getSpinByCurrentPosition(spinInfo, callback);
+
   }
 
 })();

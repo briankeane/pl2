@@ -86,25 +86,19 @@ class SchedulesController < ApplicationController
   end
 
   def get_spin_by_current_position
-    spin = PL.db.get_spin_by_current_position({ schedule_id: params["scheduleId"].to_i,
-                                                current_position: params["currentPosition"].to_i })
-    
     binding.pry
-    # 'touch' audioBlock so it's not blank for js
-    if !spin.is_a?(PL::CommercialBlock)
-      spin.audio_block
-    end
-
-    spin_as_hash = spin.to_hash
+    result = PL::GetSpinByCurrentPosition.run({ schedule_id: params["scheduleId"].to_i,
+                                                current_position: params["currentPosition"].to_i })
+    spin_as_hash = result.spin.to_hash
 
     # format time
-    spin_as_hash["airtimeForDisplay"] = time_formatter(spin.airtime.in_time_zone(current_station.timezone))
+    spin_as_hash["airtimeForDisplay"] = time_formatter(spin_as_hash[:airtime].in_time_zone(current_station.timezone))
 
-    if spin.audio_block.is_a?(PL::Song)
-      spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
+    if result.spin.audio_block.is_a?(PL::Song)
+      spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + result.spin.audio_block.key
       spin_as_hash["type"] = "Song"
-    elsif spin.audio_block.is_a?(PL::Commentary)
-      spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolacommentaries' + spin.audio_block.key
+    elsif result.spin.audio_block.is_a?(PL::Commentary)
+      spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolacommentaries' + result.spin.audio_block.key
       spin_as_hash["type"] = "Commentary"
     end
 
