@@ -322,6 +322,27 @@
       return html;
     }
 
+    // ********************************************
+    // *          renderCommercialBlock           *
+    // *                                          *
+    // *  -- takes a spinInfo object and returns  *
+    // *  a string of html                        *
+    // ********************************************
+    var renderCommercialBlock = function(spinInfo) {
+      
+      if (spinInfo.hasOwnProperty('currentPosition')) {
+        var currentPosition = spinInfo.currentPosition;
+      } else {
+        var currentPosition = '';
+      }
+
+      var html = '<li class="commercial ui-sortable-handle" data-currentPosition="' + 
+                  spinInfo.currentPosition + '"><span class="songlist-title">Commercial Block' + 
+                  '</span><span class="songlist-artist"></span>' +
+                  '<span class="songlist-airtime">' + spinInfo.airtimeForDisplay + '</span></li>';
+      return html;
+    }
+
 
     // ********************************************
     // *           getMovePositions               *
@@ -424,23 +445,6 @@
     }
   };
 
-
-  // var getSpinByCurrentPosition = function(currentPosition, callback) {
-  //   var getSpinInfo = {};
-  //   getSpinInfo.last_current_position = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
-  //   getSpinInfo.current_position = currentPosition;
-  //   getSpinInfo.schedule_id = gon.scheduleId;
-
-  //   $.ajax({
-  //         type: 'GET',
-  //         dataType: 'json',
-  //         url: 'schedules/get_spin_by_current_position',
-  //         contentType: 'application/json',
-  //         data: getSpinInfo,
-  //         success: callback
-  //       });
-  // }
-
   var toggleStationMute = function() {
     // change image
     $('.muteButton').toggleClass('muted');
@@ -514,6 +518,11 @@
       // increment lastCurrentPosition
       var oldLastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
       $('#schedule-list').attr('data-lastCurrentPosition', oldLastCurrentPosition + 1);
+
+      if (result["commercials_follow?"] == true) {
+        var html = renderCommercialBlock({ airtime: (result.airtime_in_ms + result.audio.duration*1000) });
+        $('#schedule-list').append(html); 
+      }
     }
 
     // build spinInfo object for getSpinByCurrentPosition

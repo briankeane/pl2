@@ -1,4 +1,4 @@
-<div class="mic-image-inverse">
+ <div class="mic-image-inverse">
   <div class="row top-row">
 
     <div class="container small-8 columns">
@@ -8,17 +8,21 @@
           <legend>Now Playing</legend>
   
           <ul id="nowPlayingList">
-            <% if current_schedule.now_playing.audio_block.is_a?(PL::CommercialBlock) %>              
-              <li class='nowPlaying commercialBlock'>
+            <% if current_schedule.now_playing.is_commercial_block %>
+               <li class='nowPlaying commercialBlock'>
                 <span class='title'><b>Commercial Block</b></span>
-              
+                <span class='artist'></span>
+            
             <% elsif current_schedule.now_playing.audio_block.is_a?(PL::Song) %>
               <li class='nowPlaying song'>
                 <span class='title'><%= current_station.now_playing.audio_block.title %></span>
                 <span class='artist'><%= current_station.now_playing.audio_block.artist %></span>
+            
             <% elsif current_schedule.now_playing.is_a?(PL::Commentary) %>
+              <li class='nowPlaying commentary'>
               <span class='title'><b>Commentary</b></span>
             <% end %>
+            
               <div class="progress">
                 <span class="meter"></span>
               </div>

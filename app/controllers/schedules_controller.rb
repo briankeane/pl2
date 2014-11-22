@@ -86,7 +86,6 @@ class SchedulesController < ApplicationController
   end
 
   def get_spin_by_current_position
-    binding.pry
     result = PL::GetSpinByCurrentPosition.run({ schedule_id: params["scheduleId"].to_i,
                                                 current_position: params["currentPosition"].to_i })
     spin_as_hash = result.spin.to_hash
