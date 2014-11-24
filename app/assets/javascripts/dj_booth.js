@@ -505,18 +505,6 @@
           }
     });
   }
-  // *********************************************
-  // *          getCommercialBlock               *
-  // *                                           *
-  // *  -- STUB - to be replaced when commercial *
-  // * system is complete on backend             *
-  // *********************************************
-  var getCommercialBlock = function(currentPosition) {
-    var lastAudioQueueIndex = gon.audioQueue.length - 1;
-    return { type: "CommercialBlock", key: "STUBFORKEY", currentPosition: 1990,
-                  "commercials_follow?": "false", 
-                  airtime_in_ms: gon.audioQueue[lastAudioQueueIndex].airtime_in_ms + (gon.audioQueue[lastAudioQueueIndex].audio.duration*1000) }
-  }
 
   var hideOutsideSongs = function() {
     $('#all-songs-source-list li').each( function(index) {

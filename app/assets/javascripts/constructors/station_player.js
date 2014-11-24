@@ -8,6 +8,28 @@ var StationPlayer = function(attrs) {
   this.muted = false;
   var self = this;
 
+  var getCommercialBlockForBroadcast = function(currentPosition) {
+    
+    var callback = function(result) {
+      result.audio = new Audio(result.key);
+      result.audio.muted = self.muted;
+      self.audioQueue.push(result);
+    }
+
+    var spinInfo = {}
+    spinInfo.currentPosition = currentPosition;
+    spinInfo.stationId = self.stationId;  
+    
+    $.ajax({
+        type: 'GET',
+        dataType: 'json',
+        url: '/stations/get_commercial_block_for_broadcast',
+        contentType: 'application/json',
+        data: spinInfo,
+        success: callback
+    });
+  }
+
   var advanceSpin = function() {
     console.log('advancing spin...')
     // advance audioQueue
@@ -36,7 +58,7 @@ var StationPlayer = function(attrs) {
 
         // if commercials follow that spin
         if (result["commercials_follow?"]) {
-          self.audioQueue.push(getCommercialBlock(result.currentPosition));
+          self.audioQueue.push(getCommercialBlockForBroadcast(result.currentPosition));
         }
         return result;
       }
