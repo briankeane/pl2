@@ -81,10 +81,14 @@
           <div class="content active" id="all-songs-source-container">
             <label for="searchbox">Search Text:</label>
             <input type="text" id="searchbox" />
+            <div class="onlyMySongs-container">
+              <input id="onlyMySongs" class="switch" type="checkbox">
+              <label for="onlyMySongs">My Songs Only</label>
+            </div> 
 
             <ul id="all-songs-source-list">
               <% @all_songs.each do |song| %>
-                <li data-searchString= "<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>">
+                <li data-searchString= "<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" data-isOnStation = <%= (current_station.spins_per_week.has_key?(song.id)).to_s %>>
                   <span class="songlist-title"><%= song.title %></span>
                   <span class="songlist-artist"><%= song.artist %></span>
                 </li>
@@ -103,6 +107,7 @@
             </ul>
 
           </div>
+
         </div>
       </fieldset>
     </div>
@@ -142,7 +147,7 @@
     <p>Search our catalogue of songs here.  You can add any song to the queue by dragging it in with your mouse.</p>
   </li>
 
-  <li data-id="record-tab" data-button="Continue" data-options="tip_location:left;">
+  <li data-id="record-tab" data-button="Next" data-options="tip_location:left;">
     <h4>Voice-Tracking</h4>
     <p>In Chrome and Firefox you can record commentary, then drag it right into the setlist for DJ voiceovers.</p>
   </li>

@@ -92,6 +92,7 @@ class SchedulesController < ApplicationController
 
     # format time
     spin_as_hash["airtimeForDisplay"] = time_formatter(spin_as_hash[:airtime].in_time_zone(current_station.timezone))
+    spin_as_hash["currentPosition"] = spin_as_hash[:current_position]
 
     if result.spin.audio_block.is_a?(PL::Song)
       spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + result.spin.audio_block.key

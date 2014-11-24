@@ -44,6 +44,18 @@
     $('#searchbox').keyup(function(event) {
       var searchText = $('#searchbox').val();
       searchSonglist(searchText, ['#all-songs-source-list']);
+      if ($('#onlyMySongs').is(':checked')) {
+        hideOutsideSongs();
+      }
+    });
+
+    $('#onlyMySongs').on('click', function() {
+      if ($(this).is(':checked')) {
+        hideOutsideSongs();
+      } else {
+        var searchText = $('#searchbox').val();
+        searchSonglist(searchText, ['#all-songs-source-list']);
+      }
     });
 
     $('#recording').sortable({
@@ -506,6 +518,14 @@
                   airtime_in_ms: gon.audioQueue[lastAudioQueueIndex].airtime_in_ms + (gon.audioQueue[lastAudioQueueIndex].audio.duration*1000) }
   }
 
+  var hideOutsideSongs = function() {
+    $('#all-songs-source-list li').each( function(index) {
+      if ($(this).attr('data-isOnStation') != 'true') {
+        $(this).hide();
+      }
+    })
+  }
+
   var appendNextSpin = function() {
     var nextCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition')) + 1;
     var callback = function(result) {
@@ -520,7 +540,7 @@
       $('#schedule-list').attr('data-lastCurrentPosition', oldLastCurrentPosition + 1);
 
       if (result["commercials_follow?"] == true) {
-        var html = renderCommercialBlock({ airtime: (result.airtime_in_ms + result.audio.duration*1000) });
+        var html = renderCommercialBlock({ airtime: (result.airtime_in_ms + result.audio_block.duration*1000) });
         $('#schedule-list').append(html); 
       }
     }
