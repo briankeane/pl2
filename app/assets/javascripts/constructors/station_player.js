@@ -58,7 +58,7 @@ var StationPlayer = function(attrs) {
 
         // if commercials follow that spin
         if (result["commercials_follow?"]) {
-          self.audioQueue.push(getCommercialBlockForBroadcast(result.currentPosition));
+          getCommercialBlockForBroadcast(result.currentPosition);
         }
         return result;
       }
