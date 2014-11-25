@@ -499,6 +499,16 @@ shared_examples 'a badass database' do
       expect(new_playlist[8].id).to eq(old_playlist[8].id)
     end
 
+    it 'can delete_spins_for_schedule' do
+      new_spin = db.create_spin({ schedule_id: 9, 
+                                  current_position: 10,
+                                  audio_block_id: 10,
+                                  airtime: Time.now })
+      db.delete_spins_for_schedule(1)
+      expect(db.get_full_playlist(1).size).to eq(0)
+      expect(db.get_full_playlist(9).size).to eq(1)
+    end
+
 
     it "returns the current_playlist in the right order" do
       expect(db.get_full_playlist(1).size).to eq(20)

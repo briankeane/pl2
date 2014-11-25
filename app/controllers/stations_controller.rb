@@ -156,8 +156,7 @@ class StationsController < ApplicationController
      # format time
     commercial_block_as_hash["airtimeForDisplay"] = time_formatter(commercial_block_as_hash[:airtime].in_time_zone(current_station.timezone))
     commercial_block_as_hash["currentPosition"] = commercial_block_as_hash[:current_position]
-    render :json => commercial_block_as_hash
+    commercial_block_as_hash["key"] = "https://s3-us-west-2.amazonaws.com/playolacommercialblocks/" + result.commercial_block
+    render :json => commercial_block_as_hash  
   end
-
-
 end

@@ -412,6 +412,11 @@ module PL
         spin
       end
 
+      def delete_spins_for_schedule(schedule_id)
+        @spins.delete_if { |spin_id| self.get_spin(spin_id).schedule_id == schedule_id }
+      end
+
+
       def get_final_spin(schedule_id)
         @spins.values.select { |spin| spin.schedule_id == schedule_id }.max_by { |spin| spin.current_position }
       end
