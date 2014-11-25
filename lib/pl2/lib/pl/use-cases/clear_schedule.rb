@@ -1,6 +1,6 @@
 module PL
   class ClearSchedule < UseCase
-    def run(schedule)id
+    def run(schedule_id)
 
       schedule = PL.db.get_schedule(schedule_id)
 
@@ -10,9 +10,7 @@ module PL
 
       schedule.clear
 
-      commercial_block = station.get_commercial_block_for_broadcast(attrs[:current_position])
-
-      return success :commercial_block => commercial_block 
+      return success
     end
   end
 end
