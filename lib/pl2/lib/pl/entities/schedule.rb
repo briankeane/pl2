@@ -468,6 +468,11 @@ puts "pick_song_ms: " + pick_song_ms.to_s
       return moved_spin
     end
 
+    def clear
+      self.bring_current
+      PL.db.delete_spins_for_schedule(@id)
+    end
+
     # final_log_entry does not bring the station current
     def final_log_entry
       PL.db.get_recent_log_entries({ station_id: @station_id, count: 1 })[0]

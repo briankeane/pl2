@@ -96,6 +96,13 @@ describe 'schedule' do
       expect(@schedule.now_playing.current_position).to eq(530)
     end
 
+    it 'clears itself' do
+      Timecop.travel(Time.local(2014,5,10,17))
+      @schedule.clear
+      expect(@schedule.now_playing.current_position).to eq(530)
+      expect(PL.db.get_full_playlist(@schedule.id).size).to eq(0)
+    end
+
     it 'returns the currently playing spin if its a commercial' do
       Timecop.travel(Time.local(2014,5,10,17))
       expect(@schedule.now_playing.current_position).to eq(530)
