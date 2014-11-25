@@ -1,4 +1,5 @@
 class StationsController < ApplicationController
+  include ApplicationHelper
   
   def dj_booth
     return redirect_to station_new_path unless current_station
@@ -147,14 +148,15 @@ class StationsController < ApplicationController
   end
 
   def get_commercial_block_for_broadcast
-    result = PL::GetCommercialBlockForBroadcast.run({ station_id: params[:station_id].to_i,
-                                              current_position: params[:current_position] })
+    result = PL::GetCommercialBlockForBroadcast.run({ station_id: params[:stationId].to_i,
+                                              current_position: params[:currentPosition].to_i })
      
      commercial_block_as_hash = result.commercial_block.to_hash   
+    
      # format time
     commercial_block_as_hash["airtimeForDisplay"] = time_formatter(commercial_block_as_hash[:airtime].in_time_zone(current_station.timezone))
     commercial_block_as_hash["currentPosition"] = commercial_block_as_hash[:current_position]
-    render :json => result
+    render :json => commercial_block_as_hash
   end
 
 
