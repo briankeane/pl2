@@ -127,14 +127,14 @@ class SchedulesController < ApplicationController
   end
 
   def reset_schedule
-    result = PL::ClearSchedule.run(params[:schedule_id].to_i)
+    result = PL::ClearSchedule.run(current_schedule.id)
 
     # run GetProgram to repopulate the beginning of the schedule
-    result = PL::GetProgram.run({ schedule_id: params[:schedule_id].to_i })
+    result = PL::GetProgram.run({ schedule_id: current_schedule.id })
 
     render :json => { success: true }
   end
-  
+
   def report_spin_started
   end
 

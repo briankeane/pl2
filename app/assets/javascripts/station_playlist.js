@@ -12,6 +12,20 @@
     }).foundation('joyride', 'start');
 
 
+    $('#resetStation').on('click', function() {
+      if (window.confirm('Are you sure?  All future programs and commentary will be erased!')) {
+        $.ajax({
+          type: "PUT",
+          dataType: "json",
+          url: '/schedules/reset_schedule',
+          contentType: 'application/json',
+          success: function(result) {
+            console.log('Sucess! Deleted!');
+            console.log(result);
+          }
+        });
+      }
+    });
 
     $('#searchbox').keyup(function() {
       var searchText = $('#searchbox').val();

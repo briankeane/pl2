@@ -41,7 +41,9 @@ Rails.application.routes.draw do
   match '/listens/index',                               to: 'listens#index',                                via: 'get'
   match '/schedules/get_spin_by_current_position',      to: 'schedules#get_spin_by_current_position',       via: 'get'
   match '/schedules/remove_spin',                       to: 'schedules#remove_spin',                        via: 'delete'
+  match '/schedules/reset_schedule',                    to: 'schedules#reset_schedule',                     via: 'put'
   match '/listens/:id',                                 to: 'listens#show',                                 via: 'get'
+
   # sessions_controller paths
   get '/auth/twitter/callback', to: 'sessions#create_with_twitter'
 
