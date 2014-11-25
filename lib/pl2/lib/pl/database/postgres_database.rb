@@ -709,6 +709,10 @@ module PL
         removed_spin
       end
 
+      def delete_spins_for_schedule(schedule_id)
+        spins = Spin.delete_all(["schedule_id = ?", schedule_id])
+      end
+
       def get_final_spin(schedule_id)
         Spin.where("schedule_id = ?", schedule_id).order(:current_position).last
       end
