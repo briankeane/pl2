@@ -1,5 +1,5 @@
 .env
 lib/pl2/vendor/
 lib/pl2/secrets
-tmp/*
+/tmp
 lib/pl2/spec/vcr_cassettes/*
