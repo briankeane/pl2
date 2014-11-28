@@ -348,7 +348,7 @@
         var currentPosition = '';
       }
 
-      var html = '<li class="commercial ui-sortable-handle" data-currentPosition="' + 
+      var html = '<li class="commercialBlock ui-sortable-handle" data-currentPosition="' + 
                   spinInfo.currentPosition + '"><span class="songlist-title">Commercial Block' + 
                   '</span><span class="songlist-artist"></span>' +
                   '<span class="songlist-airtime">' + spinInfo.airtimeForDisplay + '</span></li>';
@@ -528,7 +528,7 @@
       $('#schedule-list').attr('data-lastCurrentPosition', oldLastCurrentPosition + 1);
 
       if (result["commercials_follow?"] == true) {
-        var html = renderCommercialBlock({ airtime: (result.airtime_in_ms + result.audio_block.duration*1000) });
+        var html = renderCommercialBlock({ airtime: (result.airtime_in_ms + 3*60*1000) });
         $('#schedule-list').append(html); 
       }
     }
