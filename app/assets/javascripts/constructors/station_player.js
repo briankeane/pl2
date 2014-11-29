@@ -32,6 +32,7 @@ var StationPlayer = function(attrs) {
 
   var advanceSpin = function() {
     console.log('advancing spin...')
+
     // advance audioQueue
     self.justPlayed = self.audioQueue.shift();
     self.audioQueue[0].audio.play();
@@ -41,6 +42,7 @@ var StationPlayer = function(attrs) {
     setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
 
     if (self.audioQueue.length<4) { 
+      
       // create callback for ajax request
       var updateQueue = function(result) {
         console.log(result);
@@ -111,5 +113,4 @@ var StationPlayer = function(attrs) {
       self.audioQueue[i].audio.muted = self.muted;
     }
   }
-
 }
