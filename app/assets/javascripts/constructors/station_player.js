@@ -2,7 +2,7 @@ var StationPlayer = function(attrs) {
   
   // store necessary stuff
   var musicStarted = false;
-  this.scheduleId = attrs.scheduleId;
+  this.stationId = attrs.stationId;
   this.stationId = attrs.stationId;
   this.audioQueue = attrs.audioQueue;
   this.muted = false;
@@ -69,7 +69,7 @@ var StationPlayer = function(attrs) {
       var spinInfo = {};
       spinInfo.currentPosition = self.audioQueue[self.audioQueue.length - 1].currentPosition + 1;
       spinInfo.lastCurrentPosition = spinInfo.currentPosition;
-      spinInfo.scheduleId = self.scheduleId;
+      spinInfo.stationId = self.stationId;
       
       getSpinByCurrentPosition(spinInfo, updateQueue);
       

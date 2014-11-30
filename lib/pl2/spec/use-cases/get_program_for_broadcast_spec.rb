@@ -7,7 +7,7 @@ describe 'GetProgramForBroadcast' do
     result = PL::GetProgramForBroadcast.run({ station_id: 9999,
                       start_time: Time.local(2014,10,10, 10,30) })
     expect(result.success?).to eq(false)
-    expect(result.error).to eq(:schedule_not_found)
+    expect(result.error).to eq(:station_not_found)
   end
 
   describe 'More GetProgramForBroadcast' do
@@ -31,21 +31,19 @@ describe 'GetProgramForBroadcast' do
       @station = PL.db.create_station({ user_id: @user.id, 
                                           spins_per_week: spins_per_week 
                                        })
-      @schedule = PL.db.create_schedule({ station_id: @station.id })
-      @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
-      @schedule.generate_playlist
+      @station.generate_playlist
     end
 
     it 'gets a playlist' do
-      result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id })
+      result = PL::GetProgramForBroadcast.run({ station_id: @station.id })
       expect(result.success?).to eq(true)
       expect(result.program.size).to eq(3)
-      expect(result.program[0].id).to eq(@schedule.now_playing.id)
+      expect(result.program[0].id).to eq(@station.now_playing.id)
     end
 
     it 'gets a playlist if now_playing is a commercial' do
       Timecop.travel(Time.local(2014,5,9, 11))
-      result = PL::GetProgramForBroadcast.run({ schedule_id: @schedule.id })
+      result = PL::GetProgramForBroadcast.run({ station_id: @station.id })
       expect(result.success?).to eq(true)
       expect(result.program[0]).to be_a(PL::CommercialBlock)
     end

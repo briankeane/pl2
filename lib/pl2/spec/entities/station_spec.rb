@@ -34,10 +34,6 @@ describe 'a station' do
     expect(@station.user.id).to eq(@station.user_id)
   end
 
-  it "can get it's schedule" do
-    expect(@station.schedule.id).to eq(@station.schedule_id)
-  end
-
   it "allows editing of the spins_per_week hash" do
     @station.spins_per_week[5] = 10
     expect(@station.spins_per_week[5]).to eq(10)
@@ -58,26 +54,26 @@ describe 'a station' do
     before (:each) do
       
       @station = PL.db.create_station({ user_id: 1, secs_of_commercial_per_hour: 300 })
-      @schedule = PL.db.create_schedule({ station_id: @station.id })
-      PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
+      @station = PL.db.create_station({ station_id: @station.id })
+      PL.db.update_station({ id: @station.id, station_id: @station.id })
       @song = PL.db.create_song({ duration: 180000 })
       @spin1 = PL.db.create_spin({ current_position: 15,
-                                      schedule_id: @schedule.id,
+                                      station_id: @station.id,
                                       audio_block_id: @song.id,
                                       airtime: Time.new(2014, 4, 15, 11, 25) 
                                       })
       @spin2 = PL.db.create_spin({ current_position: 16,
-                                      schedule_id: @schedule.id,
+                                      station_id: @station.id,
                                       audio_block_id: @song.id,                                     
                                       airtime: Time.new(2014, 4, 15, 11, 28) 
                                       })
       @spin3 = PL.db.create_spin({ current_position: 17,
-                                      schedule_id: @schedule.id,
+                                      station_id: @station.id,
                                       audio_block_id: @song.id,                                     
                                       airtime: Time.new(2014, 4, 15, 12, 31) 
                                       })
       @spin4 = PL.db.create_spin({ current_position: 18,
-                                      schedule_id: @schedule.id,
+                                      station_id: @station.id,
                                       audio_block_id: @song.id,
                                       airtime: Time.new(2014, 4, 15, 12, 38) 
                                       })

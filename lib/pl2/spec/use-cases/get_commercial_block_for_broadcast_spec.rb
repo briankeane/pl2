@@ -30,12 +30,10 @@ describe 'GetCommercialBlockForBroadcast' do
       @station = PL.db.create_station({ user_id: @user.id, 
                                           spins_per_week: spins_per_week 
                                        })
-      @schedule = PL.db.create_schedule({ station_id: @station.id })
-      @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
-      @schedule.generate_playlist
+      @station.generate_playlist
     end
 
-    it 'calls bullshit if commercial_block has not been scheduled yet' do
+    it 'calls bullshit if commercial_block has not been stationd yet' do
       Timecop.travel(Time.local(2014,5,10, 10,30))
       result = PL::GetCommercialBlockForBroadcast.run({ station_id: @station.id,
                                                         current_position: 7000 })
@@ -43,7 +41,7 @@ describe 'GetCommercialBlockForBroadcast' do
       expect(result.error).to eq(:commercial_not_scheduled_yet)
     end
 
-    it 'calls bullshit if the commercial_block is not scheduled for that block' do
+    it 'calls bullshit if the commercial_block is not stationd for that block' do
       Timecop.travel(Time.local(2014,5,10, 10,30))
       result = PL::GetCommercialBlockForBroadcast.run({ station_id: @station.id,
                                                         current_position: 1 })

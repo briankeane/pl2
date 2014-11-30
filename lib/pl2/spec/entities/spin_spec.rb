@@ -10,21 +10,21 @@ describe 'a spin' do
 
 
     @spin = PL::Spin.new({ id: 1, 
-                          schedule_id: 3,
+                          station_id: 3,
                           current_position: 2, 
                           audio_block_id: @song.id,
                           created_at: Time.new(1970),
                           updated_at: Time.new(1970, 1, 2),
                           airtime: Time.new(2014,1,1, 12) })
     @spin2 = PL::Spin.new({ id: 1, 
-                          schedule_id: 3,
+                          station_id: 3,
                           current_position: 3, 
                           audio_block_id: @commercial.id,
                           created_at: Time.new(1970),
                           updated_at: Time.new(1970, 1, 2),
                           airtime: 4000 })
     @spin3 = PL::Spin.new({ id: 1, 
-                          schedule_id: 3,
+                          station_id: 3,
                           current_position: 4,
                           audio_block_id: @commentary.id,
                           created_at: Time.new(1970),
@@ -38,7 +38,7 @@ describe 'a spin' do
     expect(@spin.audio_block.id).to eq(@song.id)
     expect(@spin.created_at).to eq(Time.new(1970))
     expect(@spin.updated_at).to eq(Time.new(1970, 1, 2))
-    expect(@spin.schedule_id).to eq(3)
+    expect(@spin.station_id).to eq(3)
     expect(@spin.airtime.to_s).to eq('2014-01-01 12:00:00 -0600')
   end
 
@@ -79,7 +79,7 @@ describe 'a spin' do
     expect(hash[:audio_block][:id]).to eq(@song.id)
     expect(hash[:created_at]).to eq(Time.new(1970))
     expect(hash[:updated_at]).to eq(Time.new(1970, 1, 2))
-    expect(hash[:schedule_id]).to eq(3)
+    expect(hash[:station_id]).to eq(3)
     expect(hash[:airtime].to_s).to eq('2014-01-01 12:00:00 -0600')
     expect(hash[:airtime_in_ms]).to eq(@spin.airtime_in_ms)
     expect(hash[:commercials_follow?]).to eq(@spin.commercials_follow?)

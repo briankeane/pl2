@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'timecop'
 
-describe 'ClearSchedule' do
+describe 'ClearStation' do
   before (:each) do
     Timecop.travel(Time.local(2014, 5, 9, 10))
     @user = PL.db.create_user({ twitter: "Bob" })
@@ -22,21 +22,19 @@ describe 'ClearSchedule' do
     @station = PL.db.create_station({ user_id: @user.id, 
                                         spins_per_week: spins_per_week 
                                      })
-    @schedule = PL.db.create_schedule({ station_id: @station.id })
-    @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
-    @schedule.generate_playlist
+    @station.generate_playlist
   end
 
-  it 'calls bullshit if the schedule does not exist' do
-    result = PL::ClearSchedule.run(9999999)
-    expect(result.error).to eq(:schedule_not_found)
+  it 'calls bullshit if the station does not exist' do
+    result = PL::ClearStation.run(9999999)
+    expect(result.error).to eq(:station_not_found)
   end
 
-  it 'clears a schedule' do
-    result = PL::ClearSchedule.run(@schedule.id)
+  it 'clears a station' do
+    result = PL::ClearStation.run(@station.id)
     expect(result.success?).to eq(true)
-    expect(PL.db.get_full_playlist(@schedule.id).size).to eq(0)
-    expect(@schedule.now_playing).to_not be_nil
+    expect(PL.db.get_full_playlist(@station.id).size).to eq(0)
+    expect(@station.now_playing).to_not be_nil
   end
 
   after(:all) do

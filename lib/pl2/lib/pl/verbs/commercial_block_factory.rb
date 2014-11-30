@@ -19,7 +19,7 @@ module PL
       commercial_block_key = this_commercial_block.to_s.rjust(4, padstr='0') + '_commercial_block.mp3'  
       
       # grab the airtime
-      leading_spin = PL.db.get_spin_by_current_position({ schedule_id: attrs[:station].schedule_id, current_position: attrs[:current_position]})
+      leading_spin = PL.db.get_spin_by_current_position({ station_id: attrs[:station].id, current_position: attrs[:current_position]})
 
       if !leading_spin
         leading_spin = PL.db.get_log_entry_by_current_position({ station_id: attrs[:station].id, current_position: attrs[:current_position] })

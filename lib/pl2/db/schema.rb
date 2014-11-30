@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141116170521) do
+ActiveRecord::Schema.define(version: 20141129185403) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,7 +33,6 @@ ActiveRecord::Schema.define(version: 20141116170521) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "echonest_id"
-    t.integer  "schedule_id"
     t.integer  "station_id"
     t.integer  "current_position"
     t.datetime "airtime"
@@ -64,14 +63,6 @@ ActiveRecord::Schema.define(version: 20141116170521) do
     t.boolean  "is_commercial_block"
   end
 
-  create_table "schedules", force: true do |t|
-    t.integer  "station_id"
-    t.datetime "current_playlist_end_time"
-    t.datetime "original_playlist_end_time"
-    t.integer  "next_commercial_block_id"
-    t.integer  "last_accurate_current_position"
-  end
-
   create_table "sessions", force: true do |t|
     t.string  "session_id"
     t.integer "user_id"
@@ -89,7 +80,7 @@ ActiveRecord::Schema.define(version: 20141116170521) do
     t.integer  "audio_block_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "schedule_id"
+    t.integer  "station_id"
   end
 
   create_table "stations", force: true do |t|
@@ -98,8 +89,11 @@ ActiveRecord::Schema.define(version: 20141116170521) do
     t.integer  "spins_per_week"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "schedule_id"
     t.integer  "last_commercial_block_aired"
+    t.integer  "last_accurate_current_position"
+    t.integer  "next_commercial_block_id"
+    t.datetime "current_playlist_end_time"
+    t.datetime "original_playlist_end_time"
   end
 
   create_table "twitter_friends", force: true do |t|
@@ -120,6 +114,7 @@ ActiveRecord::Schema.define(version: 20141116170521) do
     t.string   "zipcode"
     t.string   "timezone"
     t.string   "profile_image_url"
+    t.integer  "station_id"
   end
 
 end

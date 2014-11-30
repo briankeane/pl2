@@ -4,7 +4,7 @@ class StationsController < ApplicationController
   def dj_booth
     return redirect_to station_new_path unless current_station
 
-    result = PL::GetProgram.run({ schedule_id: current_schedule.id })
+    result = PL::GetProgram.run({ station_id: current_station.id })
     @program = result.program unless !result.success?
 
     # remove 'now playing' from program
@@ -22,15 +22,15 @@ class StationsController < ApplicationController
       @first_current_position = @program[0].current_position
     end
 
-    gon.audioQueue = get_audio_queue(current_schedule.id)
+    gon.audioQueue = get_audio_queue(current_station.id)
     gon.stationId = current_station.id
-    gon.scheduleId = current_schedule.id
+    gon.stationId = current_station.id
     
     @all_songs = PL.db.get_all_songs
   end
 
   def song_manager
-    if !current_station || !current_station.schedule
+    if !current_station || !current_station.station
       return redirect_to station_new_path
     end
 
@@ -93,7 +93,7 @@ class StationsController < ApplicationController
     result = PL::CreateStation.run({ user_id: current_user.id,
                                      spins_per_week: spins_per_week })
 
-    current_schedule.generate_playlist(Time.now + (24*60*60))
+    current_station.generate_playlist(Time.now + (24*60*60))
 
     @first_visit = true
 

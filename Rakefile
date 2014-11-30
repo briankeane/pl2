@@ -38,14 +38,9 @@ namespace :db do
     # [code to migrate database would go here]
   end
 
-  task :clear_users => [:load_app, :clear_schedules, :clear_stations] do
+  task :clear_users => [:load_app, :clear_stations] do
     puts 'Clearing Users'
     PL.db.destroy_all_users
-  end
-
-  task :clear_stations => [:load_app, :clear_schedules] do
-    puts 'Clearing Stations...'
-    PL.db.destroy_all_stations
   end
 
   task :clear_schedules => [:load_app] do

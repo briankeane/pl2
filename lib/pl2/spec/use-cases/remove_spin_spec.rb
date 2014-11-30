@@ -8,8 +8,7 @@ describe "RemoveSpin" do
     Timecop.travel(Time.local(2014, 5, 9, 10))
     @user = PL.db.create_user({ twitter: 'bob', timezone: 'Central Time (US & Canada)' })
     @station = PL.db.create_station({ user_id: @user.id })
-    @schedule = PL.db.create_schedule({ station_id: @station.id })
-    @station = PL.db.update_station({ id: @station.id, schedule_id: @schedule.id })
+
     @songs = []
     86.times do |i|
       @songs << PL.db.create_song({ title: "#{i} title", artist: "#{i} artist", album: "#{i} album", duration: 190000 })
@@ -27,26 +26,26 @@ describe "RemoveSpin" do
     @station = PL.db.update_station({ id: @station.id,
                                         spins_per_week: spins_per_week 
                                      })
-    @schedule.generate_playlist
+    @station.generate_playlist
   end
 
-  it "calls bullshit if the schedule_id is invalid" do
-    result = PL::RemoveSpin.run({ schedule_id: 999,
+  it "calls bullshit if the station_id is invalid" do
+    result = PL::RemoveSpin.run({ station_id: 999,
                                   old_position: 8,
                                   new_position: 7 })
     expect(result.success?).to eq(false)
-    expect(result.error).to eq(:schedule_not_found)
+    expect(result.error).to eq(:station_not_found)
   end
 
   it "removes a spin" do
-    program_before_ids = @schedule.get_program.map { |spin| spin.id }
-    result = PL::RemoveSpin.run({ schedule_id: @schedule.id,
+    program_before_ids = @station.get_program.map { |spin| spin.id }
+    result = PL::RemoveSpin.run({ station_id: @station.id,
                                   current_position: 9 })
-    program_after_ids = @schedule.get_program.map { |spin| spin.id }
+    program_after_ids = @station.get_program.map { |spin| spin.id }
     expect(result.success?).to eq(true)
     expect(program_before_ids[12]).to eq(program_after_ids[11])  # everything is shifted back one spin
     expect(program_after_ids.include?(program_before_ids[8])).to eq(false)  #removed_spin is gone
-    late_program_ids = @schedule.get_program(start_time: Time.new(2014,5,10,3)).map { |spin| spin.id }
+    late_program_ids = @station.get_program(start_time: Time.new(2014,5,10,3)).map { |spin| spin.id }
     expect(late_program_ids[1]).to eq(program_before_ids[8])  #removed spin has been inserted at 3am  
   end
 

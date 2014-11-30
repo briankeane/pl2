@@ -1,6 +1,6 @@
 class ListensController < ApplicationController
   def index
-    @current_schedule = current_schedule
+    @current_station = current_station
   end
 
   def show
@@ -12,14 +12,14 @@ class ListensController < ApplicationController
                                                     count: 10 })
 
     
-    schedule = PL.db.get_schedule(@listen_station.schedule_id)
+    station = PL.db.get_station(@listen_station.station_id)
     
     # load audioQueue array
-    gon.audioQueue = get_audio_queue(schedule.id)
+    gon.audioQueue = get_audio_queue(station.id)
 
     gon.currentStation = current_station
     gon.stationId = @listen_station.id
-    gon.scheduleId = schedule.id
+    gon.stationId = station.id
 
     # grab the 10 most recent songs
     @log = PL.db.get_recent_log_entries({ station_id: @listen_station.id, count: 30 })

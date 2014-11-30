@@ -17,6 +17,7 @@ describe 'SongPoolHandler' do
                         key: 'test_key2.mp3',
                         echonest_id: 'SOTWSLV13CF6D275AF',
                         )
+
     @sph.clear_all_songs
   end
 

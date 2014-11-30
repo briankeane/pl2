@@ -1,18 +1,18 @@
 module PL
   class GetSpinByCurrentPosition < UseCase
     def run(attrs)
-      schedule = PL.db.get_schedule(attrs[:schedule_id])
+      station = PL.db.get_station(attrs[:station_id])
 
-      if !schedule
-        return failure :schedule_not_found
+      if !station
+        return failure :station_not_found
       end
 
-      spin = schedule.get_program_by_current_positions({ starting_current_position: attrs[:current_position],
+      spin = station.get_program_by_current_positions({ starting_current_position: attrs[:current_position],
                                      ending_current_position: attrs[:current_position] })[0]
 
       if !spin
         # see if it's already played
-        spin = PL.db.get_log_entry_by_current_position({ station_id: schedule.station_id,
+        spin = PL.db.get_log_entry_by_current_position({ station_id: station.station_id,
                                                     current_position: attrs[:current_position] })
         if !spin
           return failure(:spin_not_found)

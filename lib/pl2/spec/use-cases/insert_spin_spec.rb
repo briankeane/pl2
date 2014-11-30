@@ -21,22 +21,21 @@ require 'spec_helper'
       @station = PL.db.create_station({ user_id: @user.id, 
                                           spins_per_week: spins_per_week 
                                        })
-      @schedule = PL.db.create_schedule({ station_id: @station.id })
-      @schedule.generate_playlist
-      @old_playlist_ab_ids = PL.db.get_full_playlist(@schedule.id).map { |spin| spin.audio_block_id }
+      @station.generate_playlist
+      @old_playlist_ab_ids = PL.db.get_full_playlist(@station.id).map { |spin| spin.audio_block_id }
     end
 
-    xit 'calls bullshit if the schedule is not found' do
+    xit 'calls bullshit if the station is not found' do
     end
     
     it 'adds a spin' do
       added_audio_block = PL.db.create_song({ duration: 50000 })
-      result = PL::InsertSpin.run({ schedule_id: @schedule.id,
+      result = PL::InsertSpin.run({ station_id: @station.id,
                                 add_position: 15,
                                 audio_block_id: added_audio_block.id })
 
       expect(result.success?).to eq(true)
-      new_playlist = PL.db.get_full_playlist(@schedule.id)
+      new_playlist = PL.db.get_full_playlist(@station.id)
       expect(new_playlist.size).to eq(@old_playlist_ab_ids.size + 1)
       expect(result.added_spin.current_position).to eq(15)
       expect(@old_playlist_ab_ids.last).to eq(new_playlist.last.audio_block_id)

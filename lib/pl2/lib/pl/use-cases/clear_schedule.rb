@@ -1,14 +1,14 @@
 module PL
-  class ClearSchedule < UseCase
-    def run(schedule_id)
+  class ClearStation < UseCase
+    def run(station_id)
 
-      schedule = PL.db.get_schedule(schedule_id)
+      station = PL.db.get_station(station_id)
 
-      if !schedule
-        return failure :schedule_not_found
+      if !station
+        return failure :station_not_found
       end
 
-      schedule.clear
+      station.clear
 
       return success
     end

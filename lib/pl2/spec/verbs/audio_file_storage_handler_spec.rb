@@ -118,10 +118,10 @@ describe 'audio_file_storage_handler' do
   it 'stores a commentary', :slow do
     # ********* VCR does not work with metadata methods ***** #
     File.open('spec/test_files/testCommentary.mp3') do |file|
-      new_key = @grabber.store_commentary({ schedule_id: 55,
+      new_key = @grabber.store_commentary({ station_id: 55,
                                             duration: 9999,
                                             audio_file: file })
-      commentary = PL.db.create_commentary({ schedule_id: 55,
+      commentary = PL.db.create_commentary({ station_id: 55,
                                             key: new_key })
 
       mp3_file = @grabber.grab_audio(commentary)

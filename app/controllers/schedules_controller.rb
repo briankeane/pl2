@@ -4,13 +4,13 @@ class SchedulesController < ApplicationController
   def move_spin
     result = PL::MoveSpin.run({ new_position: params[:newPosition],
                                 old_position: params[:oldPosition],
-                                schedule_id: current_schedule.id })
+                                station_id: current_station.id })
 
     max_position = [params[:oldPosition], params[:newPosition]].max
     min_position = [params[:oldPosition], params[:newPosition]].min - 1  # buffer for leading commercial blocks
     
     
-    result.new_program = current_schedule.get_program_by_current_positions({ schedule_id: current_schedule.id,
+    result.new_program = current_station.get_program_by_current_positions({ station_id: current_station.id,
                                                                              starting_current_position: min_position,
                                                                              ending_current_position: max_position })
 
@@ -32,14 +32,14 @@ class SchedulesController < ApplicationController
   end
 
   def insert_song
-    result = PL::InsertSpin.run({ schedule_id: current_schedule.id,
+    result = PL::InsertSpin.run({ station_id: current_station.id,
                                   add_position: params[:addPosition].to_i,
                                   audio_block_id: params[:songId].to_i })
     
     result.min_position = params[:addPosition].to_i - 1
     result.max_position = params[:lastCurrentPosition].to_i + 1
 
-    result.new_program = current_schedule.get_program_by_current_positions({ schedule_id: current_schedule.id,
+    result.new_program = current_station.get_program_by_current_positions({ station_id: current_station.id,
                                                                             starting_current_position: result.min_position,
                                                                             ending_current_position: result.max_position })
     
@@ -63,13 +63,13 @@ class SchedulesController < ApplicationController
       result = PL::ProcessCommentary.run({ audio_file: params[:data].tempfile,
                                   add_position: params[:addPosition].to_i,
                                   duration: params[:duration].to_i,
-                                  schedule_id: current_schedule.id })
+                                  station_id: current_station.id })
     end
 
     result.min_position = params[:addPosition].to_i - 1
     result.max_position = params[:lastCurrentPosition].to_i + 1
 
-    result.new_program = current_schedule.get_program_by_current_positions({ schedule_id: current_schedule.id,
+    result.new_program = current_station.get_program_by_current_positions({ station_id: current_station.id,
                                                                             starting_current_position: result.min_position,
                                                                             ending_current_position: result.max_position })
     
@@ -86,7 +86,7 @@ class SchedulesController < ApplicationController
   end
 
   def get_spin_by_current_position
-    result = PL::GetSpinByCurrentPosition.run({ schedule_id: params["scheduleId"].to_i,
+    result = PL::GetSpinByCurrentPosition.run({ station_id: params["stationId"].to_i,
                                                 current_position: params["currentPosition"].to_i })
     spin_as_hash = result.spin.to_hash
 
@@ -107,12 +107,12 @@ class SchedulesController < ApplicationController
 
 
   def remove_spin
-    result = PL::RemoveSpin.run({ schedule_id: current_schedule.id,
+    result = PL::RemoveSpin.run({ station_id: current_station.id,
                                    current_position: params[:current_position] })
     if result.success?
       result.min_position = params[:current_position] - 1
       result.max_position = params[:last_current_position].to_i + 1
-      result.new_program = current_schedule.get_program_by_current_positions({ schedule_id: current_schedule.id,
+      result.new_program = current_station.get_program_by_current_positions({ station_id: current_station.id,
                                                                             starting_current_position: result.min_position,
                                                                             ending_current_position: result.max_position })
 
@@ -128,11 +128,11 @@ class SchedulesController < ApplicationController
     end
   end
 
-  def reset_schedule
-    result = PL::ClearSchedule.run(current_schedule.id)
+  def reset_station
+    result = PL::ClearSchedule.run(current_station.id)
 
-    # run GetProgram to repopulate the beginning of the schedule
-    result = PL::GetProgram.run({ schedule_id: current_schedule.id })
+    # run GetProgram to repopulate the beginning of the station
+    result = PL::GetProgram.run({ station_id: current_station.id })
 
     render :json => { success: true }
   end

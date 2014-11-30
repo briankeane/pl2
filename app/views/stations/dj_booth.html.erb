@@ -8,17 +8,17 @@
           <legend>Now Playing</legend>
   
           <ul id="nowPlayingList">
-            <% if current_schedule.now_playing.is_commercial_block %>
+            <% if current_station.now_playing.is_commercial_block %>
                <li class='nowPlaying commercialBlock'>
                 <span class='title'><b>Commercial Block</b></span>
                 <span class='artist'></span>
             
-            <% elsif current_schedule.now_playing.audio_block.is_a?(PL::Song) %>
+            <% elsif current_station.now_playing.audio_block.is_a?(PL::Song) %>
               <li class='nowPlaying song'>
                 <span class='title'><%= current_station.now_playing.audio_block.title %></span>
                 <span class='artist'><%= current_station.now_playing.audio_block.artist %></span>
             
-            <% elsif current_schedule.now_playing.is_a?(PL::Commentary) %>
+            <% elsif current_station.now_playing.is_a?(PL::Commentary) %>
               <li class='nowPlaying commentary'>
               <span class='title'><b>Commentary</b></span>
             <% end %>
@@ -36,10 +36,10 @@
           </ul>       
         </fieldset>
 
-        <fieldset id="schedule-fieldset">
+        <fieldset id="station-fieldset">
           <legend>Station Schedule</legend>
 
-          <ul id="schedule-list" data-firstCurrentPosition="<%= @first_current_position %>"  data-lastCurrentPosition="<%= @program.last.current_position || @program[-2].current_position %>">
+          <ul id="station-list" data-firstCurrentPosition="<%= @first_current_position %>"  data-lastCurrentPosition="<%= @program.last.current_position || @program[-2].current_position %>">
             <% @program.each do |spin| %>
               <% if spin.is_a?(PL::CommercialBlock) %>
 
@@ -127,9 +127,9 @@
     <p>This is what's currently playing on your station. You can mute the station with the center button.</p>
   </li>
 
-  <li data-id="schedule-list" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;">
+  <li data-id="station-list" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;">
     <h4>The Queue</h4>
-    <p>This is the schedule of songs that are about to play on your station.</p>
+    <p>This is the station of songs that are about to play on your station.</p>
   </li>
 
   <li data-class="ui-sortable-handle:first" data-text="Next" data-prev-text="Prev">

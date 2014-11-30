@@ -17,7 +17,7 @@
         $.ajax({
           type: "PUT",
           dataType: "json",
-          url: '/schedules/reset_schedule',
+          url: '/stations/reset_station',
           contentType: 'application/json',
           success: function(result) {
             console.log('Sucess! Deleted!');

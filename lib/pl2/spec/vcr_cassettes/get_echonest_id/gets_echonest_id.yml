@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 20 Nov 2014 21:52:24 GMT
+      - Sun, 30 Nov 2014 02:55:36 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -27,9 +27,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - XbdNPIuQSGKC06tP7pw+yw
+      - kF+RIRGjSZK/y9gKQ9bvEQ
       X-Worker-Node:
-      - fe870:4331
+      - 9f840:24720
       X-Ratelimit-Remaining:
       - '118'
       Server:
@@ -58,19 +58,17 @@ http_interactions:
         "id": "SOLCFXS12AB018A564", "artist_name": "Rachel Loy", "title": "Rachel
         talks about \"The Same Man\""}, {"artist_id": "ARZWZYC13BEDDDFA7F", "id":
         "SOPXTLW13D4328D660", "artist_name": "DJ B Loy", "title": "Ready to B-Loy"},
-        {"artist_id": "ARHBV1W1187B9B496C", "id": "SOEMBZM137E01A4C85", "artist_name":
-        "Rachel Loy", "title": "I Can Feel It (Lovin'' Me) P.H.A.T.T. Radio Edit"},
-        {"artist_id": "ARHBV1W1187B9B496C", "id": "SOELUIG13CF6D1858A", "artist_name":
-        "Rachel Loy", "title": "Too Good to Be True"}, {"artist_id": "ARHBV1W1187B9B496C",
-        "id": "SODPILT131343943AF", "artist_name": "Rachel Loy", "title": "Stay"},
-        {"artist_id": "ARHBV1W1187B9B496C", "id": "SODKUSZ131BC1F79B5", "artist_name":
-        "Rachel Loy", "title": "You Win"}, {"artist_id": "ARHBV1W1187B9B496C", "id":
-        "SOCGYQY14620B0B4EC", "artist_name": "Rachel Loy", "title": "The Same Man
-        (For Matthew) (Acoustic Version)"}, {"artist_id": "ARHBV1W1187B9B496C", "id":
-        "SOCHFDJ137E01A4C92", "artist_name": "Rachel Loy", "title": "I Can Feel It
-        (Lovin'' Me) Audioscape Radio Edit"}, {"artist_id": "ARHBV1W1187B9B496C",
-        "id": "SOCNWSA130516E06B8", "artist_name": "Rachel Loy", "title": "Afraid
-        to Steer"}]}}'
+        {"artist_id": "ARHBV1W1187B9B496C", "id": "SOFURHF13152A76387", "artist_name":
+        "Rachel Loy", "title": "Overboard"}, {"artist_id": "ARHBV1W1187B9B496C", "id":
+        "SOFQNVR13152A76247", "artist_name": "Rachel Loy", "title": "Sweet Dreams"},
+        {"artist_id": "ARHBV1W1187B9B496C", "id": "SONSSQD131BC1F7456", "artist_name":
+        "Rachel Loy", "title": "Give Yourself a Kiss"}, {"artist_id": "ARHBV1W1187B9B496C",
+        "id": "SOIKFZR13CF6D1BC83", "artist_name": "Rachel Loy", "title": "Not Anymore"},
+        {"artist_id": "ARHBV1W1187B9B496C", "id": "SOXNNSQ13152A775BF", "artist_name":
+        "Rachel Loy", "title": "Sky Line"}, {"artist_id": "ARHBV1W1187B9B496C", "id":
+        "SOGQDVI130516DD94A", "artist_name": "Rachel Loy", "title": "You Win"}, {"artist_id":
+        "ARHBV1W1187B9B496C", "id": "SOHDVBF130516DD0AC", "artist_name": "Rachel Loy",
+        "title": "Inconsolable"}]}}'
     http_version: 
-  recorded_at: Thu, 20 Nov 2014 21:52:24 GMT
+  recorded_at: Sun, 30 Nov 2014 02:55:35 GMT
 recorded_with: VCR 2.9.3

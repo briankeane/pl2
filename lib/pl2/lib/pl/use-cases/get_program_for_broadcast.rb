@@ -1,19 +1,13 @@
 module PL
   class GetProgramForBroadcast < UseCase
     def run(attrs)
-      schedule = PL.db.get_schedule(attrs[:schedule_id])
-
-      if !schedule
-        return failure :schedule_not_found
-      end
-
-      station = PL.db.get_station(schedule.station_id)
+      station = PL.db.get_station(attrs[:station_id])
 
       if !station
         return failure :station_not_found
       end
 
-      program = schedule.get_program
+      program = station.get_program
 
       if program.size == 0
         return failure(:no_playlist_for_requested_time)

@@ -45,13 +45,13 @@ function formatSongFromMS(milliseconds) {
 // *  -- spinInfo: lastCurrentPosition,        *
 // *               currentPosition,            *
 // *               stationId,                  *
-// *               scheduleId                  *
+// *               stationId                  *
 // *********************************************
 var getSpinByCurrentPosition = function(spinInfo, callback) {
   $.ajax({
         type: 'GET',
         dataType: 'json',
-        url: '/schedules/get_spin_by_current_position',
+        url: '/stations/get_spin_by_current_position',
         contentType: 'application/json',
         data: spinInfo,
         success: callback

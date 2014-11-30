@@ -21,7 +21,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 20 Nov 2014 21:52:29 GMT
+      - Sun, 30 Nov 2014 04:03:27 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -29,11 +29,11 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - 8CIQ4RA1Toy7S5UQxsQtZA
+      - 8w8XQIi7TMeytbB8v4m8iQ
       X-Worker-Node:
-      - 0c0ba:17479
+      - 7cbef:30913
       X-Ratelimit-Remaining:
-      - '116'
+      - '118'
       Server:
       - TornadoServer/3.1
       X-Ratelimit-Limit:
@@ -45,19 +45,19 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Ratelimit-Used:
-      - '4'
+      - '2'
       Connection:
       - Keep-alive
       Keep-Alive:
       - timeout=15, max=100
       Via:
-      - 1.1 ID-0000627501223746 uproxy-3
+      - 1.1 ID-0000627501223746 uproxy-2
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "ticket": "CAIQEUO1473A654C51BC9AC1C9967F42"}}'
+        "ticket": "CAIQEUO1473A654C517B9D5F7371574F"}}'
     http_version: 
-  recorded_at: Thu, 20 Nov 2014 21:52:30 GMT
+  recorded_at: Sun, 30 Nov 2014 04:03:27 GMT
 - request:
     method: get
     uri: http://developer.echonest.com/api/v4/catalog/read?api_key=1EFRD4YMEN003A4N1&id=CAIQEUO1473A654C51&results=1000&start=0
@@ -77,7 +77,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 20 Nov 2014 21:52:30 GMT
+      - Sun, 30 Nov 2014 04:03:27 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -85,11 +85,11 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - SkiYHeziTpW+oc6keicPzg
+      - oTbq2u+GTN+KvpHAcV2NlQ
       X-Worker-Node:
-      - 96cdc:31596
+      - 20284:9950
       X-Ratelimit-Remaining:
-      - '115'
+      - '117'
       Server:
       - TornadoServer/3.1
       X-Ratelimit-Limit:
@@ -101,13 +101,13 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Ratelimit-Used:
-      - '5'
+      - '3'
       Connection:
       - Keep-alive
       Keep-Alive:
       - timeout=15, max=100
       Via:
-      - 1.1 ID-0000627501223746 uproxy-2
+      - 1.1 ID-0000627501223746 uproxy-3
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
@@ -115,57 +115,72 @@ http_interactions:
         "artist_id": "AR82FM11187FB37758", "item_keyvalues": {"pl_album": "The Wreckage",
         "pl_duration": 279510, "pl_title": "My Winter Coat", "pl_key": "_pl_0000001_Will
         Hoge_My Winter Coat (Bonus Track)..mp3", "pl_artist": "Will Hoge"}, "artist_name":
-        "Will Hoge", "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        "Will Hoge", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000001_Will Hoge_My Winter Coat
         (Bonus Track)..mp3", "song_id": "SOIESNC13E9A9AA378", "request": {"item_id":
         "_pl_0000001_Will Hoge_My Winter Coat (Bonus Track)..mp3", "song_id": "SOIESNC13E9A9AA378"}},
+        {"song_name": "The Wreckage", "artist_id": "AR82FM11187FB37758", "item_keyvalues":
+        {"pl_album": "The Wreckage", "pl_duration": 213080, "pl_title": "The Wreckage",
+        "pl_key": "_pl_0000002_Will Hoge_The Wreckage..mp3", "pl_artist": "Will Hoge"},
+        "artist_name": "Will Hoge", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000002_Will
+        Hoge_The Wreckage..mp3", "song_id": "SOPUJFL12A58A7B52B", "request": {"item_id":
+        "_pl_0000002_Will Hoge_The Wreckage..mp3", "song_id": "SOPUJFL12A58A7B52B"}},
         {"song_name": "The Grandpa Song", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
         {"pl_album": "A Different Day", "pl_duration": 352235, "pl_title": "The Grandpa
         Song", "pl_key": "_pl_0000003_Cody Johnson_The Grandpa Song..mp3", "pl_artist":
-        "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000003_Cody
+        "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000003_Cody
         Johnson_The Grandpa Song..mp3", "song_id": "SOPDOXJ142D3EDA23A", "request":
         {"item_id": "_pl_0000003_Cody Johnson_The Grandpa Song..mp3", "song_id": "SOPDOXJ142D3EDA23A"}},
         {"song_name": "Too Good to Be True", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues":
         {"pl_album": "Broken Machine", "pl_duration": 196571, "pl_title": "Too Good
         to Be True", "pl_key": "_pl_0000004_Rachel Loy_Too Good to Be True..mp3",
         "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000004_Rachel Loy_Too Good to Be True..mp3",
         "song_id": "SOELUIG13CF6D1858A", "request": {"item_id": "_pl_0000004_Rachel
         Loy_Too Good to Be True..mp3", "song_id": "SOELUIG13CF6D1858A"}}, {"song_name":
-        "Easy", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album":
-        "Broken Machine", "pl_duration": 240666, "pl_title": "Easy", "pl_key": "_pl_0000006_Rachel
-        Loy_Easy..mp3", "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
-        "CAIQEUO1473A654C51:song:_pl_0000006_Rachel Loy_Easy..mp3", "song_id": "SOJDZMN13CF6D15F77",
-        "request": {"item_id": "_pl_0000006_Rachel Loy_Easy..mp3", "song_id": "SOJDZMN13CF6D15F77"}},
-        {"song_name": "Bigger One", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues":
-        {"pl_album": "Broken Machine", "pl_duration": 205139, "pl_title": "Bigger
-        One", "pl_key": "_pl_0000007_Rachel Loy_Bigger One..mp3", "pl_artist": "Rachel
-        Loy"}, "artist_name": "Rachel Loy", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000007_Rachel
-        Loy_Bigger One..mp3", "song_id": "SOWIXQF13CF6D189A8", "request": {"item_id":
-        "_pl_0000007_Rachel Loy_Bigger One..mp3", "song_id": "SOWIXQF13CF6D189A8"}},
-        {"song_name": "Cheater", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues":
-        {"pl_album": "Broken Machine", "pl_duration": 279457, "pl_title": "Cheater",
-        "pl_key": "_pl_0000008_Rachel Loy_Cheater..mp3", "pl_artist": "Rachel Loy"},
-        "artist_name": "Rachel Loy", "last_modified": "2014-11-20T21:52:30", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000008_Rachel
-        Loy_Cheater..mp3", "song_id": "SOTWSLV13CF6D275AF", "request": {"item_id":
-        "_pl_0000008_Rachel Loy_Cheater..mp3", "song_id": "SOTWSLV13CF6D275AF"}},
-        {"song_name": "Broken Machine", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues":
-        {"pl_album": "Broken Machine", "pl_duration": 292466, "pl_title": "Broken
-        Machine", "pl_key": "_pl_0000009_Rachel Loy_Broken Machine..mp3", "pl_artist":
-        "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000009_Rachel
+        "Look At That Girl", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues":
+        {"pl_album": "Broken Machine", "pl_duration": 240796, "pl_title": "Look At
+        That Girl", "pl_key": "_pl_0000005_Rachel Loy_Look At That Girl..mp3", "pl_artist":
+        "Rachel Loy"}, "artist_name": "Rachel Loy", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000005_Rachel
+        Loy_Look At That Girl..mp3", "song_id": "SOZTNCB13CF6D1F82D", "request": {"item_id":
+        "_pl_0000005_Rachel Loy_Look At That Girl..mp3", "song_id": "SOZTNCB13CF6D1F82D"}},
+        {"song_name": "Easy", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues":
+        {"pl_album": "Broken Machine", "pl_duration": 240666, "pl_title": "Easy",
+        "pl_key": "_pl_0000006_Rachel Loy_Easy..mp3", "pl_artist": "Rachel Loy"},
+        "artist_name": "Rachel Loy", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000006_Rachel
+        Loy_Easy..mp3", "song_id": "SOJDZMN13CF6D15F77", "request": {"item_id": "_pl_0000006_Rachel
+        Loy_Easy..mp3", "song_id": "SOJDZMN13CF6D15F77"}}, {"song_name": "Bigger One",
+        "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album": "Broken
+        Machine", "pl_duration": 205139, "pl_title": "Bigger One", "pl_key": "_pl_0000007_Rachel
+        Loy_Bigger One..mp3", "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000007_Rachel Loy_Bigger One..mp3",
+        "song_id": "SOWIXQF13CF6D189A8", "request": {"item_id": "_pl_0000007_Rachel
+        Loy_Bigger One..mp3", "song_id": "SOWIXQF13CF6D189A8"}}, {"song_name": "Cheater",
+        "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album": "Broken
+        Machine", "pl_duration": 279457, "pl_title": "Cheater", "pl_key": "_pl_0000008_Rachel
+        Loy_Cheater..mp3", "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000008_Rachel Loy_Cheater..mp3",
+        "song_id": "SOTWSLV13CF6D275AF", "request": {"item_id": "_pl_0000008_Rachel
+        Loy_Cheater..mp3", "song_id": "SOTWSLV13CF6D275AF"}}, {"song_name": "Broken
+        Machine", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album":
+        "Broken Machine", "pl_duration": 292466, "pl_title": "Broken Machine", "pl_key":
+        "_pl_0000009_Rachel Loy_Broken Machine..mp3", "pl_artist": "Rachel Loy"},
+        "artist_name": "Rachel Loy", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000009_Rachel
         Loy_Broken Machine..mp3", "song_id": "SOLFXUA13CF6D1A389", "request": {"item_id":
         "_pl_0000009_Rachel Loy_Broken Machine..mp3", "song_id": "SOLFXUA13CF6D1A389"}},
         {"song_name": "Stepladder", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues":
         {"pl_album": "Broken Machine", "pl_duration": 222223, "pl_title": "Stepladder",
         "pl_key": "_pl_0000010_Rachel Loy_Stepladder..mp3", "pl_artist": "Rachel Loy"},
-        "artist_name": "Rachel Loy", "last_modified": "2014-11-20T21:52:30", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000010_Rachel
+        "artist_name": "Rachel Loy", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000010_Rachel
         Loy_Stepladder..mp3", "song_id": "SOOWAAV13CF6D1B3FA", "request": {"item_id":
         "_pl_0000010_Rachel Loy_Stepladder..mp3", "song_id": "SOOWAAV13CF6D1B3FA"}},
         {"song_name": "You Can''t Outdrink The Truth", "artist_id": "ARSZBMC11E2835D2E4",
@@ -173,7 +188,7 @@ http_interactions:
         "pl_title": "You Can''t Outdrink The Truth", "pl_key": "_pl_0000011_Walt Wilkins
         and The Mystiqueros_You Can''t Outdrink the Truth..mp3", "pl_artist": "Walt
         Wilkins & The Mystiqueros"}, "artist_name": "Walt Wilkins & The Mystiqueros",
-        "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000011_Walt Wilkins and The Mystiqueros_You
         Can''t Outdrink the Truth..mp3", "song_id": "SODLDJC13134393E9F", "request":
         {"item_id": "_pl_0000011_Walt Wilkins and The Mystiqueros_You Can''t Outdrink
@@ -181,59 +196,66 @@ http_interactions:
         Gray", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album": "Broken
         Machine", "pl_duration": 275931, "pl_title": "Fade to Gray", "pl_key": "_pl_0000012_Rachel
         Loy_Fade to Gray..mp3", "pl_artist": "Rachel Loy"}, "artist_name": "Rachel
-        Loy", "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        Loy", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000012_Rachel Loy_Fade to Gray..mp3",
         "song_id": "SOQSTRX13CF6D1AB37", "request": {"item_id": "_pl_0000012_Rachel
         Loy_Fade to Gray..mp3", "song_id": "SOQSTRX13CF6D1AB37"}}, {"song_name": "Hey
         Cara", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album": "Broken
         Machine", "pl_duration": 212480, "pl_title": "Hey Cara", "pl_key": "_pl_0000013_Rachel
         Loy_Hey Cara..mp3", "pl_artist": "Rachel Loy"}, "artist_name": "Rachel Loy",
-        "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000013_Rachel Loy_Hey Cara..mp3",
         "song_id": "SOXYMEA13CF6D19321", "request": {"item_id": "_pl_0000013_Rachel
         Loy_Hey Cara..mp3", "song_id": "SOXYMEA13CF6D19321"}}, {"song_name": "Cold
         Cold Heart", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues": {"pl_album":
         "Broken Machine", "pl_duration": 190093, "pl_title": "Cold Cold Heart", "pl_key":
         "_pl_0000014_Rachel Loy_Cold Cold Heart..mp3", "pl_artist": "Rachel Loy"},
-        "artist_name": "Rachel Loy", "last_modified": "2014-11-20T21:52:29", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000014_Rachel
+        "artist_name": "Rachel Loy", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000014_Rachel
         Loy_Cold Cold Heart..mp3", "song_id": "SOGCQIY13CF6D1F408", "request": {"item_id":
         "_pl_0000014_Rachel Loy_Cold Cold Heart..mp3", "song_id": "SOGCQIY13CF6D1F408"}},
+        {"song_name": "Not Anymore", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues":
+        {"pl_album": "Broken Machine", "pl_duration": 227291, "pl_title": "Not Anymore",
+        "pl_key": "_pl_0000015_Rachel Loy_Not Anymore..mp3", "pl_artist": "Rachel
+        Loy"}, "artist_name": "Rachel Loy", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000015_Rachel
+        Loy_Not Anymore..mp3", "song_id": "SOIKFZR13CF6D1BC83", "request": {"item_id":
+        "_pl_0000015_Rachel Loy_Not Anymore..mp3", "song_id": "SOIKFZR13CF6D1BC83"}},
         {"song_name": "18 Wheels", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
         {"pl_album": "A Different Day", "pl_duration": 180114, "pl_title": "18 Wheels",
         "pl_key": "_pl_0000016_Cody Johnson_18 Wheels..mp3", "pl_artist": "Cody Johnson"},
-        "artist_name": "Cody Johnson", "last_modified": "2014-11-20T21:52:29", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000016_Cody
+        "artist_name": "Cody Johnson", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000016_Cody
         Johnson_18 Wheels..mp3", "song_id": "SOTJNOW142D3F6F271", "request": {"item_id":
         "_pl_0000016_Cody Johnson_18 Wheels..mp3", "song_id": "SOTJNOW142D3F6F271"}},
         {"song_name": "Hard To Love", "artist_id": "AR82FM11187FB37758", "item_keyvalues":
         {"pl_album": "The Wreckage", "pl_duration": 202866, "pl_title": "Hard To Love",
         "pl_key": "_pl_0000017_Will Hoge_Hard to Love..mp3", "pl_artist": "Will Hoge"},
-        "artist_name": "Will Hoge", "last_modified": "2014-11-20T21:52:29", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000017_Will
+        "artist_name": "Will Hoge", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000017_Will
         Hoge_Hard to Love..mp3", "song_id": "SOEZLXD12AF729DC58", "request": {"item_id":
         "_pl_0000017_Will Hoge_Hard to Love..mp3", "song_id": "SOEZLXD12AF729DC58"}},
         {"song_name": "It Ain''t Easy Being Me", "artist_id": "AR207Y01187B98E9E6",
         "item_keyvalues": {"pl_album": "Chris Knight", "pl_duration": 212062, "pl_title":
         "It Ain''t Easy Being Me", "pl_key": "_pl_0000018_Chris Knight_It Ain''t Easy
         Being Me..mp3", "pl_artist": "Chris Knight"}, "artist_name": "Chris Knight",
-        "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000018_Chris Knight_It Ain''t
         Easy Being Me..mp3", "song_id": "SODBKKJ12AAA15E0C3", "request": {"item_id":
         "_pl_0000018_Chris Knight_It Ain''t Easy Being Me..mp3", "song_id": "SODBKKJ12AAA15E0C3"}},
         {"song_name": "Ok Whiskey", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues":
         {"pl_album": "Daylight & Dark", "pl_duration": 145423, "pl_title": "Ok Whiskey",
         "pl_key": "_pl_0000019_Jason Eady_Ok Whiskey..mp3", "pl_artist": "Jason Eady"},
-        "artist_name": "Jason Eady", "last_modified": "2014-11-20T21:52:30", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000019_Jason
+        "artist_name": "Jason Eady", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000019_Jason
         Eady_Ok Whiskey..mp3", "song_id": "SOBPSEP142F06DC8BF", "request": {"item_id":
         "_pl_0000019_Jason Eady_Ok Whiskey..mp3", "song_id": "SOBPSEP142F06DC8BF"}},
         {"song_name": "Trains I Missed", "artist_id": "ARSZBMC11E2835D2E4", "item_keyvalues":
         {"pl_album": "Diamonds In the Sun", "pl_duration": 218435, "pl_title": "Trains
         I Missed", "pl_key": "_pl_0000020_Walt Wilkins and The Mystiqueros_Trains
         I Missed..mp3", "pl_artist": "Walt Wilkins & The Mystiqueros"}, "artist_name":
-        "Walt Wilkins & The Mystiqueros", "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000020_Walt
+        "Walt Wilkins & The Mystiqueros", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000020_Walt
         Wilkins and The Mystiqueros_Trains I Missed..mp3", "song_id": "SOBORUN12A58A77FA4",
         "request": {"item_id": "_pl_0000020_Walt Wilkins and The Mystiqueros_Trains
         I Missed..mp3", "song_id": "SOBORUN12A58A77FA4"}}, {"song_name": "Wish I Hadn''t
@@ -241,58 +263,74 @@ http_interactions:
         "Little Rock", "pl_duration": 224235, "pl_title": "Wish I Hadn''t Stayed So
         Long", "pl_key": "_pl_0000021_Hayes Carll_Wish I Hadn''t Stayed So Long..mp3",
         "pl_artist": "Hayes Carll"}, "artist_name": "Hayes Carll", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000021_Hayes Carll_Wish I Hadn''t Stayed So
         Long..mp3", "song_id": "SOJIPFZ1311AFD96BA", "request": {"item_id": "_pl_0000021_Hayes
         Carll_Wish I Hadn''t Stayed So Long..mp3", "song_id": "SOJIPFZ1311AFD96BA"}},
         {"song_name": "Washington Goes Home", "artist_id": "ARHSAFX1187B98E89A", "item_keyvalues":
         {"pl_album": "Coming Home", "pl_duration": 200698, "pl_title": "You Can''t
         Go Home", "pl_key": "_pl_0000022_Brian Keane_You Can''t Go Home..mp3", "pl_artist":
-        "Brian Keane"}, "artist_name": "Brian Keane", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000022_Brian
+        "Brian Keane"}, "artist_name": "Brian Keane", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000022_Brian
         Keane_You Can''t Go Home..mp3", "song_id": "SOAGTCM1311AFDE881", "request":
         {"item_id": "_pl_0000022_Brian Keane_You Can''t Go Home..mp3", "song_id":
         "SOAGTCM1311AFDE881"}}, {"song_name": "Two of You", "artist_id": "ARHSAFX1187B98E89A",
         "item_keyvalues": {"pl_album": "Coming Home", "pl_duration": 206497, "pl_title":
         "Eating for Two", "pl_key": "_pl_0000023_Brian Keane_Eating for Two..mp3",
         "pl_artist": "Brian Keane"}, "artist_name": "Brian Keane", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000023_Brian Keane_Eating for Two..mp3", "song_id":
         "SOKEZEA130516E0622", "request": {"item_id": "_pl_0000023_Brian Keane_Eating
-        for Two..mp3", "song_id": "SOKEZEA130516E0622"}}, {"song_name": "Long Gone",
-        "artist_id": "AR82FM11187FB37758", "item_keyvalues": {"pl_album": "The Wreckage",
-        "pl_duration": 171990, "pl_title": "Long Gone", "pl_key": "_pl_0000025_Will
-        Hoge_Long Gone..mp3", "pl_artist": "Will Hoge"}, "artist_name": "Will Hoge",
-        "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
-        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000025_Will Hoge_Long Gone..mp3",
-        "song_id": "SOFVLPE12AC468972A", "request": {"item_id": "_pl_0000025_Will
-        Hoge_Long Gone..mp3", "song_id": "SOFVLPE12AC468972A"}}, {"song_name": "Favorite
+        for Two..mp3", "song_id": "SOKEZEA130516E0622"}}, {"song_name": "Guilty As
+        Can Be", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues": {"pl_album":
+        "A Different Day", "pl_duration": 242782, "pl_title": "Guilty As Can Be",
+        "pl_key": "_pl_0000024_Cody Johnson_Guilty As Can Be..mp3", "pl_artist": "Cody
+        Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000024_Cody
+        Johnson_Guilty As Can Be..mp3", "song_id": "SOGCFPY142D3FC096A", "request":
+        {"item_id": "_pl_0000024_Cody Johnson_Guilty As Can Be..mp3", "song_id": "SOGCFPY142D3FC096A"}},
+        {"song_name": "Long Gone", "artist_id": "AR82FM11187FB37758", "item_keyvalues":
+        {"pl_album": "The Wreckage", "pl_duration": 171990, "pl_title": "Long Gone",
+        "pl_key": "_pl_0000025_Will Hoge_Long Gone..mp3", "pl_artist": "Will Hoge"},
+        "artist_name": "Will Hoge", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000025_Will
+        Hoge_Long Gone..mp3", "song_id": "SOFVLPE12AC468972A", "request": {"item_id":
+        "_pl_0000025_Will Hoge_Long Gone..mp3", "song_id": "SOFVLPE12AC468972A"}},
+        {"song_name": "Diamonds in the Sun", "artist_id": "ARSZBMC11E2835D2E4", "item_keyvalues":
+        {"pl_album": "Diamonds In the Sun", "pl_duration": 318275, "pl_title": "Diamonds
+        in the Sun", "pl_key": "_pl_0000026_Walt Wilkins and The Mystiqueros_Diamonds
+        In the Sun..mp3", "pl_artist": "Walt Wilkins & The Mystiqueros"}, "artist_name":
+        "Walt Wilkins & The Mystiqueros", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000026_Walt
+        Wilkins and The Mystiqueros_Diamonds In the Sun..mp3", "song_id": "SOHUBHO12AB0187616",
+        "request": {"item_id": "_pl_0000026_Walt Wilkins and The Mystiqueros_Diamonds
+        In the Sun..mp3", "song_id": "SOHUBHO12AB0187616"}}, {"song_name": "Favorite
         Waste of Time", "artist_id": "AR82FM11187FB37758", "item_keyvalues": {"pl_album":
         "The Wreckage", "pl_duration": 190197, "pl_title": "Favorite Waste Of Time
         EXCLUSIVE", "pl_key": "_pl_0000027_Will Hoge_Favorite Waste of Time..mp3",
-        "pl_artist": "Will Hoge"}, "artist_name": "Will Hoge", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000027_Will
+        "pl_artist": "Will Hoge"}, "artist_name": "Will Hoge", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000027_Will
         Hoge_Favorite Waste of Time..mp3", "song_id": "SOUHDVF12AC4689731", "request":
         {"item_id": "_pl_0000027_Will Hoge_Favorite Waste of Time..mp3", "song_id":
         "SOUHDVF12AC4689731"}}, {"song_name": "Keep Her Man", "artist_id": "ARBADLB129CDBEFACC",
         "item_keyvalues": {"pl_album": "A Different Day", "pl_duration": 198504, "pl_title":
         "Keep Her Man", "pl_key": "_pl_0000028_Cody Johnson_Keep Her Man..mp3", "pl_artist":
-        "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000028_Cody
+        "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000028_Cody
         Johnson_Keep Her Man..mp3", "song_id": "SOPOIAV142D3F6975C", "request": {"item_id":
         "_pl_0000028_Cody Johnson_Keep Her Man..mp3", "song_id": "SOPOIAV142D3F6975C"}},
         {"song_name": "Copper Title", "artist_id": "ARHSAFX1187B98E89A", "item_keyvalues":
         {"pl_album": "Coming Home", "pl_duration": 241867, "pl_title": "What You''re
         Missing", "pl_key": "_pl_0000029_Brian Keane_What You''re Missing..mp3", "pl_artist":
-        "Brian Keane"}, "artist_name": "Brian Keane", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000029_Brian
+        "Brian Keane"}, "artist_name": "Brian Keane", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000029_Brian
         Keane_What You''re Missing..mp3", "song_id": "SOYXRMD13F1BA1E553", "request":
         {"item_id": "_pl_0000029_Brian Keane_What You''re Missing..mp3", "song_id":
         "SOYXRMD13F1BA1E553"}}, {"song_name": "A Different Day", "artist_id": "ARBADLB129CDBEFACC",
         "item_keyvalues": {"pl_album": "A Different Day", "pl_duration": 250096, "pl_title":
         "A Different Day", "pl_key": "_pl_0000031_Cody Johnson_A Different Day..mp3",
         "pl_artist": "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000031_Cody Johnson_A Different Day..mp3", "song_id":
         "SOMBJOY142D3DB1D3E", "request": {"item_id": "_pl_0000031_Cody Johnson_A Different
         Day..mp3", "song_id": "SOMBJOY142D3DB1D3E"}}, {"song_name": "Even If It Breaks
@@ -300,210 +338,281 @@ http_interactions:
         "The Wreckage", "pl_duration": 221884, "pl_title": "Even If It Breaks Your
         Heart EXCLUSIVE", "pl_key": "_pl_0000032_Will Hoge_Even If It Breaks Your
         Heart..mp3", "pl_artist": "Will Hoge"}, "artist_name": "Will Hoge", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000032_Will Hoge_Even If It Breaks Your Heart..mp3",
         "song_id": "SOZWILV12A58A7A00C", "request": {"item_id": "_pl_0000032_Will
         Hoge_Even If It Breaks Your Heart..mp3", "song_id": "SOZWILV12A58A7A00C"}},
+        {"song_name": "Copper Title", "artist_id": "ARHSAFX1187B98E89A", "item_keyvalues":
+        {"pl_album": "Coming Home", "pl_duration": 197851, "pl_title": "Finally Free",
+        "pl_key": "_pl_0000033_Brian Keane_Finally Free..mp3", "pl_artist": "Brian
+        Keane"}, "artist_name": "Brian Keane", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000033_Brian
+        Keane_Finally Free..mp3", "song_id": "SOYXRMD13F1BA1E553", "request": {"item_id":
+        "_pl_0000033_Brian Keane_Finally Free..mp3", "song_id": "SOYXRMD13F1BA1E553"}},
+        {"song_name": "Washington Goes Home", "artist_id": "ARHSAFX1187B98E89A", "item_keyvalues":
+        {"pl_album": "Coming Home", "pl_duration": 248868, "pl_title": "Coming Home",
+        "pl_key": "_pl_0000035_Brian Keane_Coming Home..mp3", "pl_artist": "Brian
+        Keane"}, "artist_name": "Brian Keane", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000035_Brian
+        Keane_Coming Home..mp3", "song_id": "SOAGTCM1311AFDE881", "request": {"item_id":
+        "_pl_0000035_Brian Keane_Coming Home..mp3", "song_id": "SOAGTCM1311AFDE881"}},
         {"song_name": "Bar Lights", "artist_id": "ARHSAFX1187B98E89A", "item_keyvalues":
         {"pl_album": "Coming Home", "pl_duration": 226403, "pl_title": "Bar Lights",
         "pl_key": "_pl_0000036_Brian Keane_Bar Lights..mp3", "pl_artist": "Brian Keane"},
-        "artist_name": "Brian Keane", "last_modified": "2014-11-20T21:52:30", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000036_Brian
+        "artist_name": "Brian Keane", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000036_Brian
         Keane_Bar Lights..mp3", "song_id": "SOPVLBJ142FD34BDA9", "request": {"item_id":
         "_pl_0000036_Brian Keane_Bar Lights..mp3", "song_id": "SOPVLBJ142FD34BDA9"}},
         {"song_name": "Ride With Me", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
         {"pl_album": "A Different Day", "pl_duration": 215666, "pl_title": "Ride With
         Me", "pl_key": "_pl_0000037_Cody Johnson_Ride With Me..mp3", "pl_artist":
-        "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000037_Cody
+        "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000037_Cody
         Johnson_Ride With Me..mp3", "song_id": "SOUZUAB142D3E41DC2", "request": {"item_id":
         "_pl_0000037_Cody Johnson_Ride With Me..mp3", "song_id": "SOUZUAB142D3E41DC2"}},
         {"song_name": "What Could I Do", "artist_id": "AR82FM11187FB37758", "item_keyvalues":
         {"pl_album": "The Wreckage", "pl_duration": 268826, "pl_title": "What Could
         I Do", "pl_key": "_pl_0000038_Will Hoge_What Could I Do..mp3", "pl_artist":
-        "Will Hoge"}, "artist_name": "Will Hoge", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000038_Will
+        "Will Hoge"}, "artist_name": "Will Hoge", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000038_Will
         Hoge_What Could I Do..mp3", "song_id": "SOQOAPY12AC4689736", "request": {"item_id":
         "_pl_0000038_Will Hoge_What Could I Do..mp3", "song_id": "SOQOAPY12AC4689736"}},
         {"song_name": "Two of You", "artist_id": "ARHSAFX1187B98E89A", "item_keyvalues":
         {"pl_album": "Coming Home", "pl_duration": 168724, "pl_title": "Old With You",
         "pl_key": "_pl_0000040_Brian Keane_Old With You..mp3", "pl_artist": "Brian
-        Keane"}, "artist_name": "Brian Keane", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000040_Brian
+        Keane"}, "artist_name": "Brian Keane", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000040_Brian
         Keane_Old With You..mp3", "song_id": "SOKEZEA130516E0622", "request": {"item_id":
         "_pl_0000040_Brian Keane_Old With You..mp3", "song_id": "SOKEZEA130516E0622"}},
         {"song_name": "The Way She Loves Me", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
         {"pl_album": "A Different Day", "pl_duration": 208953, "pl_title": "The Way
         She Loves Me", "pl_key": "_pl_0000041_Cody Johnson_The Way She Loves Me..mp3",
         "pl_artist": "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000041_Cody Johnson_The Way She Loves Me..mp3",
         "song_id": "SOPNVTG142D3DC24DC", "request": {"item_id": "_pl_0000041_Cody
         Johnson_The Way She Loves Me..mp3", "song_id": "SOPNVTG142D3DC24DC"}}, {"song_name":
+        "Diamond In My Pocket", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
+        {"pl_album": "A Different Day", "pl_duration": 196963, "pl_title": "Diamond
+        In My Pocket", "pl_key": "_pl_0000042_Cody Johnson_Diamond In My Pocket..mp3",
+        "pl_artist": "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000042_Cody Johnson_Diamond In My Pocket..mp3",
+        "song_id": "SOPHYEZ142D3F56B6C", "request": {"item_id": "_pl_0000042_Cody
+        Johnson_Diamond In My Pocket..mp3", "song_id": "SOPHYEZ142D3F56B6C"}}, {"song_name":
         "Go So Wrong", "artist_id": "ARHSAFX1187B98E89A", "item_keyvalues": {"pl_album":
         "Coming Home", "pl_duration": 274599, "pl_title": "Do Something Wrong", "pl_key":
         "_pl_0000043_Brian Keane_Do Something Wrong..mp3", "pl_artist": "Brian Keane"},
-        "artist_name": "Brian Keane", "last_modified": "2014-11-20T21:52:30", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000043_Brian
+        "artist_name": "Brian Keane", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000043_Brian
         Keane_Do Something Wrong..mp3", "song_id": "SOXSMIA137D088113A", "request":
         {"item_id": "_pl_0000043_Brian Keane_Do Something Wrong..mp3", "song_id":
-        "SOXSMIA137D088113A"}}, {"song_name": "What''s Left Of Texas?", "artist_id":
-        "ARBADLB129CDBEFACC", "item_keyvalues": {"pl_album": "A Different Day", "pl_duration":
-        273188, "pl_title": "What''s Left Of Texas?", "pl_key": "_pl_0000045_Cody
-        Johnson_What''s Left of Texas?..mp3", "pl_artist": "Cody Johnson"}, "artist_name":
-        "Cody Johnson", "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        "SOXSMIA137D088113A"}}, {"song_name": "Just Like Me", "artist_id": "AR82FM11187FB37758",
+        "item_keyvalues": {"pl_album": "The Wreckage", "pl_duration": 208430, "pl_title":
+        "Just Like Me", "pl_key": "_pl_0000044_Will Hoge_Just Like Me..mp3", "pl_artist":
+        "Will Hoge"}, "artist_name": "Will Hoge", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000044_Will
+        Hoge_Just Like Me..mp3", "song_id": "SOGWNCE12AC468BF44", "request": {"item_id":
+        "_pl_0000044_Will Hoge_Just Like Me..mp3", "song_id": "SOGWNCE12AC468BF44"}},
+        {"song_name": "What''s Left Of Texas?", "artist_id": "ARBADLB129CDBEFACC",
+        "item_keyvalues": {"pl_album": "A Different Day", "pl_duration": 273188, "pl_title":
+        "What''s Left Of Texas?", "pl_key": "_pl_0000045_Cody Johnson_What''s Left
+        of Texas?..mp3", "pl_artist": "Cody Johnson"}, "artist_name": "Cody Johnson",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000045_Cody Johnson_What''s Left
         of Texas?..mp3", "song_id": "SOCJJZT142D3DFCBB0", "request": {"item_id": "_pl_0000045_Cody
         Johnson_What''s Left of Texas?..mp3", "song_id": "SOCJJZT142D3DFCBB0"}}, {"song_name":
         "Caravan", "artist_id": "AR9I1L41187FB37F0E", "item_keyvalues": {"pl_album":
         "25", "pl_duration": 392907, "pl_title": "Caravan (Album Version)", "pl_key":
         "_pl_0000046_Harry Connick, Jr._Caravan..mp3", "pl_artist": "Harry Connick,
-        Jr."}, "artist_name": "Harry Connick, Jr.", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000046_Harry
+        Jr."}, "artist_name": "Harry Connick, Jr.", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000046_Harry
         Connick, Jr._Caravan..mp3", "song_id": "SOIAQGP12AB0189319", "request": {"item_id":
         "_pl_0000046_Harry Connick, Jr._Caravan..mp3", "song_id": "SOIAQGP12AB0189319"}},
-        {"song_name": "Highway Wings", "artist_id": "AR82FM11187FB37758", "item_keyvalues":
-        {"pl_album": "The Wreckage", "pl_duration": 204120, "pl_title": "Highway Wings",
-        "pl_key": "_pl_0000048_Will Hoge_Highway Wings..mp3", "pl_artist": "Will Hoge"},
-        "artist_name": "Will Hoge", "last_modified": "2014-11-20T21:52:29", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000048_Will
-        Hoge_Highway Wings..mp3", "song_id": "SOUDQPX12AF72A0D2A", "request": {"item_id":
-        "_pl_0000048_Will Hoge_Highway Wings..mp3", "song_id": "SOUDQPX12AF72A0D2A"}},
-        {"song_name": "Copper Title", "artist_id": "ARHSAFX1187B98E89A", "item_keyvalues":
-        {"pl_album": "Coming Home", "pl_duration": 238889, "pl_title": "Nothin'' Short
-        of Disaster", "pl_key": "_pl_0000049_Brian Keane_Nothin'' Short of Disaster..mp3",
-        "pl_artist": "Brian Keane"}, "artist_name": "Brian Keane", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
-        "CAIQEUO1473A654C51:song:_pl_0000049_Brian Keane_Nothin'' Short of Disaster..mp3",
-        "song_id": "SOYXRMD13F1BA1E553", "request": {"item_id": "_pl_0000049_Brian
-        Keane_Nothin'' Short of Disaster..mp3", "song_id": "SOYXRMD13F1BA1E553"}},
-        {"song_name": "Ocean Of Whiskey", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
-        {"pl_album": "A Different Day", "pl_duration": 223764, "pl_title": "Ocean
-        Of Whiskey", "pl_key": "_pl_0000050_Cody Johnson_Ocean of Whiskey..mp3", "pl_artist":
-        "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000050_Cody
-        Johnson_Ocean of Whiskey..mp3", "song_id": "SOFZTZO142D3E619AC", "request":
-        {"item_id": "_pl_0000050_Cody Johnson_Ocean of Whiskey..mp3", "song_id": "SOFZTZO142D3E619AC"}},
-        {"song_name": "Where Do We Go From Down", "artist_id": "AR82FM11187FB37758",
-        "item_keyvalues": {"pl_album": "The Wreckage", "pl_duration": 222850, "pl_title":
-        "Where Do We Go From Down", "pl_key": "_pl_0000051_Will Hoge_Where Do We Go
-        from Down..mp3", "pl_artist": "Will Hoge"}, "artist_name": "Will Hoge", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
-        "CAIQEUO1473A654C51:song:_pl_0000051_Will Hoge_Where Do We Go from Down..mp3",
-        "song_id": "SOHZTUU12AC468BF48", "request": {"item_id": "_pl_0000051_Will
-        Hoge_Where Do We Go from Down..mp3", "song_id": "SOHZTUU12AC468BF48"}}, {"song_name":
-        "I Don''t Care About You", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
-        {"pl_album": "A Different Day", "pl_duration": 238471, "pl_title": "I Don''t
-        Care About You", "pl_key": "_pl_0000052_Cody Johnson_I Don''t Care About You..mp3",
+        {"song_name": "Get Back Home To You", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
+        {"pl_album": "A Different Day", "pl_duration": 229172, "pl_title": "Get Back
+        Home To You", "pl_key": "_pl_0000047_Cody Johnson_Get Back Home to You..mp3",
         "pl_artist": "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
-        "CAIQEUO1473A654C51:song:_pl_0000052_Cody Johnson_I Don''t Care About You..mp3",
-        "song_id": "SOMGNJH142D3EA05FD", "request": {"item_id": "_pl_0000052_Cody
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000047_Cody Johnson_Get Back Home to You..mp3",
+        "song_id": "SOKMVRO142D3EB0580", "request": {"item_id": "_pl_0000047_Cody
+        Johnson_Get Back Home to You..mp3", "song_id": "SOKMVRO142D3EB0580"}}, {"song_name":
+        "Highway Wings", "artist_id": "AR82FM11187FB37758", "item_keyvalues": {"pl_album":
+        "The Wreckage", "pl_duration": 204120, "pl_title": "Highway Wings", "pl_key":
+        "_pl_0000048_Will Hoge_Highway Wings..mp3", "pl_artist": "Will Hoge"}, "artist_name":
+        "Will Hoge", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000048_Will Hoge_Highway Wings..mp3",
+        "song_id": "SOUDQPX12AF72A0D2A", "request": {"item_id": "_pl_0000048_Will
+        Hoge_Highway Wings..mp3", "song_id": "SOUDQPX12AF72A0D2A"}}, {"song_name":
+        "Copper Title", "artist_id": "ARHSAFX1187B98E89A", "item_keyvalues": {"pl_album":
+        "Coming Home", "pl_duration": 238889, "pl_title": "Nothin'' Short of Disaster",
+        "pl_key": "_pl_0000049_Brian Keane_Nothin'' Short of Disaster..mp3", "pl_artist":
+        "Brian Keane"}, "artist_name": "Brian Keane", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000049_Brian
+        Keane_Nothin'' Short of Disaster..mp3", "song_id": "SOYXRMD13F1BA1E553", "request":
+        {"item_id": "_pl_0000049_Brian Keane_Nothin'' Short of Disaster..mp3", "song_id":
+        "SOYXRMD13F1BA1E553"}}, {"song_name": "Ocean Of Whiskey", "artist_id": "ARBADLB129CDBEFACC",
+        "item_keyvalues": {"pl_album": "A Different Day", "pl_duration": 223764, "pl_title":
+        "Ocean Of Whiskey", "pl_key": "_pl_0000050_Cody Johnson_Ocean of Whiskey..mp3",
+        "pl_artist": "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000050_Cody Johnson_Ocean of Whiskey..mp3",
+        "song_id": "SOFZTZO142D3E619AC", "request": {"item_id": "_pl_0000050_Cody
+        Johnson_Ocean of Whiskey..mp3", "song_id": "SOFZTZO142D3E619AC"}}, {"song_name":
+        "Where Do We Go From Down", "artist_id": "AR82FM11187FB37758", "item_keyvalues":
+        {"pl_album": "The Wreckage", "pl_duration": 222850, "pl_title": "Where Do
+        We Go From Down", "pl_key": "_pl_0000051_Will Hoge_Where Do We Go from Down..mp3",
+        "pl_artist": "Will Hoge"}, "artist_name": "Will Hoge", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000051_Will
+        Hoge_Where Do We Go from Down..mp3", "song_id": "SOHZTUU12AC468BF48", "request":
+        {"item_id": "_pl_0000051_Will Hoge_Where Do We Go from Down..mp3", "song_id":
+        "SOHZTUU12AC468BF48"}}, {"song_name": "I Don''t Care About You", "artist_id":
+        "ARBADLB129CDBEFACC", "item_keyvalues": {"pl_album": "A Different Day", "pl_duration":
+        238471, "pl_title": "I Don''t Care About You", "pl_key": "_pl_0000052_Cody
+        Johnson_I Don''t Care About You..mp3", "pl_artist": "Cody Johnson"}, "artist_name":
+        "Cody Johnson", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000052_Cody Johnson_I Don''t Care
+        About You..mp3", "song_id": "SOMGNJH142D3EA05FD", "request": {"item_id": "_pl_0000052_Cody
         Johnson_I Don''t Care About You..mp3", "song_id": "SOMGNJH142D3EA05FD"}},
+        {"song_name": "Too Late Too Soon", "artist_id": "AR82FM11187FB37758", "item_keyvalues":
+        {"pl_album": "The Wreckage", "pl_duration": 243748, "pl_title": "Too Late
+        Too Soon", "pl_key": "_pl_0000053_Will Hoge_Too Late Too Soon..mp3", "pl_artist":
+        "Will Hoge"}, "artist_name": "Will Hoge", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000053_Will
+        Hoge_Too Late Too Soon..mp3", "song_id": "SODBHSH12AC468BF4E", "request":
+        {"item_id": "_pl_0000053_Will Hoge_Too Late Too Soon..mp3", "song_id": "SODBHSH12AC468BF4E"}},
         {"song_name": "Good Side", "artist_id": "ARHBV1W1187B9B496C", "item_keyvalues":
         {"pl_album": "Broken Machine", "pl_duration": 237531, "pl_title": "Good Side",
         "pl_key": "_pl_0000054_Rachel Loy_Good Side..mp3", "pl_artist": "Rachel Loy"},
-        "artist_name": "Rachel Loy", "last_modified": "2014-11-20T21:52:29", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000054_Rachel
+        "artist_name": "Rachel Loy", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000054_Rachel
         Loy_Good Side..mp3", "song_id": "SOCRIXK13CF6D1DFF8", "request": {"item_id":
         "_pl_0000054_Rachel Loy_Good Side..mp3", "song_id": "SOCRIXK13CF6D1DFF8"}},
         {"song_name": "Jesus Ain''t Watching", "artist_id": "ARBADLB129CDBEFACC",
         "item_keyvalues": {"pl_album": "A Different Day", "pl_duration": 219193, "pl_title":
         "Jesus Ain''t Watching", "pl_key": "_pl_0000055_Cody Johnson_Jesus Ain''t
         Watching..mp3", "pl_artist": "Cody Johnson"}, "artist_name": "Cody Johnson",
-        "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000055_Cody Johnson_Jesus Ain''t
         Watching..mp3", "song_id": "SOZUMJP142D3EAD92E", "request": {"item_id": "_pl_0000055_Cody
         Johnson_Jesus Ain''t Watching..mp3", "song_id": "SOZUMJP142D3EAD92E"}}, {"song_name":
         "Hanging Around", "artist_id": "ARNHENM122C867378B", "item_keyvalues": {"pl_album":
         "Rose Queen", "pl_duration": 191347, "pl_title": "Hanging Around", "pl_key":
         "_pl_0000067_William Clark Green_Hanging Around..mp3", "pl_artist": "William
-        Clark Green"}, "artist_name": "William Clark Green", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000067_William
+        Clark Green"}, "artist_name": "William Clark Green", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000067_William
         Clark Green_Hanging Around..mp3", "song_id": "SOGOXMK13E75228544", "request":
         {"item_id": "_pl_0000067_William Clark Green_Hanging Around..mp3", "song_id":
         "SOGOXMK13E75228544"}}, {"item_keyvalues": {"pl_album": "The Wreckage", "pl_duration":
         219297, "pl_title": "Even If It Breaks Your Heart", "pl_key": "_pl_0000071_Will
         Hoge_Even If It Breaks Your Heart..mp3", "pl_artist": "Will Hoge"}, "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "request": {"item_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "request": {"item_id":
         "_pl_0000071_Will Hoge_Even If It Breaks Your Heart..mp3"}}, {"song_name":
         "Gonna Take A Woman", "artist_id": "ARUKCO01187FB3889D", "item_keyvalues":
         {"pl_album": "The Shape of Things", "pl_duration": 274181, "pl_title": "Gonna
         Take A Woman", "pl_key": "_pl_0000082_Adam Hood_Gonna Take A Woman..mp3",
-        "pl_artist": "Adam Hood"}, "artist_name": "Adam Hood", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000082_Adam
+        "pl_artist": "Adam Hood"}, "artist_name": "Adam Hood", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000082_Adam
         Hood_Gonna Take A Woman..mp3", "song_id": "SOSBKLN134EE36C391", "request":
         {"item_id": "_pl_0000082_Adam Hood_Gonna Take A Woman..mp3", "song_id": "SOSBKLN134EE36C391"}},
         {"song_name": "Blue Suitcase", "artist_id": "AR66L39119B8667A19", "item_keyvalues":
         {"pl_album": "Love, Save The Empty", "pl_duration": 208640, "pl_title": "Blue
         Suitcase", "pl_key": "_pl_0000083_Erin McCarley_Blue Suitcase..mp3", "pl_artist":
-        "Erin McCarley"}, "artist_name": "Erin McCarley", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000083_Erin
+        "Erin McCarley"}, "artist_name": "Erin McCarley", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000083_Erin
         McCarley_Blue Suitcase..mp3", "song_id": "SOFVFXJ12A58A7D788", "request":
         {"item_id": "_pl_0000083_Erin McCarley_Blue Suitcase..mp3", "song_id": "SOFVFXJ12A58A7D788"}},
+        {"song_name": "Pony (It''s OK)", "artist_id": "AR66L39119B8667A19", "item_keyvalues":
+        {"pl_album": "Love, Save The Empty", "pl_duration": 206184, "pl_title": "Pony
+        (It''s OK)", "pl_key": "_pl_0000084_Erin McCarley_Pony (It''s OK)..mp3", "pl_artist":
+        "Erin McCarley"}, "artist_name": "Erin McCarley", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000084_Erin
+        McCarley_Pony (It''s OK)..mp3", "song_id": "SOMGGBM13E9079F6FF", "request":
+        {"item_id": "_pl_0000084_Erin McCarley_Pony (It''s OK)..mp3", "song_id": "SOMGGBM13E9079F6FF"}},
         {"song_name": "Sticky-Sweet", "artist_id": "AR66L39119B8667A19", "item_keyvalues":
         {"pl_album": "Love, Save The Empty", "pl_duration": 208274, "pl_title": "Sticky-Sweet",
         "pl_key": "_pl_0000085_Erin McCarley_Sticky-Sweet..mp3", "pl_artist": "Erin
-        McCarley"}, "artist_name": "Erin McCarley", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000085_Erin
+        McCarley"}, "artist_name": "Erin McCarley", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000085_Erin
         McCarley_Sticky-Sweet..mp3", "song_id": "SOMNZKX13E9079F768", "request": {"item_id":
         "_pl_0000085_Erin McCarley_Sticky-Sweet..mp3", "song_id": "SOMNZKX13E9079F768"}},
-        {"song_name": "Love, Save The Empty", "artist_id": "AR66L39119B8667A19", "item_keyvalues":
-        {"pl_album": "Love, Save The Empty", "pl_duration": 196284, "pl_title": "Love,
-        Save The Empty", "pl_key": "_pl_0000087_Erin McCarley_Love, Save The Empty..mp3",
-        "pl_artist": "Erin McCarley"}, "artist_name": "Erin McCarley", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
-        "CAIQEUO1473A654C51:song:_pl_0000087_Erin McCarley_Love, Save The Empty..mp3",
-        "song_id": "SOFFOEE1315CD4B31F", "request": {"item_id": "_pl_0000087_Erin
+        {"song_name": "Lovesick Mistake", "artist_id": "AR66L39119B8667A19", "item_keyvalues":
+        {"pl_album": "Love, Save The Empty", "pl_duration": 255085, "pl_title": "Lovesick
+        Mistake", "pl_key": "_pl_0000086_Erin McCarley_Lovesick Mistake..mp3", "pl_artist":
+        "Erin McCarley"}, "artist_name": "Erin McCarley", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000086_Erin
+        McCarley_Lovesick Mistake..mp3", "song_id": "SOSERFA12AB018329C", "request":
+        {"item_id": "_pl_0000086_Erin McCarley_Lovesick Mistake..mp3", "song_id":
+        "SOSERFA12AB018329C"}}, {"song_name": "Love, Save The Empty", "artist_id":
+        "AR66L39119B8667A19", "item_keyvalues": {"pl_album": "Love, Save The Empty",
+        "pl_duration": 196284, "pl_title": "Love, Save The Empty", "pl_key": "_pl_0000087_Erin
+        McCarley_Love, Save The Empty..mp3", "pl_artist": "Erin McCarley"}, "artist_name":
+        "Erin McCarley", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000087_Erin McCarley_Love, Save
+        The Empty..mp3", "song_id": "SOFFOEE1315CD4B31F", "request": {"item_id": "_pl_0000087_Erin
         McCarley_Love, Save The Empty..mp3", "song_id": "SOFFOEE1315CD4B31F"}}, {"song_name":
         "Pitter-Pat", "artist_id": "AR66L39119B8667A19", "item_keyvalues": {"pl_album":
         "Love, Save The Empty", "pl_duration": 259840, "pl_title": "Pitter-Pat", "pl_key":
         "_pl_0000088_Erin McCarley_Pitter-Pat..mp3", "pl_artist": "Erin McCarley"},
-        "artist_name": "Erin McCarley", "last_modified": "2014-11-20T21:52:29", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000088_Erin
+        "artist_name": "Erin McCarley", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000088_Erin
         McCarley_Pitter-Pat..mp3", "song_id": "SONKNRJ12AB0183216", "request": {"item_id":
         "_pl_0000088_Erin McCarley_Pitter-Pat..mp3", "song_id": "SONKNRJ12AB0183216"}},
         {"song_name": "SleepWalking", "artist_id": "AR66L39119B8667A19", "item_keyvalues":
         {"pl_album": "Love, Save The Empty", "pl_duration": 212480, "pl_title": "SleepWalking",
         "pl_key": "_pl_0000089_Erin McCarley_SleepWalking..mp3", "pl_artist": "Erin
-        McCarley"}, "artist_name": "Erin McCarley", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000089_Erin
+        McCarley"}, "artist_name": "Erin McCarley", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000089_Erin
         McCarley_SleepWalking..mp3", "song_id": "SOSWMQJ12AB0183245", "request": {"item_id":
         "_pl_0000089_Erin McCarley_SleepWalking..mp3", "song_id": "SOSWMQJ12AB0183245"}},
+        {"song_name": "Bobble Head", "artist_id": "AR66L39119B8667A19", "item_keyvalues":
+        {"pl_album": "Love, Save The Empty", "pl_duration": 203650, "pl_title": "Bobble
+        Head", "pl_key": "_pl_0000090_Erin McCarley_Bobble Head..mp3", "pl_artist":
+        "Erin McCarley"}, "artist_name": "Erin McCarley", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000090_Erin
+        McCarley_Bobble Head..mp3", "song_id": "SODDVXH12AB017FB04", "request": {"item_id":
+        "_pl_0000090_Erin McCarley_Bobble Head..mp3", "song_id": "SODDVXH12AB017FB04"}},
         {"song_name": "What About Georgia?", "artist_id": "AREEQPY1187FB5B9E3", "item_keyvalues":
         {"pl_album": "Kerosene", "pl_duration": 206193, "pl_title": "What About Georgia?",
         "pl_key": "_pl_0000091_Miranda Lambert_What About Georgia?..mp3", "pl_artist":
-        "Miranda Lambert"}, "artist_name": "Miranda Lambert", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000091_Miranda
+        "Miranda Lambert"}, "artist_name": "Miranda Lambert", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000091_Miranda
         Lambert_What About Georgia?..mp3", "song_id": "SOHAKPB12A8C138BC9", "request":
         {"item_id": "_pl_0000091_Miranda Lambert_What About Georgia?..mp3", "song_id":
         "SOHAKPB12A8C138BC9"}}, {"song_name": "I Can''t Be Bothered", "artist_id":
         "AREEQPY1187FB5B9E3", "item_keyvalues": {"pl_album": "Kerosene", "pl_duration":
         201230, "pl_title": "I Can''t Be Bothered", "pl_key": "_pl_0000092_Miranda
         Lambert_I Can''t Be Bothered..mp3", "pl_artist": "Miranda Lambert"}, "artist_name":
-        "Miranda Lambert", "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        "Miranda Lambert", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000092_Miranda Lambert_I Can''t
         Be Bothered..mp3", "song_id": "SOGNDMR12A8C13C7B5", "request": {"item_id":
         "_pl_0000092_Miranda Lambert_I Can''t Be Bothered..mp3", "song_id": "SOGNDMR12A8C13C7B5"}},
         {"song_name": "New Strings", "artist_id": "AREEQPY1187FB5B9E3", "item_keyvalues":
         {"pl_album": "Kerosene", "pl_duration": 232237, "pl_title": "New Strings",
         "pl_key": "_pl_0000093_Miranda Lambert_New Strings..mp3", "pl_artist": "Miranda
-        Lambert"}, "artist_name": "Miranda Lambert", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000093_Miranda
+        Lambert"}, "artist_name": "Miranda Lambert", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000093_Miranda
         Lambert_New Strings..mp3", "song_id": "SOUWXBE12A8C1399DC", "request": {"item_id":
         "_pl_0000093_Miranda Lambert_New Strings..mp3", "song_id": "SOUWXBE12A8C1399DC"}},
+        {"song_name": "Kerosene", "artist_id": "AREEQPY1187FB5B9E3", "item_keyvalues":
+        {"pl_album": "Kerosene", "pl_duration": 185869, "pl_title": "Kerosene", "pl_key":
+        "_pl_0000094_Miranda Lambert_Kerosene..mp3", "pl_artist": "Miranda Lambert"},
+        "artist_name": "Miranda Lambert", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000094_Miranda
+        Lambert_Kerosene..mp3", "song_id": "SOESJQE12A58A7B703", "request": {"item_id":
+        "_pl_0000094_Miranda Lambert_Kerosene..mp3", "song_id": "SOESJQE12A58A7B703"}},
         {"song_name": "BRING ME DOWN", "artist_id": "AREEQPY1187FB5B9E3", "item_keyvalues":
         {"pl_album": "Kerosene", "pl_duration": 256139, "pl_title": "BRING ME DOWN",
         "pl_key": "_pl_0000095_Miranda Lambert_BRING ME DOWN..mp3", "pl_artist": "Miranda
-        Lambert"}, "artist_name": "Miranda Lambert", "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000095_Miranda
+        Lambert"}, "artist_name": "Miranda Lambert", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000095_Miranda
         Lambert_BRING ME DOWN..mp3", "song_id": "SOLQELE1369222E6A4", "request": {"item_id":
         "_pl_0000095_Miranda Lambert_BRING ME DOWN..mp3", "song_id": "SOLQELE1369222E6A4"}},
         {"song_name": "Greyhound Bound For Nowhere", "artist_id": "AREEQPY1187FB5B9E3",
         "item_keyvalues": {"pl_album": "Kerosene", "pl_duration": 263820, "pl_title":
         "Greyhound Bound For Nowhere", "pl_key": "_pl_0000096_Miranda Lambert_Greyhound
         Bound For Nowhere..mp3", "pl_artist": "Miranda Lambert"}, "artist_name": "Miranda
-        Lambert", "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        Lambert", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000096_Miranda Lambert_Greyhound
         Bound For Nowhere..mp3", "song_id": "SOYGEJC12A58A7E8BE", "request": {"item_id":
         "_pl_0000096_Miranda Lambert_Greyhound Bound For Nowhere..mp3", "song_id":
@@ -511,30 +620,45 @@ http_interactions:
         "item_keyvalues": {"pl_album": "Kerosene", "pl_duration": 247911, "pl_title":
         "Mama, I''m Alright", "pl_key": "_pl_0000097_Miranda Lambert_Mama, I''m Alright..mp3",
         "pl_artist": "Miranda Lambert"}, "artist_name": "Miranda Lambert", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000097_Miranda Lambert_Mama, I''m Alright..mp3",
         "song_id": "SOSKBWE1313439C1FE", "request": {"item_id": "_pl_0000097_Miranda
         Lambert_Mama, I''m Alright..mp3", "song_id": "SOSKBWE1313439C1FE"}}, {"song_name":
-        "Me And Charlie Talking", "artist_id": "AREEQPY1187FB5B9E3", "item_keyvalues":
-        {"pl_album": "Kerosene", "pl_duration": 252822, "pl_title": "Me And Charlie
-        Talking", "pl_key": "_pl_0000100_Miranda Lambert_Me And Charlie Talking..mp3",
+        "Love Is Looking For You", "artist_id": "AREEQPY1187FB5B9E3", "item_keyvalues":
+        {"pl_album": "Kerosene", "pl_duration": 232551, "pl_title": "Love Is Looking
+        For You", "pl_key": "_pl_0000098_Miranda Lambert_Love Is Looking For You..mp3",
         "pl_artist": "Miranda Lambert"}, "artist_name": "Miranda Lambert", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
-        "CAIQEUO1473A654C51:song:_pl_0000100_Miranda Lambert_Me And Charlie Talking..mp3",
-        "song_id": "SOCJAOH1313439EDF1", "request": {"item_id": "_pl_0000100_Miranda
-        Lambert_Me And Charlie Talking..mp3", "song_id": "SOCJAOH1313439EDF1"}}, {"song_name":
-        "There''s A Wall", "artist_id": "AREEQPY1187FB5B9E3", "item_keyvalues": {"pl_album":
-        "Kerosene", "pl_duration": 256139, "pl_title": "There''s A Wall", "pl_key":
-        "_pl_0000101_Miranda Lambert_There''s A Wall..mp3", "pl_artist": "Miranda
-        Lambert"}, "artist_name": "Miranda Lambert", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000101_Miranda
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000098_Miranda Lambert_Love Is Looking For You..mp3",
+        "song_id": "SOEVNCX12A8C13C7D8", "request": {"item_id": "_pl_0000098_Miranda
+        Lambert_Love Is Looking For You..mp3", "song_id": "SOEVNCX12A8C13C7D8"}},
+        {"song_name": "I Wanna Die", "artist_id": "AREEQPY1187FB5B9E3", "item_keyvalues":
+        {"pl_album": "Kerosene", "pl_duration": 226229, "pl_title": "I Wanna Die",
+        "pl_key": "_pl_0000099_Miranda Lambert_I Wanna Die..mp3", "pl_artist": "Miranda
+        Lambert"}, "artist_name": "Miranda Lambert", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000099_Miranda
+        Lambert_I Wanna Die..mp3", "song_id": "SOVGHKG12A8C13C7FD", "request": {"item_id":
+        "_pl_0000099_Miranda Lambert_I Wanna Die..mp3", "song_id": "SOVGHKG12A8C13C7FD"}},
+        {"song_name": "Me And Charlie Talking", "artist_id": "AREEQPY1187FB5B9E3",
+        "item_keyvalues": {"pl_album": "Kerosene", "pl_duration": 252822, "pl_title":
+        "Me And Charlie Talking", "pl_key": "_pl_0000100_Miranda Lambert_Me And Charlie
+        Talking..mp3", "pl_artist": "Miranda Lambert"}, "artist_name": "Miranda Lambert",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000100_Miranda Lambert_Me And
+        Charlie Talking..mp3", "song_id": "SOCJAOH1313439EDF1", "request": {"item_id":
+        "_pl_0000100_Miranda Lambert_Me And Charlie Talking..mp3", "song_id": "SOCJAOH1313439EDF1"}},
+        {"song_name": "There''s A Wall", "artist_id": "AREEQPY1187FB5B9E3", "item_keyvalues":
+        {"pl_album": "Kerosene", "pl_duration": 256139, "pl_title": "There''s A Wall",
+        "pl_key": "_pl_0000101_Miranda Lambert_There''s A Wall..mp3", "pl_artist":
+        "Miranda Lambert"}, "artist_name": "Miranda Lambert", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000101_Miranda
         Lambert_There''s A Wall..mp3", "song_id": "SOMQNKR1313439ECE5", "request":
         {"item_id": "_pl_0000101_Miranda Lambert_There''s A Wall..mp3", "song_id":
         "SOMQNKR1313439ECE5"}}, {"song_name": "Love Your Memory", "artist_id": "AREEQPY1187FB5B9E3",
         "item_keyvalues": {"pl_album": "Kerosene", "pl_duration": 227796, "pl_title":
         "Love Your Memory", "pl_key": "_pl_0000102_Miranda Lambert_Love Your Memory..mp3",
         "pl_artist": "Miranda Lambert"}, "artist_name": "Miranda Lambert", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000102_Miranda Lambert_Love Your Memory..mp3",
         "song_id": "SOAVSSK12A8C13C7F5", "request": {"item_id": "_pl_0000102_Miranda
         Lambert_Love Your Memory..mp3", "song_id": "SOAVSSK12A8C13C7F5"}}, {"song_name":
@@ -542,46 +666,84 @@ http_interactions:
         {"pl_album": "Pimps & Preachers", "pl_duration": 179565, "pl_title": "You''re
         Not The Only One", "pl_key": "_pl_0000106_Paul Thorn_You''re Not The Only
         One..mp3", "pl_artist": "Paul Thorn"}, "artist_name": "Paul Thorn", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000106_Paul Thorn_You''re Not The Only One..mp3",
         "song_id": "SOTDUZA141217A4782", "request": {"item_id": "_pl_0000106_Paul
         Thorn_You''re Not The Only One..mp3", "song_id": "SOTDUZA141217A4782"}}, {"song_name":
-        "Tequila Is Good For The Heart", "artist_id": "AREVNVA1187B989EE0", "item_keyvalues":
+        "Pimps And Preachers", "artist_id": "AREVNVA1187B989EE0", "item_keyvalues":
+        {"pl_album": "Pimps & Preachers", "pl_duration": 248790, "pl_title": "Pimps
+        And Preachers", "pl_key": "_pl_0000107_Paul Thorn_Pimps And Preachers..mp3",
+        "pl_artist": "Paul Thorn"}, "artist_name": "Paul Thorn", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000107_Paul Thorn_Pimps And Preachers..mp3",
+        "song_id": "SOEMIDX141217C422F", "request": {"item_id": "_pl_0000107_Paul
+        Thorn_Pimps And Preachers..mp3", "song_id": "SOEMIDX141217C422F"}}, {"song_name":
+        "Love Scar", "artist_id": "AREVNVA1187B989EE0", "item_keyvalues": {"pl_album":
+        "Pimps & Preachers", "pl_duration": 251480, "pl_title": "Love Scar", "pl_key":
+        "_pl_0000108_Paul Thorn_Love Scar..mp3", "pl_artist": "Paul Thorn"}, "artist_name":
+        "Paul Thorn", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000108_Paul Thorn_Love Scar..mp3",
+        "song_id": "SOQIQCM1412167C512", "request": {"item_id": "_pl_0000108_Paul
+        Thorn_Love Scar..mp3", "song_id": "SOQIQCM1412167C512"}}, {"song_name": "Tequila
+        Is Good For The Heart", "artist_id": "AREVNVA1187B989EE0", "item_keyvalues":
         {"pl_album": "Pimps & Preachers", "pl_duration": 220969, "pl_title": "Tequila
         Is Good For The Heart", "pl_key": "_pl_0000109_Paul Thorn_Tequila Is Good
         For The Heart..mp3", "pl_artist": "Paul Thorn"}, "artist_name": "Paul Thorn",
-        "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000109_Paul Thorn_Tequila Is Good
         For The Heart..mp3", "song_id": "SOXUUPD141217D6621", "request": {"item_id":
         "_pl_0000109_Paul Thorn_Tequila Is Good For The Heart..mp3", "song_id": "SOXUUPD141217D6621"}},
+        {"song_name": "Weeds In My Roses", "artist_id": "AREVNVA1187B989EE0", "item_keyvalues":
+        {"pl_album": "Pimps & Preachers", "pl_duration": 183823, "pl_title": "Weeds
+        In My Roses", "pl_key": "_pl_0000110_Paul Thorn_Weeds In My Roses..mp3", "pl_artist":
+        "Paul Thorn"}, "artist_name": "Paul Thorn", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000110_Paul
+        Thorn_Weeds In My Roses..mp3", "song_id": "SORTVWK141216A8D60", "request":
+        {"item_id": "_pl_0000110_Paul Thorn_Weeds In My Roses..mp3", "song_id": "SORTVWK141216A8D60"}},
         {"song_name": "Ray Ann''s Shoes", "artist_id": "AREVNVA1187B989EE0", "item_keyvalues":
         {"pl_album": "Pimps & Preachers", "pl_duration": 237244, "pl_title": "Ray
         Ann''s Shoes", "pl_key": "_pl_0000111_Paul Thorn_Ray Ann''s Shoes..mp3", "pl_artist":
-        "Paul Thorn"}, "artist_name": "Paul Thorn", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000111_Paul
+        "Paul Thorn"}, "artist_name": "Paul Thorn", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000111_Paul
         Thorn_Ray Ann''s Shoes..mp3", "song_id": "SOGHZDU141216D33DF", "request":
         {"item_id": "_pl_0000111_Paul Thorn_Ray Ann''s Shoes..mp3", "song_id": "SOGHZDU141216D33DF"}},
         {"song_name": "Better Days Ahead", "artist_id": "AREVNVA1187B989EE0", "item_keyvalues":
         {"pl_album": "Pimps & Preachers", "pl_duration": 239568, "pl_title": "Better
         Days Ahead", "pl_key": "_pl_0000112_Paul Thorn_Better Days Ahead..mp3", "pl_artist":
-        "Paul Thorn"}, "artist_name": "Paul Thorn", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000112_Paul
+        "Paul Thorn"}, "artist_name": "Paul Thorn", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000112_Paul
         Thorn_Better Days Ahead..mp3", "song_id": "SOLHSWX13603EB99FF", "request":
         {"item_id": "_pl_0000112_Paul Thorn_Better Days Ahead..mp3", "song_id": "SOLHSWX13603EB99FF"}},
-        {"song_name": "Buckskin Jones'' Illegitimate Son", "artist_id": "AREVNVA1187B989EE0",
-        "item_keyvalues": {"pl_album": "Pimps & Preachers", "pl_duration": 296724,
-        "pl_title": "Buckskin Jones'' Illegitimate Son", "pl_key": "_pl_0000114_Paul
-        Thorn_Buckskin Jones'' Illegitimate Son..mp3", "pl_artist": "Paul Thorn"},
-        "artist_name": "Paul Thorn", "last_modified": "2014-11-20T21:52:29", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000114_Paul
-        Thorn_Buckskin Jones'' Illegitimate Son..mp3", "song_id": "SOGCXTZ1312A7BDAD7",
-        "request": {"item_id": "_pl_0000114_Paul Thorn_Buckskin Jones'' Illegitimate
-        Son..mp3", "song_id": "SOGCXTZ1312A7BDAD7"}}, {"song_name": "I Don''t Like
-        Half The Folks I Love", "artist_id": "AREVNVA1187B989EE0", "item_keyvalues":
-        {"pl_album": "Pimps & Preachers", "pl_duration": 264437, "pl_title": "I Don''t
-        Like Half The Folks I Love", "pl_key": "_pl_0000116_Paul Thorn_I Don''t Like
-        Half The Folks I Love..mp3", "pl_artist": "Paul Thorn"}, "artist_name": "Paul
-        Thorn", "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        {"song_name": "You Might Be Wrong", "artist_id": "AREVNVA1187B989EE0", "item_keyvalues":
+        {"pl_album": "Pimps & Preachers", "pl_duration": 209371, "pl_title": "You
+        Might Be Wrong", "pl_key": "_pl_0000113_Paul Thorn_You Might Be Wrong..mp3",
+        "pl_artist": "Paul Thorn"}, "artist_name": "Paul Thorn", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000113_Paul Thorn_You Might Be Wrong..mp3",
+        "song_id": "SOCRCQE141216F5B6D", "request": {"item_id": "_pl_0000113_Paul
+        Thorn_You Might Be Wrong..mp3", "song_id": "SOCRCQE141216F5B6D"}}, {"song_name":
+        "Buckskin Jones'' Illegitimate Son", "artist_id": "AREVNVA1187B989EE0", "item_keyvalues":
+        {"pl_album": "Pimps & Preachers", "pl_duration": 296724, "pl_title": "Buckskin
+        Jones'' Illegitimate Son", "pl_key": "_pl_0000114_Paul Thorn_Buckskin Jones''
+        Illegitimate Son..mp3", "pl_artist": "Paul Thorn"}, "artist_name": "Paul Thorn",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000114_Paul Thorn_Buckskin Jones''
+        Illegitimate Son..mp3", "song_id": "SOGCXTZ1312A7BDAD7", "request": {"item_id":
+        "_pl_0000114_Paul Thorn_Buckskin Jones'' Illegitimate Son..mp3", "song_id":
+        "SOGCXTZ1312A7BDAD7"}}, {"song_name": "I Hope I''m Doing This Right", "artist_id":
+        "AREVNVA1187B989EE0", "item_keyvalues": {"pl_album": "Pimps & Preachers",
+        "pl_duration": 207986, "pl_title": "I Hope I''m Doing This Right", "pl_key":
+        "_pl_0000115_Paul Thorn_I Hope I''m Doing This Right..mp3", "pl_artist": "Paul
+        Thorn"}, "artist_name": "Paul Thorn", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000115_Paul
+        Thorn_I Hope I''m Doing This Right..mp3", "song_id": "SOADFVS141216B3F3B",
+        "request": {"item_id": "_pl_0000115_Paul Thorn_I Hope I''m Doing This Right..mp3",
+        "song_id": "SOADFVS141216B3F3B"}}, {"song_name": "I Don''t Like Half The Folks
+        I Love", "artist_id": "AREVNVA1187B989EE0", "item_keyvalues": {"pl_album":
+        "Pimps & Preachers", "pl_duration": 264437, "pl_title": "I Don''t Like Half
+        The Folks I Love", "pl_key": "_pl_0000116_Paul Thorn_I Don''t Like Half The
+        Folks I Love..mp3", "pl_artist": "Paul Thorn"}, "artist_name": "Paul Thorn",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000116_Paul Thorn_I Don''t Like
         Half The Folks I Love..mp3", "song_id": "SOJCQFO14121719748", "request": {"item_id":
         "_pl_0000116_Paul Thorn_I Don''t Like Half The Folks I Love..mp3", "song_id":
@@ -589,162 +751,224 @@ http_interactions:
         "item_keyvalues": {"pl_album": "Pimps & Preachers", "pl_duration": 225802,
         "pl_title": "Nona Lisa", "pl_key": "_pl_0000117_Paul Thorn_Nona Lisa..mp3",
         "pl_artist": "Paul Thorn"}, "artist_name": "Paul Thorn", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000117_Paul Thorn_Nona Lisa..mp3", "song_id":
         "SONZDPF13C9A43A978", "request": {"item_id": "_pl_0000117_Paul Thorn_Nona
-        Lisa..mp3", "song_id": "SONZDPF13C9A43A978"}}, {"item_keyvalues": {"pl_album":
-        null, "pl_duration": 287738, "pl_title": "White Liar", "pl_key": "_pl_0000120_Miranda
+        Lisa..mp3", "song_id": "SONZDPF13C9A43A978"}}, {"song_name": "That''s Life",
+        "artist_id": "AREVNVA1187B989EE0", "item_keyvalues": {"pl_album": "Pimps &
+        Preachers", "pl_duration": 285988, "pl_title": "That''s Life", "pl_key": "_pl_0000118_Paul
+        Thorn_That''s Life..mp3", "pl_artist": "Paul Thorn"}, "artist_name": "Paul
+        Thorn", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000118_Paul Thorn_That''s Life..mp3",
+        "song_id": "SOAUGJN1412176F426", "request": {"item_id": "_pl_0000118_Paul
+        Thorn_That''s Life..mp3", "song_id": "SOAUGJN1412176F426"}}, {"item_keyvalues":
+        {"pl_duration": 238080, "pl_album": null, "pl_title": "Stepladder", "pl_key":
+        "_pl_0000119_Rachel Loy_Stepladder..mp3", "pl_artist": "Rachel Loy"}, "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "request": {"item_id":
+        "_pl_0000119_Rachel Loy_Stepladder..mp3"}}, {"item_keyvalues": {"pl_duration":
+        287738, "pl_album": null, "pl_title": "White Liar", "pl_key": "_pl_0000120_Miranda
         Lambert_White Liar..mp3", "pl_artist": "Miranda Lambert"}, "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "request": {"item_id":
-        "_pl_0000120_Miranda Lambert_White Liar..mp3"}}, {"item_keyvalues": {"pl_album":
-        null, "pl_duration": 168359, "pl_title": "Airstream Song", "pl_key": "_pl_0000121_Miranda
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "request": {"item_id":
+        "_pl_0000120_Miranda Lambert_White Liar..mp3"}}, {"item_keyvalues": {"pl_duration":
+        168359, "pl_album": null, "pl_title": "Airstream Song", "pl_key": "_pl_0000121_Miranda
         Lambert_Airstream Song..mp3", "pl_artist": "Miranda Lambert"}, "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "request": {"item_id":
-        "_pl_0000121_Miranda Lambert_Airstream Song..mp3"}}, {"item_keyvalues": {"pl_album":
-        null, "pl_duration": 144169, "pl_title": "Me and Your Cigarettes", "pl_key":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "request": {"item_id":
+        "_pl_0000121_Miranda Lambert_Airstream Song..mp3"}}, {"item_keyvalues": {"pl_duration":
+        144169, "pl_album": null, "pl_title": "Me and Your Cigarettes", "pl_key":
         "_pl_0000122_Miranda Lambert_Me and Your Cigarettes..mp3", "pl_artist": "Miranda
-        Lambert"}, "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        Lambert"}, "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "request": {"item_id": "_pl_0000122_Miranda Lambert_Me and Your Cigarettes..mp3"}},
-        {"item_keyvalues": {"pl_album": null, "pl_duration": 137586, "pl_title": "Maintain
-        The Pain", "pl_key": "_pl_0000124_Miranda Lambert_Maintain The Pain..mp3",
-        "pl_artist": "Miranda Lambert"}, "last_modified": "2014-11-20T21:52:30", "date_added":
-        "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000124_Miranda Lambert_Maintain
-        The Pain..mp3"}}, {"item_keyvalues": {"pl_album": null, "pl_duration": 230008,
-        "pl_title": "Makin'' Plans", "pl_key": "_pl_0000126_Miranda Lambert_Makin''
-        Plans..mp3", "pl_artist": "Miranda Lambert"}, "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000126_Miranda
-        Lambert_Makin'' Plans..mp3"}}, {"item_keyvalues": {"pl_album": null, "pl_duration":
-        235911, "pl_title": "Time To Get A Gun", "pl_key": "_pl_0000130_Miranda Lambert_Time
-        To Get A Gun..mp3", "pl_artist": "Miranda Lambert"}, "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000130_Miranda
-        Lambert_Time To Get A Gun..mp3"}}, {"item_keyvalues": {"pl_album": null, "pl_duration":
-        177841, "pl_title": "Heart Like Mine", "pl_key": "_pl_0000131_Miranda Lambert_Heart
-        Like Mine..mp3", "pl_artist": "Miranda Lambert"}, "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000131_Miranda
-        Lambert_Heart Like Mine..mp3"}}, {"item_keyvalues": {"pl_album": null, "pl_duration":
-        226638, "pl_title": "Virginia Bluebell", "pl_key": "_pl_0000133_Miranda Lambert_Virginia
-        Bluebell..mp3", "pl_artist": "Miranda Lambert"}, "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000133_Miranda
-        Lambert_Virginia Bluebell..mp3"}}, {"item_keyvalues": {"pl_album": null, "pl_duration":
-        205426, "pl_title": "That''s The Way That The World Goes ''Round", "pl_key":
-        "_pl_0000134_Miranda Lambert_That''s The Way That The World Goes ''Round..mp3",
-        "pl_artist": "Miranda Lambert"}, "last_modified": "2014-11-20T21:52:30", "date_added":
-        "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000134_Miranda Lambert_That''s
-        The Way That The World Goes ''Round..mp3"}}, {"item_keyvalues": {"pl_album":
-        null, "pl_duration": 222354, "pl_title": "Big City Blues", "pl_key": "_pl_0000135_Keith
-        Gattis_Big City Blues..mp3", "pl_artist": "Keith Gattis"}, "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "request": {"item_id":
-        "_pl_0000135_Keith Gattis_Big City Blues..mp3"}}, {"item_keyvalues": {"pl_album":
-        null, "pl_duration": 233717, "pl_title": "Reconsider", "pl_key": "_pl_0000137_Keith
-        Gattis_Reconsider..mp3", "pl_artist": "Keith Gattis"}, "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000137_Keith
-        Gattis_Reconsider..mp3"}}, {"item_keyvalues": {"pl_album": null, "pl_duration":
-        268434, "pl_title": "Down Again", "pl_key": "_pl_0000140_Keith Gattis_Down
-        Again..mp3", "pl_artist": "Keith Gattis"}, "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000140_Keith
-        Gattis_Down Again..mp3"}}, {"item_keyvalues": {"pl_album": null, "pl_duration":
-        312894, "pl_title": "Don''t Lie", "pl_key": "_pl_0000141_Keith Gattis_Don''t
-        Lie..mp3", "pl_artist": "Keith Gattis"}, "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000141_Keith
-        Gattis_Don''t Lie..mp3"}}, {"item_keyvalues": {"pl_album": null, "pl_duration":
-        306651, "pl_title": "The Bottom", "pl_key": "_pl_0000142_Keith Gattis_The
-        Bottom..mp3", "pl_artist": "Keith Gattis"}, "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000142_Keith
-        Gattis_The Bottom..mp3"}}, {"item_keyvalues": {"pl_album": null, "pl_duration":
-        232176, "pl_title": "California", "pl_key": "_pl_0000143_Keith Gattis_California..mp3",
-        "pl_artist": "Keith Gattis"}, "last_modified": "2014-11-20T21:52:30", "date_added":
-        "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000143_Keith Gattis_California..mp3"}},
-        {"item_keyvalues": {"pl_album": null, "pl_duration": 305397, "pl_title": "Somebody
-        Told Me", "pl_key": "_pl_0000144_Keith Gattis_Somebody Told Me..mp3", "pl_artist":
-        "Keith Gattis"}, "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        {"item_keyvalues": {"pl_duration": 239777, "pl_album": null, "pl_title": "Dead
+        Flowers", "pl_key": "_pl_0000123_Miranda Lambert_Dead Flowers..mp3", "pl_artist":
+        "Miranda Lambert"}, "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "request": {"item_id": "_pl_0000123_Miranda Lambert_Dead
+        Flowers..mp3"}}, {"item_keyvalues": {"pl_duration": 137586, "pl_album": null,
+        "pl_title": "Maintain The Pain", "pl_key": "_pl_0000124_Miranda Lambert_Maintain
+        The Pain..mp3", "pl_artist": "Miranda Lambert"}, "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "request": {"item_id": "_pl_0000124_Miranda
+        Lambert_Maintain The Pain..mp3"}}, {"item_keyvalues": {"pl_duration": 189466,
+        "pl_album": null, "pl_title": "Only Prettier", "pl_key": "_pl_0000125_Miranda
+        Lambert_Only Prettier..mp3", "pl_artist": "Miranda Lambert"}, "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "request": {"item_id":
+        "_pl_0000125_Miranda Lambert_Only Prettier..mp3"}}, {"item_keyvalues": {"pl_duration":
+        230008, "pl_album": null, "pl_title": "Makin'' Plans", "pl_key": "_pl_0000126_Miranda
+        Lambert_Makin'' Plans..mp3", "pl_artist": "Miranda Lambert"}, "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "request": {"item_id":
+        "_pl_0000126_Miranda Lambert_Makin'' Plans..mp3"}}, {"item_keyvalues": {"pl_duration":
+        201795, "pl_album": null, "pl_title": "Somewhere Trouble Don''t Go", "pl_key":
+        "_pl_0000127_Miranda Lambert_Somewhere Trouble Don''t Go..mp3", "pl_artist":
+        "Miranda Lambert"}, "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "request": {"item_id": "_pl_0000127_Miranda Lambert_Somewhere
+        Trouble Don''t Go..mp3"}}, {"item_keyvalues": {"pl_duration": 236669, "pl_album":
+        null, "pl_title": "The House That Built Me", "pl_key": "_pl_0000128_Miranda
+        Lambert_The House That Built Me..mp3", "pl_artist": "Miranda Lambert"}, "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "request": {"item_id":
+        "_pl_0000128_Miranda Lambert_The House That Built Me..mp3"}}, {"item_keyvalues":
+        {"pl_duration": 169926, "pl_album": null, "pl_title": "Love Song", "pl_key":
+        "_pl_0000129_Miranda Lambert_Love Song..mp3", "pl_artist": "Miranda Lambert"},
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000129_Miranda Lambert_Love Song..mp3"}}, {"item_keyvalues":
+        {"pl_duration": 235911, "pl_album": null, "pl_title": "Time To Get A Gun",
+        "pl_key": "_pl_0000130_Miranda Lambert_Time To Get A Gun..mp3", "pl_artist":
+        "Miranda Lambert"}, "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "request": {"item_id": "_pl_0000130_Miranda Lambert_Time
+        To Get A Gun..mp3"}}, {"item_keyvalues": {"pl_duration": 177841, "pl_album":
+        null, "pl_title": "Heart Like Mine", "pl_key": "_pl_0000131_Miranda Lambert_Heart
+        Like Mine..mp3", "pl_artist": "Miranda Lambert"}, "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "request": {"item_id": "_pl_0000131_Miranda
+        Lambert_Heart Like Mine..mp3"}}, {"item_keyvalues": {"pl_duration": 208222,
+        "pl_album": null, "pl_title": "Sin For A Sin", "pl_key": "_pl_0000132_Miranda
+        Lambert_Sin For A Sin..mp3", "pl_artist": "Miranda Lambert"}, "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "request": {"item_id":
+        "_pl_0000132_Miranda Lambert_Sin For A Sin..mp3"}}, {"item_keyvalues": {"pl_duration":
+        226638, "pl_album": null, "pl_title": "Virginia Bluebell", "pl_key": "_pl_0000133_Miranda
+        Lambert_Virginia Bluebell..mp3", "pl_artist": "Miranda Lambert"}, "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "request": {"item_id":
+        "_pl_0000133_Miranda Lambert_Virginia Bluebell..mp3"}}, {"item_keyvalues":
+        {"pl_duration": 205426, "pl_album": null, "pl_title": "That''s The Way That
+        The World Goes ''Round", "pl_key": "_pl_0000134_Miranda Lambert_That''s The
+        Way That The World Goes ''Round..mp3", "pl_artist": "Miranda Lambert"}, "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "request": {"item_id":
+        "_pl_0000134_Miranda Lambert_That''s The Way That The World Goes ''Round..mp3"}},
+        {"item_keyvalues": {"pl_duration": 222354, "pl_album": null, "pl_title": "Big
+        City Blues", "pl_key": "_pl_0000135_Keith Gattis_Big City Blues..mp3", "pl_artist":
+        "Keith Gattis"}, "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000135_Keith Gattis_Big City Blues..mp3"}}, {"item_keyvalues":
+        {"pl_duration": 358661, "pl_album": null, "pl_title": "El Cerrito Place",
+        "pl_key": "_pl_0000136_Keith Gattis_El Cerrito Place..mp3", "pl_artist": "Keith
+        Gattis"}, "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000136_Keith Gattis_El Cerrito Place..mp3"}},
+        {"item_keyvalues": {"pl_duration": 233717, "pl_album": null, "pl_title": "Reconsider",
+        "pl_key": "_pl_0000137_Keith Gattis_Reconsider..mp3", "pl_artist": "Keith
+        Gattis"}, "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000137_Keith Gattis_Reconsider..mp3"}}, {"item_keyvalues":
+        {"pl_duration": 249286, "pl_album": null, "pl_title": "Same To Me", "pl_key":
+        "_pl_0000138_Keith Gattis_Same To Me..mp3", "pl_artist": "Keith Gattis"},
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000138_Keith Gattis_Same To Me..mp3"}}, {"item_keyvalues":
+        {"pl_duration": 169900, "pl_album": null, "pl_title": "Wish I Had You", "pl_key":
+        "_pl_0000139_Keith Gattis_Wish I Had You..mp3", "pl_artist": "Keith Gattis"},
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000139_Keith Gattis_Wish I Had You..mp3"}}, {"item_keyvalues":
+        {"pl_duration": 268434, "pl_album": null, "pl_title": "Down Again", "pl_key":
+        "_pl_0000140_Keith Gattis_Down Again..mp3", "pl_artist": "Keith Gattis"},
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000140_Keith Gattis_Down Again..mp3"}}, {"item_keyvalues":
+        {"pl_duration": 312894, "pl_album": null, "pl_title": "Don''t Lie", "pl_key":
+        "_pl_0000141_Keith Gattis_Don''t Lie..mp3", "pl_artist": "Keith Gattis"},
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000141_Keith Gattis_Don''t Lie..mp3"}}, {"item_keyvalues":
+        {"pl_duration": 306651, "pl_album": null, "pl_title": "The Bottom", "pl_key":
+        "_pl_0000142_Keith Gattis_The Bottom..mp3", "pl_artist": "Keith Gattis"},
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000142_Keith Gattis_The Bottom..mp3"}}, {"item_keyvalues":
+        {"pl_duration": 232176, "pl_album": null, "pl_title": "California", "pl_key":
+        "_pl_0000143_Keith Gattis_California..mp3", "pl_artist": "Keith Gattis"},
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000143_Keith Gattis_California..mp3"}}, {"item_keyvalues":
+        {"pl_duration": 305397, "pl_album": null, "pl_title": "Somebody Told Me",
+        "pl_key": "_pl_0000144_Keith Gattis_Somebody Told Me..mp3", "pl_artist": "Keith
+        Gattis"}, "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "request": {"item_id": "_pl_0000144_Keith Gattis_Somebody Told Me..mp3"}},
-        {"item_keyvalues": {"pl_album": null, "pl_duration": 228649, "pl_title": "Hard
+        {"item_keyvalues": {"pl_duration": 228649, "pl_album": null, "pl_title": "Hard
         On Me", "pl_key": "_pl_0000145_Keith Gattis_Hard On Me..mp3", "pl_artist":
-        "Keith Gattis"}, "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        "Keith Gattis"}, "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "request": {"item_id": "_pl_0000145_Keith Gattis_Hard On Me..mp3"}}, {"item_keyvalues":
-        {"pl_album": null, "pl_duration": 266553, "pl_title": "Raise My Glass", "pl_key":
+        {"pl_duration": 266553, "pl_album": null, "pl_title": "Raise My Glass", "pl_key":
         "_pl_0000147_Micky & the Motorcars_Raise My Glass..mp3", "pl_artist": "Micky
-        & the Motorcars"}, "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        & the Motorcars"}, "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "request": {"item_id": "_pl_0000147_Micky & the Motorcars_Raise My Glass..mp3"}},
-        {"item_keyvalues": {"pl_album": null, "pl_duration": 193410, "pl_title": "How
+        {"item_keyvalues": {"pl_duration": 193410, "pl_album": null, "pl_title": "How
         Far I''ll Go", "pl_key": "_pl_0000148_Micky & the Motorcars_How Far I''ll
-        Go..mp3", "pl_artist": "Micky & the Motorcars"}, "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000148_Micky
-        & the Motorcars_How Far I''ll Go..mp3"}}, {"item_keyvalues": {"pl_album":
-        null, "pl_duration": 179200, "pl_title": "A Thousand Tears", "pl_key": "_pl_0000149_Micky
+        Go..mp3", "pl_artist": "Micky & the Motorcars"}, "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "request": {"item_id": "_pl_0000148_Micky
+        & the Motorcars_How Far I''ll Go..mp3"}}, {"item_keyvalues": {"pl_duration":
+        179200, "pl_album": null, "pl_title": "A Thousand Tears", "pl_key": "_pl_0000149_Micky
         & the Motorcars_A Thousand Tears..mp3", "pl_artist": "Micky & the Motorcars"},
-        "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "request": {"item_id": "_pl_0000149_Micky & the Motorcars_A Thousand Tears..mp3"}},
-        {"item_keyvalues": {"pl_album": null, "pl_duration": 227291, "pl_title": "Any
+        {"item_keyvalues": {"pl_duration": 227291, "pl_album": null, "pl_title": "Any
         Longer Any More", "pl_key": "_pl_0000150_Micky & the Motorcars_Any Longer
-        Any More..mp3", "pl_artist": "Micky & the Motorcars"}, "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000150_Micky
-        & the Motorcars_Any Longer Any More..mp3"}}, {"item_keyvalues": {"pl_album":
-        null, "pl_duration": 221857, "pl_title": "Far From You", "pl_key": "_pl_0000151_Micky
+        Any More..mp3", "pl_artist": "Micky & the Motorcars"}, "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "request": {"item_id": "_pl_0000150_Micky
+        & the Motorcars_Any Longer Any More..mp3"}}, {"item_keyvalues": {"pl_duration":
+        221857, "pl_album": null, "pl_title": "Far From You", "pl_key": "_pl_0000151_Micky
         & the Motorcars_Far From You..mp3", "pl_artist": "Micky & the Motorcars"},
-        "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "request": {"item_id": "_pl_0000151_Micky & the Motorcars_Far From You..mp3"}},
-        {"item_keyvalues": {"pl_album": null, "pl_duration": 240143, "pl_title": "Longer
+        {"item_keyvalues": {"pl_duration": 240143, "pl_album": null, "pl_title": "Longer
         Walk In The Rain", "pl_key": "_pl_0000152_Micky & the Motorcars_Longer Walk
         In The Rain..mp3", "pl_artist": "Micky & the Motorcars"}, "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "request": {"item_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "request": {"item_id":
         "_pl_0000152_Micky & the Motorcars_Longer Walk In The Rain..mp3"}}, {"item_keyvalues":
-        {"pl_album": null, "pl_duration": 248267, "pl_title": "Never Been Out West",
+        {"pl_duration": 248267, "pl_album": null, "pl_title": "Never Been Out West",
         "pl_key": "_pl_0000153_Micky & the Motorcars_Never Been Out West..mp3", "pl_artist":
-        "Micky & the Motorcars"}, "last_modified": "2014-11-20T21:52:30", "date_added":
-        "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000153_Micky & the Motorcars_Never
-        Been Out West..mp3"}}, {"item_keyvalues": {"pl_album": null, "pl_duration":
-        192809, "pl_title": "Big Casino", "pl_key": "_pl_0000154_Micky & the Motorcars_Big
-        Casino..mp3", "pl_artist": "Micky & the Motorcars"}, "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000154_Micky
-        & the Motorcars_Big Casino..mp3"}}, {"item_keyvalues": {"pl_album": null,
-        "pl_duration": 175725, "pl_title": "Faded And Gone", "pl_key": "_pl_0000156_Micky
-        & the Motorcars_Faded And Gone..mp3", "pl_artist": "Micky & the Motorcars"},
-        "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
-        "request": {"item_id": "_pl_0000156_Micky & the Motorcars_Faded And Gone..mp3"}},
-        {"item_keyvalues": {"pl_album": null, "pl_duration": 256653, "pl_title": "St.
-        Lucy''s Eyes", "pl_key": "_pl_0000157_Micky & the Motorcars_St. Lucy''s Eyes..mp3",
-        "pl_artist": "Micky & the Motorcars"}, "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "request": {"item_id": "_pl_0000157_Micky
-        & the Motorcars_St. Lucy''s Eyes..mp3"}}, {"item_keyvalues": {"pl_album":
-        "Revolution", "pl_duration": 275173, "pl_title": "Stay With Me", "pl_key":
-        "_pl_0000158_Miranda Lambert_Stay With Me..mp3", "pl_artist": "Miranda Lambert"},
-        "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
-        "request": {"item_id": "_pl_0000158_Miranda Lambert_Stay With Me..mp3"}},
-        {"song_name": "Tomorrow Morning", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues":
-        {"pl_album": "AM Country Heaven", "pl_duration": 177502, "pl_title": "Tomorrow
-        Morning", "pl_key": "_pl_0000160_Jason Eady_Tomorrow Morning..mp3", "pl_artist":
-        "Jason Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000160_Jason
+        "Micky & the Motorcars"}, "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "request": {"item_id": "_pl_0000153_Micky & the Motorcars_Never
+        Been Out West..mp3"}}, {"item_keyvalues": {"pl_duration": 192809, "pl_album":
+        null, "pl_title": "Big Casino", "pl_key": "_pl_0000154_Micky & the Motorcars_Big
+        Casino..mp3", "pl_artist": "Micky & the Motorcars"}, "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "request": {"item_id": "_pl_0000154_Micky
+        & the Motorcars_Big Casino..mp3"}}, {"item_keyvalues": {"pl_duration": 218880,
+        "pl_album": null, "pl_title": "Odessa Snow", "pl_key": "_pl_0000155_Micky
+        & the Motorcars_Odessa Snow..mp3", "pl_artist": "Micky & the Motorcars"},
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000155_Micky & the Motorcars_Odessa Snow..mp3"}},
+        {"item_keyvalues": {"pl_duration": 175725, "pl_album": null, "pl_title": "Faded
+        And Gone", "pl_key": "_pl_0000156_Micky & the Motorcars_Faded And Gone..mp3",
+        "pl_artist": "Micky & the Motorcars"}, "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "request": {"item_id": "_pl_0000156_Micky
+        & the Motorcars_Faded And Gone..mp3"}}, {"item_keyvalues": {"pl_duration":
+        256653, "pl_album": null, "pl_title": "St. Lucy''s Eyes", "pl_key": "_pl_0000157_Micky
+        & the Motorcars_St. Lucy''s Eyes..mp3", "pl_artist": "Micky & the Motorcars"},
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "request": {"item_id": "_pl_0000157_Micky & the Motorcars_St. Lucy''s Eyes..mp3"}},
+        {"item_keyvalues": {"pl_album": "Revolution", "pl_duration": 275173, "pl_title":
+        "Stay With Me", "pl_key": "_pl_0000158_Miranda Lambert_Stay With Me..mp3",
+        "pl_artist": "Miranda Lambert"}, "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "request": {"item_id": "_pl_0000158_Miranda Lambert_Stay
+        With Me..mp3"}}, {"song_name": "AM Country Heaven", "artist_id": "AREXYGN1241B9C7213",
+        "item_keyvalues": {"pl_album": "AM Country Heaven", "pl_duration": 214543,
+        "pl_title": "AM Country Heaven", "pl_key": "_pl_0000159_Jason Eady_AM Country
+        Heaven..mp3", "pl_artist": "Jason Eady"}, "artist_name": "Jason Eady", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000159_Jason Eady_AM Country Heaven..mp3", "song_id":
+        "SOUMSTF1393A9E9848", "request": {"item_id": "_pl_0000159_Jason Eady_AM Country
+        Heaven..mp3", "song_id": "SOUMSTF1393A9E9848"}}, {"song_name": "Tomorrow Morning",
+        "artist_id": "AREXYGN1241B9C7213", "item_keyvalues": {"pl_album": "AM Country
+        Heaven", "pl_duration": 177502, "pl_title": "Tomorrow Morning", "pl_key":
+        "_pl_0000160_Jason Eady_Tomorrow Morning..mp3", "pl_artist": "Jason Eady"},
+        "artist_name": "Jason Eady", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000160_Jason
         Eady_Tomorrow Morning..mp3", "song_id": "SOFLCDO1393A9E2188", "request": {"item_id":
         "_pl_0000160_Jason Eady_Tomorrow Morning..mp3", "song_id": "SOFLCDO1393A9E2188"}},
         {"song_name": "Wishful Drinking", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues":
         {"pl_album": "AM Country Heaven", "pl_duration": 254119, "pl_title": "Wishful
         Drinking", "pl_key": "_pl_0000161_Jason Eady_Wishful Drinking..mp3", "pl_artist":
-        "Jason Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000161_Jason
+        "Jason Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000161_Jason
         Eady_Wishful Drinking..mp3", "song_id": "SOEGGNN1393A9E2CD1", "request": {"item_id":
         "_pl_0000161_Jason Eady_Wishful Drinking..mp3", "song_id": "SOEGGNN1393A9E2CD1"}},
         {"song_name": "Old Guitar and Me", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues":
         {"pl_album": "AM Country Heaven", "pl_duration": 185234, "pl_title": "Old
         Guitar and Me", "pl_key": "_pl_0000162_Jason Eady_Old Guitar and Me..mp3",
         "pl_artist": "Jason Eady"}, "artist_name": "Jason Eady", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000162_Jason Eady_Old Guitar and Me..mp3", "song_id":
         "SOWGOJH1393A9E2FCC", "request": {"item_id": "_pl_0000162_Jason Eady_Old Guitar
         and Me..mp3", "song_id": "SOWGOJH1393A9E2FCC"}}, {"song_name": "Man on a Mountain",
         "artist_id": "AREXYGN1241B9C7213", "item_keyvalues": {"pl_album": "AM Country
         Heaven", "pl_duration": 216346, "pl_title": "Man On a Mountain", "pl_key":
         "_pl_0000163_Jason Eady_Man on a Mountain..mp3", "pl_artist": "Jason Eady"},
-        "artist_name": "Jason Eady", "last_modified": "2014-11-20T21:52:29", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000163_Jason
+        "artist_name": "Jason Eady", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000163_Jason
         Eady_Man on a Mountain..mp3", "song_id": "SOSIBDS1393A9E5964", "request":
         {"item_id": "_pl_0000163_Jason Eady_Man on a Mountain..mp3", "song_id": "SOSIBDS1393A9E5964"}},
         {"song_name": "Forget About the Truth", "artist_id": "AREXYGN1241B9C7213",
         "item_keyvalues": {"pl_album": "AM Country Heaven", "pl_duration": 204800,
         "pl_title": "Forget About the Truth", "pl_key": "_pl_0000164_Jason Eady_Forget
         About the Truth..mp3", "pl_artist": "Jason Eady"}, "artist_name": "Jason Eady",
-        "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000164_Jason Eady_Forget About
         the Truth..mp3", "song_id": "SOHVUGN1393A9E5259", "request": {"item_id": "_pl_0000164_Jason
         Eady_Forget About the Truth..mp3", "song_id": "SOHVUGN1393A9E5259"}}, {"song_name":
@@ -752,7 +976,7 @@ http_interactions:
         {"pl_album": "AM Country Heaven", "pl_duration": 289828, "pl_title": "Sober
         On the Weekends", "pl_key": "_pl_0000165_Jason Eady_Sober on the Weekends..mp3",
         "pl_artist": "Jason Eady"}, "artist_name": "Jason Eady", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000165_Jason Eady_Sober on the Weekends..mp3",
         "song_id": "SOXVFEV1393A9E96D4", "request": {"item_id": "_pl_0000165_Jason
         Eady_Sober on the Weekends..mp3", "song_id": "SOXVFEV1393A9E96D4"}}, {"song_name":
@@ -760,51 +984,60 @@ http_interactions:
         {"pl_album": "AM Country Heaven", "pl_duration": 238132, "pl_title": "Longer
         Walk In the Rain", "pl_key": "_pl_0000166_Jason Eady_Longer Walk in the Rain..mp3",
         "pl_artist": "Jason Eady"}, "artist_name": "Jason Eady", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000166_Jason Eady_Longer Walk in the Rain..mp3",
         "song_id": "SOSCTWH1393A9DF8E9", "request": {"item_id": "_pl_0000166_Jason
         Eady_Longer Walk in the Rain..mp3", "song_id": "SOSCTWH1393A9DF8E9"}}, {"song_name":
         "Paid My Dues", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues": {"pl_album":
         "AM Country Heaven", "pl_duration": 146808, "pl_title": "Paying My Dues",
         "pl_key": "_pl_0000167_Jason Eady_Paid My Dues..mp3", "pl_artist": "Jason
-        Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000167_Jason
+        Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000167_Jason
         Eady_Paid My Dues..mp3", "song_id": "SOCOEAT1393A9E3376", "request": {"item_id":
         "_pl_0000167_Jason Eady_Paid My Dues..mp3", "song_id": "SOCOEAT1393A9E3376"}},
-        {"song_name": "Lying to Myself", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues":
-        {"pl_album": "AM Country Heaven", "pl_duration": 251245, "pl_title": "Lying
-        to Myself", "pl_key": "_pl_0000169_Jason Eady_Lying to Myself..mp3", "pl_artist":
-        "Jason Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000169_Jason
-        Eady_Lying to Myself..mp3", "song_id": "SOHWDPA1393A9E2388", "request": {"item_id":
-        "_pl_0000169_Jason Eady_Lying to Myself..mp3", "song_id": "SOHWDPA1393A9E2388"}},
-        {"song_name": "Water into Wine", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues":
-        {"pl_album": "AM Country Heaven", "pl_duration": 243670, "pl_title": "Water
-        Into Wine", "pl_key": "_pl_0000170_Jason Eady_Water into Wine..mp3", "pl_artist":
-        "Jason Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000170_Jason
+        {"song_name": "I''ll Sure Be Glad When I''m Gone", "artist_id": "AREXYGN1241B9C7213",
+        "item_keyvalues": {"pl_album": "AM Country Heaven", "pl_duration": 237191,
+        "pl_title": "I''ll Sure Be Glad When I''m Gone", "pl_key": "_pl_0000168_Jason
+        Eady_I''ll Sure Be Glad When I''m Gone..mp3", "pl_artist": "Jason Eady"},
+        "artist_name": "Jason Eady", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000168_Jason
+        Eady_I''ll Sure Be Glad When I''m Gone..mp3", "song_id": "SOAILTX1393A9E2FC2",
+        "request": {"item_id": "_pl_0000168_Jason Eady_I''ll Sure Be Glad When I''m
+        Gone..mp3", "song_id": "SOAILTX1393A9E2FC2"}}, {"song_name": "Lying to Myself",
+        "artist_id": "AREXYGN1241B9C7213", "item_keyvalues": {"pl_album": "AM Country
+        Heaven", "pl_duration": 251245, "pl_title": "Lying to Myself", "pl_key": "_pl_0000169_Jason
+        Eady_Lying to Myself..mp3", "pl_artist": "Jason Eady"}, "artist_name": "Jason
+        Eady", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000169_Jason Eady_Lying to Myself..mp3",
+        "song_id": "SOHWDPA1393A9E2388", "request": {"item_id": "_pl_0000169_Jason
+        Eady_Lying to Myself..mp3", "song_id": "SOHWDPA1393A9E2388"}}, {"song_name":
+        "Water into Wine", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues": {"pl_album":
+        "AM Country Heaven", "pl_duration": 243670, "pl_title": "Water Into Wine",
+        "pl_key": "_pl_0000170_Jason Eady_Water into Wine..mp3", "pl_artist": "Jason
+        Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000170_Jason
         Eady_Water into Wine..mp3", "song_id": "SOESLHF1393A9E5BA6", "request": {"item_id":
         "_pl_0000170_Jason Eady_Water into Wine..mp3", "song_id": "SOESLHF1393A9E5BA6"}},
         {"song_name": "Temptation", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues":
         {"pl_album": "Daylight & Dark", "pl_duration": 148532, "pl_title": "Temptation",
         "pl_key": "_pl_0000171_Jason Eady_Temptation..mp3", "pl_artist": "Jason Eady"},
-        "artist_name": "Jason Eady", "last_modified": "2014-11-20T21:52:29", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000171_Jason
+        "artist_name": "Jason Eady", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000171_Jason
         Eady_Temptation..mp3", "song_id": "SOGUBKO142F06E69F4", "request": {"item_id":
         "_pl_0000171_Jason Eady_Temptation..mp3", "song_id": "SOGUBKO142F06E69F4"}},
         {"song_name": "The Other Side of Abilene", "artist_id": "AREXYGN1241B9C7213",
         "item_keyvalues": {"pl_album": "Daylight & Dark", "pl_duration": 195918, "pl_title":
         "The Other Side of Abilene", "pl_key": "_pl_0000172_Jason Eady_The Other Side
         of Abilene..mp3", "pl_artist": "Jason Eady"}, "artist_name": "Jason Eady",
-        "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000172_Jason Eady_The Other Side
         of Abilene..mp3", "song_id": "SOURWEH142F06E128A", "request": {"item_id":
         "_pl_0000172_Jason Eady_The Other Side of Abilene..mp3", "song_id": "SOURWEH142F06E128A"}},
         {"song_name": "One, Two...Many", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues":
         {"pl_album": "Daylight & Dark", "pl_duration": 203598, "pl_title": "One, Two...Many",
         "pl_key": "_pl_0000173_Jason Eady_One, Two...Many..mp3", "pl_artist": "Jason
-        Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000173_Jason
+        Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000173_Jason
         Eady_One, Two...Many..mp3", "song_id": "SOJLJKS142F06EA06C", "request": {"item_id":
         "_pl_0000173_Jason Eady_One, Two...Many..mp3", "song_id": "SOJLJKS142F06EA06C"}},
         {"song_name": "We Might Just Miss Each Other (feat. Courtney Patton)", "artist_id":
@@ -812,7 +1045,7 @@ http_interactions:
         177893, "pl_title": "We Might Just Miss Each Other (feat. Courtney Patton)",
         "pl_key": "_pl_0000174_Jason Eady_We Might Just Miss Each Other (feat. Courtney
         Patton)..mp3", "pl_artist": "Jason Eady"}, "artist_name": "Jason Eady", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000174_Jason Eady_We Might Just Miss Each Other
         (feat. Courtney Patton)..mp3", "song_id": "SOCHAOR142F06F2187", "request":
         {"item_id": "_pl_0000174_Jason Eady_We Might Just Miss Each Other (feat. Courtney
@@ -820,23 +1053,37 @@ http_interactions:
         "artist_id": "AREXYGN1241B9C7213", "item_keyvalues": {"pl_album": "Daylight
         & Dark", "pl_duration": 209162, "pl_title": "Liars & Fools", "pl_key": "_pl_0000175_Jason
         Eady_Liars & Fools..mp3", "pl_artist": "Jason Eady"}, "artist_name": "Jason
-        Eady", "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        Eady", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000175_Jason Eady_Liars & Fools..mp3",
         "song_id": "SOQSDYH142F06EE279", "request": {"item_id": "_pl_0000175_Jason
         Eady_Liars & Fools..mp3", "song_id": "SOQSDYH142F06EE279"}}, {"song_name":
-        "Lonesome Down and Out", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues":
-        {"pl_album": "Daylight & Dark", "pl_duration": 185208, "pl_title": "Lonesome
-        Down and Out", "pl_key": "_pl_0000177_Jason Eady_Lonesome Down and Out..mp3",
-        "pl_artist": "Jason Eady"}, "artist_name": "Jason Eady", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "Daylight & Dark", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues": {"pl_album":
+        "Daylight & Dark", "pl_duration": 254484, "pl_title": "Daylight & Dark", "pl_key":
+        "_pl_0000176_Jason Eady_Daylight & Dark..mp3", "pl_artist": "Jason Eady"},
+        "artist_name": "Jason Eady", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000176_Jason
+        Eady_Daylight & Dark..mp3", "song_id": "SOZRZCF142F06F5540", "request": {"item_id":
+        "_pl_0000176_Jason Eady_Daylight & Dark..mp3", "song_id": "SOZRZCF142F06F5540"}},
+        {"song_name": "Lonesome Down and Out", "artist_id": "AREXYGN1241B9C7213",
+        "item_keyvalues": {"pl_album": "Daylight & Dark", "pl_duration": 185208, "pl_title":
+        "Lonesome Down and Out", "pl_key": "_pl_0000177_Jason Eady_Lonesome Down and
+        Out..mp3", "pl_artist": "Jason Eady"}, "artist_name": "Jason Eady", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000177_Jason Eady_Lonesome Down and Out..mp3",
         "song_id": "SOLGGPI142F06FB634", "request": {"item_id": "_pl_0000177_Jason
         Eady_Lonesome Down and Out..mp3", "song_id": "SOLGGPI142F06FB634"}}, {"song_name":
+        "Whiskey & You", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues": {"pl_album":
+        "Daylight & Dark", "pl_duration": 230190, "pl_title": "Whiskey & You", "pl_key":
+        "_pl_0000178_Jason Eady_Whiskey & You..mp3", "pl_artist": "Jason Eady"}, "artist_name":
+        "Jason Eady", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000178_Jason Eady_Whiskey & You..mp3",
+        "song_id": "SORSAJU142F06FE35C", "request": {"item_id": "_pl_0000178_Jason
+        Eady_Whiskey & You..mp3", "song_id": "SORSAJU142F06FE35C"}}, {"song_name":
         "Late Night Diner", "artist_id": "AREXYGN1241B9C7213", "item_keyvalues": {"pl_album":
         "Daylight & Dark", "pl_duration": 222537, "pl_title": "Late Night Diner",
         "pl_key": "_pl_0000179_Jason Eady_Late Night Diner..mp3", "pl_artist": "Jason
-        Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000179_Jason
+        Eady"}, "artist_name": "Jason Eady", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000179_Jason
         Eady_Late Night Diner..mp3", "song_id": "SOKUHZY142F070169C", "request": {"item_id":
         "_pl_0000179_Jason Eady_Late Night Diner..mp3", "song_id": "SOKUHZY142F070169C"}},
         {"song_name": "A Memory Now (feat. Hayes Carll & Evan Felker)", "artist_id":
@@ -844,7 +1091,7 @@ http_interactions:
         159111, "pl_title": "A Memory Now (feat. Hayes Carll & Evan Felker)", "pl_key":
         "_pl_0000180_Jason Eady_A Memory Now (feat. Hayes Carll & Evan Felker)..mp3",
         "pl_artist": "Jason Eady"}, "artist_name": "Jason Eady", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000180_Jason Eady_A Memory Now (feat. Hayes
         Carll & Evan Felker)..mp3", "song_id": "SOUOHDW142F0704920", "request": {"item_id":
         "_pl_0000180_Jason Eady_A Memory Now (feat. Hayes Carll & Evan Felker)..mp3",
@@ -853,7 +1100,7 @@ http_interactions:
         "From Underneath the Old", "pl_duration": 292623, "pl_title": "A Conversation
         With Mr. Williams", "pl_key": "_pl_0000181_Jason Eady_A Conversation With
         Mr. Williams..mp3", "pl_artist": "Jason Eady"}, "artist_name": "Jason Eady",
-        "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000181_Jason Eady_A Conversation
         With Mr. Williams..mp3", "song_id": "SOSTYMD1315CD4B271", "request": {"item_id":
         "_pl_0000181_Jason Eady_A Conversation With Mr. Williams..mp3", "song_id":
@@ -861,68 +1108,83 @@ http_interactions:
         "ARRRVMG1187FB532AC", "item_keyvalues": {"pl_album": "See What You Want to
         See", "pl_duration": 284003, "pl_title": "I''ve Got a Picture", "pl_key":
         "_pl_0000182_Radney Foster_I''ve Got A Picture..mp3", "pl_artist": "Radney
-        Foster"}, "artist_name": "Radney Foster", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000182_Radney
+        Foster"}, "artist_name": "Radney Foster", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000182_Radney
         Foster_I''ve Got A Picture..mp3", "song_id": "SOCFITV12AB0186F28", "request":
         {"item_id": "_pl_0000182_Radney Foster_I''ve Got A Picture..mp3", "song_id":
         "SOCFITV12AB0186F28"}}, {"song_name": "I''m In", "artist_id": "ARRRVMG1187FB532AC",
         "item_keyvalues": {"pl_album": "See What You Want to See", "pl_duration":
         318876, "pl_title": "I''m In", "pl_key": "_pl_0000183_Radney Foster_I''m In..mp3",
         "pl_artist": "Radney Foster with Abra Moore"}, "artist_name": "Radney Foster",
-        "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000183_Radney Foster_I''m In..mp3",
         "song_id": "SOFEMCE1313438873D", "request": {"item_id": "_pl_0000183_Radney
         Foster_I''m In..mp3", "song_id": "SOFEMCE1313438873D"}}, {"song_name": "Raining
         On Sunday", "artist_id": "ARRRVMG1187FB532AC", "item_keyvalues": {"pl_album":
         "See What You Want to See", "pl_duration": 238027, "pl_title": "Raining On
         Sunday", "pl_key": "_pl_0000184_Radney Foster_Raining On Sunday..mp3", "pl_artist":
-        "Radney Foster"}, "artist_name": "Radney Foster", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000184_Radney
+        "Radney Foster"}, "artist_name": "Radney Foster", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000184_Radney
         Foster_Raining On Sunday..mp3", "song_id": "SOLKWLT12B34F1EC31", "request":
         {"item_id": "_pl_0000184_Radney Foster_Raining On Sunday..mp3", "song_id":
-        "SOLKWLT12B34F1EC31"}}, {"song_name": "Angry Heart", "artist_id": "ARRRVMG1187FB532AC",
+        "SOLKWLT12B34F1EC31"}}, {"song_name": "Folding Money", "artist_id": "ARRRVMG1187FB532AC",
         "item_keyvalues": {"pl_album": "See What You Want to See", "pl_duration":
-        244323, "pl_title": "Angry Heart", "pl_key": "_pl_0000186_Radney Foster_Angry
-        Heart..mp3", "pl_artist": "Radney Foster"}, "artist_name": "Radney Foster",
-        "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
-        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000186_Radney Foster_Angry Heart..mp3",
-        "song_id": "SOGVTIM12AB0183404", "request": {"item_id": "_pl_0000186_Radney
-        Foster_Angry Heart..mp3", "song_id": "SOGVTIM12AB0183404"}}, {"song_name":
-        "The Kiss", "artist_id": "ARRRVMG1187FB532AC", "item_keyvalues": {"pl_album":
-        "See What You Want to See", "pl_duration": 239856, "pl_title": "The Kiss",
-        "pl_key": "_pl_0000187_Radney Foster_The Kiss..mp3", "pl_artist": "Radney
-        Foster"}, "artist_name": "Radney Foster", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000187_Radney
+        256731, "pl_title": "Folding Money", "pl_key": "_pl_0000185_Radney Foster_Folding
+        Money..mp3", "pl_artist": "Radney Foster"}, "artist_name": "Radney Foster",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000185_Radney Foster_Folding Money..mp3",
+        "song_id": "SOSBEEG131712D090C", "request": {"item_id": "_pl_0000185_Radney
+        Foster_Folding Money..mp3", "song_id": "SOSBEEG131712D090C"}}, {"song_name":
+        "Angry Heart", "artist_id": "ARRRVMG1187FB532AC", "item_keyvalues": {"pl_album":
+        "See What You Want to See", "pl_duration": 244323, "pl_title": "Angry Heart",
+        "pl_key": "_pl_0000186_Radney Foster_Angry Heart..mp3", "pl_artist": "Radney
+        Foster"}, "artist_name": "Radney Foster", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000186_Radney
+        Foster_Angry Heart..mp3", "song_id": "SOGVTIM12AB0183404", "request": {"item_id":
+        "_pl_0000186_Radney Foster_Angry Heart..mp3", "song_id": "SOGVTIM12AB0183404"}},
+        {"song_name": "The Kiss", "artist_id": "ARRRVMG1187FB532AC", "item_keyvalues":
+        {"pl_album": "See What You Want to See", "pl_duration": 239856, "pl_title":
+        "The Kiss", "pl_key": "_pl_0000187_Radney Foster_The Kiss..mp3", "pl_artist":
+        "Radney Foster"}, "artist_name": "Radney Foster", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000187_Radney
         Foster_The Kiss..mp3", "song_id": "SOIHWBR12AB01837AB", "request": {"item_id":
         "_pl_0000187_Radney Foster_The Kiss..mp3", "song_id": "SOIHWBR12AB01837AB"}},
-        {"song_name": "God Knows When", "artist_id": "ARRRVMG1187FB532AC", "item_keyvalues":
-        {"pl_album": "See What You Want to See", "pl_duration": 258037, "pl_title":
-        "God Knows When", "pl_key": "_pl_0000189_Radney Foster_God Knows When..mp3",
+        {"song_name": "You Were So Right", "artist_id": "ARRRVMG1187FB532AC", "item_keyvalues":
+        {"pl_album": "See What You Want to See", "pl_duration": 209502, "pl_title":
+        "You Were So Right", "pl_key": "_pl_0000188_Radney Foster_You Were So Right..mp3",
         "pl_artist": "Radney Foster"}, "artist_name": "Radney Foster", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
-        "CAIQEUO1473A654C51:song:_pl_0000189_Radney Foster_God Knows When..mp3", "song_id":
-        "SOGNOTQ1312A8AA058", "request": {"item_id": "_pl_0000189_Radney Foster_God
-        Knows When..mp3", "song_id": "SOGNOTQ1312A8AA058"}}, {"song_name": "The Lucky
-        Ones", "artist_id": "ARRRVMG1187FB532AC", "item_keyvalues": {"pl_album": "See
-        What You Want to See", "pl_duration": 209867, "pl_title": "The Lucky Ones",
-        "pl_key": "_pl_0000190_Radney Foster_The Lucky Ones..mp3", "pl_artist": "Radney
-        Foster"}, "artist_name": "Radney Foster", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000190_Radney
-        Foster_The Lucky Ones..mp3", "song_id": "SOASSTI1312FDFFD0B", "request": {"item_id":
-        "_pl_0000190_Radney Foster_The Lucky Ones..mp3", "song_id": "SOASSTI1312FDFFD0B"}},
-        {"song_name": "Godspeed (Sweet Dreams)", "artist_id": "ARRRVMG1187FB532AC",
-        "item_keyvalues": {"pl_album": "See What You Want to See", "pl_duration":
-        294661, "pl_title": "Godspeed (Sweet Dreams)", "pl_key": "_pl_0000191_Radney
-        Foster_Godspeed (Sweet Dreams)..mp3", "pl_artist": "Radney Foster"}, "artist_name":
-        "Radney Foster", "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
-        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000191_Radney Foster_Godspeed
-        (Sweet Dreams)..mp3", "song_id": "SODFYJV1311AFED9E9", "request": {"item_id":
-        "_pl_0000191_Radney Foster_Godspeed (Sweet Dreams)..mp3", "song_id": "SODFYJV1311AFED9E9"}},
-        {"song_name": "Better Off Wrong", "artist_id": "AR2WN631187B99DA0B", "item_keyvalues":
-        {"pl_album": "Just a Matter of Time", "pl_duration": 265586, "pl_title": "Better
-        off Wrong", "pl_key": "_pl_0000192_Randy Rogers Band_Better Off Wrong..mp3",
-        "pl_artist": "Randy Rogers Band"}, "artist_name": "Randy Rogers Band", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000188_Radney Foster_You Were So Right..mp3",
+        "song_id": "SOJSDIR1313438B225", "request": {"item_id": "_pl_0000188_Radney
+        Foster_You Were So Right..mp3", "song_id": "SOJSDIR1313438B225"}}, {"song_name":
+        "God Knows When", "artist_id": "ARRRVMG1187FB532AC", "item_keyvalues": {"pl_album":
+        "See What You Want to See", "pl_duration": 258037, "pl_title": "God Knows
+        When", "pl_key": "_pl_0000189_Radney Foster_God Knows When..mp3", "pl_artist":
+        "Radney Foster"}, "artist_name": "Radney Foster", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000189_Radney
+        Foster_God Knows When..mp3", "song_id": "SOGNOTQ1312A8AA058", "request": {"item_id":
+        "_pl_0000189_Radney Foster_God Knows When..mp3", "song_id": "SOGNOTQ1312A8AA058"}},
+        {"song_name": "The Lucky Ones", "artist_id": "ARRRVMG1187FB532AC", "item_keyvalues":
+        {"pl_album": "See What You Want to See", "pl_duration": 209867, "pl_title":
+        "The Lucky Ones", "pl_key": "_pl_0000190_Radney Foster_The Lucky Ones..mp3",
+        "pl_artist": "Radney Foster"}, "artist_name": "Radney Foster", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000190_Radney Foster_The Lucky Ones..mp3", "song_id":
+        "SOASSTI1312FDFFD0B", "request": {"item_id": "_pl_0000190_Radney Foster_The
+        Lucky Ones..mp3", "song_id": "SOASSTI1312FDFFD0B"}}, {"song_name": "Godspeed
+        (Sweet Dreams)", "artist_id": "ARRRVMG1187FB532AC", "item_keyvalues": {"pl_album":
+        "See What You Want to See", "pl_duration": 294661, "pl_title": "Godspeed (Sweet
+        Dreams)", "pl_key": "_pl_0000191_Radney Foster_Godspeed (Sweet Dreams)..mp3",
+        "pl_artist": "Radney Foster"}, "artist_name": "Radney Foster", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000191_Radney Foster_Godspeed (Sweet Dreams)..mp3",
+        "song_id": "SODFYJV1311AFED9E9", "request": {"item_id": "_pl_0000191_Radney
+        Foster_Godspeed (Sweet Dreams)..mp3", "song_id": "SODFYJV1311AFED9E9"}}, {"song_name":
+        "Better Off Wrong", "artist_id": "AR2WN631187B99DA0B", "item_keyvalues": {"pl_album":
+        "Just a Matter of Time", "pl_duration": 265586, "pl_title": "Better off Wrong",
+        "pl_key": "_pl_0000192_Randy Rogers Band_Better Off Wrong..mp3", "pl_artist":
+        "Randy Rogers Band"}, "artist_name": "Randy Rogers Band", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000192_Randy Rogers Band_Better Off Wrong..mp3",
         "song_id": "SOSOUNJ1315CD481B7", "request": {"item_id": "_pl_0000192_Randy
         Rogers Band_Better Off Wrong..mp3", "song_id": "SOSOUNJ1315CD481B7"}}, {"song_name":
@@ -930,7 +1192,7 @@ http_interactions:
         {"pl_album": "Just a Matter of Time", "pl_duration": 228963, "pl_title": "Kiss
         Me In the Dark", "pl_key": "_pl_0000193_Randy Rogers Band_Kiss Me In The Dark..mp3",
         "pl_artist": "Randy Rogers Band"}, "artist_name": "Randy Rogers Band", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000193_Randy Rogers Band_Kiss Me In The Dark..mp3",
         "song_id": "SOBXPTP12AF72A2533", "request": {"item_id": "_pl_0000193_Randy
         Rogers Band_Kiss Me In The Dark..mp3", "song_id": "SOBXPTP12AF72A2533"}},
@@ -938,56 +1200,65 @@ http_interactions:
         "item_keyvalues": {"pl_album": "Just a Matter of Time", "pl_duration": 225175,
         "pl_title": "You Could Change My Mind", "pl_key": "_pl_0000194_Randy Rogers
         Band_You Could Change My Mind..mp3", "pl_artist": "Randy Rogers Band"}, "artist_name":
-        "Randy Rogers Band", "last_modified": "2014-11-20T21:52:30", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000194_Randy
+        "Randy Rogers Band", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000194_Randy
         Rogers Band_You Could Change My Mind..mp3", "song_id": "SONKITR1315CD477BC",
         "request": {"item_id": "_pl_0000194_Randy Rogers Band_You Could Change My
         Mind..mp3", "song_id": "SONKITR1315CD477BC"}}, {"song_name": "One More Goodbye",
         "artist_id": "AR2WN631187B99DA0B", "item_keyvalues": {"pl_album": "Just a
         Matter of Time", "pl_duration": 254667, "pl_title": "One More Goodbye", "pl_key":
         "_pl_0000195_Randy Rogers Band_One More Goodbye..mp3", "pl_artist": "Randy
-        Rogers Band"}, "artist_name": "Randy Rogers Band", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000195_Randy
+        Rogers Band"}, "artist_name": "Randy Rogers Band", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000195_Randy
         Rogers Band_One More Goodbye..mp3", "song_id": "SOCVJGA1315CD46FBC", "request":
         {"item_id": "_pl_0000195_Randy Rogers Band_One More Goodbye..mp3", "song_id":
-        "SOCVJGA1315CD46FBC"}}, {"song_name": "Just A Matter Of Time", "artist_id":
+        "SOCVJGA1315CD46FBC"}}, {"song_name": "You Could''ve Left Me", "artist_id":
         "AR2WN631187B99DA0B", "item_keyvalues": {"pl_album": "Just a Matter of Time",
-        "pl_duration": 236303, "pl_title": "Just a Matter of Time", "pl_key": "_pl_0000197_Randy
-        Rogers Band_Just A Matter Of Time..mp3", "pl_artist": "Randy Rogers Band"},
-        "artist_name": "Randy Rogers Band", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000197_Randy
-        Rogers Band_Just A Matter Of Time..mp3", "song_id": "SOALTLJ12AF72A13E9",
-        "request": {"item_id": "_pl_0000197_Randy Rogers Band_Just A Matter Of Time..mp3",
-        "song_id": "SOALTLJ12AF72A13E9"}}, {"song_name": "You Start Over Your Way",
+        "pl_duration": 246543, "pl_title": "You Could''ve Left Me", "pl_key": "_pl_0000196_Randy
+        Rogers Band_You Could''ve Left Me..mp3", "pl_artist": "Randy Rogers Band"},
+        "artist_name": "Randy Rogers Band", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000196_Randy
+        Rogers Band_You Could''ve Left Me..mp3", "song_id": "SOCZOWD1315CD4800B",
+        "request": {"item_id": "_pl_0000196_Randy Rogers Band_You Could''ve Left Me..mp3",
+        "song_id": "SOCZOWD1315CD4800B"}}, {"song_name": "Just A Matter Of Time",
         "artist_id": "AR2WN631187B99DA0B", "item_keyvalues": {"pl_album": "Just a
-        Matter of Time", "pl_duration": 196231, "pl_title": "You Start Over Your Way",
-        "pl_key": "_pl_0000198_Randy Rogers Band_You Start Over Your Way..mp3", "pl_artist":
+        Matter of Time", "pl_duration": 236303, "pl_title": "Just a Matter of Time",
+        "pl_key": "_pl_0000197_Randy Rogers Band_Just A Matter Of Time..mp3", "pl_artist":
         "Randy Rogers Band"}, "artist_name": "Randy Rogers Band", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
-        "CAIQEUO1473A654C51:song:_pl_0000198_Randy Rogers Band_You Start Over Your
-        Way..mp3", "song_id": "SOFBBBW12AF72A1689", "request": {"item_id": "_pl_0000198_Randy
-        Rogers Band_You Start Over Your Way..mp3", "song_id": "SOFBBBW12AF72A1689"}},
-        {"song_name": "If Anyone Asks", "artist_id": "AR2WN631187B99DA0B", "item_keyvalues":
-        {"pl_album": "Just a Matter of Time", "pl_duration": 264620, "pl_title": "If
-        Anyone Asks", "pl_key": "_pl_0000199_Randy Rogers Band_If Anyone Asks..mp3",
-        "pl_artist": "Randy Rogers Band"}, "artist_name": "Randy Rogers Band", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
-        "CAIQEUO1473A654C51:song:_pl_0000199_Randy Rogers Band_If Anyone Asks..mp3",
-        "song_id": "SOLPSSO12AF729F938", "request": {"item_id": "_pl_0000199_Randy
-        Rogers Band_If Anyone Asks..mp3", "song_id": "SOLPSSO12AF729F938"}}, {"song_name":
-        "Before I Believe It''s True", "artist_id": "AR2WN631187B99DA0B", "item_keyvalues":
-        {"pl_album": "Just a Matter of Time", "pl_duration": 292858, "pl_title": "Before
-        I Believe It''s True", "pl_key": "_pl_0000200_Randy Rogers Band_Before I Believe
-        It''s True..mp3", "pl_artist": "Randy Rogers Band"}, "artist_name": "Randy
-        Rogers Band", "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
-        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000200_Randy Rogers Band_Before
-        I Believe It''s True..mp3", "song_id": "SOGSZJE12AF72A082E", "request": {"item_id":
-        "_pl_0000200_Randy Rogers Band_Before I Believe It''s True..mp3", "song_id":
-        "SOGSZJE12AF72A082E"}}, {"song_name": "You Don''t Know Me", "artist_id": "AR2WN631187B99DA0B",
-        "item_keyvalues": {"pl_album": "Just a Matter of Time", "pl_duration": 247536,
-        "pl_title": "You Don''t Know Me", "pl_key": "_pl_0000201_Randy Rogers Band_You
-        Don''t Know Me..mp3", "pl_artist": "Randy Rogers Band"}, "artist_name": "Randy
-        Rogers Band", "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000197_Randy Rogers Band_Just A Matter Of Time..mp3",
+        "song_id": "SOALTLJ12AF72A13E9", "request": {"item_id": "_pl_0000197_Randy
+        Rogers Band_Just A Matter Of Time..mp3", "song_id": "SOALTLJ12AF72A13E9"}},
+        {"song_name": "You Start Over Your Way", "artist_id": "AR2WN631187B99DA0B",
+        "item_keyvalues": {"pl_album": "Just a Matter of Time", "pl_duration": 196231,
+        "pl_title": "You Start Over Your Way", "pl_key": "_pl_0000198_Randy Rogers
+        Band_You Start Over Your Way..mp3", "pl_artist": "Randy Rogers Band"}, "artist_name":
+        "Randy Rogers Band", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000198_Randy
+        Rogers Band_You Start Over Your Way..mp3", "song_id": "SOFBBBW12AF72A1689",
+        "request": {"item_id": "_pl_0000198_Randy Rogers Band_You Start Over Your
+        Way..mp3", "song_id": "SOFBBBW12AF72A1689"}}, {"song_name": "If Anyone Asks",
+        "artist_id": "AR2WN631187B99DA0B", "item_keyvalues": {"pl_album": "Just a
+        Matter of Time", "pl_duration": 264620, "pl_title": "If Anyone Asks", "pl_key":
+        "_pl_0000199_Randy Rogers Band_If Anyone Asks..mp3", "pl_artist": "Randy Rogers
+        Band"}, "artist_name": "Randy Rogers Band", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000199_Randy
+        Rogers Band_If Anyone Asks..mp3", "song_id": "SOLPSSO12AF729F938", "request":
+        {"item_id": "_pl_0000199_Randy Rogers Band_If Anyone Asks..mp3", "song_id":
+        "SOLPSSO12AF729F938"}}, {"song_name": "Before I Believe It''s True", "artist_id":
+        "AR2WN631187B99DA0B", "item_keyvalues": {"pl_album": "Just a Matter of Time",
+        "pl_duration": 292858, "pl_title": "Before I Believe It''s True", "pl_key":
+        "_pl_0000200_Randy Rogers Band_Before I Believe It''s True..mp3", "pl_artist":
+        "Randy Rogers Band"}, "artist_name": "Randy Rogers Band", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000200_Randy Rogers Band_Before I Believe It''s
+        True..mp3", "song_id": "SOGSZJE12AF72A082E", "request": {"item_id": "_pl_0000200_Randy
+        Rogers Band_Before I Believe It''s True..mp3", "song_id": "SOGSZJE12AF72A082E"}},
+        {"song_name": "You Don''t Know Me", "artist_id": "AR2WN631187B99DA0B", "item_keyvalues":
+        {"pl_album": "Just a Matter of Time", "pl_duration": 247536, "pl_title": "You
+        Don''t Know Me", "pl_key": "_pl_0000201_Randy Rogers Band_You Don''t Know
+        Me..mp3", "pl_artist": "Randy Rogers Band"}, "artist_name": "Randy Rogers
+        Band", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000201_Randy Rogers Band_You Don''t
         Know Me..mp3", "song_id": "SOGGMCH12A67AD94E9", "request": {"item_id": "_pl_0000201_Randy
         Rogers Band_You Don''t Know Me..mp3", "song_id": "SOGGMCH12A67AD94E9"}}, {"song_name":
@@ -995,7 +1266,7 @@ http_interactions:
         {"pl_album": "Just a Matter of Time", "pl_duration": 249364, "pl_title": "Whiskey''s
         Got a Hold on Me", "pl_key": "_pl_0000202_Randy Rogers Band_Whiskey''s Got
         A Hold On Me..mp3", "pl_artist": "Randy Rogers Band"}, "artist_name": "Randy
-        Rogers Band", "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        Rogers Band", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000202_Randy Rogers Band_Whiskey''s
         Got A Hold On Me..mp3", "song_id": "SOLKTFG12A67AD94EB", "request": {"item_id":
         "_pl_0000202_Randy Rogers Band_Whiskey''s Got A Hold On Me..mp3", "song_id":
@@ -1003,30 +1274,30 @@ http_interactions:
         "AR2WN631187B99DA0B", "item_keyvalues": {"pl_album": "Just a Matter of Time",
         "pl_duration": 238080, "pl_title": "If I Told You the Truth", "pl_key": "_pl_0000203_Randy
         Rogers Band_If I Told You The Truth..mp3", "pl_artist": "Randy Rogers Band"},
-        "artist_name": "Randy Rogers Band", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000203_Randy
+        "artist_name": "Randy Rogers Band", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000203_Randy
         Rogers Band_If I Told You The Truth..mp3", "song_id": "SOAUQUW12AF729CD58",
         "request": {"item_id": "_pl_0000203_Randy Rogers Band_If I Told You The Truth..mp3",
         "song_id": "SOAUQUW12AF729CD58"}}, {"song_name": "One More Sad Song", "artist_id":
         "AR2WN631187B99DA0B", "item_keyvalues": {"pl_album": "One More Sad Song -
         Single", "pl_duration": 231993, "pl_title": "One More Sad Song", "pl_key":
         "_pl_0000204_Randy Rogers Band_One More Sad Song..mp3", "pl_artist": "Randy
-        Rogers Band"}, "artist_name": "Randy Rogers Band", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000204_Randy
+        Rogers Band"}, "artist_name": "Randy Rogers Band", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000204_Randy
         Rogers Band_One More Sad Song..mp3", "song_id": "SOJBTTL13E90886B78", "request":
         {"item_id": "_pl_0000204_Randy Rogers Band_One More Sad Song..mp3", "song_id":
         "SOJBTTL13E90886B78"}}, {"song_name": "Fuzzy", "artist_id": "AR2WN631187B99DA0B",
         "item_keyvalues": {"pl_album": "Fuzzy - Single", "pl_duration": 200463, "pl_title":
         "Fuzzy", "pl_key": "_pl_0000205_Randy Rogers Band_Fuzzy..mp3", "pl_artist":
         "Randy Rogers Band"}, "artist_name": "Randy Rogers Band", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000205_Randy Rogers Band_Fuzzy..mp3", "song_id":
         "SOJCGHG143E94F50F7", "request": {"item_id": "_pl_0000205_Randy Rogers Band_Fuzzy..mp3",
         "song_id": "SOJCGHG143E94F50F7"}}, {"song_name": "Ragged As The Road", "artist_id":
         "ARJOCR71187B99286F", "item_keyvalues": {"pl_album": "Bulletproof", "pl_duration":
         212793, "pl_title": "Ragged As the Road", "pl_key": "_pl_0000206_Reckless
         Kelly_Ragged As The Road..mp3", "pl_artist": "Reckless Kelly"}, "artist_name":
-        "Reckless Kelly", "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        "Reckless Kelly", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000206_Reckless Kelly_Ragged As
         The Road..mp3", "song_id": "SOCAVSF1313439FDB3", "request": {"item_id": "_pl_0000206_Reckless
         Kelly_Ragged As The Road..mp3", "song_id": "SOCAVSF1313439FDB3"}}, {"song_name":
@@ -1034,102 +1305,139 @@ http_interactions:
         {"pl_album": "Bulletproof", "pl_duration": 244532, "pl_title": "You Don''t
         Have to Stay Forever", "pl_key": "_pl_0000207_Reckless Kelly_You Don''t Have
         To Stay Forever..mp3", "pl_artist": "Reckless Kelly"}, "artist_name": "Reckless
-        Kelly", "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        Kelly", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000207_Reckless Kelly_You Don''t
         Have To Stay Forever..mp3", "song_id": "SOMFHIQ1312FDFCA0F", "request": {"item_id":
         "_pl_0000207_Reckless Kelly_You Don''t Have To Stay Forever..mp3", "song_id":
-        "SOMFHIQ1312FDFCA0F"}}, {"song_name": "Passin'' Through", "artist_id": "ARJOCR71187B99286F",
-        "item_keyvalues": {"pl_album": "Bulletproof", "pl_duration": 191973, "pl_title":
-        "Passin'' Through", "pl_key": "_pl_0000209_Reckless Kelly_Passin'' Through..mp3",
+        "SOMFHIQ1312FDFCA0F"}}, {"song_name": "Love In Her Eyes", "artist_id": "ARJOCR71187B99286F",
+        "item_keyvalues": {"pl_album": "Bulletproof", "pl_duration": 215457, "pl_title":
+        "Love In Her Eyes", "pl_key": "_pl_0000208_Reckless Kelly_Love In Her Eyes..mp3",
         "pl_artist": "Reckless Kelly"}, "artist_name": "Reckless Kelly", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
-        "CAIQEUO1473A654C51:song:_pl_0000209_Reckless Kelly_Passin'' Through..mp3",
-        "song_id": "SOLYAYB130516DFE52", "request": {"item_id": "_pl_0000209_Reckless
-        Kelly_Passin'' Through..mp3", "song_id": "SOLYAYB130516DFE52"}}, {"song_name":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000208_Reckless Kelly_Love In Her Eyes..mp3",
+        "song_id": "SODJXSR12B3A166C20", "request": {"item_id": "_pl_0000208_Reckless
+        Kelly_Love In Her Eyes..mp3", "song_id": "SODJXSR12B3A166C20"}}, {"song_name":
+        "Passin'' Through", "artist_id": "ARJOCR71187B99286F", "item_keyvalues": {"pl_album":
+        "Bulletproof", "pl_duration": 191973, "pl_title": "Passin'' Through", "pl_key":
+        "_pl_0000209_Reckless Kelly_Passin'' Through..mp3", "pl_artist": "Reckless
+        Kelly"}, "artist_name": "Reckless Kelly", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000209_Reckless
+        Kelly_Passin'' Through..mp3", "song_id": "SOLYAYB130516DFE52", "request":
+        {"item_id": "_pl_0000209_Reckless Kelly_Passin'' Through..mp3", "song_id":
+        "SOLYAYB130516DFE52"}}, {"song_name": "One False Move", "artist_id": "ARJOCR71187B99286F",
+        "item_keyvalues": {"pl_album": "Bulletproof", "pl_duration": 234657, "pl_title":
+        "One False Move", "pl_key": "_pl_0000210_Reckless Kelly_One False Move..mp3",
+        "pl_artist": "Reckless Kelly"}, "artist_name": "Reckless Kelly", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000210_Reckless Kelly_One False Move..mp3",
+        "song_id": "SOSFHQW130516DE73C", "request": {"item_id": "_pl_0000210_Reckless
+        Kelly_One False Move..mp3", "song_id": "SOSFHQW130516DE73C"}}, {"song_name":
         "Never Had A Chance", "artist_id": "ARJOCR71187B99286F", "item_keyvalues":
         {"pl_album": "Bulletproof", "pl_duration": 185835, "pl_title": "Never Had
         a Chance", "pl_key": "_pl_0000211_Reckless Kelly_Never Had A Chance..mp3",
         "pl_artist": "Reckless Kelly"}, "artist_name": "Reckless Kelly", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000211_Reckless Kelly_Never Had A Chance..mp3",
         "song_id": "SOGRSPO130516E0641", "request": {"item_id": "_pl_0000211_Reckless
         Kelly_Never Had A Chance..mp3", "song_id": "SOGRSPO130516E0641"}}, {"song_name":
         "A Guy Like Me", "artist_id": "ARJOCR71187B99286F", "item_keyvalues": {"pl_album":
         "Bulletproof", "pl_duration": 182308, "pl_title": "A Guy Like Me", "pl_key":
         "_pl_0000212_Reckless Kelly_A Guy Like Me..mp3", "pl_artist": "Reckless Kelly"},
-        "artist_name": "Reckless Kelly", "last_modified": "2014-11-20T21:52:30", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000212_Reckless
+        "artist_name": "Reckless Kelly", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000212_Reckless
         Kelly_A Guy Like Me..mp3", "song_id": "SODMBRH130516DE1D4", "request": {"item_id":
         "_pl_0000212_Reckless Kelly_A Guy Like Me..mp3", "song_id": "SODMBRH130516DE1D4"}},
         {"song_name": "American Blood", "artist_id": "ARJOCR71187B99286F", "item_keyvalues":
         {"pl_album": "Bulletproof", "pl_duration": 231235, "pl_title": "American Blood",
         "pl_key": "_pl_0000213_Reckless Kelly_American Blood..mp3", "pl_artist": "Reckless
-        Kelly"}, "artist_name": "Reckless Kelly", "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000213_Reckless
+        Kelly"}, "artist_name": "Reckless Kelly", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000213_Reckless
         Kelly_American Blood..mp3", "song_id": "SOCMLIQ13129A90BDC", "request": {"item_id":
         "_pl_0000213_Reckless Kelly_American Blood..mp3", "song_id": "SOCMLIQ13129A90BDC"}},
         {"song_name": "How Was California?", "artist_id": "ARJOCR71187B99286F", "item_keyvalues":
         {"pl_album": "Bulletproof", "pl_duration": 175830, "pl_title": "How Was California?",
         "pl_key": "_pl_0000214_Reckless Kelly_How Was California?..mp3", "pl_artist":
-        "Reckless Kelly"}, "artist_name": "Reckless Kelly", "last_modified": "2014-11-20T21:52:30",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000214_Reckless
+        "Reckless Kelly"}, "artist_name": "Reckless Kelly", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000214_Reckless
         Kelly_How Was California?..mp3", "song_id": "SOCVHET130516E0648", "request":
         {"item_id": "_pl_0000214_Reckless Kelly_How Was California?..mp3", "song_id":
         "SOCVHET130516E0648"}}, {"song_name": "Mirage", "artist_id": "ARJOCR71187B99286F",
         "item_keyvalues": {"pl_album": "Bulletproof", "pl_duration": 240744, "pl_title":
         "Mirage", "pl_key": "_pl_0000215_Reckless Kelly_Mirage..mp3", "pl_artist":
-        "Reckless Kelly"}, "artist_name": "Reckless Kelly", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000215_Reckless
+        "Reckless Kelly"}, "artist_name": "Reckless Kelly", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000215_Reckless
         Kelly_Mirage..mp3", "song_id": "SOKRUOQ130516E1E0C", "request": {"item_id":
         "_pl_0000215_Reckless Kelly_Mirage..mp3", "song_id": "SOKRUOQ130516E1E0C"}},
+        {"song_name": "Wandering Eye", "artist_id": "ARJOCR71187B99286F", "item_keyvalues":
+        {"pl_album": "Bulletproof", "pl_duration": 186644, "pl_title": "Wandering
+        Eye", "pl_key": "_pl_0000216_Reckless Kelly_Wandering Eye..mp3", "pl_artist":
+        "Reckless Kelly"}, "artist_name": "Reckless Kelly", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000216_Reckless
+        Kelly_Wandering Eye..mp3", "song_id": "SODOHNW131343957D3", "request": {"item_id":
+        "_pl_0000216_Reckless Kelly_Wandering Eye..mp3", "song_id": "SODOHNW131343957D3"}},
+        {"song_name": "Bulletproof", "artist_id": "ARJOCR71187B99286F", "item_keyvalues":
+        {"pl_album": "Bulletproof", "pl_duration": 209162, "pl_title": "Bulletproof",
+        "pl_key": "_pl_0000217_Reckless Kelly_Bulletproof..mp3", "pl_artist": "Reckless
+        Kelly"}, "artist_name": "Reckless Kelly", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000217_Reckless
+        Kelly_Bulletproof..mp3", "song_id": "SOCPXNP1311AFD6734", "request": {"item_id":
+        "_pl_0000217_Reckless Kelly_Bulletproof..mp3", "song_id": "SOCPXNP1311AFD6734"}},
         {"song_name": "God Forsaken Town", "artist_id": "ARJOCR71187B99286F", "item_keyvalues":
         {"pl_album": "Bulletproof", "pl_duration": 252551, "pl_title": "God Forsaken
         Town", "pl_key": "_pl_0000218_Reckless Kelly_God Forsaken Town..mp3", "pl_artist":
-        "Reckless Kelly"}, "artist_name": "Reckless Kelly", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000218_Reckless
+        "Reckless Kelly"}, "artist_name": "Reckless Kelly", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000218_Reckless
         Kelly_God Forsaken Town..mp3", "song_id": "SOHJBPV131634A9917", "request":
         {"item_id": "_pl_0000218_Reckless Kelly_God Forsaken Town..mp3", "song_id":
         "SOHJBPV131634A9917"}}, {"song_name": "Don''t Say Goodbye", "artist_id": "ARJOCR71187B99286F",
         "item_keyvalues": {"pl_album": "Bulletproof", "pl_duration": 191294, "pl_title":
         "Don''t Say Goodbye", "pl_key": "_pl_0000219_Reckless Kelly_Don''t Say Goodbye..mp3",
         "pl_artist": "Reckless Kelly"}, "artist_name": "Reckless Kelly", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000219_Reckless Kelly_Don''t Say Goodbye..mp3",
         "song_id": "SOGYOPO1312FDFE172", "request": {"item_id": "_pl_0000219_Reckless
         Kelly_Don''t Say Goodbye..mp3", "song_id": "SOGYOPO1312FDFE172"}}, {"song_name":
         "Big Blue Sky", "artist_id": "ARIUXAQ1187B9B10A0", "item_keyvalues": {"pl_album":
         "Jedd Hughes - EP", "pl_duration": 224914, "pl_title": "Big Blue Sky", "pl_key":
         "_pl_0000220_Jedd Hughes_Big Blue Sky..mp3", "pl_artist": "Jedd Hughes"},
-        "artist_name": "Jedd Hughes", "last_modified": "2014-11-20T21:52:29", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000220_Jedd
+        "artist_name": "Jedd Hughes", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000220_Jedd
         Hughes_Big Blue Sky..mp3", "song_id": "SOPINPH13129A910F4", "request": {"item_id":
         "_pl_0000220_Jedd Hughes_Big Blue Sky..mp3", "song_id": "SOPINPH13129A910F4"}},
-        {"song_name": "Slam The Door", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
-        {"pl_album": "Six Strings One Dream", "pl_duration": 220316, "pl_title": "Slam
-        the Door", "pl_key": "_pl_0000222_Cody Johnson_Slam The Door..mp3", "pl_artist":
-        "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000222_Cody
+        {"song_name": "Texas Kind Of Way", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
+        {"pl_album": "Six Strings One Dream", "pl_duration": 249547, "pl_title": "Texas
+        Kind of Way", "pl_key": "_pl_0000221_Cody Johnson_Texas Kind Of Way..mp3",
+        "pl_artist": "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000221_Cody Johnson_Texas Kind Of Way..mp3",
+        "song_id": "SOLFEFD1313439E64A", "request": {"item_id": "_pl_0000221_Cody
+        Johnson_Texas Kind Of Way..mp3", "song_id": "SOLFEFD1313439E64A"}}, {"song_name":
+        "Slam The Door", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues": {"pl_album":
+        "Six Strings One Dream", "pl_duration": 220316, "pl_title": "Slam the Door",
+        "pl_key": "_pl_0000222_Cody Johnson_Slam The Door..mp3", "pl_artist": "Cody
+        Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000222_Cody
         Johnson_Slam The Door..mp3", "song_id": "SODXERT1313439678B", "request": {"item_id":
         "_pl_0000222_Cody Johnson_Slam The Door..mp3", "song_id": "SODXERT1313439678B"}},
         {"song_name": "Another Try", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
         {"pl_album": "Six Strings One Dream", "pl_duration": 230974, "pl_title": "Another
         Try", "pl_key": "_pl_0000223_Cody Johnson_Another Try..mp3", "pl_artist":
-        "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-20T21:52:29",
-        "date_added": "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000223_Cody
+        "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000223_Cody
         Johnson_Another Try..mp3", "song_id": "SOEIRFG12AF72AAAB3", "request": {"item_id":
         "_pl_0000223_Cody Johnson_Another Try..mp3", "song_id": "SOEIRFG12AF72AAAB3"}},
         {"song_name": "Pretend", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
         {"pl_album": "Six Strings One Dream", "pl_duration": 234135, "pl_title": "Pretend",
         "pl_key": "_pl_0000224_Cody Johnson_Pretend..mp3", "pl_artist": "Cody Johnson"},
-        "artist_name": "Cody Johnson", "last_modified": "2014-11-20T21:52:29", "date_added":
-        "2014-11-20T21:52:29", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000224_Cody
+        "artist_name": "Cody Johnson", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000224_Cody
         Johnson_Pretend..mp3", "song_id": "SOJGIBY1312A8AC1CF", "request": {"item_id":
         "_pl_0000224_Cody Johnson_Pretend..mp3", "song_id": "SOJGIBY1312A8AC1CF"}},
         {"song_name": "No Tears In My Eyes", "artist_id": "ARBADLB129CDBEFACC", "item_keyvalues":
         {"pl_album": "Six Strings One Dream", "pl_duration": 240300, "pl_title": "No
         Tears In My Eyes", "pl_key": "_pl_0000225_Cody Johnson_No Tears In My Eyes..mp3",
         "pl_artist": "Cody Johnson"}, "artist_name": "Cody Johnson", "last_modified":
-        "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000225_Cody Johnson_No Tears In My Eyes..mp3",
         "song_id": "SONJECE1311AFE0393", "request": {"item_id": "_pl_0000225_Cody
         Johnson_No Tears In My Eyes..mp3", "song_id": "SONJECE1311AFE0393"}}, {"song_name":
@@ -1137,7 +1445,7 @@ http_interactions:
         {"pl_album": "The Man That I''ve Been", "pl_duration": 163787, "pl_title":
         "World Through a Windsheild", "pl_key": "_pl_0000226_Cory Morrow_World Through
         A Windshield.mp3", "pl_artist": "Cory Morrow"}, "artist_name": "Cory Morrow",
-        "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000226_Cory Morrow_World Through
         A Windshield.mp3", "song_id": "SOHCECT1316771A76A", "request": {"item_id":
         "_pl_0000226_Cory Morrow_World Through A Windshield.mp3", "song_id": "SOHCECT1316771A76A"}},
@@ -1145,7 +1453,7 @@ http_interactions:
         "item_keyvalues": {"pl_album": "The Man That I''ve Been", "pl_duration": 183040,
         "pl_title": "The Way Things Used to Be", "pl_key": "_pl_0000227_Cory Morrow_The
         Way Things Used To Be.mp3", "pl_artist": "Cory Morrow"}, "artist_name": "Cory
-        Morrow", "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
+        Morrow", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000227_Cory Morrow_The Way Things
         Used To Be.mp3", "song_id": "SOFDGKZ12AB01843BD", "request": {"item_id": "_pl_0000227_Cory
         Morrow_The Way Things Used To Be.mp3", "song_id": "SOFDGKZ12AB01843BD"}},
@@ -1153,7 +1461,7 @@ http_interactions:
         "item_keyvalues": {"pl_album": "The Man That I''ve Been", "pl_duration": 201273,
         "pl_title": "The Man That I''ve Been", "pl_key": "_pl_0000228_Cory Morrow_The
         Man That I''ve Been.mp3", "pl_artist": "Cory Morrow"}, "artist_name": "Cory
-        Morrow", "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        Morrow", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000228_Cory Morrow_The Man That
         I''ve Been.mp3", "song_id": "SOJCUJZ12AB018B877", "request": {"item_id": "_pl_0000228_Cory
         Morrow_The Man That I''ve Been.mp3", "song_id": "SOJCUJZ12AB018B877"}}, {"song_name":
@@ -1161,31 +1469,38 @@ http_interactions:
         {"pl_album": "The Man That I''ve Been", "pl_duration": 284290, "pl_title":
         "Texas Time Travelin''", "pl_key": "_pl_0000229_Cory Morrow_Texas Time Travelin''.mp3",
         "pl_artist": "Cory Morrow"}, "artist_name": "Cory Morrow", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000229_Cory Morrow_Texas Time Travelin''.mp3",
         "song_id": "SOCBWND1316771A300", "request": {"item_id": "_pl_0000229_Cory
         Morrow_Texas Time Travelin''.mp3", "song_id": "SOCBWND1316771A300"}}, {"song_name":
-        "Just Like You (Grandpa''s Song)", "artist_id": "ARAFMN71187FB52EFD", "item_keyvalues":
-        {"pl_album": "The Man That I''ve Been", "pl_duration": 262452, "pl_title":
-        "Just Like You (Grandpa''s Song)", "pl_key": "_pl_0000231_Cory Morrow_Just
-        Like You (Grandpa''s Song).mp3", "pl_artist": "Cory Morrow"}, "artist_name":
-        "Cory Morrow", "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
-        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000231_Cory Morrow_Just Like You
-        (Grandpa''s Song).mp3", "song_id": "SOEFIIS14104393A6A", "request": {"item_id":
-        "_pl_0000231_Cory Morrow_Just Like You (Grandpa''s Song).mp3", "song_id":
-        "SOEFIIS14104393A6A"}}, {"song_name": "Broken Picture Frame", "artist_id":
+        "Nashville Blues", "artist_id": "ARAFMN71187FB52EFD", "item_keyvalues": {"pl_album":
+        "The Man That I''ve Been", "pl_duration": 250514, "pl_title": "Nashville Blues",
+        "pl_key": "_pl_0000230_Cory Morrow_Nashville Blues.mp3", "pl_artist": "Cory
+        Morrow"}, "artist_name": "Cory Morrow", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000230_Cory
+        Morrow_Nashville Blues.mp3", "song_id": "SOHDIDT1316771A764", "request": {"item_id":
+        "_pl_0000230_Cory Morrow_Nashville Blues.mp3", "song_id": "SOHDIDT1316771A764"}},
+        {"song_name": "Just Like You (Grandpa''s Song)", "artist_id": "ARAFMN71187FB52EFD",
+        "item_keyvalues": {"pl_album": "The Man That I''ve Been", "pl_duration": 262452,
+        "pl_title": "Just Like You (Grandpa''s Song)", "pl_key": "_pl_0000231_Cory
+        Morrow_Just Like You (Grandpa''s Song).mp3", "pl_artist": "Cory Morrow"},
+        "artist_name": "Cory Morrow", "last_modified": "2014-11-30T04:03:27", "date_added":
+        "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000231_Cory
+        Morrow_Just Like You (Grandpa''s Song).mp3", "song_id": "SOEFIIS14104393A6A",
+        "request": {"item_id": "_pl_0000231_Cory Morrow_Just Like You (Grandpa''s
+        Song).mp3", "song_id": "SOEFIIS14104393A6A"}}, {"song_name": "Broken Picture
+        Frame", "artist_id": "ARAFMN71187FB52EFD", "item_keyvalues": {"pl_album":
+        "The Man That I''ve Been", "pl_duration": 181342, "pl_title": "Broken Picture
+        Frame", "pl_key": "_pl_0000232_Cory Morrow_Broken Picture Frame.mp3", "pl_artist":
+        "Cory Morrow"}, "artist_name": "Cory Morrow", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000232_Cory
+        Morrow_Broken Picture Frame.mp3", "song_id": "SOMZWCA1316771A587", "request":
+        {"item_id": "_pl_0000232_Cory Morrow_Broken Picture Frame.mp3", "song_id":
+        "SOMZWCA1316771A587"}}, {"song_name": "Not Comin'' Home Tonight", "artist_id":
         "ARAFMN71187FB52EFD", "item_keyvalues": {"pl_album": "The Man That I''ve Been",
-        "pl_duration": 181342, "pl_title": "Broken Picture Frame", "pl_key": "_pl_0000232_Cory
-        Morrow_Broken Picture Frame.mp3", "pl_artist": "Cory Morrow"}, "artist_name":
-        "Cory Morrow", "last_modified": "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29",
-        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000232_Cory Morrow_Broken Picture
-        Frame.mp3", "song_id": "SOMZWCA1316771A587", "request": {"item_id": "_pl_0000232_Cory
-        Morrow_Broken Picture Frame.mp3", "song_id": "SOMZWCA1316771A587"}}, {"song_name":
-        "Not Comin'' Home Tonight", "artist_id": "ARAFMN71187FB52EFD", "item_keyvalues":
-        {"pl_album": "The Man That I''ve Been", "pl_duration": 194769, "pl_title":
-        "Not Comin'' Home Tonight", "pl_key": "_pl_0000233_Cory Morrow_Not Comin''
-        Home Tonight.mp3", "pl_artist": "Cory Morrow"}, "artist_name": "Cory Morrow",
-        "last_modified": "2014-11-20T21:52:30", "date_added": "2014-11-20T21:52:29",
+        "pl_duration": 194769, "pl_title": "Not Comin'' Home Tonight", "pl_key": "_pl_0000233_Cory
+        Morrow_Not Comin'' Home Tonight.mp3", "pl_artist": "Cory Morrow"}, "artist_name":
+        "Cory Morrow", "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
         "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000233_Cory Morrow_Not Comin''
         Home Tonight.mp3", "song_id": "SOGGTNZ1316771A2FF", "request": {"item_id":
         "_pl_0000233_Cory Morrow_Not Comin'' Home Tonight.mp3", "song_id": "SOGGTNZ1316771A2FF"}},
@@ -1193,13 +1508,36 @@ http_interactions:
         {"pl_album": "The Man That I''ve Been", "pl_duration": 184790, "pl_title":
         "Stayin'' Out Late", "pl_key": "_pl_0000234_Cory Morrow_Stayin'' Out Late.mp3",
         "pl_artist": "Cory Morrow"}, "artist_name": "Cory Morrow", "last_modified":
-        "2014-11-20T21:52:29", "date_added": "2014-11-20T21:52:29", "foreign_id":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
         "CAIQEUO1473A654C51:song:_pl_0000234_Cory Morrow_Stayin'' Out Late.mp3", "song_id":
         "SORDEZI1313438A10B", "request": {"item_id": "_pl_0000234_Cory Morrow_Stayin''
-        Out Late.mp3", "song_id": "SORDEZI1313438A10B"}}], "start": 0, "total": 206,
-        "type": "song", "id": "CAIQEUO1473A654C51"}}}'
+        Out Late.mp3", "song_id": "SORDEZI1313438A10B"}}, {"song_name": "Drink One
+        More Round", "artist_id": "ARAFMN71187FB52EFD", "item_keyvalues": {"pl_album":
+        "The Man That I''ve Been", "pl_duration": 241188, "pl_title": "Drink One More
+        Round", "pl_key": "_pl_0000235_Cory Morrow_Drink One More Round.mp3", "pl_artist":
+        "Cory Morrow"}, "artist_name": "Cory Morrow", "last_modified": "2014-11-30T04:03:27",
+        "date_added": "2014-11-30T04:03:27", "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000235_Cory
+        Morrow_Drink One More Round.mp3", "song_id": "SOSMJCV136A3A23FD2", "request":
+        {"item_id": "_pl_0000235_Cory Morrow_Drink One More Round.mp3", "song_id":
+        "SOSMJCV136A3A23FD2"}}, {"song_name": "Big City Stripper", "artist_id": "ARAFMN71187FB52EFD",
+        "item_keyvalues": {"pl_album": "The Man That I''ve Been", "pl_duration": 268408,
+        "pl_title": "Big City Stripper", "pl_key": "_pl_0000236_Cory Morrow_Big City
+        Stripper.mp3", "pl_artist": "Cory Morrow"}, "artist_name": "Cory Morrow",
+        "last_modified": "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27",
+        "foreign_id": "CAIQEUO1473A654C51:song:_pl_0000236_Cory Morrow_Big City Stripper.mp3",
+        "song_id": "SOYLJKG141043FE02D", "request": {"item_id": "_pl_0000236_Cory
+        Morrow_Big City Stripper.mp3", "song_id": "SOYLJKG141043FE02D"}}, {"song_name":
+        "Songwriter''s Lament", "artist_id": "ARAFMN71187FB52EFD", "item_keyvalues":
+        {"pl_album": "The Man That I''ve Been", "pl_duration": 218044, "pl_title":
+        "Songwriter''s Lament (A Poem)", "pl_key": "_pl_0000237_Cory Morrow_Songwriter''s
+        Lament.mp3", "pl_artist": "Cory Morrow"}, "artist_name": "Cory Morrow", "last_modified":
+        "2014-11-30T04:03:27", "date_added": "2014-11-30T04:03:27", "foreign_id":
+        "CAIQEUO1473A654C51:song:_pl_0000237_Cory Morrow_Songwriter''s Lament.mp3",
+        "song_id": "SOOXPLC12AB0181220", "request": {"item_id": "_pl_0000237_Cory
+        Morrow_Songwriter''s Lament.mp3", "song_id": "SOOXPLC12AB0181220"}}], "start":
+        0, "total": 206, "type": "song", "id": "CAIQEUO1473A654C51"}}}'
     http_version: 
-  recorded_at: Thu, 20 Nov 2014 21:52:31 GMT
+  recorded_at: Sun, 30 Nov 2014 04:03:27 GMT
 - request:
     method: get
     uri: http://developer.echonest.com/api/v4/playlist/static?api_key=1EFRD4YMEN003A4N1&artist=%5B%22Bob%20Dylan%22,%20%22Rachel%20Loy%22,%20%22Billy%20Gillman%22%5D&limited_interactivity=true&results=100&seed_catalog=CAIQEUO1473A654C51&type=catalog
@@ -1219,7 +1557,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 20 Nov 2014 21:52:31 GMT
+      - Sun, 30 Nov 2014 04:03:28 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -1227,11 +1565,11 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - 7AMMh2tkSu6/ULWmYaeLLg
+      - xcQQbVbXTQq0I4qK0j5f7Q
       X-Worker-Node:
-      - 04371:10188
+      - 96cdc:7640
       X-Ratelimit-Remaining:
-      - '114'
+      - '116'
       Server:
       - TornadoServer/3.1
       X-Ratelimit-Limit:
@@ -1243,121 +1581,131 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Ratelimit-Used:
-      - '6'
+      - '4'
       Connection:
       - Keep-alive
       Keep-Alive:
       - timeout=15, max=100
       Via:
-      - 1.1 ID-0000627501223746 uproxy-3
+      - 1.1 ID-0000627501223746 uproxy-2
     body:
       encoding: UTF-8
       string: '{"response": {"status": {"version": "4.2", "code": 0, "message": "Success"},
-        "songs": [{"artist_id": "ARBADLB129CDBEFACC", "id": "SOGCFPY142D3FC096A",
-        "artist_name": "Cody Johnson", "title": "Guilty As Can Be"}, {"artist_id":
-        "AR82FM11187FB37758", "id": "SOHZTUU12AC468BF48", "artist_name": "Will Hoge",
-        "title": "Where Do We Go From Down"}, {"artist_id": "AR66L39119B8667A19",
-        "id": "SOFVFXJ12A58A7D788", "artist_name": "Erin McCarley", "title": "Blue
-        Suitcase"}, {"artist_id": "AR9I1L41187FB37F0E", "id": "SOIAQGP12AB0189319",
-        "artist_name": "Harry Connick, Jr.", "title": "Caravan"}, {"artist_id": "AR2WN631187B99DA0B",
-        "id": "SOJBTTL13E90886B78", "artist_name": "Randy Rogers Band", "title": "One
-        More Sad Song"}, {"artist_id": "AREXYGN1241B9C7213", "id": "SOWGOJH1393A9E2FCC",
-        "artist_name": "Jason Eady", "title": "Old Guitar and Me"}, {"artist_id":
-        "AREVNVA1187B989EE0", "id": "SOEMIDX141217C422F", "artist_name": "Paul Thorn",
-        "title": "Pimps And Preachers"}, {"artist_id": "ARRRVMG1187FB532AC", "id":
-        "SOJSDIR1313438B225", "artist_name": "Radney Foster", "title": "You Were So
-        Right"}, {"artist_id": "ARAFMN71187FB52EFD", "id": "SOHCECT1316771A76A", "artist_name":
-        "Cory Morrow", "title": "World Through A Windshield"}, {"artist_id": "AREEQPY1187FB5B9E3",
-        "id": "SOEVNCX12A8C13C7D8", "artist_name": "Miranda Lambert", "title": "Love
-        Is Looking For You"}, {"artist_id": "AR207Y01187B98E9E6", "id": "SODBKKJ12AAA15E0C3",
-        "artist_name": "Chris Knight", "title": "It Ain''t Easy Being Me"}, {"artist_id":
-        "AREXYGN1241B9C7213", "id": "SOZRZCF142F06F5540", "artist_name": "Jason Eady",
-        "title": "Daylight & Dark"}, {"artist_id": "ARJOCR71187B99286F", "id": "SOGRSPO130516E0641",
-        "artist_name": "Reckless Kelly", "title": "Never Had A Chance"}, {"artist_id":
-        "ARIUXAQ1187B9B10A0", "id": "SOPINPH13129A910F4", "artist_name": "Jedd Hughes",
-        "title": "Big Blue Sky"}, {"artist_id": "AREEQPY1187FB5B9E3", "id": "SOUWXBE12A8C1399DC",
-        "artist_name": "Miranda Lambert", "title": "New Strings"}, {"artist_id": "AR66L39119B8667A19",
-        "id": "SONKNRJ12AB0183216", "artist_name": "Erin McCarley", "title": "Pitter-Pat"},
-        {"artist_id": "AREXYGN1241B9C7213", "id": "SOCOEAT1393A9E3376", "artist_name":
-        "Jason Eady", "title": "Paid My Dues"}, {"artist_id": "ARBADLB129CDBEFACC",
-        "id": "SOMGNJH142D3EA05FD", "artist_name": "Cody Johnson", "title": "I Don''t
-        Care About You"}, {"artist_id": "ARJOCR71187B99286F", "id": "SOCVHET130516E0648",
-        "artist_name": "Reckless Kelly", "title": "How Was California?"}, {"artist_id":
-        "ARNHENM122C867378B", "id": "SOGOXMK13E75228544", "artist_name": "William
-        Clark Green", "title": "Hanging Around"}, {"artist_id": "ARHSAFX1187B98E89A",
-        "id": "SOXSMIA137D088113A", "artist_name": "Brian Keane", "title": "Go So
-        Wrong"}, {"artist_id": "AREXYGN1241B9C7213", "id": "SOSTYMD1315CD4B271", "artist_name":
-        "Jason Eady", "title": "A Conversation With Mr. Williams"}, {"artist_id":
+        "songs": [{"artist_id": "AR82FM11187FB37758", "id": "SOEZLXD12AF729DC58",
+        "artist_name": "Will Hoge", "title": "Hard To Love"}, {"artist_id": "ARNHENM122C867378B",
+        "id": "SOGOXMK13E75228544", "artist_name": "William Clark Green", "title":
+        "Hanging Around"}, {"artist_id": "ARAFMN71187FB52EFD", "id": "SOGGTNZ1316771A2FF",
+        "artist_name": "Cory Morrow", "title": "Not Comin'' Home Tonight"}, {"artist_id":
+        "AREEQPY1187FB5B9E3", "id": "SOYGEJC12A58A7E8BE", "artist_name": "Miranda
+        Lambert", "title": "Greyhound Bound For Nowhere"}, {"artist_id": "AREVNVA1187B989EE0",
+        "id": "SORTVWK141216A8D60", "artist_name": "Paul Thorn", "title": "Weeds In
+        My Roses"}, {"artist_id": "AREXYGN1241B9C7213", "id": "SOUOHDW142F0704920",
+        "artist_name": "Jason Eady", "title": "A Memory Now (feat. Hayes Carll & Evan
+        Felker)"}, {"artist_id": "ARJOCR71187B99286F", "id": "SOCMLIQ13129A90BDC",
+        "artist_name": "Reckless Kelly", "title": "American Blood"}, {"artist_id":
+        "AR2WN631187B99DA0B", "id": "SOJCGHG143E94F50F7", "artist_name": "Randy Rogers
+        Band", "title": "Fuzzy"}, {"artist_id": "ARBADLB129CDBEFACC", "id": "SODXERT1313439678B",
+        "artist_name": "Cody Johnson", "title": "Slam The Door"}, {"artist_id": "AR66L39119B8667A19",
+        "id": "SOMNZKX13E9079F768", "artist_name": "Erin McCarley", "title": "Sticky-Sweet"},
+        {"artist_id": "ARHBV1W1187B9B496C", "id": "SOIKFZR13CF6D1BC83", "artist_name":
+        "Rachel Loy", "title": "Not Anymore"}, {"artist_id": "ARRRVMG1187FB532AC",
+        "id": "SODFYJV1311AFED9E9", "artist_name": "Radney Foster", "title": "Godspeed
+        (Sweet Dreams)"}, {"artist_id": "ARJOCR71187B99286F", "id": "SOKRUOQ130516E1E0C",
+        "artist_name": "Reckless Kelly", "title": "Mirage"}, {"artist_id": "AREEQPY1187FB5B9E3",
+        "id": "SOESJQE12A58A7B703", "artist_name": "Miranda Lambert", "title": "Kerosene"},
+        {"artist_id": "AR66L39119B8667A19", "id": "SOFFOEE1315CD4B31F", "artist_name":
+        "Erin McCarley", "title": "Love, Save The Empty"}, {"artist_id": "ARHSAFX1187B98E89A",
+        "id": "SOYXRMD13F1BA1E553", "artist_name": "Brian Keane", "title": "Copper
+        Title"}, {"artist_id": "AR207Y01187B98E9E6", "id": "SODBKKJ12AAA15E0C3", "artist_name":
+        "Chris Knight", "title": "It Ain''t Easy Being Me"}, {"artist_id": "AREXYGN1241B9C7213",
+        "id": "SOLGGPI142F06FB634", "artist_name": "Jason Eady", "title": "Lonesome
+        Down and Out"}, {"artist_id": "AREVNVA1187B989EE0", "id": "SOADFVS141216B3F3B",
+        "artist_name": "Paul Thorn", "title": "I Hope I''m Doing This Right"}, {"artist_id":
         "ARAFMN71187FB52EFD", "id": "SOCBWND1316771A300", "artist_name": "Cory Morrow",
-        "title": "Texas Time Travelin''"}, {"artist_id": "ARUKCO01187FB3889D", "id":
-        "SOSBKLN134EE36C391", "artist_name": "Adam Hood", "title": "Gonna Take A Woman"},
-        {"artist_id": "ARTMZYW1187B9A7ECB", "id": "SOJIPFZ1311AFD96BA", "artist_name":
-        "Hayes Carll", "title": "Wish I Hadn''t Stayed So Long"}, {"artist_id": "AREVNVA1187B989EE0",
-        "id": "SOTDUZA141217A4782", "artist_name": "Paul Thorn", "title": "You''re
-        Not The Only One"}, {"artist_id": "AREEQPY1187FB5B9E3", "id": "SOHAKPB12A8C138BC9",
-        "artist_name": "Miranda Lambert", "title": "What About Georgia?"}, {"artist_id":
-        "ARJOCR71187B99286F", "id": "SODMBRH130516DE1D4", "artist_name": "Reckless
-        Kelly", "title": "A Guy Like Me"}, {"artist_id": "ARHSAFX1187B98E89A", "id":
-        "SOPVLBJ142FD34BDA9", "artist_name": "Brian Keane", "title": "Bar Lights"},
-        {"artist_id": "AR66L39119B8667A19", "id": "SOMNZKX13E9079F768", "artist_name":
-        "Erin McCarley", "title": "Sticky-Sweet"}, {"artist_id": "ARHBV1W1187B9B496C",
-        "id": "SOCRIXK13CF6D1DFF8", "artist_name": "Rachel Loy", "title": "Good Side"},
-        {"artist_id": "AR2WN631187B99DA0B", "id": "SOAUQUW12AF729CD58", "artist_name":
-        "Randy Rogers Band", "title": "If I Told You The Truth"}, {"artist_id": "ARRRVMG1187FB532AC",
-        "id": "SOIHWBR12AB01837AB", "artist_name": "Radney Foster", "title": "The
-        Kiss"}, {"artist_id": "ARBADLB129CDBEFACC", "id": "SOPHYEZ142D3F56B6C", "artist_name":
-        "Cody Johnson", "title": "Diamond In My Pocket"}, {"artist_id": "ARHSAFX1187B98E89A",
+        "title": "Texas Time Travelin''"}, {"artist_id": "ARJOCR71187B99286F", "id":
+        "SOLYAYB130516DFE52", "artist_name": "Reckless Kelly", "title": "Passin''
+        Through"}, {"artist_id": "AR2WN631187B99DA0B", "id": "SOBXPTP12AF72A2533",
+        "artist_name": "Randy Rogers Band", "title": "Kiss Me In The Dark"}, {"artist_id":
+        "ARRRVMG1187FB532AC", "id": "SOASSTI1312FDFFD0B", "artist_name": "Radney Foster",
+        "title": "The Lucky Ones"}, {"artist_id": "ARUKCO01187FB3889D", "id": "SOSBKLN134EE36C391",
+        "artist_name": "Adam Hood", "title": "Gonna Take A Woman"}, {"artist_id":
+        "ARHSAFX1187B98E89A", "id": "SOPVLBJ142FD34BDA9", "artist_name": "Brian Keane",
+        "title": "Bar Lights"}, {"artist_id": "AR82FM11187FB37758", "id": "SOUDQPX12AF72A0D2A",
+        "artist_name": "Will Hoge", "title": "Highway Wings"}, {"artist_id": "AREEQPY1187FB5B9E3",
+        "id": "SOVGHKG12A8C13C7FD", "artist_name": "Miranda Lambert", "title": "I
+        Wanna Die"}, {"artist_id": "ARJOCR71187B99286F", "id": "SOCVHET130516E0648",
+        "artist_name": "Reckless Kelly", "title": "How Was California?"}, {"artist_id":
+        "ARIUXAQ1187B9B10A0", "id": "SOPINPH13129A910F4", "artist_name": "Jedd Hughes",
+        "title": "Big Blue Sky"}, {"artist_id": "AR9I1L41187FB37F0E", "id": "SOIAQGP12AB0189319",
+        "artist_name": "Harry Connick, Jr.", "title": "Caravan"}, {"artist_id": "AR66L39119B8667A19",
+        "id": "SODDVXH12AB017FB04", "artist_name": "Erin McCarley", "title": "Bobble
+        Head"}, {"artist_id": "ARTMZYW1187B9A7ECB", "id": "SOJIPFZ1311AFD96BA", "artist_name":
+        "Hayes Carll", "title": "Wish I Hadn''t Stayed So Long"}, {"artist_id": "ARHSAFX1187B98E89A",
         "id": "SOAGTCM1311AFDE881", "artist_name": "Brian Keane", "title": "Washington
-        Goes Home"}, {"artist_id": "AR82FM11187FB37758", "id": "SOFVLPE12AC468972A",
-        "artist_name": "Will Hoge", "title": "Long Gone"}, {"artist_id": "AREEQPY1187FB5B9E3",
-        "id": "SOLQELE1369222E6A4", "artist_name": "Miranda Lambert", "title": "BRING
-        ME DOWN"}, {"artist_id": "ARAFMN71187FB52EFD", "id": "SOHDIDT1316771A764",
-        "artist_name": "Cory Morrow", "title": "Nashville Blues"}, {"artist_id": "ARJOCR71187B99286F",
-        "id": "SODJXSR12B3A166C20", "artist_name": "Reckless Kelly", "title": "Love
-        In Her Eyes"}, {"artist_id": "AR66L39119B8667A19", "id": "SOMGGBM13E9079F6FF",
-        "artist_name": "Erin McCarley", "title": "Pony (It''s OK)"}, {"artist_id":
+        Goes Home"}, {"artist_id": "AREXYGN1241B9C7213", "id": "SOGUBKO142F06E69F4",
+        "artist_name": "Jason Eady", "title": "Temptation"}, {"artist_id": "ARBADLB129CDBEFACC",
+        "id": "SOJGIBY1312A8AC1CF", "artist_name": "Cody Johnson", "title": "Pretend"},
+        {"artist_id": "AREVNVA1187B989EE0", "id": "SOJCQFO14121719748", "artist_name":
+        "Paul Thorn", "title": "I Don''t Like Half The Folks I Love"}, {"artist_id":
+        "ARHBV1W1187B9B496C", "id": "SOELUIG13CF6D1858A", "artist_name": "Rachel Loy",
+        "title": "Too Good to Be True"}, {"artist_id": "AREEQPY1187FB5B9E3", "id":
+        "SOGNDMR12A8C13C7B5", "artist_name": "Miranda Lambert", "title": "I Can''t
+        Be Bothered"}, {"artist_id": "ARAFMN71187FB52EFD", "id": "SOHCECT1316771A76A",
+        "artist_name": "Cory Morrow", "title": "World Through A Windshield"}, {"artist_id":
+        "AR66L39119B8667A19", "id": "SOFVFXJ12A58A7D788", "artist_name": "Erin McCarley",
+        "title": "Blue Suitcase"}, {"artist_id": "AR2WN631187B99DA0B", "id": "SONKITR1315CD477BC",
+        "artist_name": "Randy Rogers Band", "title": "You Could Change My Mind"},
+        {"artist_id": "ARRRVMG1187FB532AC", "id": "SOLKWLT12B34F1EC31", "artist_name":
+        "Radney Foster", "title": "Raining On Sunday"}, {"artist_id": "ARHSAFX1187B98E89A",
+        "id": "SOXSMIA137D088113A", "artist_name": "Brian Keane", "title": "Go So
+        Wrong"}, {"artist_id": "AR82FM11187FB37758", "id": "SOZWILV12A58A7A00C", "artist_name":
+        "Will Hoge", "title": "Even If It Breaks Your Heart"}, {"artist_id": "AREXYGN1241B9C7213",
+        "id": "SOSTYMD1315CD4B271", "artist_name": "Jason Eady", "title": "A Conversation
+        With Mr. Williams"}, {"artist_id": "AREVNVA1187B989EE0", "id": "SOQIQCM1412167C512",
+        "artist_name": "Paul Thorn", "title": "Love Scar"}, {"artist_id": "ARAFMN71187FB52EFD",
+        "id": "SOYLJKG141043FE02D", "artist_name": "Cory Morrow", "title": "Big City
+        Stripper"}, {"artist_id": "ARBADLB129CDBEFACC", "id": "SOPOIAV142D3F6975C",
+        "artist_name": "Cody Johnson", "title": "Keep Her Man"}, {"artist_id": "AR2WN631187B99DA0B",
+        "id": "SOGSZJE12AF72A082E", "artist_name": "Randy Rogers Band", "title": "Before
+        I Believe It''s True"}, {"artist_id": "ARHBV1W1187B9B496C", "id": "SOQSTRX13CF6D1AB37",
+        "artist_name": "Rachel Loy", "title": "Fade to Gray"}, {"artist_id": "ARRRVMG1187FB532AC",
+        "id": "SOJSDIR1313438B225", "artist_name": "Radney Foster", "title": "You
+        Were So Right"}, {"artist_id": "AR82FM11187FB37758", "id": "SOUHDVF12AC4689731",
+        "artist_name": "Will Hoge", "title": "Favorite Waste of Time"}, {"artist_id":
+        "ARBADLB129CDBEFACC", "id": "SOKMVRO142D3EB0580", "artist_name": "Cody Johnson",
+        "title": "Get Back Home To You"}, {"artist_id": "ARAFMN71187FB52EFD", "id":
+        "SOEFIIS14104393A6A", "artist_name": "Cory Morrow", "title": "Just Like You
+        (Grandpa''s Song)"}, {"artist_id": "AREEQPY1187FB5B9E3", "id": "SOCJAOH1313439EDF1",
+        "artist_name": "Miranda Lambert", "title": "Me And Charlie Talking"}, {"artist_id":
+        "AREXYGN1241B9C7213", "id": "SOESLHF1393A9E5BA6", "artist_name": "Jason Eady",
+        "title": "Water into Wine"}, {"artist_id": "ARJOCR71187B99286F", "id": "SOGYOPO1312FDFE172",
+        "artist_name": "Reckless Kelly", "title": "Don''t Say Goodbye"}, {"artist_id":
         "AREVNVA1187B989EE0", "id": "SOAUGJN1412176F426", "artist_name": "Paul Thorn",
-        "title": "That''s Life"}, {"artist_id": "ARBADLB129CDBEFACC", "id": "SOFZTZO142D3E619AC",
-        "artist_name": "Cody Johnson", "title": "Ocean Of Whiskey"}, {"artist_id":
-        "ARHSAFX1187B98E89A", "id": "SOYXRMD13F1BA1E553", "artist_name": "Brian Keane",
-        "title": "Copper Title"}, {"artist_id": "AR2WN631187B99DA0B", "id": "SOCZOWD1315CD4800B",
-        "artist_name": "Randy Rogers Band", "title": "You Could''ve Left Me"}, {"artist_id":
-        "ARRRVMG1187FB532AC", "id": "SOLKWLT12B34F1EC31", "artist_name": "Radney Foster",
-        "title": "Raining On Sunday"}, {"artist_id": "ARAFMN71187FB52EFD", "id": "SOFDGKZ12AB01843BD",
-        "artist_name": "Cory Morrow", "title": "The Way Things Used To Be"}, {"artist_id":
-        "AR82FM11187FB37758", "id": "SOPUJFL12A58A7B52B", "artist_name": "Will Hoge",
-        "title": "The Wreckage"}, {"artist_id": "AREVNVA1187B989EE0", "id": "SOLHSWX13603EB99FF",
-        "artist_name": "Paul Thorn", "title": "Better Days Ahead"}, {"artist_id":
-        "AR2WN631187B99DA0B", "id": "SOALTLJ12AF72A13E9", "artist_name": "Randy Rogers
-        Band", "title": "Just A Matter Of Time"}, {"artist_id": "ARRRVMG1187FB532AC",
-        "id": "SOFEMCE1313438873D", "artist_name": "Radney Foster", "title": "I''m
-        In"}, {"artist_id": "ARBADLB129CDBEFACC", "id": "SOPDOXJ142D3EDA23A", "artist_name":
-        "Cody Johnson", "title": "The Grandpa Song"}, {"artist_id": "AR82FM11187FB37758",
-        "id": "SOIESNC13E9A9AA378", "artist_name": "Will Hoge", "title": "My Winter
-        Coat"}, {"artist_id": "AR66L39119B8667A19", "id": "SOSWMQJ12AB0183245", "artist_name":
-        "Erin McCarley", "title": "SleepWalking"}, {"artist_id": "AR82FM11187FB37758",
-        "id": "SOEZLXD12AF729DC58", "artist_name": "Will Hoge", "title": "Hard To
-        Love"}, {"artist_id": "AR2WN631187B99DA0B", "id": "SOSOUNJ1315CD481B7", "artist_name":
-        "Randy Rogers Band", "title": "Better Off Wrong"}, {"artist_id": "AREXYGN1241B9C7213",
-        "id": "SOEGGNN1393A9E2CD1", "artist_name": "Jason Eady", "title": "Wishful
-        Drinking"}, {"artist_id": "AREVNVA1187B989EE0", "id": "SOGCXTZ1312A7BDAD7",
-        "artist_name": "Paul Thorn", "title": "Buckskin Jones'' Illegitimate Son"},
-        {"artist_id": "ARAFMN71187FB52EFD", "id": "SOEFIIS14104393A6A", "artist_name":
-        "Cory Morrow", "title": "Just Like You (Grandpa''s Song)"}, {"artist_id":
-        "AREEQPY1187FB5B9E3", "id": "SOCJAOH1313439EDF1", "artist_name": "Miranda
-        Lambert", "title": "Me And Charlie Talking"}, {"artist_id": "ARRRVMG1187FB532AC",
-        "id": "SOSBEEG131712D090C", "artist_name": "Radney Foster", "title": "Folding
-        Money"}, {"artist_id": "AREXYGN1241B9C7213", "id": "SOURWEH142F06E128A", "artist_name":
-        "Jason Eady", "title": "The Other Side of Abilene"}, {"artist_id": "ARJOCR71187B99286F",
-        "id": "SOGYOPO1312FDFE172", "artist_name": "Reckless Kelly", "title": "Don''t
-        Say Goodbye"}, {"artist_id": "AREEQPY1187FB5B9E3", "id": "SOSKBWE1313439C1FE",
-        "artist_name": "Miranda Lambert", "title": "Mama, I''m Alright"}, {"artist_id":
-        "AR66L39119B8667A19", "id": "SOFFOEE1315CD4B31F", "artist_name": "Erin McCarley",
-        "title": "Love, Save The Empty"}, {"artist_id": "AREXYGN1241B9C7213", "id":
-        "SOSIBDS1393A9E5964", "artist_name": "Jason Eady", "title": "Man on a Mountain"},
-        {"artist_id": "ARBADLB129CDBEFACC", "id": "SOCJJZT142D3DFCBB0", "artist_name":
-        "Cody Johnson", "title": "What''s Left Of Texas?"}, {"artist_id": "ARJOCR71187B99286F",
-        "id": "SOCPXNP1311AFD6734", "artist_name": "Reckless Kelly", "title": "Bulletproof"}]}}'
+        "title": "That''s Life"}, {"artist_id": "AR2WN631187B99DA0B", "id": "SOFBBBW12AF72A1689",
+        "artist_name": "Randy Rogers Band", "title": "You Start Over Your Way"}, {"artist_id":
+        "ARHBV1W1187B9B496C", "id": "SOJDZMN13CF6D15F77", "artist_name": "Rachel Loy",
+        "title": "Easy"}, {"artist_id": "AR66L39119B8667A19", "id": "SOSWMQJ12AB0183245",
+        "artist_name": "Erin McCarley", "title": "SleepWalking"}, {"artist_id": "AR82FM11187FB37758",
+        "id": "SOQOAPY12AC4689736", "artist_name": "Will Hoge", "title": "What Could
+        I Do"}, {"artist_id": "ARRRVMG1187FB532AC", "id": "SOCFITV12AB0186F28", "artist_name":
+        "Radney Foster", "title": "I''ve Got A Picture"}, {"artist_id": "AREEQPY1187FB5B9E3",
+        "id": "SOHAKPB12A8C138BC9", "artist_name": "Miranda Lambert", "title": "What
+        About Georgia?"}, {"artist_id": "ARJOCR71187B99286F", "id": "SODMBRH130516DE1D4",
+        "artist_name": "Reckless Kelly", "title": "A Guy Like Me"}, {"artist_id":
+        "AR66L39119B8667A19", "id": "SOSERFA12AB018329C", "artist_name": "Erin McCarley",
+        "title": "Lovesick Mistake"}, {"artist_id": "ARBADLB129CDBEFACC", "id": "SOTJNOW142D3F6F271",
+        "artist_name": "Cody Johnson", "title": "18 Wheels"}, {"artist_id": "AREXYGN1241B9C7213",
+        "id": "SOBPSEP142F06DC8BF", "artist_name": "Jason Eady", "title": "Ok Whiskey"},
+        {"artist_id": "AREVNVA1187B989EE0", "id": "SOGHZDU141216D33DF", "artist_name":
+        "Paul Thorn", "title": "Ray Ann''s Shoes"}, {"artist_id": "ARAFMN71187FB52EFD",
+        "id": "SOHDIDT1316771A764", "artist_name": "Cory Morrow", "title": "Nashville
+        Blues"}, {"artist_id": "ARJOCR71187B99286F", "id": "SOCAVSF1313439FDB3", "artist_name":
+        "Reckless Kelly", "title": "Ragged As The Road"}, {"artist_id": "AR2WN631187B99DA0B",
+        "id": "SOCZOWD1315CD4800B", "artist_name": "Randy Rogers Band", "title": "You
+        Could''ve Left Me"}, {"artist_id": "ARRRVMG1187FB532AC", "id": "SOGNOTQ1312A8AA058",
+        "artist_name": "Radney Foster", "title": "God Knows When"}, {"artist_id":
+        "ARHBV1W1187B9B496C", "id": "SOXYMEA13CF6D19321", "artist_name": "Rachel Loy",
+        "title": "Hey Cara"}]}}'
     http_version: 
-  recorded_at: Thu, 20 Nov 2014 21:52:31 GMT
+  recorded_at: Sun, 30 Nov 2014 04:03:28 GMT
 recorded_with: VCR 2.9.3

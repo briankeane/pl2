@@ -58,12 +58,8 @@ module PL
         belongs_to :user
         has_many :spin_frequencies
         has_many :spins
-        has_one :schedule
+        has_one :station
         has_many :log_entries
-      end
-
-      class Schedule < ActiveRecord::Base
-        belongs_to :station
       end
 
       class User < ActiveRecord::Base
@@ -177,16 +173,6 @@ module PL
 
           log_entry = PL::LogEntry.new(attrs)
           log_entry
-        end
-      end
-
-      class Schedule
-        def to_pl
-          # collect the attributes, converting keys from strings to symbols
-          attrs = Hash[self.attributes.map{ |k, v| [k.to_sym, v] }]
-
-          schedule = PL::Schedule.new(attrs)
-          schedule
         end
       end
 
@@ -600,8 +586,8 @@ module PL
         end
       end
 
-      def playlist_exists?(schedule_id)
-        Spin.exists?(:schedule_id => schedule_id)
+      def playlist_exists?(station_id)
+        Spin.exists?(:station_id => station_id)
       end
 
       def delete_spin(id)
@@ -622,27 +608,27 @@ module PL
         end
       end
 
-      def get_last_spin(schedule_id)
-        if Spin.exists?(:schedule_id => schedule_id)
-          ar_spin = Spin.where('schedule_id = ?', schedule_id).order(:current_position).last
+      def get_last_spin(station_id)
+        if Spin.exists?(:station_id => station_id)
+          ar_spin = Spin.where('station_id = ?', station_id).order(:current_position).last
           return ar_spin.to_pl
         else
           return nil
         end
       end
 
-      def get_next_spin(schedule_id)
-        if Spin.exists?(:schedule_id => schedule_id)
-          ar_spin = Spin.where('schedule_id = ?', schedule_id).order(:current_position).first
+      def get_next_spin(station_id)
+        if Spin.exists?(:station_id => station_id)
+          ar_spin = Spin.where('station_id = ?', station_id).order(:current_position).first
           return ar_spin.to_pl
         else
           return nil
         end
       end
 
-      def get_spin_after_next(schedule_id)
-        if Spin.exists?(:schedule_id => schedule_id)
-          ar_spin = Spin.where('schedule_id = ?', schedule_id).order(:current_position)[1]
+      def get_spin_after_next(station_id)
+        if Spin.exists?(:station_id => station_id)
+          ar_spin = Spin.where('station_id = ?', station_id).order(:current_position)[1]
           return ar_spin.to_pl
         else
           return nil
@@ -658,18 +644,18 @@ module PL
       #################################################################
       def add_spin(attrs)
         # shift everything after
-        Spin.where("schedule_id = ? and current_position >= ?", attrs[:schedule_id], attrs[:add_position]).update_all("current_position = current_position + 1")
+        Spin.where("station_id = ? and current_position >= ?", attrs[:station_id], attrs[:add_position]).update_all("current_position = current_position + 1")
 
         # add the new spin into the newly emptied slot
-        spin = self.create_spin({ schedule_id: attrs[:schedule_id],
+        spin = self.create_spin({ station_id: attrs[:station_id],
                        current_position: attrs[:add_position],
                        audio_block_id: attrs[:audio_block_id] })
         
         spin
       end
 
-      def get_full_playlist(schedule_id)
-        ar_spins = Spin.where(:schedule_id => schedule_id).order(:current_position)
+      def get_full_playlist(station_id)
+        ar_spins = Spin.where(:station_id => station_id).order(:current_position)
         spins = ar_spins.map{ |ar_spin| ar_spin.to_pl }
         spins
       end
@@ -677,11 +663,11 @@ module PL
       def get_partial_playlist(attrs)
         case 
         when !attrs[:start_time]
-          ar_spins = Spin.where('schedule_id = ? and airtime <= ?', attrs[:schedule_id], attrs[:end_time]).order(:current_position)
+          ar_spins = Spin.where('station_id = ? and airtime <= ?', attrs[:station_id], attrs[:end_time]).order(:current_position)
         when !attrs[:end_time]
-          ar_spins = Spin.where('schedule_id = ? and airtime >= ?', attrs[:schedule_id], attrs[:start_time]).order(:current_position)
+          ar_spins = Spin.where('station_id = ? and airtime >= ?', attrs[:station_id], attrs[:start_time]).order(:current_position)
         else
-          ar_spins = Spin.where('schedule_id = ? and airtime >= ? and airtime <= ?', attrs[:schedule_id], attrs[:start_time], attrs[:end_time]).order(:current_position)
+          ar_spins = Spin.where('station_id = ? and airtime >= ? and airtime <= ?', attrs[:station_id], attrs[:start_time], attrs[:end_time]).order(:current_position)
         end
         
         spins = ar_spins.map { |ar_spin| ar_spin.to_pl }
@@ -690,17 +676,17 @@ module PL
 
       def get_playlist_by_current_positions(attrs)
         if !attrs[:ending_current_position]
-          ar_spins = Spin.where('schedule_id = ? and current_position >= ?', attrs[:schedule_id], attrs[:starting_current_position]).order(:current_position)
+          ar_spins = Spin.where('station_id = ? and current_position >= ?', attrs[:station_id], attrs[:starting_current_position]).order(:current_position)
         else
-          ar_spins = Spin.where('schedule_id = ? and current_position >= ? and current_position <= ?', attrs[:schedule_id], attrs[:starting_current_position], attrs[:ending_current_position]).order(:current_position)
+          ar_spins = Spin.where('station_id = ? and current_position >= ? and current_position <= ?', attrs[:station_id], attrs[:starting_current_position], attrs[:ending_current_position]).order(:current_position)
         end
 
         spins = ar_spins.map { |ar_spin| ar_spin.to_pl }
         spins
       end
 
-      def remove_spin(attrs) # schedule_id, current_position
-        spin = self.get_spin_by_current_position({ schedule_id: attrs[:schedule_id], current_position: attrs[:current_position] })
+      def remove_spin(attrs) # station_id, current_position
+        spin = self.get_spin_by_current_position({ station_id: attrs[:station_id], current_position: attrs[:current_position] })
         removed_spin = self.delete_spin(spin.id)
 
         # decrement all following current_positions
@@ -709,17 +695,17 @@ module PL
         removed_spin
       end
 
-      def delete_spins_for_schedule(schedule_id)
-        spins = Spin.delete_all(["schedule_id = ?", schedule_id])
+      def delete_spins_for_station(station_id)
+        spins = Spin.delete_all(["station_id = ?", station_id])
       end
 
-      def get_final_spin(schedule_id)
-        Spin.where("schedule_id = ?", schedule_id).order(:current_position).last
+      def get_final_spin(station_id)
+        Spin.where("station_id = ?", station_id).order(:current_position).last
       end
 
       def get_spin_by_current_position(attrs)
-        if Spin.exists?(:schedule_id => attrs[:schedule_id], :current_position => attrs[:current_position])
-          ar_spin = Spin.find_by(:schedule_id => attrs[:schedule_id], :current_position => attrs[:current_position])
+        if Spin.exists?(:station_id => attrs[:station_id], :current_position => attrs[:current_position])
+          ar_spin = Spin.find_by(:station_id => attrs[:station_id], :current_position => attrs[:current_position])
           spin = self.get_spin(ar_spin.id)
           return spin
         else
@@ -731,11 +717,11 @@ module PL
       # mass_add_spins (csv_file)                    #
       ################################################
       # inserts many spins at once in order to speed #
-      # up schedule#generate_playlist -- takes an    #
+      # up station#generate_playlist -- takes an    #
       # array of Spins and persists them             #
       ################################################
       def mass_add_spins(spins)
-        stringified_spins = spins.map { |spin| (spin.schedule_id.to_s + ', ' + 
+        stringified_spins = spins.map { |spin| (spin.station_id.to_s + ', ' + 
                                                 spin.audio_block_id.to_s + ', ' + 
                                                 spin.current_position.to_s + ', ' + 
                                                 spin.airtime.utc.to_s + ', ' + 
@@ -750,7 +736,7 @@ module PL
 
           conn = ActiveRecord::Base.connection
           rc = conn.raw_connection
-          rc.exec("COPY spins (schedule_id, audio_block_id, current_position, airtime, created_at, updated_at) FROM STDIN WITH CSV")
+          rc.exec("COPY spins (station_id, audio_block_id, current_position, airtime, created_at, updated_at) FROM STDIN WITH CSV")
 
           while !temp_csv_file.eof?
             rc.put_copy_data(temp_csv_file.readline)
@@ -777,20 +763,20 @@ module PL
       # returns true for success, false  #
       # for failure                      #
       ####################################
-      def move_spin(attrs)   #old_position, new_position, schedule_id
-        spin_to_move = Spin.find_by(:schedule_id => attrs[:schedule_id],
+      def move_spin(attrs)   #old_position, new_position, station_id
+        spin_to_move = Spin.find_by(:station_id => attrs[:station_id],
                                     :current_position => attrs[:old_position])
 
         #if moving backwards
         if attrs[:old_position] > attrs[:new_position]
-          Spin.where("schedule_id = ? and current_position >= ? and current_position <= ?", 
-                                    attrs[:schedule_id], 
+          Spin.where("station_id = ? and current_position >= ? and current_position <= ?", 
+                                    attrs[:station_id], 
                                     attrs[:new_position], 
                                     attrs[:old_position]).update_all("current_position = current_position + 1")
 
         elsif attrs[:old_position] < attrs[:new_position]
-          Spin.where("schedule_id = ? and current_position >= ? and current_position <= ?", 
-                                    attrs[:schedule_id], 
+          Spin.where("station_id = ? and current_position >= ? and current_position <= ?", 
+                                    attrs[:station_id], 
                                     attrs[:old_position], 
                                     attrs[:new_position]).update_all("current_position = current_position - 1")
         else
@@ -866,52 +852,6 @@ module PL
           return nil
         end
       end
-
-
-      ###############
-      #  Schedules  #
-      ###############
-      def create_schedule(attrs)
-        ar_schedule = Schedule.create(attrs)
-        ar_schedule.save
-        ar_schedule.to_pl
-      end
-
-      def get_schedule(id)
-        if Schedule.exists?(id)
-          ar_schedule = Schedule.find(id)
-          return ar_schedule.to_pl
-        else
-          return nil
-        end
-      end
-
-      def update_schedule(attrs)
-        if Schedule.exists?(attrs[:id])
-          ar_schedule = Schedule.find(attrs.delete(:id))
-          ar_schedule.update_attributes(attrs)
-          return ar_schedule.to_pl
-        else
-          return nil
-        end
-
-      end
-
-      def delete_schedule(id)
-        if Schedule.exists?(id)
-          ar_schedule = Schedule.find(id)
-          schedule = ar_schedule.to_pl
-          ar_schedule.delete
-          return schedule
-        else
-          return nil
-        end
-      end
-
-      def destroy_all_schedules
-        Schedule.delete_all
-      end
-
 
       ##############
       #  Sessions  #

@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  helper_method :signed_in?, :current_user, :current_station, :current_schedule, :twitter_friends_stations
+  helper_method :signed_in?, :current_user, :current_station, :current_station, :twitter_friends_stations
 
   def current_user
     @current_user ||= PL.db.get_user(PL.db.get_uid_by_sid(session[:pl_session_id]))
@@ -14,23 +14,18 @@ class ApplicationController < ActionController::Base
     current_user != nil
   end
 
-  def current_schedule
-    PL.db.get_schedule(current_station.schedule_id)
-    #@current_schedule ||= PL.db.get_schedule(current_station.schedule_id)
-  end
-
   def twitter_friends_stations
     PL::GetFollowedStations.run(current_user.id).followed_stations_list
   end
 
-  def get_audio_queue(schedule_id)
+  def get_audio_queue(station_id)
 
-    now_playing = PL::GetProgramForBroadcast.run({ schedule_id: schedule_id }).program
+    now_playing = PL::GetProgramForBroadcast.run({ station_id: station_id }).program
     
     # 'touch' audio_blocks
     now_playing.each { |log| log.audio_block unless log.is_a?(PL::CommercialBlock) }
 
-    formatted_schedule = now_playing.map do |spin|
+    formatted_station = now_playing.map do |spin|
       obj = {}
       case
       when spin.is_a?(PL::CommercialBlock)
@@ -53,7 +48,7 @@ class ApplicationController < ActionController::Base
       obj
     end
 
-    formatted_schedule  
+    formatted_station  
   end
   
 

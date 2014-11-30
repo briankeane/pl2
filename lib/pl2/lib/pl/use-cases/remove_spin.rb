@@ -2,14 +2,14 @@ module PL
   class RemoveSpin < UseCase
     def run(attrs)
 
-      schedule = PL.db.get_schedule(attrs[:schedule_id])
+      station = PL.db.get_station(attrs[:station_id])
       
-      if schedule == nil
-        return failure(:schedule_not_found)
+      if station == nil
+        return failure(:station_not_found)
       end
 
       spin_to_remove = PL.db.get_spin_by_current_position({ current_position: attrs[:current_position],
-                                                   schedule_id: attrs[:schedule_id] })
+                                                   station_id: attrs[:station_id] })
 
       if spin_to_remove == nil
         return failure(:invalid_current_position)
@@ -25,11 +25,11 @@ module PL
       end
       
       replace_time = Time.new(old_airtime.year, old_airtime.month, old_airtime.day, 3) + (24*60*60*extra_days)
-      program = schedule.get_program({start_time: replace_time })
+      program = station.get_program({start_time: replace_time })
       new_position = program[0].current_position + 1     #add one to make sure it's not a commercial
 
-      schedule.move_spin({ old_position: spin_to_remove.current_position, new_position: new_position,
-                            schedule_id: schedule.id })
+      station.move_spin({ old_position: spin_to_remove.current_position, new_position: new_position,
+                            station_id: station.id })
 
       return success :removed_spin => spin_to_remove
     end

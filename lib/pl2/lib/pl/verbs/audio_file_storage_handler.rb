@@ -26,7 +26,7 @@ module PL
     end
     
     ###########################################################
-    #    store_commentary(attrs) :schedule_id, duration,      #
+    #    store_commentary(attrs) :station_id, duration,      #
     #         :audio_file                                     #
     ###########################################################
     #  returns a string with the new_aws_key                  #
@@ -46,7 +46,7 @@ module PL
       next_key_value += 1
 
 
-      new_key = ('_com' + ('0' * (7 - next_key_value.to_s.size)) +  next_key_value.to_s + '_' + attrs[:schedule_id].to_s + '_' + '.mp3')
+      new_key = ('_com' + ('0' * (7 - next_key_value.to_s.size)) +  next_key_value.to_s + '_' + attrs[:station_id].to_s + '_' + '.mp3')
 
       commentary_file = File.open(attrs[:audio_file])
       commentary_file.binmode
@@ -56,7 +56,7 @@ module PL
       attrs[:key] = new_key
 
       aws_commentary_object.metadata[:pl_duration] = attrs[:duration] if attrs[:duration]
-      aws_commentary_object.metadata[:pl_shedule_id] = attrs[:schedule_id] if attrs[:schedule_id]
+      aws_commentary_object.metadata[:pl_shedule_id] = attrs[:station_id] if attrs[:station_id]
 
       return new_key
     end

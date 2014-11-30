@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   
-  get 'schedules/add_spin'
+  get 'stations/add_spin'
 
-  get 'schedules/remove_spin'
+  get 'stations/remove_spin'
 
   get 'users/delete'
 
@@ -35,13 +35,13 @@ Rails.application.routes.draw do
   match '/stations/playlist/update_spin_frequency',     to: 'stations#update_spin_frequency',               via: 'post'
   match '/stations/playlist/delete_spin_frequency',     to: 'stations#delete_spin_frequency',               via: 'delete'
   match '/stations/get_commercial_block_for_broadcast', to: 'stations#get_commercial_block_for_broadcast',  via: 'get'
-  match '/schedules/move_spin',                         to: 'schedules#move_spin',                          via: 'post'
-  match '/schedules/insert_song',                       to: 'schedules#insert_song',                        via: 'post'
-  match '/schedules/process_commentary',                to: 'schedules#process_commentary',                 via: 'post'
+  match '/stations/move_spin',                         to: 'stations#move_spin',                          via: 'post'
+  match '/stations/insert_song',                       to: 'stations#insert_song',                        via: 'post'
+  match '/stations/process_commentary',                to: 'stations#process_commentary',                 via: 'post'
   match '/listens/index',                               to: 'listens#index',                                via: 'get'
-  match '/schedules/get_spin_by_current_position',      to: 'schedules#get_spin_by_current_position',       via: 'get'
-  match '/schedules/remove_spin',                       to: 'schedules#remove_spin',                        via: 'delete'
-  match '/schedules/reset_schedule',                    to: 'schedules#reset_schedule',                     via: 'put'
+  match '/stations/get_spin_by_current_position',      to: 'stations#get_spin_by_current_position',       via: 'get'
+  match '/stations/remove_spin',                       to: 'stations#remove_spin',                        via: 'delete'
+  match '/stations/reset_station',                    to: 'stations#reset_station',                     via: 'put'
   match '/listens/:id',                                 to: 'listens#show',                                 via: 'get'
 
   # sessions_controller paths

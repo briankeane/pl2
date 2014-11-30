@@ -60,11 +60,11 @@
 
     $('#recording').sortable({
                             dropOnEmpty: true,
-                            connectWith: '#schedule-list'              
+                            connectWith: '#station-list'              
     });
 
     $('#all-songs-source-list').sortable({ 
-      connectWith: '#schedule-list',
+      connectWith: '#station-list',
       helper: 'clone',
       widgets: ['zebra'],
       cancel: ".disabled",
@@ -76,14 +76,14 @@
       }
     });
 
-    $('#schedule-list').sortable({
+    $('#station-list').sortable({
       connectWith: '#all-songs-source-list',
       items: "li:not(.disabled)",
       start: function(event, ui) {
         ui.item.startPos = ui.item.index();
       },
       stop: function(event, ui) {
-        $('#schedule-list .commercialBlock').removeClass('disabled');
+        $('#station-list .commercialBlock').removeClass('disabled');
         
         // return if order did not change
         if (ui.item.startPos == ui.item.index()) {return; }
@@ -91,7 +91,7 @@
         // create an array with just the spin current_ids
         var currentPositions = [];
 
-        $('#schedule-list li').each(function(index, data) {
+        $('#station-list li').each(function(index, data) {
           if (!($(this).hasClass('commercialBlock'))) {
             currentPositions.push(parseInt($(this).attr('data-currentPosition')));
           }
@@ -101,38 +101,38 @@
 
         // if they just moved around a commercial, cancel it
         if (!movePositionData.moved) {
-          $('#schedule-list').sortable('cancel');
-          $('#schedule-list .commercialBlock').addClass('disabled');
-          //$('#schedule-list').disableSelection();
+          $('#station-list').sortable('cancel');
+          $('#station-list .commercialBlock').addClass('disabled');
+          //$('#station-list').disableSelection();
           return;
         }
         // disable list until request has come back
-        $('#schedule-list').sortable('disable');
+        $('#station-list').sortable('disable');
         // make ajax request to update database
         movePositionData._method = 'POST';
         $.ajax({
           type: 'POST',
           dataType: 'json',
-          url: 'schedules/move_spin',
+          url: 'stations/move_spin',
           contentType: 'application/json',
           data: JSON.stringify(movePositionData),
           success: function(result) {
             refreshScheduleList(result.table); 
-            $('#schedule-list').sortable('enable');
+            $('#station-list').sortable('enable');
           }
         });
       },
       receive: function(event, ui) {
         var insertSpinInfo = {};
         insertSpinInfo.songId = $(ui.item).attr('data-id');
-        insertSpinInfo.lastCurrentPosition = $('#schedule-list').attr('data-lastCurrentPosition');
+        insertSpinInfo.lastCurrentPosition = $('#station-list').attr('data-lastCurrentPosition');
 
         // grab the insert position
-        insertSpinInfo.addPosition = $('#schedule-list li').eq(ui.item.index() + 1).attr('data-currentPosition');
+        insertSpinInfo.addPosition = $('#station-list li').eq(ui.item.index() + 1).attr('data-currentPosition');
         
         // if there was a commercialBlock there, use the spin after instead
         if (!insertSpinInfo.addPosition) {
-          insertSpinInfo.addPosition = $('#schedule-list li').eq(ui.item.index() + 2).attr('data-currentPosition');
+          insertSpinInfo.addPosition = $('#station-list li').eq(ui.item.index() + 2).attr('data-currentPosition');
         }
 
         // if it was a song
@@ -148,20 +148,20 @@
           $('#all-songs-source-list').sortable('cancel');
 
           // disable list until results come back
-          $('#schedule-list').sortable('disable');
+          $('#station-list').sortable('disable');
 
           $.ajax({
             type: 'POST',
             dataType: 'json',
-            url: 'schedules/insert_song',
+            url: 'stations/insert_song',
             contentType: 'application/json',
             data: JSON.stringify(insertSpinInfo),
             success: function(result) {
               refreshScheduleList(result.table);
               // update new lastCurrentPosition on the DOM
-              $('#schedule-list').attr('data-lastCurrentPosition', result.table.max_position);
+              $('#station-list').attr('data-lastCurrentPosition', result.table.max_position);
 
-              $('#schedule-list').sortable('enable');
+              $('#station-list').sortable('enable');
             }
           });
 
@@ -192,11 +192,11 @@
           fd.append('duration', insertSpinInfo.duration);
           
           // disable the list until the results come back
-          $('#schedule-list').sortable('disable');
+          $('#station-list').sortable('disable');
           
           $.ajax({
             type:'POST',
-            url:'schedules/process_commentary',
+            url:'stations/process_commentary',
             data: fd,
             processData: false,
             contentType: false,
@@ -204,10 +204,10 @@
               refreshScheduleList(result.table);
 
               // update new lastCurrentPosition on the DOM
-              $('#schedule-list').attr('data-lastCurrentPosition', result.table.max_position);
+              $('#station-list').attr('data-lastCurrentPosition', result.table.max_position);
 
-              // reactivate schedule-list
-              $('#schedule-list').sortable('enable');
+              // reactivate station-list
+              $('#station-list').sortable('enable');
             }
           }).done(function(data) {
             console.log(data);
@@ -218,9 +218,9 @@
 
     });
 
-    $('#schedule-list').disableSelection();
+    $('#station-list').disableSelection();
     
-    $(document).on('click', '#schedule-list li .close', function() { 
+    $(document).on('click', '#station-list li .close', function() { 
       removeSpin();
     });
 
@@ -238,12 +238,12 @@
     // *                  new_program (array)     *
     // ********************************************
     // * updates the times and commercial         *
-    // * placements in the schedule-list          *
+    // * placements in the station-list          *
     // ********************************************
     var refreshScheduleList = function(result) {
       // change currentPositions data attr to reflect new positions
-      var cpCounter = parseInt($('#schedule-list').attr('data-firstCurrentPosition'));
-      $('#schedule-list li').each(function(index, data) {
+      var cpCounter = parseInt($('#station-list').attr('data-firstCurrentPosition'));
+      $('#station-list li').each(function(index, data) {
         if (!$(this).hasClass('commercialBlock')) {
           $(this).attr('data-currentPosition', cpCounter);
           cpCounter ++;
@@ -254,14 +254,14 @@
       var index = $('*[data-currentPosition="' + result.min_position +'"]').index();
       var maxIndex = $('*[data-currentPosition="' + result.max_position +'"]').index();
 
-      // adjust for cases where full schedule is updated
+      // adjust for cases where full station is updated
       if (maxIndex === -1) {
-        maxIndex = $('#schedule-list li').last().index();
+        maxIndex = $('#station-list li').last().index();
       }
 
       while (index <= maxIndex) {
-        if ($('#schedule-list li').eq(index).hasClass('commercialBlock')) {
-          $('#schedule-list li').eq(index).remove();
+        if ($('#station-list li').eq(index).hasClass('commercialBlock')) {
+          $('#station-list li').eq(index).remove();
         }
         index++;
       };
@@ -285,11 +285,11 @@
       } //endFor
       
       //disable commercialBlock movement
-      $('#schedule-list .commercialBlock').addClass('disabled');
-      $('#schedule-list').sortable({
+      $('#station-list .commercialBlock').addClass('disabled');
+      $('#station-list').sortable({
         items: "li:not(.disabled)"
       });
-      $('#schedule-list').disableSelection();
+      $('#station-list').disableSelection();
     }
 
     // ********************************************
@@ -450,9 +450,9 @@
       $('#nowPlayingList .nowPlaying .artist').text('');
     }
 
-    // if the station is live, advance #schedule-list
-    if (parseInt($('#schedule-list li').attr('data-currentPosition')) === player.audioQueue[0].currentPosition)  {
-      $('#schedule-list li').first().remove();
+    // if the station is live, advance #station-list
+    if (parseInt($('#station-list li').attr('data-currentPosition')) === player.audioQueue[0].currentPosition)  {
+      $('#station-list li').first().remove();
       appendNextSpin();
     }
   };
@@ -468,13 +468,13 @@
     event.preventDefault();
 
     // if the list is deactivated, do nothing
-    if ($('#schedule-list').hasClass('ui-sortable-disabled')) {
+    if ($('#station-list').hasClass('ui-sortable-disabled')) {
       return;
     }
 
     var currentPosition = parseInt($(event.target).parent().attr('data-currentposition'));
     var removeSpinInfo = {};
-    removeSpinInfo.last_current_position = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
+    removeSpinInfo.last_current_position = parseInt($('#station-list').attr('data-lastCurrentPosition'));
     removeSpinInfo.current_position = currentPosition;
     
     //remove airtime and replace with processing icon
@@ -484,23 +484,23 @@
     $(spinLiSelector).append('<img src="/images/processing_icon.gif" class="processing-icon" />');
 
     // disable list until results come back
-    $('#schedule-list').sortable('disable');
+    $('#station-list').sortable('disable');
 
     $.ajax({
           type: 'DELETE',
           dataType: 'json',
-          url: 'schedules/remove_spin',
+          url: 'stations/remove_spin',
           contentType: 'application/json',
           data: JSON.stringify(removeSpinInfo),
           success: function(result) {
             $('*[data-currentPosition="' + result.table.removed_spin.current_position +'"]').remove();
 
             // adjust lastCurrentPosition
-            var oldLastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
-            $('#schedule-list').attr('data-lastCurrentPosition', oldLastCurrentPosition - 1);
+            var oldLastCurrentPosition = parseInt($('#station-list').attr('data-lastCurrentPosition'));
+            $('#station-list').attr('data-lastCurrentPosition', oldLastCurrentPosition - 1);
 
             refreshScheduleList(result.table);
-            $('#schedule-list').sortable('enable');
+            $('#station-list').sortable('enable');
             appendNextSpin();
           }
     });
@@ -515,29 +515,29 @@
   }
 
   var appendNextSpin = function() {
-    var nextCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition')) + 1;
+    var nextCurrentPosition = parseInt($('#station-list').attr('data-lastCurrentPosition')) + 1;
     var callback = function(result) {
       var html = renderSpin({ airtime: result.airtimeForDisplay,
                                  current_position: result.current_position,
                                  title: result.audio_block.title,
                                  artist: result.audio_block.artist });
-      $('#schedule-list').append(html); 
+      $('#station-list').append(html); 
 
       // increment lastCurrentPosition
-      var oldLastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
-      $('#schedule-list').attr('data-lastCurrentPosition', oldLastCurrentPosition + 1);
+      var oldLastCurrentPosition = parseInt($('#station-list').attr('data-lastCurrentPosition'));
+      $('#station-list').attr('data-lastCurrentPosition', oldLastCurrentPosition + 1);
 
       if (result["commercials_follow?"] == true) {
         var html = renderCommercialBlock({ airtime: (result.airtime_in_ms + 3*60*1000) });
-        $('#schedule-list').append(html); 
+        $('#station-list').append(html); 
       }
     }
 
     // build spinInfo object for getSpinByCurrentPosition
     var spinInfo = {};
-    spinInfo.lastCurrentPosition = parseInt($('#schedule-list').attr('data-lastCurrentPosition'));
+    spinInfo.lastCurrentPosition = parseInt($('#station-list').attr('data-lastCurrentPosition'));
     spinInfo.currentPosition = nextCurrentPosition;
-    spinInfo.scheduleId = gon.scheduleId;
+    spinInfo.stationId = gon.stationId;
     getSpinByCurrentPosition(spinInfo, callback);
 
   }
