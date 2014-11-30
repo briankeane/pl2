@@ -1,5 +1,5 @@
 (function(){
-  if ($('body.listens.show').length) {
+  if ($('body.stations.show').length) {
   
     var updateNowPlaying = function() {
       // clear the previous class
