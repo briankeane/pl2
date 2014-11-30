@@ -12,14 +12,11 @@ class ListensController < ApplicationController
                                                     count: 10 })
 
     
-    station = PL.db.get_station(@listen_station.station_id)
-    
     # load audioQueue array
-    gon.audioQueue = get_audio_queue(station.id)
+    gon.audioQueue = get_audio_queue(@listen_station.id)
 
     gon.currentStation = current_station
     gon.stationId = @listen_station.id
-    gon.stationId = station.id
 
     # grab the 10 most recent songs
     @log = PL.db.get_recent_log_entries({ station_id: @listen_station.id, count: 30 })
