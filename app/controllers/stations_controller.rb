@@ -122,7 +122,7 @@ class StationsController < ApplicationController
 
     @first_visit = true
 
-    render listens_index_path
+    render stations_index_path
   end
 
   def create_spin_frequency
