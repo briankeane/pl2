@@ -8,8 +8,8 @@ class UploadsController < ApplicationController
   end
 
   def process_song
-    result = PL::ProcessSong.run({ key: params[:upload][:key],
-                                    filename: params[:upload][:filename] })
+    # add suffix to filepath
+    result = PL::ProcessSong.run(params[:upload][:key])
     result[:filename] = params[:upload][:filename]
     result[:unprocessed_key] = params[:upload][:key]
 

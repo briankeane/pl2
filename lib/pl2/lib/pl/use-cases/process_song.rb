@@ -4,8 +4,7 @@ require 'mp3info'
 module PL
   class ProcessSong < UseCase
     def run(key)
-
-      ash = PL::AudioFileStorageHandler.new
+     ash = PL::AudioFileStorageHandler.new
       sp = PL::SongProcessor.new
       song_pool = PL::SongPoolHandler.new
 
@@ -33,9 +32,9 @@ module PL
                                                 title: id3_tags[:title] })
         return failure(:no_echonest_match_found, { echonest_info: echonest_info,
                                                           id3_tags: id3_tags,
-                                                          key: key } )
+                                                          key: key })
       else 
-        ash.delete_unprocessed_song(key)
+        ash.delete_unprocessed_song(attrs[:key])
         return success song: song
       end
     end

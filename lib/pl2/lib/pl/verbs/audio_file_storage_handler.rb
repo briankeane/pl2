@@ -56,7 +56,7 @@ module PL
       attrs[:key] = new_key
 
       aws_commentary_object.metadata[:pl_duration] = attrs[:duration] if attrs[:duration]
-      aws_commentary_object.metadata[:pl_shedule_id] = attrs[:station_id] if attrs[:station_id]
+      aws_commentary_object.metadata[:pl_station_id] = attrs[:station_id] if attrs[:station_id]
 
       return new_key
     end
