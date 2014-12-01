@@ -23,6 +23,10 @@ module PL
       
       return new_file_path
     end
+
+    def mp4_to_mp3(mp4_file_path)
+      
+    end
     
     def trim_silence(file_path)
       # grab id3s

@@ -10,6 +10,7 @@ module PL
       song_pool = PL::SongPoolHandler.new
 
       temp_song_file = ash.get_unprocessed_song_audio(key)
+
       id3_tags = sp.get_id3_tags(temp_song_file)
 
       # return failure if id3_tags incomplete
