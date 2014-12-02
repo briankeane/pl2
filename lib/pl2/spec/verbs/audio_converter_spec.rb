@@ -20,6 +20,18 @@ describe 'audio_converter' do
     File.delete(wav_file_path) if File.exists?(wav_file_path)
   end
 
+  it 'converts from mp4 to mp3' do
+    mp3_file_path = @ac.mp4_to_mp3('spec/test_files/lonestar.m4a')
+    expect(mp3_file_path).to eq('spec/test_files/lonestar.mp3')
+    sp = PL::SongProcessor.new
+    tags = sp.get_id3_tags(mp3_file_path)
+    expect(tags[:title]).to eq('Lone Star Blues')
+    expect(tags[:artist]).to eq('Delbert McClinton')
+    expect(tags[:album]).to eq('Room to Breathe')
+    expect(tags[:duration]).to eq(237453)
+    File.delete(mp3_file_path) if File.exists?(mp3_file_path)
+  end
+
   it 'trims silences' do
     sp = PL::SongProcessor.new
 
@@ -38,5 +50,4 @@ describe 'audio_converter' do
     expect(after_tags[:artist]).to eq('artist')
     expect(after_tags[:title]).to eq('title')
   end
-
 end

@@ -25,7 +25,27 @@ module PL
     end
 
     def mp4_to_mp3(mp4_file_path)
-      
+      sp = PL::SongProcessor.new
+      extension = File.extname(mp4_file_path)
+      mp3_file_path = mp4_file_path.gsub(extension, ".mp3")
+      wav_file_path = mp4_file_path.gsub(extension, ".wav")
+
+      tags = {}
+      File.open(mp4_file_path) do |file|
+        tags = sp.get_id4_tags(file)
+      end
+
+      system('faad -o ' + wav_file_path + ' ' + mp4_file_path)
+      system('lame -b ' + mp3_file_path + ' ' + wav_file_path)
+      File.delete(wav_file_path) if File.exists?(wav_file_path)
+
+      # put the id3s back
+      File.open(mp3_file_path) do |file|
+        tags[:song_file] = file
+        sp.write_id3_tags(tags)
+      end
+
+      return mp3_file_path
     end
     
     def trim_silence(file_path)

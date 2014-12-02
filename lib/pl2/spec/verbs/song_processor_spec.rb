@@ -71,11 +71,9 @@ describe 'SongProcessor' do
       expect(tags[:title]).to eq('Lone Star Blues')
       expect(tags[:encrypted]).to eq(false)
     end
-
   end
 
   describe 'write tags' do
-    
     it 'writes the id3 tags to an mp3 file' do
       File.open('spec/test_files/mine_no_title.mp3', 'rb') do |file|
         @song_processor.write_id3_tags( song_file: file, title: 'WASSSUPPP')
