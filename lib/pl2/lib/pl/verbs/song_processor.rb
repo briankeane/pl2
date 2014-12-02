@@ -1,5 +1,6 @@
 require 'mp3info'
 require 'mp4info'
+require 'taglib'
 require 'echowrap'
 require 'fuzzystringmatch'
 require 'aws-sdk'
@@ -116,6 +117,30 @@ module PL
       end
 
       tags[:duration] = (mp3.length * 1000).to_i
+      return tags
+    end
+
+    def get_id4_tags(song_file)
+      file = TagLib::MP4::File.new(song_file.path)
+      tag = file.tag
+      tags = {}
+      tags[:artist] = tag.artist
+      tags[:album] = tag.album
+      tags[:title] = tag.title
+
+      # use mp4info for encrypted? and duration
+      info = MP4Info.open(song_file)
+      tags[:duration] = (info.SECS * 1000) + info.MS
+      tags[:artist] = (info.ART || '') unless tags[:artist]
+      tags[:album] = (info.ALB || '') unless tags[:album]
+      tags[:title] = (info.NAM || '') unless tags[:title]
+
+      if info.ENCRYPTED
+        tags[:encrypted] = true
+      else
+        tags[:encrypted] = false
+      end
+
       return tags
     end
 

@@ -38,17 +38,22 @@
               
               if (result.table.error === "song_already_exists") {
                 markAsAlreadyUploaded(correspondingDiv);
-              } else if ((result.table.error === "no_title_in_id3_tags") ||
-                        (result.table.error === "no_artist_in_id3_tags") ||
+              } else if ((result.table.error === "no_title_in_tags") ||
+                        (result.table.error === "no_artist_in_tags") ||
                         (result.table.error === "no_echonest_match_found")) {
                 $(correspondingDiv).addClass("error");
                 $(correspondingDiv + ' .status').text('Info Needed');
                 $(correspondingDiv + ' .status').addClass('tiny button');
                 $(correspondingDiv).attr("data-error", result.table.error);
-                $(correspondingDiv).attr("data-title", result.table.id3_tags.title);
-                $(correspondingDiv).attr("data-artist", result.table.id3_tags.artist);
-                $(correspondingDiv).attr("data-album", result.table.id3_tags.album);
+                $(correspondingDiv).attr("data-title", result.table.tags.title);
+                $(correspondingDiv).attr("data-artist", result.table.tags.artist);
+                $(correspondingDiv).attr("data-album", result.table.tags.album);
                 $(correspondingDiv + ' .processing-icon').addClass('hide');
+              } else if (result.table.error === 'file_is_encrypted') {
+                $(correspondingDiv).addClass('error');
+                $(correspondingDiv + ' .status').text('Info Needed');
+                $(correspondingDiv + ' .processing-icon').addClass('hide');
+                $(correspondingDiv + ' .status').text('File is Encrypted');
               } else if (!result.table.error) {
                 markAsAdded(correspondingDiv);
               }

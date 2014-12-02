@@ -53,6 +53,27 @@ describe 'SongProcessor' do
     end
   end
 
+  it 'gets the id4 tags from an encrypted m4a file' do
+    File.open('spec/test_files/downtown.m4p') do |file|
+      tags = @song_processor.get_id4_tags(file)
+      expect(tags[:artist]).to eq('Hayes Carll')
+      expect(tags[:album]).to eq('Trouble In Mind')
+      expect(tags[:title]).to eq('Girl Downtown')
+      expect(tags[:encrypted]).to eq(true)
+    end
+  end
+
+  it 'gets the id4 tags from a non-encrypted m4a file' do
+    File.open('spec/test_files/lonestar.m4a') do |file|
+      tags = @song_processor.get_id4_tags(file)
+      expect(tags[:artist]).to eq('Delbert McClinton')
+      expect(tags[:album]).to eq('Room to Breathe')
+      expect(tags[:title]).to eq('Lone Star Blues')
+      expect(tags[:encrypted]).to eq(false)
+    end
+
+  end
+
   describe 'write tags' do
     
     it 'writes the id3 tags to an mp3 file' do

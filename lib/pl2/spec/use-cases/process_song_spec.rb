@@ -63,7 +63,7 @@ describe 'process_song' do
     end
   end
 
-  it 'processes a song and adds it to the library' do
+  it 'processes am mp3 and adds it to the library' do
     VCR.use_cassette('process_song/good_request') do
       key = 'stepladder.mp3'
       filename = 'spec/test_files/stepladder.mp3'
@@ -76,6 +76,24 @@ describe 'process_song' do
       expect(result.song.artist).to eq('Rachel Loy')
       expect(result.song.album).to eq('Broken Machine')
     end 
+  end
+
+  xit 'processes an m4a and adds it to the library' do
+    #VCR.use_cassette('process_song/m4a_good_request') do
+      key = 'neon.m4a'
+      filename = 'spec/test_files/neon.m4a'
+      s3 = AWS::S3.new
+      s3.buckets[S3['UNPROCESSED_SONGS']].objects[key].write(:file => filename)
+      result = PL::ProcessSong.run({ key: 'neon.m4a', filename: 'neon.m4a' })
+
+      expect(result.success?).to eq(true)
+      expect(result.song.title).to eq('Buzzes Like Neon')
+      expect(result.song.artist).to eq('Adam Hood')
+      expect(result.song.album).to eq('Different Groove')
+    #end
+  end
+
+  xit 'calls bullshit if an m4a is copy-protected' do
   end
 
   after(:all) do

@@ -3,36 +3,54 @@ require 'mp3info'
 
 module PL
   class ProcessSong < UseCase
-    def run(key)
+    def run(attrs)
      ash = PL::AudioFileStorageHandler.new
       sp = PL::SongProcessor.new
       song_pool = PL::SongPoolHandler.new
 
-      temp_song_file = ash.get_unprocessed_song_audio(key)
+      temp_song_file = ash.get_unprocessed_song_audio(attrs[:key])
+      extension = File.extname(attrs[:filename])
 
-      id3_tags = sp.get_id3_tags(temp_song_file)
+      # get tags
+      case
+      when (extension == '.mp3') || (extension == '.wav')
+        info = sp.get_id3_tags(temp_song_file)
 
-      # return failure if id3_tags incomplete
-      case 
-      when !id3_tags[:title] || id3_tags[:title].strip.size == 0
-        return failure(:no_title_in_id3_tags, { id3_tags: id3_tags, key: key })
-      when !id3_tags[:artist] || id3_tags[:artist].strip.size == 0
-        return failure(:no_artist_in_id3_tags, { id3_tags: id3_tags, key: key })
+      when (extension == '.mp4') || (extension == '.m4a')
+        info = MP4Info.file(temp_song_file)
+
+
+        
+        temp_song_file
       end
 
-      if PL.db.song_exists?({ artist: id3_tags[:artist], title: id3_tags[:title], album: id3_tags[:album] })
-        ash.delete_unprocessed_song(key)
-        return failure(:song_already_exists, { id3_tags: id3_tags, key: key })
-      end
+        # return failure if file is encrypted
+        if info[:encrypted]
+          return failure :file_is_encrypted
+        end
+        
+        # return failure if song exists
+        if PL.db.song_exists?({ artist: tags[:artist], title: tags[:title], album: tags[:album] })
+          ash.delete_unprocessed_song(key)
+          return failure(:song_already_exists, { tags: tags, key: attrs[:key] })
+        end
+
+        # return failure if tags incomplete
+        case 
+        when tags[:title] ||tags[:title].strip.size == 0
+          return failure(:no_title_intags, {tags: tags, key: attrs[:key] })
+        when tags[:artist] ||tags[:artist].strip.size == 0
+          return failure(:no_artist_intags, {tags: tags, key: attrs[:key] })
+        end
 
       song = sp.add_song_to_system(temp_song_file)
 
       if song == false
-        echonest_info = sp.get_echonest_info({ artist: id3_tags[:artist],
-                                                title: id3_tags[:title] })
+        echonest_info = sp.get_echonest_info({ artist: tags[:artist],
+                                                title: tags[:title] })
         return failure(:no_echonest_match_found, { echonest_info: echonest_info,
-                                                          id3_tags: id3_tags,
-                                                          key: key })
+                                                         tags: tags,
+                                                          key: attrs[:key] })
       else 
         ash.delete_unprocessed_song(attrs[:key])
         return success song: song
