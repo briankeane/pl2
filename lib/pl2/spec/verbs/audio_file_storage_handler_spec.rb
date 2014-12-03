@@ -157,7 +157,17 @@ describe 'audio_file_storage_handler' do
     end
   end
 
-  xit 'gets unprocessed song audio' do
+  it 'gets unprocessed song audio' do
+    VCR.use_cassette('audio_file_storage_handler/gets_unprocessed_song_audio') do
+      s3 = AWS::S3.new
+      song_file = File.open('spec/test_files/lonestar.m4a')
+      song = s3.buckets['playolaunprocessedsongstest'].objects.create('lonestar.m4a', song_file.read)
+      song_file.close
+
+      temp_song_file = @grabber.get_unprocessed_song_audio('lonestar.m4a')
+      expect(File.extname(temp_song_file.path)).to eq('.m4a') #tempfile has proper extension
+      expect(temp_song_file.size).to eq(8550561)
+    end
   end
 
   it 'deletes unprocessed song' do

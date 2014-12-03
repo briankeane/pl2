@@ -157,7 +157,8 @@ module PL
 
       s3_song_file = bucket.objects[key]
 
-      temp_audio_file = Tempfile.new('temp_audio_file')
+      extension = File.extname(key)
+      temp_audio_file = Tempfile.new(['temp_audio_file', extension])
       temp_audio_file.binmode
       temp_audio_file.write(s3_song_file.read)
       return temp_audio_file

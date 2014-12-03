@@ -78,31 +78,41 @@ describe 'process_song' do
     end 
   end
 
-  xit 'processes an m4a and adds it to the library' do
+  it 'processes an m4a and adds it to the library' do
     #VCR.use_cassette('process_song/m4a_good_request') do
-      key = 'neon.m4a'
-      filename = 'spec/test_files/neon.m4a'
+      key = 'lonestar.m4a'
+      filename = 'spec/test_files/lonestar.m4a'
       s3 = AWS::S3.new
       s3.buckets[S3['UNPROCESSED_SONGS']].objects[key].write(:file => filename)
-      result = PL::ProcessSong.run({ key: 'neon.m4a', filename: 'neon.m4a' })
+      result = PL::ProcessSong.run({ key: 'lonestar.m4a', filename: 'lonestar.m4a' })
 
       expect(result.success?).to eq(true)
-      expect(result.song.title).to eq('Buzzes Like Neon')
-      expect(result.song.artist).to eq('Adam Hood')
-      expect(result.song.album).to eq('Different Groove')
+      expect(result.song.title).to eq('Lone Star Blues')
+      expect(result.song.artist).to eq('Delbert McClinton')
+      expect(result.song.album).to eq('Room To Breathe')
     #end
   end
 
-  xit 'calls bullshit if an m4a is copy-protected' do
+  it 'calls bullshit if an m4a is copy-protected' do
+    #VCR.use_cassette('process_song/m4a_encrypted') do
+      s3 = AWS::S3.new
+      key = 'downtown.m4p'
+      filename = 'spec/test_files/downtown.m4p'
+      s3.buckets[S3['UNPROCESSED_SONGS']].objects[key].write(:file => filename)
+      result = PL::ProcessSong.run({ key: 'downtown.m4p', filename: 'downtown.m4p' })
+      expect(result.success?).to eq(false)
+      expect(result.error).to eq(:file_is_encrypted)
+    #end
   end
 
   after(:all) do
     s3 = AWS::S3.new
     bucket = s3.buckets[S3['UNPROCESSED_SONGS']]
-    bucket.objects['mine.mp3'] unless !bucket.objects['mine.mp3'].exists?
-    bucket.objects['mine.mp3'] unless !bucket.objects['mine_no_artist.mp3'].exists?
-    bucket.objects['mine.mp3'] unless !bucket.objects['mine_no_title.mp3'].exists?
-    bucket.objects['stepladder.mp3'] unless !bucket.objects['stepladder.mp3'].exists?
+    bucket.objects['mine.mp3'].delete unless !bucket.objects['mine.mp3'].exists?
+    bucket.objects['mine_no_artist.mp3'].delete unless !bucket.objects['mine_no_artist.mp3'].exists?
+    bucket.objects['mine_no_title.mp3'].delete unless !bucket.objects['mine_no_title.mp3'].exists?
+    bucket.objects['stepladder.mp3'].delete unless !bucket.objects['stepladder.mp3'].exists?
+    bucket.objects['downtown.m4p'].delete unless !bucket.objects['downtown.m4p'].exists?
   end
 
 
