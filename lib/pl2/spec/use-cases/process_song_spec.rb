@@ -13,7 +13,7 @@ describe 'process_song' do
 
       result = PL::ProcessSong.run('mine_no_title.mp3')
       expect(result.success?).to eq(false)
-      expect(result.error).to eq(:no_title_in_id3_tags)
+      expect(result.error).to eq(:no_title_in_tags)
     end
   end
 
@@ -26,7 +26,7 @@ describe 'process_song' do
 
       result = PL::ProcessSong.run('mine_no_artist.mp3')
       expect(result.success?).to eq(false)
-      expect(result.error).to eq(:no_artist_in_id3_tags)
+      expect(result.error).to eq(:no_artist_in_tags)
     
     end
   end
@@ -58,12 +58,12 @@ describe 'process_song' do
 
       expect(result.success?).to eq(false)
       expect(result.error).to eq(:no_echonest_match_found)
-      expect(result.id3_tags).to_not be_nil
+      expect(result.tags).to_not be_nil
       expect(result.echonest_info).to_not be_nil
     end
   end
 
-  it 'processes am mp3 and adds it to the library' do
+  it 'processes an mp3 and adds it to the library' do
     VCR.use_cassette('process_song/good_request') do
       key = 'stepladder.mp3'
       filename = 'spec/test_files/stepladder.mp3'
@@ -79,30 +79,30 @@ describe 'process_song' do
   end
 
   it 'processes an m4a and adds it to the library' do
-    #VCR.use_cassette('process_song/m4a_good_request') do
+    VCR.use_cassette('process_song/m4a_good_request') do
       key = 'lonestar.m4a'
       filename = 'spec/test_files/lonestar.m4a'
       s3 = AWS::S3.new
       s3.buckets[S3['UNPROCESSED_SONGS']].objects[key].write(:file => filename)
-      result = PL::ProcessSong.run({ key: 'lonestar.m4a', filename: 'lonestar.m4a' })
+      result = PL::ProcessSong.run('lonestar.m4a')
 
       expect(result.success?).to eq(true)
       expect(result.song.title).to eq('Lone Star Blues')
       expect(result.song.artist).to eq('Delbert McClinton')
-      expect(result.song.album).to eq('Room To Breathe')
-    #end
+      expect(result.song.album).to eq('Room to Breathe')
+    end
   end
 
   it 'calls bullshit if an m4a is copy-protected' do
-    #VCR.use_cassette('process_song/m4a_encrypted') do
+    VCR.use_cassette('process_song/m4a_encrypted') do
       s3 = AWS::S3.new
       key = 'downtown.m4p'
       filename = 'spec/test_files/downtown.m4p'
       s3.buckets[S3['UNPROCESSED_SONGS']].objects[key].write(:file => filename)
-      result = PL::ProcessSong.run({ key: 'downtown.m4p', filename: 'downtown.m4p' })
+      result = PL::ProcessSong.run('downtown.m4p')
       expect(result.success?).to eq(false)
       expect(result.error).to eq(:file_is_encrypted)
-    #end
+    end
   end
 
   after(:all) do
