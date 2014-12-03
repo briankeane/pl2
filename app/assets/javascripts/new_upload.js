@@ -51,6 +51,7 @@
                 $(correspondingDiv + ' .processing-icon').addClass('hide');
               } else if (result.table.error === 'file_is_encrypted') {
                 $(correspondingDiv).addClass('error');
+                $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
                 $(correspondingDiv + ' .status').text('Info Needed');
                 $(correspondingDiv + ' .processing-icon').addClass('hide');
                 $(correspondingDiv + ' .status').text('File is Encrypted');
