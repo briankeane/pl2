@@ -1,0 +1,76 @@
+== playola.fm
+
+# Installing Locally (for Mac)
+
+1) fork and clone down the repo
+2) obtain tokens for: echonest, twitter, s3, and filepicker.io
+3) create the folder 'lib/pl2/secrets' and install the following yml files:
+echonest_config.yml
+```
+development:
+  API_KEY: xxxxxxxxxxx 
+  CONSUMER_KEY: xxxxxxxxxxx 
+  SHARED_SECRET: xxxxxxxxxxx
+  TASTE_PROFILE_ID: xxxxxxxxxxx
+
+test:
+  API_KEY: xxxxxxxxxxx 
+  CONSUMER_KEY: xxxxxxxxxxx 
+  SHARED_SECRET: xxxxxxxxxxx
+  TASTE_PROFILE_ID: xxxxxxxxxxx
+
+production:
+  API_KEY: xxxxxxxxxxx 
+  CONSUMER_KEY: xxxxxxxxxxx 
+  SHARED_SECRET: xxxxxxxxxxx
+  TASTE_PROFILE_ID: xxxxxxxxxxx
+```
+twitter_config.yml
+```
+development:
+  CONSUMER_KEY: NSeYUCdIxxzo79Lg7UD9y6AlB
+  CONSUMER_SECRET: ezyiyhoCtDoCJbaZ4dSqGsrbsNpwoLGFpJPL4xoZXRE5yMOcam
+etc...
+```
+s3_config.yml
+```
+development:
+  ACCESS_KEY_ID: AKIAIV2K776MRUE245GA
+  SECRET_KEY: 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
+  SONGS_BUCKET: playolasongs
+  COMMERCIALS_BUCKET: playolacommercials
+  COMMENTARIES_BUCKET: playolacommentaries
+  UNPROCESSED_SONGS: playolaunprocessedsongs
+etc.
+```
+filepicker_config.yml
+```
+development:
+  API_KEY: AwH4zixqRBC6mOjdZN5a9z
+etc.
+```
+
+4) Install dependencies.
+  ```
+  brew install lame
+  brew install ffmpeg
+  brew install faad2
+  brew install sox
+  brew install taglib
+  brew install postgresql
+  ```
+
+5) create and migrate database
+```
+rake db:create RAILS_ENV=test
+rake db:create RAILS_ENV=development
+rake db:migrate RAILS_ENV=test
+rake db:migrate RAILS_ENV=development
+```
+
+6) load db with songs from storage
+rake db:load_db_via_storage RAILS_ENV=development
+
+#Notes
+The core code is located in lib/pl2.  
+
