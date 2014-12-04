@@ -47,7 +47,7 @@ filepicker_config.yml
 ```
 development:
   API_KEY: xxxxxxxxxxxxxx
-  
+
 etc.
 ```
 
@@ -60,8 +60,12 @@ etc.
   brew install taglib
   brew install postgresql
   ```
+5) Bundle install
+```
+bundle install
+```
 
-5) create and migrate database
+6) create and migrate database
 ```
 rake db:create RAILS_ENV=test
 rake db:create RAILS_ENV=development
@@ -69,9 +73,10 @@ rake db:migrate RAILS_ENV=test
 rake db:migrate RAILS_ENV=development
 ```
 
-6) load db with songs from storage
+7) load db with songs from storage
+```
 rake db:load_db_via_storage RAILS_ENV=development
+```
 
 #Notes
 The core code is located in lib/pl2.  
-
