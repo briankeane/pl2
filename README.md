@@ -28,15 +28,15 @@ production:
 twitter_config.yml
 ```
 development:
-  CONSUMER_KEY: NSeYUCdIxxzo79Lg7UD9y6AlB
-  CONSUMER_SECRET: ezyiyhoCtDoCJbaZ4dSqGsrbsNpwoLGFpJPL4xoZXRE5yMOcam
+  CONSUMER_KEY: xxxxxxxxxxxxxxxxxx
+  CONSUMER_SECRET: xxxxxxxxxxxxxxxxxxxxxxx
 etc...
 ```
 s3_config.yml
 ```
 development:
-  ACCESS_KEY_ID: AKIAIV2K776MRUE245GA
-  SECRET_KEY: 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
+  ACCESS_KEY_ID: xxxxxxxxxxxxxx
+  SECRET_KEY: xxxxxxxxxxxxxx
   SONGS_BUCKET: playolasongs
   COMMERCIALS_BUCKET: playolacommercials
   COMMENTARIES_BUCKET: playolacommentaries
@@ -46,7 +46,8 @@ etc.
 filepicker_config.yml
 ```
 development:
-  API_KEY: AwH4zixqRBC6mOjdZN5a9z
+  API_KEY: xxxxxxxxxxxxxx
+  
 etc.
 ```
 
