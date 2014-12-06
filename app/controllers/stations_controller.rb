@@ -313,7 +313,7 @@ class StationsController < ApplicationController
   end
 
   def reset_station
-    result = PL::ClearSchedule.run(current_station.id)
+    result = PL::ClearStation.run(current_station.id)
 
     # run GetProgram to repopulate the beginning of the station
     result = PL::GetProgram.run({ station_id: current_station.id })
