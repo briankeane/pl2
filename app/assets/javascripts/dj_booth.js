@@ -33,8 +33,8 @@
     });
 
     $(document).on('spinAdvanced', function() {
-      updateSpinDisplay()
-    })
+      updateSpinDisplay();
+    });
 
     // create and start player
     var player = new StationPlayer(gon);
@@ -173,7 +173,7 @@
           // add the formatted commentary and delete the original item
           $(ui.item).after(html);
 
-          insertSpinInfo.duration = ui.item.children()[0].duration * 1000 //converted to ms
+          insertSpinInfo.duration = ui.item.children()[0].duration * 1000; //converted to ms
           
           // return original li to old list and clear it
           $('#recording').sortable('cancel');
@@ -264,7 +264,7 @@
           $('#station-list li').eq(index).remove();
         }
         index++;
-      };
+      }
 
       // update times/commercial blocks for each item in new_program
       var newProgram = result.new_program;
@@ -290,7 +290,7 @@
         items: "li:not(.disabled)"
       });
       $('#station-list').disableSelection();
-    }
+    };
 
     // ********************************************
     // *               renderSpin                 *
@@ -312,7 +312,7 @@
                   '<span class="songlist-airtime">' + spinInfo.airtime + 
                   '</span><a href="#" class="close" title="delete">×</a></li>';
       return html;
-    }
+    };
      // *******************************************
     // *               renderCommentary           *
     // *                                          *
@@ -332,7 +332,7 @@
                   '</span><span class="songlist-artist"><audio controls src="' + spinInfo.sourceLink + '"></audio></span>' +
                   '<span class="songlist-airtime">' + spinInfo.airtime + '</span><a href="#" class="close">&times;</a></li>';
       return html;
-    }
+    };
 
     // ********************************************
     // *          renderCommercialBlock           *
@@ -353,7 +353,7 @@
                   '</span><span class="songlist-artist"></span>' +
                   '<span class="songlist-airtime">' + spinInfo.airtimeForDisplay + '</span></li>';
       return html;
-    }
+    };
 
 
     // ********************************************
@@ -398,7 +398,7 @@
         movePositionData.moved = true;
       }
       return movePositionData;
-    }
+    };
   }
 
   // *********************************************
@@ -462,7 +462,7 @@
     $('.muteButton').toggleClass('muted');
 
     player.mute();
-  }
+  };
 
   var removeSpin = function() {
     event.preventDefault();
@@ -504,15 +504,15 @@
             appendNextSpin();
           }
     });
-  }
+  };
 
   var hideOutsideSongs = function() {
     $('#all-songs-source-list li').each( function(index) {
       if ($(this).attr('data-isOnStation') != 'true') {
         $(this).hide();
       }
-    })
-  }
+    });
+  };
 
   var appendNextSpin = function() {
     var nextCurrentPosition = parseInt($('#station-list').attr('data-lastCurrentPosition')) + 1;
@@ -527,11 +527,11 @@
       var oldLastCurrentPosition = parseInt($('#station-list').attr('data-lastCurrentPosition'));
       $('#station-list').attr('data-lastCurrentPosition', oldLastCurrentPosition + 1);
 
-      if (result["commercials_follow?"] == true) {
+      if (result["commercials_follow?"] === true) {
         var html = renderCommercialBlock({ airtime: (result.airtime_in_ms + 3*60*1000) });
         $('#station-list').append(html); 
       }
-    }
+    };
 
     // build spinInfo object for getSpinByCurrentPosition
     var spinInfo = {};
@@ -540,6 +540,6 @@
     spinInfo.stationId = gon.stationId;
     getSpinByCurrentPosition(spinInfo, callback);
 
-  }
+  };
 
 })();
