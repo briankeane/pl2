@@ -99,7 +99,6 @@ module PL
     end
 
     def generate_playlist(playlist_end_time=nil)
-      binding.pry
       this_thursday_midnight = Chronic.parse('this thursday midnight')
       next_thursday_midnight = this_thursday_midnight + SECONDS_IN_WEEK
       current_playlist = PL.db.get_full_playlist(@id)
