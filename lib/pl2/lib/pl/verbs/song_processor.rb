@@ -155,8 +155,6 @@ module PL
     end
 
     def get_echonest_info(attrs) # takes title and artist
-
-      
       song_list = Echowrap.song_search({ combined: { 
                                             artist: (attrs[:artist] ||= ''), 
                                             title: (attrs[:title] ||= '')
