@@ -44,8 +44,8 @@
       if (e.type === 'valid') {
         var birth_year = $('#date_year').val();
         var zipcode = $('#zipcode').val();
-        var gender
-        if ($('#gender').val() === 'Guy') {
+        var gender;
+        if ($('#gender').val() === 'male') {
           gender = 'male';
         } else {
           gender = 'female';
@@ -70,21 +70,9 @@
             $('#getStationInfoModal').foundation('reveal', 'open');
 
           }
-        })
-
-
-
-
+        });
       } 
     });
-
-
-
-
-
-
-
-
 
 // OLD STUFF FROM HERE DOWN
   $('#heavy').sortable();

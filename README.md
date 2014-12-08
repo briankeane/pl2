@@ -75,8 +75,10 @@ rake db:migrate RAILS_ENV=development
 
 7) load db with songs from storage
 ```
+cd lib/pl2/
 rake db:load_db_via_storage RAILS_ENV=development
 ```
 
 #Notes
-The core code is located in lib/pl2.  
+The core logic code is located in lib/pl2.
+All db rake tasks must be performed from lib/pl2
