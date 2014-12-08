@@ -105,5 +105,6 @@ require_relative 'pl/entities/spin.rb'
 require_relative 'pl/entities/station.rb'
 require_relative 'pl/entities/user.rb'
 require_relative 'pl/entities/station.rb'
+require_relative 'pl/entities/listening_session.rb'
 Dir[File.dirname(__FILE__) + '/pl/use-cases/*.rb'].each {|file| require_relative file }
 Dir[File.dirname(__FILE__) + '/pl/processors/*.rb'].each {|file| require_relative file }

@@ -28,6 +28,7 @@ module PL
         @audio_blocks = {}
         @sessions = {}
         @twitter_friends = {}
+        @listening_sessions = {}
       end
 
       ##############
