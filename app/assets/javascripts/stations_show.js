@@ -6,7 +6,7 @@
       $('#nowPlayingList .nowPlaying').removeClass('song');
       $('#nowPlayingList .nowPlaying').removeClass('commercialBlock');
       $('#nowPlayingList .nowPlaying').removeClass('commentary');
-      $('#nowPlayingList .nowPlaying .songId').removeClass('')
+      $('#nowPlayingList .nowPlaying .songId').removeClass('');
       $('#nowPlayingList .nowPlaying .addToMyStationButton').remove();
       
       // update the class and info 
@@ -34,7 +34,7 @@
         $('#nowPlayingList .nowPlaying .title').text('Commercial Block');
         $('#nowPlayingList .nowPlaying .artist').text('');
       }
-    }
+    };
 
     var advanceSongHistory = function() {
       var html = '<li class="song">' + 
@@ -42,17 +42,17 @@
 
       
       if (player.justPlayed.audio_block_id in gon.currentStation.spins_per_week) {
-        html = html + '<button class="addToMyStationButton disabled">Song Added</button>'
+        html = html + '<button class="addToMyStationButton disabled">Song Added</button>';
       } else {
-        html = html + '<button class="addToMyStationButton">Add Song To My Station</button>'
+        html = html + '<button class="addToMyStationButton">Add Song To My Station</button>';
       }
       
       html = html + '<span class="artist">' + player.justPlayed.artist + '</span>' + 
-              '</li>'
+              '</li>';
 
       $('#songHistoryList li:first').before(html);
       $('#songHistoryList li:last').remove();
-    }
+    };
 
     // set response for nowplaying
     $(document).on('playerStarted', function() {

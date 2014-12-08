@@ -12,10 +12,10 @@
   });
 
   // Get the User & Station Info if it's not yet complete
-  if ($('#getUserInfoModal').data('userinfocomplete') == false) {
+  if ($('#getUserInfoModal').data('userinfocomplete') === false) {
     $('#getUserInfoModal').foundation('reveal', 'open');
   } else {
-    if ($('#getStationInfoModal').data('stationinfocomplete') == false) {
+    if ($('#getStationInfoModal').data('stationinfocomplete') === false) {
       $('#getStationInfoModal').foundation('reveal', 'open');
     }
   }
@@ -56,7 +56,7 @@
           zipcode: zipcode,
           gender: gender,
           _method: 'post'
-        }
+        };
 
         $.ajax({
           type: "POST",
@@ -84,7 +84,7 @@
                               addToRotation(event, ui);
                             },
                             remove: function(event, ui) {
-                              deleteFromRotation(event, ui)
+                              deleteFromRotation(event, ui);
                             }  });
   $('#medium').sortable({ connectWith: ["#heavy", "#all-songs-list", "#light"],
                             dropOnEmpty: true,
@@ -92,7 +92,7 @@
                               addToRotation(event, ui);
                             },
                             remove: function(event, ui) {
-                              deleteFromRotation(event, ui)
+                              deleteFromRotation(event, ui);
                             }
                         });
   $('#light').sortable({   connectWith: ["#heavy", "#medium", "#all-songs-list"],
@@ -103,7 +103,7 @@
                             },
 
                             remove: function(event, ui) {
-                              deleteFromRotation(event, ui)
+                              deleteFromRotation(event, ui);
                             }
 
                             });
@@ -138,9 +138,9 @@
       alert('Please add ' + ((13 - $('#light li').length)).toString() + ' songs to the light bin.');
     } else {
 
-      var heavyElements = $('#heavy li')
-      var mediumElements = $('#heavy li')
-      var lightElements = $('#heavy li')
+      var heavyElements = $('#heavy li');
+      var mediumElements = $('#heavy li');
+      var lightElements = $('#heavy li');
       var heavyIds = [];
       var mediumIds = [];
       var lightIds = [];

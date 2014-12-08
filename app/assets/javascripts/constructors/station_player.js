@@ -14,9 +14,9 @@ var StationPlayer = function(attrs) {
       result.audio = new Audio(result.key);
       result.audio.muted = self.muted;
       self.audioQueue.push(result);
-    }
+    };
 
-    var spinInfo = {}
+    var spinInfo = {};
     spinInfo.currentPosition = currentPosition;
     spinInfo.stationId = self.stationId;  
     
@@ -28,10 +28,10 @@ var StationPlayer = function(attrs) {
         data: spinInfo,
         success: callback
     });
-  }
+  };
 
   var advanceSpin = function() {
-    console.log('advancing spin...')
+    console.log('advancing spin...');
 
     // advance audioQueue
     self.justPlayed = self.audioQueue.shift();
@@ -63,7 +63,7 @@ var StationPlayer = function(attrs) {
           getCommercialBlockForBroadcast(result.currentPosition);
         }
         return result;
-      }
+      };
         
       // get the newest spin
       var spinInfo = {};
@@ -75,7 +75,7 @@ var StationPlayer = function(attrs) {
       
       $(document).trigger('spinAdvanced');
     }
-  }
+  };
 
   this.startPlayer = function() {
     // load the queue
@@ -101,16 +101,16 @@ var StationPlayer = function(attrs) {
     });
 
     $(document).trigger('playerStarted');
-  } // end this.startPlayer
+  }; // end this.startPlayer
 
   this.nowPlaying = function() {
     return self.audioQueue[0];
-  }
+  };
 
   this.mute = function() {
     self.muted = !self.muted;
     for(var i=0;i<self.audioQueue.length;i++) {
       self.audioQueue[i].audio.muted = self.muted;
     }
-  }
-}
+  };
+};

@@ -5,7 +5,9 @@
       'joyride': 
         { 'cookie_monster': !$.cookie('joyride-song-manager') ? false : true,
           post_ride_callback : function () {
-            !$.cookie('joyride-song-manager') ? $.cookie('joyride-song-manager', 'ridden') : null;
+            if (!$.cookie('joyride-song-manager')) { 
+              $.cookie('joyride-song-manager', 'ridden');
+            }
           },
           'modal': false   
         }
@@ -108,7 +110,7 @@
                   '/<select>' + 
                   '</li>';
       return html;
-    }
+    };
 
     
     deleteSpinPerWeekListItem = function(data) {
@@ -124,7 +126,7 @@
           console.log(result);
         }
       });
-    }
+    };
 
     updateSpinPerWeekListItem = function(data) {
       $.ajax({
@@ -139,7 +141,7 @@
           console.log(result);
         }
       });
-    }
+    };
 
     // mark duplicates 'disabled' on load
     $('#spinsPerWeekList li').each( function(i) {

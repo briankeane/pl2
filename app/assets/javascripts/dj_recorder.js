@@ -52,7 +52,7 @@
         ctx.clearRect(0,0,300,100);
         ctx.fillStyle="gradient";
         ctx.fillRect(0,0, average*2, 100);
-      }
+      };
 
 
 

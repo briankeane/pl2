@@ -15,10 +15,10 @@
 
 
       for (var i=0; i<uploadedSongs.length; i++) {
-        var html = '<div data-alert data-key="' + uploadedSongs[i]["key"] + 
-                    '" data-filename="' + uploadedSongs[i]["filename"] + 
+        var html = '<div data-alert data-key="' + uploadedSongs[i].key + 
+                    '" data-filename="' + uploadedSongs[i].filename + 
                     '" class="alert-box"><div class="filename">' + 
-                    uploadedSongs[i]["filename"] + 
+                    uploadedSongs[i].filename + 
                     '</div><div class="status">processing....</div>' +
                     '<img src="/images/processing_icon.gif" class="processing-icon" /></div>';
         $('#uploaded-song-list').append(html);
@@ -34,7 +34,7 @@
             data: JSON.stringify(uploadedSongs[i]),
             success: function(result) {
               console.log(result);
-              var correspondingDiv = '*[data-key="' + result.table.unprocessed_key + '"]'
+              var correspondingDiv = '*[data-key="' + result.table.unprocessed_key + '"]';
               
               if (result.table.error === "song_already_exists") {
                 markAsAlreadyUploaded(correspondingDiv);
@@ -209,9 +209,9 @@
       var html = '<tr><td><input type="radio" name="songSelect" value="' + 
                   attrs.echonest_id + '" id="songSelect" /></td>' +
                   '<td>' + attrs.artist + '</td>' + 
-                  '<td>' + attrs.title + '</td></tr>'
+                  '<td>' + attrs.title + '</td></tr>';
       return html;
-    }
+    };
 
     var refreshSongMatchTable = function(songlist) {
       // clear modal first
@@ -222,14 +222,14 @@
         var html = renderChooseSongTableRow(songlist[i]);
         $('#chooseSongTable tbody').append(html);
       }
-    }
+    };
 
     var markAsAlreadyUploaded = function(correspondingDiv) {
       $(correspondingDiv).addClass("success");
       $(correspondingDiv + ' .status').text('Already Uploaded');
       $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
       $(correspondingDiv + ' .processing-icon').addClass('hide');
-    }
+    };
 
     var markAsAdded = function(correspondingDiv) {
       $(correspondingDiv).addClass("success");
@@ -237,12 +237,12 @@
       $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
       $(correspondingDiv + ' .processing-icon').addClass('hide');
       $(correspondingDiv + ' .status').removeClass('button');
-    }
+    };
 
     var markAsProcessing = function(correspondingDiv) {
       $(correspondingDiv + ' .status').removeClass('button');
       $(correspondingDiv + ' .status').text('processing...');
       $(correspondingDiv + ' .processing-icon').removeClass('hide');
-    }
+    };
   } //endif
 })();

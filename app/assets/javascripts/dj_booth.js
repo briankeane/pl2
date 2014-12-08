@@ -300,10 +300,11 @@
     // ********************************************
     var renderSpin = function(spinInfo) {
       
+      var currentPosition;
       if (spinInfo.hasOwnProperty('currentPosition')) {
-        var currentPosition = spinInfo.currentPosition;
+        currentPosition = spinInfo.currentPosition;
       } else {
-        var currentPosition = '';
+        currentPosition = '';
       }
 
       var html = '<li class="song ui-sortable-handle" data-currentPosition="' + 
@@ -321,10 +322,11 @@
     // ********************************************
     var renderCommentary = function(spinInfo) {
       
+      var currentPosition;
       if (spinInfo.hasOwnProperty('currentPosition')) {
-        var currentPosition = spinInfo.currentPosition;
+        currentPosition = spinInfo.currentPosition;
       } else {
-        var currentPosition = '';
+        currentPosition = '';
       }
 
       var html = '<li class="commentary ui-sortable-handle" data-currentPosition="' + 
