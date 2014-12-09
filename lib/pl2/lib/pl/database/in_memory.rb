@@ -787,6 +787,17 @@ module PL
 
         listening_session
       end
+
+      def get_listener_count(attrs)
+        if !attrs[:time]
+          attrs[:time] = Time.now
+        end
+
+        count = @listening_sessions.values.select { |session| (session.station_id == attrs[:station_id]) && 
+                                                               (session.end_time > attrs[:time]) &&
+                                                               (session.start_time < attrs[:time]) }.size
+        count
+      end
     end
   end
 end

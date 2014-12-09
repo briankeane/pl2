@@ -950,5 +950,26 @@ shared_examples 'a badass database' do
       expect(found_session.station_id).to eq(7)
       expect(found_session.ending_current_position).to eq(7)
     end
+
+    it 'counts the number of listeners on a station' do
+      sessions = []
+      10.times do |i|
+        sessions << db.create_listening_session({ user_id: i+1,
+                                                station_id: 2,
+                                                start_time: Time.new(2014,1,1,1),
+                                                end_time: Time.new(2014,1,1,2),
+                                                starting_current_position: 10,
+                                                ending_current_position: 11 })
+      end
+      expect(db.get_listener_count({ station_id: 2, time: Time.new(2014,1,1, 1,30) })).to eq(10)
+      Timecop.travel(2014,1,2)
+      expect(db.get_listener_count({ station_id: 2 })).to eq(0)
+      Timecop.travel(2014,1,1, 1,30)
+      expect(db.get_listener_count({ station_id: 2 })).to eq(10)
+    end
+
+    after(:each) do
+      Timecop.return
+    end
   end
 end

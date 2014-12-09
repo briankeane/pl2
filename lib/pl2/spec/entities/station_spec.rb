@@ -95,6 +95,18 @@ describe 'a station' do
       expect(cb.id).to eq(cb2.id)
     end
 
+    it 'reports listeners' do
+      Timecop.travel(2014,4,15,11,26)
+      user1 = PL.db.create_user({ twitter = 'bob' })
+      user2 = PL.db.create_user({ twitter = 'sue' })
+      station.report_listener(user1.id)
+      expect(station.listener_count).to eq(1)
+      report_listener(user2.id)
+      expect(station.listener_count).to eq(2)
+
+    end
+
+
     it 'gets the average number of listeners' do
       log = []
       10.times do |i|
