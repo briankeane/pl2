@@ -44,7 +44,22 @@ development:
   COMMERCIALS_BUCKET: playolacommercials
   COMMENTARIES_BUCKET: playolacommentaries
   UNPROCESSED_SONGS: playolaunprocessedsongs
-etc.
+
+test:
+  ACCESS_KEY_ID: xxxxxxxxxxxxxxxxx
+  SECRET_KEY: xxxxxxxxxxxxxxxxxxxxx
+  SONGS_BUCKET: playolasongstest
+  COMMERCIALS_BUCKET: playolacommercialstest
+  COMMENTARIES_BUCKET: playolacommentariestest
+  UNPROCESSED_SONGS: playolaunprocessedsongstest
+
+production:
+  ACCESS_KEY_ID: xxxxxxxxxxxxxxxxx
+  SECRET_KEY: xxxxxxxxxxxxxxxxxxxxx
+  SONGS_BUCKET: playolasongs
+  COMMERCIALS_BUCKET: playolacommercials
+  COMMENTARIES_BUCKET: playolacommentaries
+  UNPROCESSED_SONGS: playolaunprocessedsongs
 ```
 filepicker_config.yml
 ```
