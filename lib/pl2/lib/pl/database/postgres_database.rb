@@ -993,6 +993,18 @@ module PL
           return nil
         end
       end
+
+      def get_listener_count(attrs)
+        if !attrs[:time]
+          attrs[:time] = Time.now
+        end
+
+        count = ListeningSession.where("station_id = ? and end_time > ? and start_time < ?",
+                                        attrs[:station_id],
+                                        attrs[:time],
+                                        attrs[:time]).size
+        count
+      end
     end
   end
 end
