@@ -845,14 +845,14 @@ shared_examples 'a badass database' do
   ######################
   describe 'listening_session' do
     it 'creates a listening_session' do
-      session = db.create_listening_session({ listener_id: 1,
+      session = db.create_listening_session({ user_id: 1,
                                               station_id: 2,
                                               start_time: Time.new(2014,1,1,1),
                                               end_time: Time.new(2014,1,1,2),
                                               starting_current_position: 1,
                                               ending_current_position: 2 })
       expect(session.id).to_not be_nil
-      expect(session.listener_id).to eq(1)
+      expect(session.user_id).to eq(1)
       expect(session.station_id).to eq(2)
       expect(session.start_time.to_s).to eq(Time.new(2014,1,1,1).to_s)
       expect(session.end_time.to_s).to eq(Time.new(2014,1,1,2).to_s)
@@ -861,7 +861,7 @@ shared_examples 'a badass database' do
     end
 
     it 'gets a listening_session' do
-        session = db.create_listening_session({ listener_id: 1,
+        session = db.create_listening_session({ user_id: 1,
                                                 station_id: 2,
                                                 start_time: Time.new(2014,1,1,1),
                                                 end_time: Time.new(2014,1,1,2),
@@ -869,30 +869,30 @@ shared_examples 'a badass database' do
                                                 ending_current_position: 2 })
       retrieved_session = db.get_listening_session(session.id)
       expect(retrieved_session.id).to eq(session.id)
-      expect(retrieved_session.listener_id).to eq(1)
+      expect(retrieved_session.user_id).to eq(1)
       expect(retrieved_session.station_id).to eq(2)
-      expect(retrieved_session.start_time.to_s).to eq(Time.new(2014,1,1,1).to_s)
-      expect(retrieved_session.end_time.to_s).to eq(Time.new(2014,1,1,2).to_s)
+      expect(retrieved_session.start_time.to_i).to eq(Time.new(2014,1,1,1).to_i)
+      expect(retrieved_session.end_time.to_i).to eq(Time.new(2014,1,1,2).to_i)
       expect(retrieved_session.starting_current_position).to eq(1)
       expect(retrieved_session.ending_current_position).to eq(2)
     end
 
     it 'updates a listening_session' do
-      session = db.create_listening_session({ listener_id: 1,
+      session = db.create_listening_session({ user_id: 1,
                                                 station_id: 2,
                                                 start_time: Time.new(2014,1,1,1),
                                                 end_time: Time.new(2014,1,1,2),
                                                 starting_current_position: 1,
                                                 ending_current_position: 2 })
       updated_session = db.update_listening_session({ id: session.id,
-                                                listener_id: 10,
+                                                user_id: 10,
                                                 station_id: 20,
                                                 start_time: Time.new(2014,1,10,1),
                                                 end_time: Time.new(2014,1,10,2),
                                                 starting_current_position: 10,
                                                 ending_current_position: 20 })
       expect(updated_session.id).to eq(session.id)
-      expect(updated_session.listener_id).to eq(10)
+      expect(updated_session.user_id).to eq(10)
       expect(updated_session.station_id).to eq(20)
       expect(updated_session.start_time.to_s).to eq(Time.new(2014,1,10,1).to_s)
       expect(updated_session.end_time.to_s).to eq(Time.new(2014,1,10,2).to_s)
@@ -901,7 +901,7 @@ shared_examples 'a badass database' do
     end
 
     it 'deletes a listening station' do
-      session = db.create_listening_session({ listener_id: 1,
+      session = db.create_listening_session({ user_id: 1,
                                                 station_id: 2,
                                                 start_time: Time.new(2014,1,1,1),
                                                 end_time: Time.new(2014,1,1,2),
@@ -911,10 +911,10 @@ shared_examples 'a badass database' do
       expect(db.get_listening_session(session.id)).to be_nil
     end
 
-    it 'finds a listening station by station_id and ending_current_position' do
+    it 'finds a listening station by station_id, user_id, and ending_current_position' do
       session = []
       10.times do |i|
-        session << db.create_listening_session({ listener_id: i+1,
+        session << db.create_listening_session({ user_id: i+1,
                                                 station_id: i+2,
                                                 start_time: Time.new(2014,1,1,1),
                                                 end_time: Time.new(2014,1,1,2),
@@ -922,6 +922,7 @@ shared_examples 'a badass database' do
                                                 ending_current_position: i+2 })
       end
       found_session = db.find_listening_session({ station_id: 7,
+                                                  user_id: 6,
                                                   ending_current_position: 7 })
       expect(found_session.id).to eq(session[5].id)
       expect(found_session.station_id).to eq(7)

@@ -769,7 +769,8 @@ module PL
 
       def find_listening_session(attrs)
         listening_session = @listening_sessions.values.select { |session| (session.station_id == attrs[:station_id]) &&
-                                                      (session.ending_current_position == attrs[:ending_current_position]) }.first
+                                                      (session.ending_current_position == attrs[:ending_current_position]) &&
+                                                      (session.user_id === attrs[:user_id]) }.first
 
         listening_session
       end

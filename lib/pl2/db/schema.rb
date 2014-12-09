@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141129185403) do
+ActiveRecord::Schema.define(version: 20141208191522) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,15 @@ ActiveRecord::Schema.define(version: 20141129185403) do
     t.string   "key"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "listening_sessions", force: true do |t|
+    t.integer  "starting_current_position"
+    t.integer  "ending_current_position"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.integer  "station_id"
+    t.integer  "user_id"
   end
 
   create_table "log_entries", force: true do |t|
@@ -94,6 +103,8 @@ ActiveRecord::Schema.define(version: 20141129185403) do
     t.integer  "next_commercial_block_id"
     t.datetime "current_playlist_end_time"
     t.datetime "original_playlist_end_time"
+    t.float    "daily_average_listeners"
+    t.date     "daily_average_calculation_date"
   end
 
   create_table "twitter_friends", force: true do |t|

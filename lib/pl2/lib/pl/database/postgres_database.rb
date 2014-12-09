@@ -60,10 +60,13 @@ module PL
         has_many :spins
         has_one :station
         has_many :log_entries
+        has_many :listening_sessions
       end
 
       class User < ActiveRecord::Base
         has_one :station
+        has_many :listening_sessions
+        has_many :twitter_friends
       end
 
       class SpinFrequency < ActiveRecord::Base
@@ -93,6 +96,11 @@ module PL
       class TwitterFriend < ActiveRecord::Base
         belongs_to :user
         belongs_to :station
+      end
+
+      class ListeningSession < ActiveRecord::Base
+        belongs_to :station
+        belongs_to :user
       end
 
       ########################
@@ -176,6 +184,14 @@ module PL
         end
       end
 
+      class ListeningSession
+        def to_pl
+          # collect the attributes, converting keys from strings to symbols
+          attrs = Hash[self.attributes.map{ |k, v| [k.to_sym, v] }]
+          listening_session = PL::ListeningSession.new(attrs)
+          listening_session
+        end
+      end
 
 
       #################
@@ -912,7 +928,56 @@ module PL
           return station_ids.sort
         end
       end
+      ########################
+      #  Listening Sessions  #
+      ########################
+      def create_listening_session(attrs)
+        ar_listening_session = ListeningSession.create(attrs)
+        ar_listening_session.to_pl
+      end
 
+      def update_listening_session(attrs)
+        if ListeningSession.exists?(attrs[:id])
+          ar_listening_session = ListeningSession.find(attrs.delete(:id))
+
+          ar_listening_session.update_attributes(attrs)
+          ar_listening_session.save
+
+          return ar_listening_session.to_pl
+        else
+          return false
+        end
+      end
+
+      def delete_listening_session(id)
+        ar_listening_session = ListeningSession.find(id).destroy
+        if ar_listening_session
+          return ar_listening_session.to_pl
+        else
+          return nil
+        end
+      end
+
+      def get_listening_session(id)
+        if ListeningSession.exists?(id)
+          ar_listening_session = ListeningSession.find(id)
+          return ar_listening_session.to_pl
+        else
+          return nil
+        end
+      end
+
+      def find_listening_session(attrs)
+        ar_listening_session = ListeningSession.where("station_id = ? and ending_current_position = ? and user_id = ?", 
+                                                            attrs[:station_id], 
+                                                            attrs[:ending_current_position],
+                                                            attrs[:user_id])
+        if ar_listening_session
+          return ar_listening_session.first.to_pl
+        else
+          return nil
+        end
+      end
     end
   end
 end
