@@ -698,10 +698,10 @@ module PL
         start_datetime = attrs[:start_date].to_time
         end_datetime = (attrs[:end_date] + 1).to_time  # +1 for the next midnight 
 
-        ar_results = @log_entries.values.select { |entry| entry.station_id == attrs[:station_id] &&
+        entries = @log_entries.values.select { |entry| entry.station_id == attrs[:station_id] &&
                                               entry.airtime > start_datetime &&
                                               entry.airtime < end_datetime }.sort_by { |entry| entry.airtime }
-        ar_results
+        entries
       end
 
       ##############

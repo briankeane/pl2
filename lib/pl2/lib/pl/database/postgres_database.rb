@@ -1,6 +1,7 @@
 require 'active_record'
 require 'yaml'
 require 'securerandom'
+require 'date'
 
 
 module PL
@@ -867,6 +868,20 @@ module PL
         else
           return nil
         end
+      end
+      
+      def get_log_entries_by_date_range(attrs)
+        if !attrs[:end_date] then (attrs[:end_date] = attrs[:start_date]) end
+
+        start_datetime = attrs[:start_date].to_time
+        end_datetime = (attrs[:end_date] + 1).to_time  # +1 for the next midnight 
+
+        ar_entries = LogEntry.where("station_id = ? and airtime > ? and airtime < ?",
+                                        attrs[:station_id],
+                                        start_datetime,
+                                        end_datetime).order(:airtime)
+        entries = ar_entries.map { |entry| entry.to_pl }
+        entries
       end
 
       ##############
