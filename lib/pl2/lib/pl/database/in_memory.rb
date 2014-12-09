@@ -29,6 +29,7 @@ module PL
         @sessions = {}
         @twitter_friends = {}
         @listening_sessions = {}
+        @listening_session_counter = 200
       end
 
       ##############
@@ -736,6 +737,42 @@ module PL
         end
       end
 
+      ######################
+      #  Listening Session #
+      ######################
+      def create_listening_session(attrs)
+        id = (@listening_session_counter += 1)
+        attrs[:id] = id
+        listening_session = PL::ListeningSession.new(attrs)
+        @listening_sessions[id] = listening_session
+        listening_session
+      end
+
+      def update_listening_session(attrs)
+        listening_session = @listening_sessions[attrs[:id]]
+
+        #update values
+        attrs.each do |attr_name, value|
+          setter = "#{attr_name}="
+          listening_session.send(setter, value) if listening_session.class.method_defined?(setter)
+        end
+        listening_session
+      end
+
+      def delete_listening_session(id)
+        @listening_sessions[id] = nil
+      end
+
+      def get_listening_session(id)
+        @listening_sessions[id]
+      end
+
+      def find_listening_session(attrs)
+        listening_session = @listening_sessions.values.select { |session| (session.station_id == attrs[:station_id]) &&
+                                                      (session.ending_current_position == attrs[:ending_current_position]) }.first
+
+        listening_session
+      end
     end
   end
 end
