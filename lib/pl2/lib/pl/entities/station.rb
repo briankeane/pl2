@@ -555,5 +555,9 @@ puts "pick_song_ms: " + pick_song_ms.to_s
       PL.db.get_recent_log_entries({ station_id: @id, count: 1 })[0]
     end
 
+    def listener_count
+      PL.db.get_listener_count({ station_id: @id })
+    end
+
   end
 end

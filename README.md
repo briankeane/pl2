@@ -3,8 +3,11 @@
 # Installing Locally (for Mac)
 
 1) fork and clone down the repo
+
 2) obtain tokens for: echonest, twitter, s3, and filepicker.io
+
 3) create the folder 'lib/pl2/secrets' and install the following yml files:
+
 echonest_config.yml
 ```
 development:
@@ -81,4 +84,5 @@ rake db:load_db_via_storage RAILS_ENV=development
 
 #Notes
 The core logic code is located in lib/pl2.
+
 All db rake tasks must be performed from lib/pl2
