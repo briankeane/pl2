@@ -1,8 +1,10 @@
+require 'date'
 require 'chronic'
 require 'aws-sdk'
 require 'tempfile'
 require 'timezone'
 require 'active_support'
+require 'date'
 
 module PL
   class Station < Entity
@@ -14,6 +16,8 @@ module PL
     attr_accessor :id, :station_id, :current_playlist_end_time
     attr_accessor :original_playlist_end_time, :next_commercial_block
     attr_accessor :last_accurate_current_position, :next_commercial_block_id
+    attr_accessor :daily_average_calculation_date
+    attr_writer   :daily_average_listeners
 
     # Station-specific constants
     MS_IN_WEEK = 604.8e+6
@@ -26,6 +30,14 @@ module PL
       attrs[:secs_of_commercial_per_hour] ||= PL::DEFAULT_SECS_OF_COMMERCIAL_PER_HOUR
       attrs[:spins_per_week] ||= {}
       super(attrs)
+    end
+
+    def daily_average_listeners
+      if @daily_average_calculation_date && (@daily_average_calculation_date - Date.today < 1)
+        @daily_average_listeners
+      else
+        spins
+      end
     end
 
     def timezone

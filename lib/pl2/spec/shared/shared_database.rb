@@ -1,6 +1,7 @@
 require 'spec_helper'
 require 'Timecop'
 require 'pry-byebug'
+require 'date'
 
 shared_examples 'a badass database' do
 
@@ -764,6 +765,27 @@ shared_examples 'a badass database' do
     it 'can get an entry by current_position' do
       log_entry = db.get_log_entry_by_current_position({ station_id: 4, current_position: 76 })
       expect(log_entry.id).to eq(@log_entries[0].id)
+    end
+
+    it 'can get log_entries by date' do
+      next_day_entry = db.create_log_entry({ station_id: 4,
+                                         current_position: 300,
+                                         audio_block_id: 375,
+                                         airtime: Time.new(1983, 4, 16, 18),
+                                         listeners_at_start: 10,
+                                         listeners_at_finish: 12,
+                                         duration: 500
+                                         })
+      log_entries = db.get_log_entries_by_date_range({ start_date: Date.new(1983,4,15),
+                                                        station_id: 4 })
+      expect(log_entries.size).to eq(30)
+      log_entries_next_day = db.get_log_entries_by_date_range({ start_date: Date.new(1983,4,16),
+                                                              station_id: 4 })
+      expect(log_entries_next_day.size).to eq(1)
+      both_days = db.get_log_entries_by_date_range({ start_date: Date.new(1983,4,15),
+                                                      end_date: Date.new(1983,4,16),
+                                                      station_id: 4 })
+      expect(both_days.size).to eq(31)
     end
   end
 
