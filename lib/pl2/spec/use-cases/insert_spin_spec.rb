@@ -25,7 +25,12 @@ require 'spec_helper'
       @old_playlist_ab_ids = PL.db.get_full_playlist(@station.id).map { |spin| spin.audio_block_id }
     end
 
-    xit 'calls bullshit if the station is not found' do
+    it 'calls bullshit if the station is not found' do
+      result = PL::InsertSpin.run({ station_id: 999999,
+                            add_position: 14,
+                            audio_block_id: @songs[0].id })
+      expect(result.success?).to eq(false)
+      expect(result.error).to eq(:station_not_found)
     end
     
     it 'adds a spin' do

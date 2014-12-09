@@ -36,7 +36,14 @@ module PL
       if @daily_average_calculation_date && (@daily_average_calculation_date - Date.today < 1)
         @daily_average_listeners
       else
-        spins
+        log_entries = PL.db.get_log_entries_by_date_range({ station_id: @id,
+                                                            start_date: Date.today - 1})
+        if log_entries.size == 0
+          return 0
+        else
+          sum = log_entries.inject(0){ |sum,entry| sum += (entry.listeners_at_finish || 0) }
+          return sum.to_f/log_entries.size.to_f
+        end
       end
     end
 

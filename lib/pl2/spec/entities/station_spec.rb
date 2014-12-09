@@ -95,6 +95,23 @@ describe 'a station' do
       expect(cb.id).to eq(cb2.id)
     end
 
+    it 'gets the average number of listeners' do
+      log = []
+      10.times do |i|
+        log << PL.db.create_log_entry({ station_id: @station.id,
+                                      current_position: 15 + i,
+                                      airtime: Time.new(2014, 4, 14, 11, 56) + 1800,
+                                      duration: 180000,
+                                      listeners_at_start: 35 + i,
+                                      listeners_at_finish: 30 + i, 
+                                      })
+      end
+      Timecop.travel(2014,4,15, 12)
+      expect(@station.daily_average_listeners).to eq(31.363636363636363)
+      Timecop.travel(2014,4,16, 12)
+      expect(@station.daily_average_listeners).to eq(0)
+    end
+
     describe 'just_played' do
 
       it 'gets the last log entry' do
