@@ -70,16 +70,16 @@ describe 'a station' do
       @spin3 = PL.db.create_spin({ current_position: 17,
                                       station_id: @station.id,
                                       audio_block_id: @song.id,                                     
-                                      airtime: Time.new(2014, 4, 15, 12, 31) 
+                                      airtime: Time.new(2014, 4, 15, 11, 31) 
                                       })
       @spin4 = PL.db.create_spin({ current_position: 18,
                                       station_id: @station.id,
                                       audio_block_id: @song.id,
-                                      airtime: Time.new(2014, 4, 15, 12, 38) 
+                                      airtime: Time.new(2014, 4, 15, 11, 34) 
                                       })
       @log = PL.db.create_log_entry({ station_id: @station.id,
                                       current_position: 14,
-                                      airtime: Time.new(2014, 4, 14, 11, 56),
+                                      airtime: Time.new(2014, 4, 15, 11, 22),
                                       duration: 180000 
                                       })
     end
@@ -99,16 +99,16 @@ describe 'a station' do
       log = []
       10.times do |i|
         log << PL.db.create_log_entry({ station_id: @station.id,
-                                      current_position: 15 + i,
-                                      airtime: Time.new(2014, 4, 14, 11, 56) + 1800,
+                                      current_position: 13 - i,
+                                      airtime: Time.new(2014,4,15, 11, (31 - (i*3))),
                                       duration: 180000,
                                       listeners_at_start: 35 + i,
                                       listeners_at_finish: 30 + i, 
                                       })
       end
-      Timecop.travel(2014,4,15, 12)
-      expect(@station.daily_average_listeners).to eq(31.363636363636363)
       Timecop.travel(2014,4,16, 12)
+      expect(@station.daily_average_listeners).to eq(31.363636363636363)
+      Timecop.travel(2014,4,17, 12)
       expect(@station.daily_average_listeners).to eq(0)
     end
 
@@ -121,7 +121,7 @@ describe 'a station' do
       it 'still gets the last log entry' do
         new_log = PL.db.create_log_entry({ station_id: @station.id,
                                             current_position: 999,
-                                            airtime: Time.new(2014,4,14,12) })
+                                            airtime: Time.new(2014,4,15,12) })
         expect(@station.just_played.current_position).to eq(999)
       end
     end
@@ -129,13 +129,13 @@ describe 'a station' do
 
     describe 'log_end_time' do
       it 'returns the time the log ends' do
-        expect(@station.log_end_time.to_s).to eq('2014-04-14 11:59:00 -0500')
+        expect(@station.log_end_time.to_s).to eq('2014-04-15 11:25:00 -0500')
         log2 = PL.db.create_log_entry({ station_id: @station.id,
                                       current_position: 14,
-                                      airtime: Time.new(2014, 4, 14, 11, 57),
+                                      airtime: Time.new(2014, 4, 15, 11, 57),
                                       duration: 180000 
                                       })
-        expect(@station.log_end_time.localtime.to_s).to eq('2014-04-14 12:00:00 -0500')
+        expect(@station.log_end_time.localtime.to_s).to eq('2014-04-15 12:00:00 -0500')
       end
     end
 

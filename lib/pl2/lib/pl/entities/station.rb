@@ -36,6 +36,7 @@ module PL
       if @daily_average_calculation_date && (@daily_average_calculation_date - Date.today < 1)
         @daily_average_listeners
       else
+        self.update_airtimes({ end_time: Date.today.to_datetime })
         log_entries = PL.db.get_log_entries_by_date_range({ station_id: @id,
                                                             start_date: Date.today - 1})
         if log_entries.size == 0
@@ -266,7 +267,7 @@ puts "pick_song_ms: " + pick_song_ms.to_s
 
       # if the last_accurate_current_position is after the log, use it as the starting point
       
-      if @last_accurate_current_position > self.final_log_entry.current_position
+      if @last_accurate_current_position && (@last_accurate_current_position > self.final_log_entry.current_position)
         playlist = PL.db.get_playlist_by_current_positions({ station_id: @id,
                                                                      starting_current_position: @last_accurate_current_position })
         
