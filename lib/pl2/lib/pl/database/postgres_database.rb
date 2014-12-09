@@ -999,7 +999,7 @@ module PL
           attrs[:time] = Time.now
         end
 
-        count = ListeningSession.where("station_id = ? and end_time > ? and start_time < ?",
+        count = ListeningSession.where("station_id = ? and end_time >= ? and start_time <= ?",
                                         attrs[:station_id],
                                         attrs[:time],
                                         attrs[:time]).size

@@ -794,8 +794,8 @@ module PL
         end
 
         count = @listening_sessions.values.select { |session| (session.station_id == attrs[:station_id]) && 
-                                                               (session.end_time > attrs[:time]) &&
-                                                               (session.start_time < attrs[:time]) }.size
+                                                               (session.end_time >= attrs[:time]) &&
+                                                               (session.start_time <= attrs[:time]) }.size
         count
       end
     end
