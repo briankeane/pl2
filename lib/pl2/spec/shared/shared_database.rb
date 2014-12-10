@@ -905,8 +905,7 @@ shared_examples 'a badass database' do
       session = db.create_listening_session({ user_id: 1,
                                                 station_id: 2,
                                                 start_time: Time.new(2014,1,1,1),
-                                                end_time: Time.new(2014,1,1,2),
-                                                starting_current_position: 1 })
+                                                end_time: Time.new(2014,1,1,2) })
       updated_session = db.update_listening_session({ id: session.id,
                                                 user_id: 10,
                                                 station_id: 20,
@@ -934,16 +933,14 @@ shared_examples 'a badass database' do
         session << db.create_listening_session({ user_id: i+1,
                                                 station_id: i+2,
                                                 start_time: Time.new(2014,1,1,1),
-                                                end_time: Time.new(2014,1,1,2),
-                                                starting_current_position: i+1,
-                                                ending_current_position: i+2 })
+                                                end_time: Time.new(2014,1,1,2) })
       end
       found_session = db.find_listening_session({ station_id: 7,
                                                   user_id: 6,
                                                   end_time: Time.new(2014,1,1, 2,1,30) })
       expect(found_session.id).to eq(session[5].id)
       expect(found_session.station_id).to eq(7)
-      expect(found_session.start_time.to_s).to eq(Time.new(2014,1,1,1).to_s)
+      expect(found_session.start_time.to_i).to eq(Time.new(2014,1,1,1).to_i)
     end
 
     it 'counts the number of listeners on a station' do
