@@ -2,8 +2,6 @@ class CreateListeningSessionsTable < ActiveRecord::Migration
   def change
     # TODO
     create_table(:listening_sessions) do |t|
-      t.integer :starting_current_position
-      t.integer :ending_current_position
       t.datetime :start_time
       t.datetime :end_time
       t.integer :station_id

@@ -52,8 +52,6 @@ ActiveRecord::Schema.define(version: 20141208191522) do
   end
 
   create_table "listening_sessions", force: true do |t|
-    t.integer  "starting_current_position"
-    t.integer  "ending_current_position"
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "station_id"
