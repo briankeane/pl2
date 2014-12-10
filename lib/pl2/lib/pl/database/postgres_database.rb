@@ -990,9 +990,10 @@ module PL
       end
 
       def find_listening_session(attrs)
-        ar_listening_session = ListeningSession.where(:station_id => attrs[:station_id],
-                                                        :user_id => attrs[:user_id],
-                                                        :end_time => (attrs[:end_time] - (60*2)..(attrs[:end_time] + (60*2))))
+        ar_listening_session = ListeningSession.where("station_id = ? and user_id = ? and end_time > ?", 
+                                                            attrs[:station_id], 
+                                                            attrs[:user_id],
+                                                            attrs[:end_time] - (60*2))
         if ar_listening_session.size > 0
           return ar_listening_session.first.to_pl
         else

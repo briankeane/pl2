@@ -794,7 +794,7 @@ module PL
       #############################################
       def find_listening_session(attrs)
         listening_session = @listening_sessions.values.select { |session| (session.station_id == attrs[:station_id]) &&
-                                                      ((session.end_time - attrs[:end_time]).abs <= (60*2)) &&   # 2 min window each side
+                                                      ((session.end_time - attrs[:end_time]).abs <= (60*2) || (session.end_time > attrs[:end_time])) &&   # 2 min window each side
                                                       (session.user_id === attrs[:user_id]) }.first
 
         listening_session
