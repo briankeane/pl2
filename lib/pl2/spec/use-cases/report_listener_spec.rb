@@ -71,8 +71,6 @@ describe 'ReportListener' do
       expect(result.listening_session.start_time.to_s).to eq(Time.new(2014,1,1, 12,59).to_s)
       expect(result.listening_session.end_time.to_s).to eq(Time.new(2014,1,1, 13,2).to_s)
       expect(PL.db.get_listener_count({ station_id: @station.id })).to eq(11)
-      
-
     end
 
 

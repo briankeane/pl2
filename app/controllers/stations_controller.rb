@@ -320,10 +320,4 @@ class StationsController < ApplicationController
 
     render :json => { success: true }
   end
-
-  def report_spin_started
-  end
-
-  def report_spin_finished
-  end
 end

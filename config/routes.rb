@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   match 'session/destroy',                              to: 'sessions#destroy',                             via: 'get'
   match 'sessions/create',                              to: 'sessions#create_with_twitter',                 via: 'get'
   match 'users/update',                                 to: 'users#update',                                 via: 'post'
+  match 'users/report_listener',                        to: 'users#report_listener',                        via: 'put'
   match 'uploads/new',                                  to: 'uploads#new',                                  via: 'get'
   match 'upload/process_song',                          to: 'uploads#process_song',                         via: 'post'
   match 'upload/process_song_without_echonest_id',      to: 'uploads#process_song_without_echonest_id',     via: 'post'

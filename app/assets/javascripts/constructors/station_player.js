@@ -3,7 +3,6 @@ var StationPlayer = function(attrs) {
   // store necessary stuff
   var musicStarted = false;
   this.stationId = attrs.stationId;
-  this.stationId = attrs.stationId;
   this.audioQueue = attrs.audioQueue;
   this.muted = false;
   var self = this;
@@ -73,10 +72,23 @@ var StationPlayer = function(attrs) {
       
       getSpinByCurrentPosition(spinInfo, updateQueue);
       
+      // report the listen
+      self.reportListen();
       $(document).trigger('spinAdvanced');
     }
   };
-
+  this.reportListen = function() {
+        $.ajax({
+        type: 'PUT',
+        dataType: 'json',
+        url: '/users/report_listener',
+        contentType: 'application/json',
+        data: JSON.stringify({ "stationId": this.stationId }),
+        success: function() {
+          console.log('listen reported');
+        }
+    });
+  }
   this.startPlayer = function() {
     // load the queue
     for (var i=0;i<self.audioQueue.length;i++) {
@@ -95,6 +107,7 @@ var StationPlayer = function(attrs) {
         var t = setTimeout(function() {
           self.audioQueue[0].audio.play();
           self.audioQueue[0].audio.currentTime = (Date.now() - self.audioQueue[0].airtime_in_ms)/1000;
+          self.reportListen();
 
         }, 5000);
       } // endif 1st time

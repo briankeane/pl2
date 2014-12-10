@@ -25,7 +25,6 @@ module PL
                                                     ending_current_position: previous_current_position
                                                     })
 
-
       # if not found, create a new one
       if !listening_session
         listening_session = PL.db.create_listening_session({ station_id: attrs[:station_id],

@@ -48,6 +48,11 @@ namespace :db do
     PL.db.destroy_all_schedules
   end
 
+  task :clear_listening_sessions => [:load_app] do
+    puts 'Clearing Listening Sessions...'
+    PL.db.destroy_all_listening_sessions
+  end
+
   task :load_db_via_echonest => [:load_app] do
     PL.db.clear_everything
 

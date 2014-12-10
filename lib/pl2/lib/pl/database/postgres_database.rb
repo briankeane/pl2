@@ -983,11 +983,12 @@ module PL
       end
 
       def find_listening_session(attrs)
-        ar_listening_session = ListeningSession.where("station_id = ? and ending_current_position = ? and user_id = ?", 
+        ar_listening_session = ListeningSession.where("station_id = ? and user_id = ? and (ending_current_position BETWEEN ? and ?)", 
                                                             attrs[:station_id], 
-                                                            attrs[:ending_current_position],
-                                                            attrs[:user_id])
-        if ar_listening_session
+                                                            attrs[:user_id],
+                                                            attrs[:ending_current_position] - 2,
+                                                            attrs[:ending_current_position] + 1)
+        if ar_listening_session.size > 0
           return ar_listening_session.first.to_pl
         else
           return nil
@@ -1004,6 +1005,10 @@ module PL
                                         attrs[:time],
                                         attrs[:time]).size
         count
+      end
+
+      def destroy_all_listening_sessions
+        ListeningSession.destroy_all
       end
     end
   end
