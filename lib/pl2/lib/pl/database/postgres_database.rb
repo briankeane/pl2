@@ -558,6 +558,12 @@ module PL
         Station.destroy_all
       end
 
+      def get_all_stations
+        ar_stations = Station.all
+        stations = ar_stations.map { |station| station.to_pl }
+        stations
+      end
+
       ###################
       #  SpinFrequency  #
       ###################

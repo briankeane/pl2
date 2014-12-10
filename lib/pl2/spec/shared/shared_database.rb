@@ -393,6 +393,16 @@ shared_examples 'a badass database' do
       expect(db.get_station(station2.id)).to be_nil
       expect(db.get_station(station3.id)).to be_nil
     end
+
+    it 'gets_all_stations' do
+      station2 = db.create_station({ user_id: 1 })
+      station3 = db.create_station({ user_id: 2 })
+      station4 = db.create_station({ user_id: 3 })
+      all_stations = db.get_all_stations
+      expect(all_stations.size).to eq(4)
+      expect(all_stations[0]).to be_a(PL::Station)
+      expect(all_stations[3]).to be_a(PL::Station)
+    end
   end
 
   ###################
