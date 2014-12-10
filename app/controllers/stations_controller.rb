@@ -4,8 +4,6 @@ class StationsController < ApplicationController
   def index
     @current_station = current_station
     @top_stations = PL::GetTopStations.run().top_stations
-    binding.pry
-    puts
   end
 
   def show

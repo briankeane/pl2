@@ -57,6 +57,39 @@
           </ul>
         </fieldset>
       </div>
+      <div class="small-12 columns">
+        <fieldset id="top-stations-list">
+          <legend>Top Playola Stations:</legend>
+
+          <ul id="top-stations">
+
+            <% @top_stations.each do |station| %>
+
+              <li class="top-stations twitter-friends">
+                <img class="twitter-pic" src="<%= station.user.profile_image_url %>" />
+
+                <a href="/stations/<%= station.id %>"<span class="twitter-handle">@<%= station.user.twitter %></span></a>
+                <span class="twitter-now-playing">
+                  <span class="now-playing-label">Now Playing:</span>
+
+                  <% if station.now_playing.is_commercial_block %>
+                    <span class="now-playing-title"><b>Commercial Block</b></span>
+
+                  <% else %>
+
+                   <span class="now-playing-title"><%= station.now_playing.audio_block.title || 'Commercial Break' %></span>
+                    <span class="now-playing-artist"><%= station.now_playing.audio_block.artist || '' %></span>
+                  </span>
+
+                <% end %>
+              </li>
+            <% end %> 
+
+
+
+          </ul>
+        </fieldset>
+      </div>
     </div>
         
     <div class="small-4 columns">
