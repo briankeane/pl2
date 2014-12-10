@@ -83,7 +83,11 @@ module PL
       
       next_key_value += 1
 
-      new_key = ('_pl_' + ('0' * (7 - next_key_value.to_s.size)) +  next_key_value.to_s + '_' + attrs[:artist] + '_' + attrs[:title] + '.mp3')
+      # strip punctuation from key
+      title_for_key = attrs[:title].gsub(/\p{^Alnum}/, '')
+      artist_for_key = attrs[:artist].gsub(/\p{^Alnum}/, '')
+
+      new_key = ('_pl_' + ('0' * (7 - next_key_value.to_s.size)) +  next_key_value.to_s + '_' + artist_for_key + '_' + title_for_key + '.mp3')
 
       song_file = File.open(attrs[:song_file])
       song_file.binmode
