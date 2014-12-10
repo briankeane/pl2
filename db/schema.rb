@@ -104,7 +104,7 @@ ActiveRecord::Schema.define(version: 20141208191522) do
     t.datetime "current_playlist_end_time"
     t.datetime "original_playlist_end_time"
     t.float    "average_daily_listeners"
-    t.date     "average_daily_listeners_calculation_date"
+    t.date     "average_daily_calculation_date"
   end
 
   create_table "twitter_friends", force: true do |t|

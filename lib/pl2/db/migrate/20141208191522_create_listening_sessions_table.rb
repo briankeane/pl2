@@ -11,8 +11,8 @@ class CreateListeningSessionsTable < ActiveRecord::Migration
     end
 
     change_table(:stations) do |t|
-      t.float :daily_average_listeners
-      t.date :daily_average_calculation_date
+      t.float :average_daily_listeners
+      t.date :average_daily_listeners_calculation_date
     end
   end
 end

@@ -3,6 +3,9 @@ class StationsController < ApplicationController
   
   def index
     @current_station = current_station
+    @top_stations = PL::GetTopStations.run().top_stations
+    binding.pry
+    puts
   end
 
   def show
@@ -282,7 +285,7 @@ class StationsController < ApplicationController
       spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + result.spin.audio_block.key
       spin_as_hash["type"] = "Song"
     elsif result.spin.audio_block.is_a?(PL::Commentary)
-      spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolacommentaries' + result.spin.audio_block.key
+      spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolacommentaries/' + result.spin.audio_block.key
       spin_as_hash["type"] = "Commentary"
     end
 

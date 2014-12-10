@@ -41,6 +41,28 @@ describe 'a log entry' do
     expect(@log.airtime_in_ms).to eq(Time.new(1983,4,15, 18).to_f*1000)
   end
 
+  it 'calculates listeners_at_start and listeners_at_finish if necessary' do
+    log = PL.db.create_log_entry({ station_id: 4,
+                                    current_position: 76,
+                                    audio_block_id: @song.id,
+                                    airtime: Time.new(1983,4,15, 18),
+                                    duration: 180000 })
+    PL.db.create_listening_session({ station_id: 4,
+                                      user_id: 1,
+                                      starting_current_position: 75,
+                                      ending_current_position: 76,
+                                      start_time: Time.new(1983,4,15, 17, 59),
+                                      end_time: Time.new(1983,4,15, 18,5) })
+    PL.db.create_listening_session({ station_id: 4,
+                                      user_id: 2,
+                                      starting_current_position: 76,
+                                      ending_current_position: 80,
+                                      start_time: Time.new(1983,4,15, 18,2),
+                                      end_time: Time.new(1983,4,15, 18,10) })
+    expect(log.listeners_at_start).to eq(1)
+    expect(log.listeners_at_finish).to eq(2)
+  end
+
   it 'creates a hash of itself' do
     hash = @log.to_hash
     expect(hash[:station_id]).to eq(4)

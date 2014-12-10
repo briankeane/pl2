@@ -95,17 +95,6 @@ describe 'a station' do
       expect(cb.id).to eq(cb2.id)
     end
 
-    it 'reports listeners' do
-      Timecop.travel(2014,4,15,11,26)
-      user1 = PL.db.create_user({ twitter = 'bob' })
-      user2 = PL.db.create_user({ twitter = 'sue' })
-      station.report_listener(user1.id)
-      expect(station.listener_count).to eq(1)
-      report_listener(user2.id)
-      expect(station.listener_count).to eq(2)
-
-    end
-
 
     it 'gets the average number of listeners' do
       log = []
@@ -119,13 +108,12 @@ describe 'a station' do
                                       })
       end
       Timecop.travel(2014,4,16, 12)
-      expect(@station.daily_average_listeners).to eq(31.363636363636363)
+      expect(@station.average_daily_listeners).to eq(31.363636363636363)
       Timecop.travel(2014,4,17, 12)
-      expect(@station.daily_average_listeners).to eq(0)
+      expect(@station.average_daily_listeners).to eq(0)
     end
 
     describe 'just_played' do
-
       it 'gets the last log entry' do
         expect(@station.just_played.current_position).to eq(14)
       end

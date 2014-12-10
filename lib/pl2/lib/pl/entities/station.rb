@@ -16,8 +16,8 @@ module PL
     attr_accessor :id, :station_id, :current_playlist_end_time
     attr_accessor :original_playlist_end_time, :next_commercial_block
     attr_accessor :last_accurate_current_position, :next_commercial_block_id
-    attr_accessor :daily_average_calculation_date
-    attr_writer   :daily_average_listeners
+    attr_accessor :average_daily_listeners_calculation_date
+    attr_writer   :average_daily_listeners
 
     # Station-specific constants
     MS_IN_WEEK = 604.8e+6
@@ -32,19 +32,28 @@ module PL
       super(attrs)
     end
 
-    def daily_average_listeners
-      if @daily_average_calculation_date && (@daily_average_calculation_date - Date.today < 1)
-        @daily_average_listeners
+    def average_daily_listeners
+      if @average_daily_listeners_calculation_date && (Date.today - @average_daily_listeners_calculation_date < 1)
+        @average_daily_listeners
       else
         self.update_airtimes({ end_time: Date.today.to_datetime })
         log_entries = PL.db.get_log_entries_by_date_range({ station_id: @id,
                                                             start_date: Date.today - 1})
         if log_entries.size == 0
-          return 0
+          sum = 0.0
+          @average_daily_listeners = 0.0
         else
-          sum = log_entries.inject(0){ |sum,entry| sum += (entry.listeners_at_finish || 0) }
-          return sum.to_f/log_entries.size.to_f
+          sum = log_entries.inject(0.0){ |sum,entry| sum += (entry.listeners_at_finish || 0) }
+          @average_daily_listeners = sum.to_f/log_entries.size.to_f
         end
+          
+        @average_daily_listeners_calculation_date = Date.today
+        
+        # store result in the db
+        PL.db.update_station({ id: @id, 
+                          average_daily_listeners: @average_daily_listeners,
+                            average_daily_listeners_calculation_date: @average_daily_listeners_calculation_date })
+        return @average_daily_listeners
       end
     end
 
