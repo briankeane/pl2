@@ -36,6 +36,18 @@
       updateSpinDisplay();
     });
 
+    $(document).on('recordingStarted', function() {
+      var muteStateBeforeRecording = player.muted;
+      if (!player.muted) {
+        toggleStationMute();
+      }
+      $(document).on('recordingStopped', function() {
+        if (!muteStateBeforeRecording) {
+          toggleStationMute();
+        }
+      });
+    });
+
     // create and start player
     var player = new StationPlayer(gon);
     player.startPlayer();

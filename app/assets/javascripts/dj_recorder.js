@@ -8,10 +8,12 @@
       startRecording();
       recordButton.attr("disabled", "true");
       stopButton.removeAttr("disabled");
+      $(document).trigger('recordingStarted');
     });
 
     $('#stopRecording').click(function() {
       stopRecording();
+      $(document).trigger('recordingStopped');
       stopButton.attr("disabled", "true");
     });
 
@@ -82,14 +84,12 @@
 
       // recorder
       recorder && recorder.record();
-
       console.log('Recording...');
     }
 
     function stopRecording(button) {
       recorder && recorder.stop();
       console.log('Stopped recording.');
-
       // create WAV download link using audio data blob
       createDownloadLink();
       recorder.clear();
