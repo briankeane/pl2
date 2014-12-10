@@ -13,30 +13,19 @@ module PL
         return failure :user_not_found
       end
 
-      # set previous_current_position (commercial or no?)
-      if station.now_playing.is_a?(PL::CommercialBlock)
-        previous_current_position = station.now_playing.current_position
-      else
-        previous_current_position = station.now_playing.current_position - 1
-      end
-
       listening_session = PL.db.find_listening_session({ station_id: attrs[:station_id],
-                                                      user_id: attrs[:user_id],
-                                                    ending_current_position: previous_current_position
-                                                    })
+                                                          user_id: attrs[:user_id],
+                                                          end_time: Time.now })
 
       # if not found, create a new one
       if !listening_session
         listening_session = PL.db.create_listening_session({ station_id: attrs[:station_id],
                                                               user_id: attrs[:user_id],
-                                                              starting_current_position: station.now_playing.current_position,
-                                                              ending_current_position: station.now_playing.current_position,
                                                               start_time: Time.now,
                                                               end_time: station.now_playing.estimated_end_time })
       else
         listening_session = PL.db.update_listening_session({ id: listening_session.id,
-                                                              end_time: station.now_playing.estimated_end_time,
-                                                              ending_current_position: station.now_playing.current_position })
+                                                              end_time: station.now_playing.estimated_end_time })
       end
       return success :listening_session => listening_session
     end

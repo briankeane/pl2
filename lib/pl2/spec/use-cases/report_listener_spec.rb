@@ -34,20 +34,15 @@ describe 'ReportListener' do
         @sessions << PL.db.create_listening_session({ user_id: i+1000,
                                                 station_id: @station.id,
                                                 start_time: Time.new(2014,1,1,13),
-                                                end_time: Time.new(2014,1,1,15),
-                                                starting_current_position: 15,
-                                                ending_current_position: 15 })
+                                                end_time: Time.new(2014,1,1,15) })
       end
     end
 
     it 'creates a new listening session' do
       Timecop.freeze(2014,1,1, 13)
       result = PL::ReportListener.run({ station_id: @station.id,
-                                        user_id: @user.id,
-                                        current_position: 15 })
+                                        user_id: @user.id })
       expect(result.success?).to eq(true)
-      expect(result.listening_session.starting_current_position).to eq(15)
-      expect(result.listening_session.ending_current_position).to eq(15)
       expect(result.listening_session.start_time.to_s).to eq(Time.new(2014,1,1, 13).to_s)
       expect(result.listening_session.end_time.to_s).to eq(Time.new(2014,1,1, 13,2).to_s)
       expect(PL.db.get_listener_count({ station_id: @station.id })).to eq(11)
@@ -66,8 +61,6 @@ describe 'ReportListener' do
                                         user_id: @user.id,
                                         current_position: 15 })
       expect(result.success?).to eq(true)
-      expect(result.listening_session.starting_current_position).to eq(14)
-      expect(result.listening_session.ending_current_position).to eq(15)
       expect(result.listening_session.start_time.to_s).to eq(Time.new(2014,1,1, 12,59).to_s)
       expect(result.listening_session.end_time.to_s).to eq(Time.new(2014,1,1, 13,2).to_s)
       expect(PL.db.get_listener_count({ station_id: @station.id })).to eq(11)
