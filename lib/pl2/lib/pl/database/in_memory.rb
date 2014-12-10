@@ -784,9 +784,17 @@ module PL
         @listening_sessions[id]
       end
 
+      #############################################
+      #   find_listening_session                  #
+      #############################################
+      #  takes user_id, station_id, end_time      #
+      #############################################
+      #  returns array of listening_sessions for  #
+      #      all that end within 2 min of request #
+      #############################################
       def find_listening_session(attrs)
         listening_session = @listening_sessions.values.select { |session| (session.station_id == attrs[:station_id]) &&
-                                                      (session.ending_current_position == attrs[:ending_current_position]) &&
+                                                      ((session.end_time - attrs[:end_time]).abs <= (60*2)) &&   # 2 min window each side
                                                       (session.user_id === attrs[:user_id]) }.first
 
         listening_session
