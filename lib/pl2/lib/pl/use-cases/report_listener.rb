@@ -15,7 +15,7 @@ module PL
 
       listening_session = PL.db.find_listening_session({ station_id: attrs[:station_id],
                                                           user_id: attrs[:user_id],
-                                                          end_time: Time.now })
+                                                          end_time: station.now_playing.airtime })
 
       # if not found, create a new one
       if !listening_session

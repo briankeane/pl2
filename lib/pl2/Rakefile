@@ -37,10 +37,15 @@ namespace :db do
     PL.db.destroy_all_users
   end
 
-  task :clear_stations => [:load_app] do
-    puts 'Clearing Schedules...'
+  task :clear_stations => [:load_app, :clear_listening_sessions] do
+    puts 'Clearing Stations...'
     PL.db.destroy_all_stations
   end
+
+  task :clear_listening_sessions => [:load_app] do
+    puts 'Clearing ListeningSessions...'
+    PL.db.destroy_all_listening_sessions
+  end 
 
   task :load_db_via_echonest => [:load_app] do
     PL.db.clear_everything

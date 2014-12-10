@@ -18,8 +18,10 @@ class UsersController < ApplicationController
   end
 
   def report_listener
+    binding.pry
     result = PL::ReportListener.run({ station_id: params[:stationId],
                                       user_id: current_user.id })
+
     render :json => result
   end
 end
