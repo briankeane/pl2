@@ -197,6 +197,14 @@ module PL
       echo_tags[:artist_match_rating] = jarow.getDistance(attrs[:artist].downcase, echo_tags[:artist].downcase)
       echo_tags[:title_match_rating] = jarow.getDistance(attrs[:title].downcase, echo_tags[:title].downcase)
 
+      # grab genre tags
+      echo_tags[:genres] = Echowrap.artist_profile({ :name => echo_tags[:artist], 
+                                        :bucket => 'genre' 
+                                        }).attrs[:genres].map { |x| x[:name] } # returns an array of strings
+
+
+
+
       return echo_tags
     end
 

@@ -26,9 +26,7 @@ describe 'SongProcessor' do
               (echonest_info[:echonest_id] === 'SOVJNMJ142453276BB')).to eq(true)
 
         song = @song_pool.all_songs.select { |x| x.key == song.key }
-
         expect(song.size > 0).to eq(true)
-
       end
     end
   end
@@ -101,6 +99,12 @@ describe 'SongProcessor' do
       expect(song[:title]).to eq('Stepladder')
       expect(song[:echonest_id]).to eq('SOOWAAV13CF6D1B3FA')
       expect(song[:artist]).to eq('Rachel Loy')
+      expect(song[:genres]).to eq([])
+
+      song2 = @song_processor.get_echonest_info({ title: 'Kiss Me In The Dark', artist: 'Randy Rogers' })
+      expect(song2[:title]).to eq('Kiss Me In The Dark')
+      expect(song2[:artist]).to eq('Randy Rogers Band')
+      expect(song2[:genres]).to eq(['texas country', 'outlaw country'])
     end
   end
 
@@ -129,5 +133,4 @@ describe 'SongProcessor' do
       expect(matches[0][:echonest_id]).to be_a(String)
     end
   end
-
 end
