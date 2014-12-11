@@ -30,6 +30,8 @@ module PL
         @twitter_friends = {}
         @listening_sessions = {}
         @listening_session_counter = 200
+        @genre_id_counter = 150
+        @genres = {}
       end
 
       ##############
@@ -809,6 +811,43 @@ module PL
                                                                (session.end_time >= attrs[:time]) &&
                                                                (session.start_time <= attrs[:time]) }.size
         count
+      end
+
+      ##################################################################
+      #     genres                                                     #
+      ##################################################################
+      ##################################################################
+      #  values: song_id, genres (array)                               #
+      ##################################################################
+      def store_genres(attrs)
+        existing_genres = self.get_genres(attrs[:song_id])
+        attrs[:genres].each do |genre|
+          if existing_genres.include?(genre) == false
+            id = (@genre_id_counter += 1)
+            @genres[id] = { song_id: attrs[:song_id], genre: genre }
+          end
+        end
+      end
+
+      def get_genres(song_id)
+        genres = @genres.values.select { |genre_record| genre_record[:song_id] == song_id }
+        if genres.size == 0
+          return []
+        else
+          return genres.map { |genre_record| genre_record[:genre] }.sort
+        end
+      end
+
+      def delete_genres(attrs)
+        attrs[:genres].each do |genre|
+          @genres.delete_if { |k,v| (v[:genre] == genre) &&
+                                              (v[:song_id] == attrs[:song_id]) }
+        end
+        return self.get_genres(attrs[:song_id])
+      end
+
+      def destroy_all_genres
+        @genres = {} 
       end
     end
   end

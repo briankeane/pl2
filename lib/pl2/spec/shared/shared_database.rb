@@ -962,4 +962,18 @@ shared_examples 'a badass database' do
       Timecop.return
     end
   end
+  
+  ######################
+  #      Genres        #
+  ######################
+  it 'stores and retrieves the genres for a song' do
+    db.store_genres({ song_id: 5, genres: ['sis country','douche country', 'rich-kid country', 'tractor country'] })
+    expect(db.get_genres(5)).to eq(['douche country', 'rich-kid country', 'sis country', 'tractor country'])
+  end
+
+  it 'deletes a genre' do
+    db.store_genres({ song_id: 5, genres: ['sis country','douche country', 'rich-kid country', 'tractor country'] })
+    db.delete_genres({ song_id: 5, genres: ['sis country', 'tractor country'] })
+    expect(db.get_genres(5)).to eq(['douche country', 'rich-kid country'])
+  end
 end

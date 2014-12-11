@@ -59,6 +59,7 @@ module PL
                                 key: key,
                                 echonest_id: echo_tags[:echonest_id] 
                                 })
+      
 
       # Add to Echonest
       song_pool = SongPoolHandler.new
