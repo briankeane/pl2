@@ -123,6 +123,7 @@ class StationsController < ApplicationController
 
     @first_visit = true
 
+    @top_stations = PL::GetTopStations.run().top_stations
     render stations_index_path
   end
 
