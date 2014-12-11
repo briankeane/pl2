@@ -47,6 +47,34 @@ namespace :db do
     PL.db.destroy_all_listening_sessions
   end 
 
+  task :load_genres => [:load_app] do
+    sp = PL::SongProcessor.new
+    songs = PL.db.get_all_songs
+    PL.db.destroy_all_genres
+    counter = 1
+    puts
+    songs.each do |song|
+      begin
+        genres = sp.get_echonest_info({ title: song.title, artist: song.artist })[:genres]
+      rescue Echowrap::Error::TooManyRequests
+        i=1
+        puts 'sleeping 10 secs for echonest...'
+        while i <= 10
+          print "\r" + i.to_s
+          sleep(1)
+          i += 1
+        end
+        puts
+        retry
+      end
+
+      PL.db.store_genres({ song_id: song.id, genres: genres })
+      puts "Loading Genres Song " + counter.to_s  + " of " + songs.size.to_s + " " + "title: " + song.title + " artist: " + song.artist + " " + genres.to_s
+      counter += 1
+
+    end
+  end
+
   task :load_db_via_echonest => [:load_app] do
     PL.db.clear_everything
 

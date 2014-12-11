@@ -1055,7 +1055,7 @@ module PL
       end
 
       def destroy_all_genres
-        @genres = {} 
+        Genre.destroy_all
       end
     end
   end
