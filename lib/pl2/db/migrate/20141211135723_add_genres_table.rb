@@ -2,8 +2,8 @@ class AddGenresTable < ActiveRecord::Migration
   def change
     # TODO
     create_table(:genres) do |t|
-      t.integer :audio_block_id
-      t.string :name
+      t.integer :song_id
+      t.string :genre
     end
   end
 end

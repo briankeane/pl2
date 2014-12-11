@@ -820,6 +820,7 @@ module PL
       #  values: song_id, genres (array)                               #
       ##################################################################
       def store_genres(attrs)
+        attrs[:genres].each { |genre| genre.downcase! }
         existing_genres = self.get_genres(attrs[:song_id])
         attrs[:genres].each do |genre|
           if existing_genres.include?(genre) == false

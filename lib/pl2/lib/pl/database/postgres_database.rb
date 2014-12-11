@@ -36,6 +36,7 @@ module PL
       #######################
       class AudioBlock < ActiveRecord::Base
         belongs_to :spin
+        has_many :genres
       end
 
       class Commentary < AudioBlock
@@ -102,6 +103,10 @@ module PL
       class ListeningSession < ActiveRecord::Base
         belongs_to :station
         belongs_to :user
+      end
+
+      class Genre < ActiveRecord::Base
+        has_many :audio_blocks
       end
 
       ########################
@@ -1015,6 +1020,42 @@ module PL
 
       def destroy_all_listening_sessions
         ListeningSession.destroy_all
+      end
+
+      ##################################################################
+      #     genres                                                     #
+      ##################################################################
+      ##################################################################
+      #  values: song_id, genres (array)                               #
+      ##################################################################
+      def store_genres(attrs)
+        attrs[:genres].each { |genre| genre.downcase! }
+        existing_genres = self.get_genres(attrs[:song_id])
+        attrs[:genres].each do |genre|
+          if existing_genres.include?(genre) == false
+            Genre.create({ song_id: attrs[:song_id], genre: genre })
+          end
+        end
+      end
+
+      def get_genres(song_id)
+        genres = Genre.where("song_id = ?", song_id)
+        if genres.size == 0
+          return []
+        else
+          return genres.map { |genre_record| genre_record[:genre] }.sort
+        end
+      end
+
+      def delete_genres(attrs)
+        attrs[:genres].each do |genre|
+          Genre.where("genre = ? and song_id = ?", genre, attrs[:song_id]).destroy_all
+        end
+        return self.get_genres(attrs[:song_id])
+      end
+
+      def destroy_all_genres
+        @genres = {} 
       end
     end
   end
