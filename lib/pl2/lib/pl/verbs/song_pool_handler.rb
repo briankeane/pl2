@@ -98,17 +98,20 @@ module PL
 
     def clear_all_songs
       profile = Echowrap.taste_profile_read(id: ECHONEST_KEYS['TASTE_PROFILE_ID'])
-      json_songs = profile.items.map do |item|
-        ({ "action" => "delete",
-            "item" => {
-              "item_id" => item.request.item_id
-              }
-          }).to_json
+      
+      while profile.items.size > 0
+        json_songs = profile.items.map do |item|
+          ({ "action" => "delete",
+              "item" => {
+                "item_id" => item.request.item_id
+                }
+            }).to_json
+        end
+
+        data = '[' + json_songs.join(", \n") + ']'
+        Echowrap.taste_profile_update(id: ECHONEST_KEYS['TASTE_PROFILE_ID'], data: data)
+        profile = Echowrap.taste_profile_read(id: ECHONEST_KEYS['TASTE_PROFILE_ID'])
       end
-
-      data = '[' + json_songs.join(", \n") + ']'
-
-      Echowrap.taste_profile_update(id: ECHONEST_KEYS['TASTE_PROFILE_ID'], data: data)
     end
 
     ########################################################

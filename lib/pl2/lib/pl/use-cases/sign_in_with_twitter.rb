@@ -10,6 +10,11 @@ module PL
         new_user = true
       end
 
+      # if the profile image has changed, update it
+      if user.profile_image_url != attrs[:profile_image_url]
+        user = PL.db.update_user({ id: user.id, profile_image_url: attrs[:profile_image_url] })
+      end
+
       # use an existing session_id if possible
       session_id = PL.db.get_sid_by_uid(user.id)
       if !session_id
