@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 12 Dec 2014 17:55:49 GMT
+      - Fri, 12 Dec 2014 18:27:56 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -27,9 +27,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - hTs8V4WNRFCUIc6gp8u1iw
+      - nxlRMm7ER5yzsY0A3eiG0Q
       X-Worker-Node:
-      - d1c7d:25587
+      - f8fba:14470
       X-Ratelimit-Remaining:
       - '119'
       Server:
@@ -70,7 +70,7 @@ http_interactions:
         "ARJMPGH11F4C8429C6", "id": "SOPYMGE12A8C13E7E1", "artist_name": "Space Ritual",
         "title": "ASDF"}]}}'
     http_version: 
-  recorded_at: Fri, 12 Dec 2014 17:55:49 GMT
+  recorded_at: Fri, 12 Dec 2014 18:27:56 GMT
 - request:
     method: get
     uri: http://developer.echonest.com/api/v4/artist/profile?api_key=1EFRD4YMEN003A4N1&bucket=genre&name=Paza%20Rahm
@@ -90,7 +90,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 12 Dec 2014 17:55:49 GMT
+      - Fri, 12 Dec 2014 18:27:56 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -98,9 +98,9 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - 04cJb0tvQ1KdEgGdppyb5Q
+      - 4gpDxGLFThWL4SdUTtM+sg
       X-Worker-Node:
-      - 2d6ca:28115
+      - d2362:23573
       X-Ratelimit-Remaining:
       - '118'
       Server:
@@ -127,5 +127,5 @@ http_interactions:
         "artist": {"genres": [{"name": "chiptune"}, {"name": "nintendocore"}], "id":
         "AR9TO5Q1187FB47C19", "name": "Paza Rahm"}}}'
     http_version: 
-  recorded_at: Fri, 12 Dec 2014 17:55:49 GMT
+  recorded_at: Fri, 12 Dec 2014 18:27:56 GMT
 recorded_with: VCR 2.9.3

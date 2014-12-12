@@ -50,13 +50,12 @@ describe 'a station' do
     PL.db.store_genres({ song_id: @song3.id, genres: ['douche country', 'western swing', 'calypso'] })
     genre_hash = @station.genres
     expect(genre_hash.values.size).to eq(6)
-    expect(genre_hash).to eq({})
-    expect(genre_hash['douche country']).to eq(0.8)
-    expect(genre_hash['western swing']).to eq(0.8)
-    expect(genre_hash['hick hop']).to eq(0.8)
-    expect(genre_hash['rap']).to eq(0.8)
-    expect(genre_hash['bowling music']).to eq(0.8)
-    expect(genre_hash['calypso']).to eq(0.8)
+    expect(genre_hash['douche country']).to eq(1.0)
+    expect(genre_hash['western swing']).to eq(0.6666666666666666)
+    expect(genre_hash['hick hop']).to eq(0.3333333333333333)
+    expect(genre_hash['rap']).to eq(0.3333333333333333)
+    expect(genre_hash['bowling music']).to eq(0.3333333333333333,)
+    expect(genre_hash['calypso']).to eq(0.3333333333333333)
   end
 
 
