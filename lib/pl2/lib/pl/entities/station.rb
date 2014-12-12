@@ -17,7 +17,7 @@ module PL
     attr_accessor :original_playlist_end_time, :next_commercial_block
     attr_accessor :last_accurate_current_position, :next_commercial_block_id
     attr_accessor :average_daily_listeners_calculation_date
-    attr_writer   :average_daily_listeners
+    attr_writer   :average_daily_listeners, :genres
 
     # Station-specific constants
     MS_IN_WEEK = 604.8e+6
@@ -567,6 +567,22 @@ puts "pick_song_ms: " + pick_song_ms.to_s
     def listener_count
       PL.db.get_listener_count({ station_id: @id })
     end
+
+    def genres
+      hash = Hash.new(0)
+      @spins_per_week.each do |song_id,song|
+        PL.db.get_genres(song_id).each do |genre|
+          hash[genre] += 1
+        end
+      end
+
+      max_value = hash.values.max
+
+      percentages_hash = {}
+      hash.each { |k,v| percentages_hash[k] = v.to_f/max_value.to_f }
+      return percentages_hash
+    end
+
 
   end
 end

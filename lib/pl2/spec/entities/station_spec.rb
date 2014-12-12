@@ -44,6 +44,21 @@ describe 'a station' do
     expect(sample_array.size > 20).to eq(true)
   end
 
+  it 'returns a genre hash' do
+    PL.db.store_genres({ song_id: @song1.id, genres: ['douche country', 'western swing', 'hick hop']})
+    PL.db.store_genres({ song_id: @song2.id, genres: ['douche country', 'rap', 'bowling music'] })
+    PL.db.store_genres({ song_id: @song3.id, genres: ['douche country', 'western swing', 'calypso'] })
+    genre_hash = @station.genres
+    expect(genre_hash.values.size).to eq(6)
+    expect(genre_hash).to eq({})
+    expect(genre_hash['douche country']).to eq(0.8)
+    expect(genre_hash['western swing']).to eq(0.8)
+    expect(genre_hash['hick hop']).to eq(0.8)
+    expect(genre_hash['rap']).to eq(0.8)
+    expect(genre_hash['bowling music']).to eq(0.8)
+    expect(genre_hash['calypso']).to eq(0.8)
+  end
+
 
 
   after (:all) do
