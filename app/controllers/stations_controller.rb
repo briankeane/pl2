@@ -200,7 +200,6 @@ class StationsController < ApplicationController
                                                                              starting_current_position: min_position,
                                                                              ending_current_position: max_position })
 
-
     result.max_position = max_position
     result.min_position = min_position
 

@@ -19,7 +19,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Sun, 30 Nov 2014 02:55:45 GMT
+      - Fri, 12 Dec 2014 15:47:40 GMT
       Content-Type:
       - application/json; charset=utf-8
       Transfer-Encoding:
@@ -27,11 +27,11 @@ http_interactions:
       Vary:
       - Accept-Encoding
       X-Request-Id:
-      - imcTp5u/QLaEekMs1GTGTw
+      - bZ5Xt7jVRkufVAFPXNf97g
       X-Worker-Node:
-      - c6357:19082
+      - 04371:18262
       X-Ratelimit-Remaining:
-      - '113'
+      - '111'
       Server:
       - TornadoServer/3.1
       X-Ratelimit-Limit:
@@ -43,7 +43,7 @@ http_interactions:
       Access-Control-Allow-Origin:
       - "*"
       X-Ratelimit-Used:
-      - '7'
+      - '9'
       Connection:
       - Keep-alive
       Keep-Alive:
@@ -56,5 +56,5 @@ http_interactions:
         "songs": [{"artist_id": "ARHBV1W1187B9B496C", "id": "SOOWAAV13CF6D1B3FA",
         "artist_name": "Rachel Loy", "title": "Stepladder"}]}}'
     http_version: 
-  recorded_at: Sun, 30 Nov 2014 02:55:45 GMT
+  recorded_at: Fri, 12 Dec 2014 15:47:40 GMT
 recorded_with: VCR 2.9.3

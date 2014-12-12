@@ -259,7 +259,6 @@ puts "pick_song_ms: " + pick_song_ms.to_s
                  
     def update_airtimes(attrs = {})
       # if there's no playlist yet, just exit
-
       if !playlist_exists?
         return false
       end
@@ -550,7 +549,6 @@ puts "pick_song_ms: " + pick_song_ms.to_s
         @last_accurate_current_position = min_current_position
         PL.db.update_station({ id: @id, last_accurate_current_position: min_current_position })
       end
-
       return moved_spin
     end
 

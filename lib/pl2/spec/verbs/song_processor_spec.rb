@@ -102,7 +102,7 @@ describe 'SongProcessor' do
       expect(song[:genres]).to eq([])
 
       song2 = @song_processor.get_echonest_info({ title: 'Kiss Me In The Dark', artist: 'Randy Rogers' })
-      expect(song2[:title]).to eq('Kiss Me In The Dark')
+      expect(song2[:title]).to eq('Kiss Me in the Dark')
       expect(song2[:artist]).to eq('Randy Rogers Band')
       expect(song2[:genres]).to eq(['texas country', 'outlaw country'])
     end
