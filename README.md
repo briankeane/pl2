@@ -71,13 +71,19 @@ etc.
 
 4) Install dependencies. (homebrew shown)
   ```
-  brew install [lame][http://lame.sourceforge.net/links.php]
-  brew install [ffmpeg][https://www.ffmpeg.org/]
-  brew install [faad2][http://www.audiocoding.com/faad2.html]
-  brew install [sox][http://sox.sourceforge.net/]
-  brew install [taglib][http://taglib.github.io/]
-  brew install [postgresql][http://www.postgresql.org/]
+  brew install lame
+  brew install ffmpeg
+  brew install faad2
+  brew install sox
+  brew install taglib
+  brew install postgresql
   ```
+[lame][http://lame.sourceforge.net/links.php]
+[ffmpeg][https://www.ffmpeg.org/]
+[faad2][http://www.audiocoding.com/faad2.html]
+[sox][http://sox.sourceforge.net/]
+[taglib][http://taglib.github.io/]
+[postgresql][http://www.postgresql.org/]
 5) Bundle install
 ```
 bundle install
