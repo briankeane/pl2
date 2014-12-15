@@ -85,6 +85,7 @@ bundle install
 
 6) create and migrate database
 ```
+cd lib/pl2/
 rake db:create RAILS_ENV=test
 rake db:create RAILS_ENV=development
 rake db:migrate RAILS_ENV=test
@@ -93,11 +94,9 @@ rake db:migrate RAILS_ENV=development
 
 7) load db with songs from storage
 ```
-cd lib/pl2/
 rake db:load_db_via_storage RAILS_ENV=development
 ```
 
 #Notes
-The core logic code is located in lib/pl2.
-
-All db rake tasks must be performed from lib/pl2
+* The core logic code is located in lib/pl2.
+* All db rake tasks must be performed from lib/pl2
