@@ -1,6 +1,6 @@
-== playola.fm
+# playola.fm
 
-# Installing Locally (for Mac)
+## Installing Locally (for Mac)
 
 1) fork and clone down the repo
 
@@ -69,14 +69,14 @@ development:
 etc.
 ```
 
-4) Install dependencies.
+4) Install dependencies. (homebrew shown)
   ```
-  brew install lame
-  brew install ffmpeg
-  brew install faad2
-  brew install sox
-  brew install taglib
-  brew install postgresql
+  brew install [lame][http://lame.sourceforge.net/links.php]
+  brew install [ffmpeg][https://www.ffmpeg.org/]
+  brew install [faad2][http://www.audiocoding.com/faad2.html]
+  brew install [sox][http://sox.sourceforge.net/]
+  brew install [taglib][http://taglib.github.io/]
+  brew install [postgresql][http://www.postgresql.org/]
   ```
 5) Bundle install
 ```
@@ -97,6 +97,6 @@ rake db:migrate RAILS_ENV=development
 rake db:load_db_via_storage RAILS_ENV=development
 ```
 
-#Notes
+##Notes
 * The core logic code is located in lib/pl2.
 * All db rake tasks must be performed from lib/pl2
