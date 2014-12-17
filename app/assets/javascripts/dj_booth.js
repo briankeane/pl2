@@ -421,11 +421,11 @@
   // *  -- updates the per-song station progress *
   // *********************************************
   var updateProgressBar = function() {
-    var elapsedTime = player.audioQueue[0].audio.currentTime;
+    var elapsedTime = Date.now() - player.audioQueue[0].airtime_in_ms;
     var msRemaining = (player.audioQueue[1].airtime_in_ms - Date.now());
-    var percentComplete = elapsedTime/(elapsedTime + msRemaining/1000)*100;
+    var percentComplete = elapsedTime/(elapsedTime + msRemaining)*100;
     $('.progress .meter').css('width', percentComplete + '%');
-    $('.nowPlayingTimes .elapsedTime').text(formatSongFromMS(Math.round(elapsedTime) * 1000));
+    $('.nowPlayingTimes .elapsedTime').text(formatSongFromMS(Math.round(elapsedTime)));
     
     $('.nowPlayingTimes .timeRemaining').text('-' + formatSongFromMS(msRemaining));
 

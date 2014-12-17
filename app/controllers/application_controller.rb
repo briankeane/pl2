@@ -30,15 +30,15 @@ class ApplicationController < ActionController::Base
       case
       when spin.is_a?(PL::CommercialBlock)
         obj[:type] = 'CommercialBlock'
-        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolacommercialblocks/' + spin.key
+        obj[:key] = 'http://s3-us-west-2.amazonaws.com/playolacommercialblocks/' + spin.key
       when spin.audio_block.is_a?(PL::Song)
         obj[:type] = 'Song'
-        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + spin.audio_block.key
+        obj[:key] = 'http://songs.playola.fm/' + spin.audio_block.key
         obj[:artist] = spin.audio_block.artist
         obj[:title] = spin.audio_block.title
       when spin.audio_block.is_a?(PL::Commentary)
         obj[:type] = 'Commentary'
-        obj[:key] = 'https://s3-us-west-2.amazonaws.com/playolacommentaries/' + spin.audio_block.key
+        obj[:key] = 'http://s3-us-west-2.amazonaws.com/playolacommentaries/' + spin.audio_block.key
       end
 
       obj[:currentPosition] = spin.current_position
@@ -49,8 +49,7 @@ class ApplicationController < ActionController::Base
     end
 
     formatted_station  
-  end
-  
+  end  
 
   protect_from_forgery with: :exception
 end

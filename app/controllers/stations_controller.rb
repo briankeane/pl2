@@ -280,10 +280,10 @@ class StationsController < ApplicationController
     spin_as_hash["currentPosition"] = spin_as_hash[:current_position]
 
     if result.spin.audio_block.is_a?(PL::Song)
-      spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolasongs/' + result.spin.audio_block.key
+      spin_as_hash["key"] = 'http://songs.playola.fm/' + result.spin.audio_block.key
       spin_as_hash["type"] = "Song"
     elsif result.spin.audio_block.is_a?(PL::Commentary)
-      spin_as_hash["key"] = 'https://s3-us-west-2.amazonaws.com/playolacommentaries/' + result.spin.audio_block.key
+      spin_as_hash["key"] = 'http://s3-us-west-2.amazonaws.com/playolacommentaries/' + result.spin.audio_block.key
       spin_as_hash["type"] = "Commentary"
     end
 

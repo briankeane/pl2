@@ -24,11 +24,11 @@ module PL
         # also grab the commercial_blocks
         program.map! do |spin|
           if spin.is_a?(PL::CommercialBlock)
-            station.get_commercial_block_for_broadcast(spin.current_position)
+            spin = station.get_commercial_block_for_broadcast(spin.current_position)
           else
             spin.audio_block
-            spin
           end
+          spin
         end
 
         return success :program => program

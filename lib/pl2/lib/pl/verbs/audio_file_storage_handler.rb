@@ -91,7 +91,7 @@ module PL
 
       song_file = File.open(attrs[:song_file])
       song_file.binmode
-      bucket.objects[new_key].write(:file => song_file)
+      bucket.objects[new_key].write(:file => song_file, content_type: 'audio/mpeg')
       aws_song_object = bucket.objects[new_key]
 
       attrs[:key] = new_key

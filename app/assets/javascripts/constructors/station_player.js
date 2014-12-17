@@ -7,6 +7,10 @@ var StationPlayer = function(attrs) {
   this.muted = false;
   var self = this;
 
+  // get browser
+  var context = new AudioContext();
+  var browser = navigator.sayswho.split(" ")[0];
+
   var getCommercialBlockForBroadcast = function(currentPosition) {
     
     var callback = function(result) {
@@ -34,7 +38,12 @@ var StationPlayer = function(attrs) {
 
     // advance audioQueue
     self.justPlayed = self.audioQueue.shift();
+
+    if (browser != 'Chrome') {
     self.audioQueue[0].audio.play();
+    } else {
+      self.audioQueue[0].source.start(0);
+    } 
 
     // set the next advance
     var msTillAdvanceSpin = (self.audioQueue[1].airtime_in_ms - Date.now());
@@ -52,7 +61,13 @@ var StationPlayer = function(attrs) {
           result.artist = result.audio_block.artist;
           result.title = result.audio_block.title;
         }
-        result.audio = new Audio(result.key);
+
+        if (browser != "Chrome") {
+          result.audio = new Audio(result.key);
+        } else {
+          loadSong(result.key, result.audio);
+        }
+
         result.audio.muted = self.muted;
 
         self.audioQueue.push(result);
@@ -77,6 +92,7 @@ var StationPlayer = function(attrs) {
       $(document).trigger('spinAdvanced');
     }
   };
+
   this.reportListen = function() {
         $.ajax({
         type: 'PUT',
@@ -89,10 +105,28 @@ var StationPlayer = function(attrs) {
         }
     });
   }
+
   this.startPlayer = function() {
     // load the queue
+
     for (var i=0;i<self.audioQueue.length;i++) {
-      self.audioQueue[i].audio = new Audio(self.audioQueue[i].key);
+      (function(i) {
+        var callback = function(source, index) {
+          self.audioQueue[index].source = source;
+          if (index === 0) {
+            debugger;
+            self.audioQueue[0].source.start(0, (Date.now() - self.audioQueue[0].airtime_in_ms)/1000);
+          }
+          $(document).trigger('playerStarted');
+        }
+
+        // if (browser != 'Chrome') {
+        //   self.audioQueue[i].audio = new Audio(self.audioQueue[i].key);
+        // } else {
+        //   loadSong(self.audioQueue[i].key, callback, i);
+        // }
+        loadSong(self.audioQueue[0].key, callback, 0);
+      })(i);
     }
 
     // set the next advance
@@ -100,18 +134,21 @@ var StationPlayer = function(attrs) {
     setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
 
     // start the first song in the proper place
-    self.audioQueue[0].audio.addEventListener('canplaythrough', function() {
-      if (!musicStarted) {   // so it only does this once
-        musicStarted = true;
+    if (browser != 'Chrome') {
+      self.audioQueue[0].audio.addEventListener('canplaythrough', function() {
+        if (!musicStarted) {   // so it only does this once
+          musicStarted = true;
 
-        var t = setTimeout(function() {
-          self.audioQueue[0].audio.play();
-          self.audioQueue[0].audio.currentTime = (Date.now() - self.audioQueue[0].airtime_in_ms)/1000;
-          self.reportListen();
+          var t = setTimeout(function() {
+            self.audioQueue[0].audio.play();
+            self.audioQueue[0].audio.currentTime = (Date.now() - self.audioQueue[0].airtime_in_ms)/1000;
+            self.reportListen();
+            loadSong(self.audioQueue[0].key);
 
-        }, 5000);
-      } // endif 1st time
-    });
+          }, 5000);
+        } // endif 1st time
+      });
+    }
 
     $(document).trigger('playerStarted');
   }; // end this.startPlayer
@@ -126,4 +163,23 @@ var StationPlayer = function(attrs) {
       self.audioQueue[i].audio.muted = self.muted;
     }
   };
+
+  function loadSong(url, callback, index) {
+    var context = new AudioContext();
+    var request = new XMLHttpRequest();
+    request.open('Get', url, true);
+    request.responseType = 'arraybuffer';
+
+    // decode
+    request.onload = function() {
+      context.decodeAudioData(request.response, function(buffer) {
+        var source = context.createBufferSource();
+        source.buffer = buffer;
+        source.connect(context.destination);
+        callback(source, index);
+      });
+    }
+    request.send();
+  }
+
 };
