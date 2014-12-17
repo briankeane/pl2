@@ -115,12 +115,12 @@ namespace :db do
       print "\rProcessing song #{i + 1} of #{all_stored_songs.count}"
 
       song.instance_variables
-      PL.db.create_song({ title: song.title,
-                          artist: song.artist,
-                          album: song.album,
+      PL.db.create_song({ title: song.title || "",
+                          artist: song.artist || "",
+                          album: song.album || "",
                           key: song.key,
                           duration: song.duration,
-                          echonest_id: song.echonest_id })
+                          echonest_id: song.echonest_id || "" })
     end
   end
 

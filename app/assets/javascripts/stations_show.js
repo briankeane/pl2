@@ -10,26 +10,26 @@
       $('#nowPlayingList .nowPlaying .addToMyStationButton').remove();
       
       // update the class and info 
-      if (player.audioQueue[0].type === 'Song') {
+      if (gon.player.audioQueue[0].type === 'Song') {
         $('#nowPlayingList .nowPlaying').addClass('song');
-        $('#nowPlayingList .nowPlaying .title').text(player.audioQueue[0].title);
-        $('#nowPlayingList .nowPlaying .artist').text(player.audioQueue[0].artist);
+        $('#nowPlayingList .nowPlaying .title').text(gon.player.audioQueue[0].title);
+        $('#nowPlayingList .nowPlaying .artist').text(gon.player.audioQueue[0].artist);
 
         // add button
         var html = '<button class="addToMyStationButton">Add Song To My Station</button>';
         $('#nowPlayingList .nowPlaying .artist').after(html);
-        $('#nowPlayingList .nowPlaying .addToMyStationButton').attr('data-songId', player.audioQueue[0].audio_block_id);
+        $('#nowPlayingList .nowPlaying .addToMyStationButton').attr('data-songId', gon.player.audioQueue[0].audio_block_id);
 
-        if (player.audioQueue[0].audio_block_id in gon.currentStation.spins_per_week) {
+        if (gon.player.audioQueue[0].audio_block_id in gon.currentStation.spins_per_week) {
           $('#nowPlayingList .nowPlaying .addToMyStationButton').addClass('disabled');
           $('#nowPlayingList .nowPlaying .addToMyStationButton').text('Song Added');
         }
 
-      } else if (player.audioQueue[0].type === 'Commentary') {
+      } else if (gon.player.audioQueue[0].type === 'Commentary') {
         $('#nowPlayingList .nowPlaying').addClass('commentary');
         $('#nowPlayingList .nowPlaying .title').text('Commentary');
         $('#nowPlayingList .nowPlaying .artist').text('');
-      } else if (player.audioQueue[0].type === 'CommercialBlock') {
+      } else if (gon.player.audioQueue[0].type === 'CommercialBlock') {
         $('#nowPlayingList .nowPlaying').addClass('commercialBlock');
         $('#nowPlayingList .nowPlaying .title').text('Commercial Block');
         $('#nowPlayingList .nowPlaying .artist').text('');
@@ -38,16 +38,16 @@
 
     var advanceSongHistory = function() {
       var html = '<li class="song">' + 
-                    '<span class="title">' + player.justPlayed.title + '</span>';
+                    '<span class="title">' + gon.player.justPlayed.title + '</span>';
 
       
-      if (player.justPlayed.audio_block_id in gon.currentStation.spins_per_week) {
+      if (gon.player.justPlayed.audio_block_id in gon.currentStation.spins_per_week) {
         html = html + '<button class="addToMyStationButton disabled">Song Added</button>';
       } else {
         html = html + '<button class="addToMyStationButton">Add Song To My Station</button>';
       }
       
-      html = html + '<span class="artist">' + player.justPlayed.artist + '</span>' + 
+      html = html + '<span class="artist">' + gon.player.justPlayed.artist + '</span>' + 
               '</li>';
 
       $('#songHistoryList li:first').before(html);
@@ -61,7 +61,7 @@
 
     $(document).on('spinAdvanced', function() {
       updateNowPlaying();
-      if (player.justPlayed.type === 'Song') {
+      if (gon.player.justPlayed.type === 'Song') {
         advanceSongHistory();
       }
     });
@@ -79,9 +79,14 @@
       }
     });
 
-    // create the station and start it
-    var player = new StationPlayer(gon);
-    player.startPlayer();
+    // create and start player
+    console.log(navigator.sayswho.split(" ")[0]);
+    if (navigator.sayswho.split(" ")[0] === 'Chrome') {
+      gon.player = new webAudioStationPlayer(gon);
+    } else {
+      gon.player = new StationPlayer(gon);
+    }
+    gon.player.startPlayer();
   }
   
 })();

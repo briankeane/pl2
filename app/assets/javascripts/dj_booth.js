@@ -9,7 +9,6 @@
         { 'cookie_monster': !$.cookie('joyride') ? false : true,
           post_ride_callback : function () {
             !$.cookie('joyride') ? $.cookie('joyride', 'ridden') : null;
-
           }   
         }
     }).foundation('joyride', 'start');
@@ -37,8 +36,8 @@
     });
 
     $(document).on('recordingStarted', function() {
-      var muteStateBeforeRecording = player.muted;
-      if (!player.muted) {
+      var muteStateBeforeRecording = gon.player.muted;
+      if (!gon.player.muted) {
         toggleStationMute();
       }
       $(document).on('recordingStopped', function() {
@@ -49,9 +48,13 @@
     });
 
     // create and start player
-    var player = new StationPlayer(gon);
-    player.startPlayer();
-
+    console.log(navigator.sayswho.split(" ")[0]);
+    if (navigator.sayswho.split(" ")[0] === 'Chrome') {
+      gon.player = new webAudioStationPlayer(gon);
+    } else {
+      gon.player = new StationPlayer(gon);
+    }
+    gon.player.startPlayer();
 
     $('#searchbox').keyup(function(event) {
       var searchText = $('#searchbox').val();
@@ -421,8 +424,8 @@
   // *  -- updates the per-song station progress *
   // *********************************************
   var updateProgressBar = function() {
-    var elapsedTime = Date.now() - player.audioQueue[0].airtime_in_ms;
-    var msRemaining = (player.audioQueue[1].airtime_in_ms - Date.now());
+    var elapsedTime = Date.now() - gon.player.audioQueue[0].airtime_in_ms;
+    var msRemaining = (gon.player.audioQueue[1].airtime_in_ms - Date.now());
     var percentComplete = elapsedTime/(elapsedTime + msRemaining)*100;
     $('.progress .meter').css('width', percentComplete + '%');
     $('.nowPlayingTimes .elapsedTime').text(formatSongFromMS(Math.round(elapsedTime)));
@@ -450,11 +453,11 @@
     $('#nowPlayingList .nowPlaying').removeClass('commentary');
     
     // update the class and info
-    if (player.audioQueue[0].type === 'Song') {
+    if (gon.audioQueue[0].type === 'Song') {
       $('#nowPlayingList .nowPlaying').addClass('song');
-      $('#nowPlayingList .nowPlaying .title').text(player.audioQueue[0].title);
-      $('#nowPlayingList .nowPlaying .artist').text(player.audioQueue[0].artist);
-    } else if (player.audioQueue[0].type === 'Commentary') {
+      $('#nowPlayingList .nowPlaying .title').text(gon.audioQueue[0].title);
+      $('#nowPlayingList .nowPlaying .artist').text(gon.audioQueue[0].artist);
+    } else if (gon.audioQueue[0].type === 'Commentary') {
       $('#nowPlayingList .nowPlaying').addClass('commentary');
       $('#nowPlayingList .nowPlaying .title').text('Commentary');
       $('#nowPlayingList .nowPlaying .artist').text('');
@@ -465,7 +468,7 @@
     }
 
     // if the station is live, advance #station-list
-    if (parseInt($('#station-list li').attr('data-currentPosition')) === player.audioQueue[0].currentPosition)  {
+    if (parseInt($('#station-list li').attr('data-currentPosition')) === gon.audioQueue[0].currentPosition)  {
       $('#station-list li').first().remove();
       appendNextSpin();
     }
@@ -474,8 +477,11 @@
   var toggleStationMute = function() {
     // change image
     $('.muteButton').toggleClass('muted');
-
-    player.mute();
+    if ($('.muteButton').hasClass('muted')) {
+      gon.player.mute();
+    } else {
+      gon.player.unMute();
+    }
   };
 
   var removeSpin = function() {

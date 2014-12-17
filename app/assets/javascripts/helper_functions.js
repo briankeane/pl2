@@ -19,7 +19,7 @@ var formatTime = function(time) {
   }
 
   return (hours + ':' + minutes + ':' + seconds + ' ' + amPm);
-} 
+};
 
 // taken from http://stackoverflow.com/questions/2400935/browser-detection-in-javascript
 // returns the browser and version
@@ -30,12 +30,12 @@ navigator.sayswho= (function(){
         tem=  /\brv[ :]+(\d+)/g.exec(ua) || [];
         return 'IE '+(tem[1] || '');
     }
-    if(M[1]=== 'Chrome'){
-        tem= ua.match(/\bOPR\/(\d+)/)
-        if(tem!= null) return 'Opera '+tem[1];
+    if(M[1] === 'Chrome'){
+        tem= ua.match(/\bOPR\/(\d+)/);
+        if(tem!== null) return 'Opera '+tem[1];
     }
     M= M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
-    if((tem= ua.match(/version\/(\d+)/i))!= null) M.splice(1, 1, tem[1]);
+    if((tem= ua.match(/version\/(\d+)/i))!== null) M.splice(1, 1, tem[1]);
     return M.join(' ');
 })();
 
@@ -75,7 +75,7 @@ var getSpinByCurrentPosition = function(spinInfo, callback) {
         data: spinInfo,
         success: callback
   });
-}
+};
 
 /**
 * Generates a GUID string.
@@ -106,4 +106,13 @@ var createSpinPerWeekListItem = function(data) {
       console.log(result);
     }
   });
-}
+};
+
+var getAudioQueueIndexByKey = function(key) {
+  for (var i=0; i<gon.audioQueue.length; i++) {
+    if (gon.audioQueue[i].key === key) {
+        return i;
+    }
+  }
+};
+
