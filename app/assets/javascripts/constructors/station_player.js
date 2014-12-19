@@ -304,6 +304,7 @@ var webAudioStationPlayer = function(attrs) {
               } else {   // advance time passed during loading
                 self.audioQueue.shift();
                 loadAudio(self.audioQueue[0].key);
+                $(document).trigger('spinAdvanced');
               }
             }
           }
