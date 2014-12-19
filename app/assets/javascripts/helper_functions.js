@@ -116,3 +116,14 @@ var getAudioQueueIndexByKey = function(key) {
   }
 };
 
+var onWakeFromSleep = function(callback) {
+  // detect sleep
+  var thenTime = (new Date()).getTime();
+  setInterval(function() {
+    if (((new Date()).getTime() - thenTime) > 4000) {  //4 secs
+      callback();
+    }
+    thenTime = (new Date()).getTime();
+  }, 2000);
+};
+

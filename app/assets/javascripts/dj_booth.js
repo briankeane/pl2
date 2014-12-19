@@ -23,9 +23,6 @@
         }
       });
 
-    // ********************************************
-    // *           stationPlayer                  *
-    // ********************************************
     // set up progressbar updating
     $(document).on('playerStarted', function() {
        setInterval(function() { updateProgressBar(); }, 500);
@@ -242,6 +239,11 @@
     // set up mute button
     $('.muteButton').click(function() {
       toggleStationMute();
+    });
+
+    // refresh page on wake from sleep
+    onWakeFromSleep(function() {
+      location = location;
     });
 
     // ********************************************

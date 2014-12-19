@@ -157,7 +157,7 @@ var webAudioStationPlayer = function(attrs) {
     
     var callback = function(result) {
       self.audioQueue.push(result);
-      loadAudio(self.audiQueue[self.audioQueue.length - 1].key);
+      loadAudio(self.audioQueue[self.audioQueue.length - 1].key);
     };
 
     var spinInfo = {};
