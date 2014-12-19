@@ -359,6 +359,12 @@ module PL
         songs
       end
 
+      def get_songs_by_title_and_artist(attrs)
+        ar_songs = Song.where(["LOWER(title) = ? and LOWER(artist) = ?", attrs[:title].downcase, attrs[:artist].downcase])
+        songs = ar_songs.map { |song| song.to_pl }
+        songs
+      end
+
       def get_song_by_echonest_id(echonest_id)
         ar_song = Song.find_by('echonest_id = ?', echonest_id)
         

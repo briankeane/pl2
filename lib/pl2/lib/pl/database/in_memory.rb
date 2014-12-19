@@ -159,6 +159,13 @@ module PL
                                         ab.artist.match(/^#{artist}/) }.sort_by { |x| x.title }
       end
 
+      def get_songs_by_title_and_artist(attrs)
+        songs = @audio_blocks.values.select { |song| song.is_a?(PL::Song) && 
+                                              song.title.downcase == attrs[:title].downcase &&
+                                              song.artist.downcase == attrs[:artist].downcase }
+        songs
+      end
+
       def get_song_by_echonest_id(echonest_id)
         @audio_blocks.values.find { |x| x.echonest_id == echonest_id }
       end
