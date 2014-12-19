@@ -28,7 +28,8 @@ module PL
       # return failure if song exists
       if PL.db.song_exists?({ artist: tags[:artist], title: tags[:title], album: tags[:album] })
         ash.delete_unprocessed_song(key)
-        return failure(:song_already_exists, { tags: tags, key: key })
+        song = PL.db.get_songs_by_title_and_artist({ artist: tags[:artist], title: tags[:title] })[0]
+        return failure(:song_already_exists, { tags: tags, key: key, song: song })
       end
 
       # return failure if tags incomplete

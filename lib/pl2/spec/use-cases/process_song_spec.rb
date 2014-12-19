@@ -33,7 +33,7 @@ describe 'process_song' do
 
   it 'does not add a song already in the library' do
     VCR.use_cassette('process_song/song_in_library') do
-      PL.db.create_song({ artist: 'Brian Keane',
+      song = PL.db.create_song({ artist: 'Brian Keane',
                           album: '90 Miles an Hour',
                           title: "03 Tractors Ain't Sexy",
                           duration: 5 })
@@ -45,6 +45,7 @@ describe 'process_song' do
       result = PL::ProcessSong.run('mine.mp3')
       expect(result.success?).to eq(false)
       expect(result.error).to eq(:song_already_exists)
+      expect(result.song.id).to eq(song.id)
     end   
   end
 
