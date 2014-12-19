@@ -1,5 +1,3 @@
-
-
 (function(){
   if ($('body.uploads.new').length) { 
     var filepickerApiKey = $('.filepicker_info').attr('data-api-key');
@@ -37,6 +35,7 @@
               var correspondingDiv = '*[data-key="' + result.table.unprocessed_key + '"]';
               
               if (result.table.error === "song_already_exists") {
+                $(correspondingDiv).attr("data-songId", result.table.song.id);
                 markAsAlreadyUploaded(correspondingDiv);
               } else if ((result.table.error === "no_title_in_tags") ||
                         (result.table.error === "no_artist_in_tags") ||
@@ -229,6 +228,8 @@
       $(correspondingDiv + ' .status').text('Already Uploaded');
       $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
       $(correspondingDiv + ' .processing-icon').addClass('hide');
+      $(correspondingDiv + ' .status').text('Info Needed');
+      $(correspondingDiv + ' .status').append('<button class="addToMyStationButton tiny button">Add to my Station</button>');
     };
 
     var markAsAdded = function(correspondingDiv) {

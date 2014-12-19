@@ -14,13 +14,14 @@
         $('#nowPlayingList .nowPlaying').addClass('song');
         $('#nowPlayingList .nowPlaying .title').text(gon.player.audioQueue[0].title);
         $('#nowPlayingList .nowPlaying .artist').text(gon.player.audioQueue[0].artist);
+        $('#nowPlayingList .nowPlaying').attr('data-songId', gon.player.audioQueue[0].id);
 
         // add button
         var html = '<button class="addToMyStationButton">Add Song To My Station</button>';
         $('#nowPlayingList .nowPlaying .artist').after(html);
-        $('#nowPlayingList .nowPlaying .addToMyStationButton').attr('data-songId', gon.player.audioQueue[0].audio_block_id);
+        $('#nowPlayingList .nowPlaying .addToMyStationButton').attr('data-songId', gon.player.audioQueue[0].id);
 
-        if (gon.player.audioQueue[0].audio_block_id in gon.currentStation.spins_per_week) {
+        if (gon.player.audioQueue[0].id in gon.currentStation.spins_per_week) {
           $('#nowPlayingList .nowPlaying .addToMyStationButton').addClass('disabled');
           $('#nowPlayingList .nowPlaying .addToMyStationButton').text('Song Added');
         }
@@ -63,19 +64,6 @@
       updateNowPlaying();
       if (gon.player.justPlayed.type === 'Song') {
         advanceSongHistory();
-      }
-    });
-
-    $(document).on('click', '.addToMyStationButton', function() {
-      if (!$(this).hasClass('disabled')) {
-        var songId = parseInt($(this).attr('data-songId'));
-        createSpinPerWeekListItem({ id: songId,
-                      spinFrequency: 'Medium' });
-        $(this).addClass('disabled');
-        $(this).text('Song Added');
-
-        // edit the currentStation object in the browser
-        gon.currentStation.spins_per_week[songId] = 17;
       }
     });
 

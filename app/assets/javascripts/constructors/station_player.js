@@ -242,13 +242,18 @@ var webAudioStationPlayer = function(attrs) {
   };
 
   this.startPlayer = function() {
-    for (var i=0; i<self.audioQueue.length; i++) {
-      loadAudio(self.audioQueue[i].key);
-    }
+    loadAudio(self.audioQueue[0].key);
+
+    $(document).on('playerStarted', function() {    // once 1st song has been loaded
+      for (var i=0; i<self.audioQueue.length; i++) {
+        loadAudio(self.audioQueue[i].key);
+      }
+      
+      var msTillAdvanceSpin = (self.audioQueue[1].airtime_in_ms - Date.now());
+      setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
+    });
 
     // set the next advance
-    var msTillAdvanceSpin = (self.audioQueue[1].airtime_in_ms - Date.now());
-    setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
 
   }; // end this.startPlayer
 
@@ -283,17 +288,26 @@ var webAudioStationPlayer = function(attrs) {
         source.buffer = buffer;
         source.connect(self.gainNode);
         for (var i=0; i<self.audioQueue.length; i++) {
+          var foundAMatch = false;
           if (self.audioQueue[i].key === url) {
+            foundAMatch = true;
             self.audioQueue[i].source = source;
             
             // if it's the first station spin, start it in the proper place
-            if ((i === 0) && (!self.musicStarted)) {
-              self.musicStarted = true;
-              source.start(0,(Date.now() - self.audioQueue[0].airtime_in_ms)/1000);
-              $(document).trigger('playerStarted');
+            if (!self.musicStarted) {
+
+              // if it's still within the 1st spin's airtime
+              if ((new Date() < self.audioQueue[1].airtime_in_ms)) {
+                self.musicStarted = true;
+                source.start(0,(Date.now() - self.audioQueue[0].airtime_in_ms)/1000);
+                $(document).trigger('playerStarted');
+              } else {   // advance time passed during loading
+                self.audioQueue.shift();
+                loadAudio(self.audioQueue[0].key);
+              }
             }
           }
-        }
+        }  //endfor
       });
     };
     request.send();

@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
         obj[:key] = 'http://songs.playola.fm/' + spin.audio_block.key
         obj[:artist] = spin.audio_block.artist
         obj[:title] = spin.audio_block.title
+        obj[:id] = spin.audio_block.id
       when spin.audio_block.is_a?(PL::Commentary)
         obj[:type] = 'Commentary'
         obj[:key] = 'http://s3-us-west-2.amazonaws.com/playolacommentaries/' + spin.audio_block.key

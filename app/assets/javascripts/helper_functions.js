@@ -102,8 +102,9 @@ var createSpinPerWeekListItem = function(data) {
     data: JSON.stringify({ song_id: data.id,
                           spins_per_week: data.spinFrequency }),
     success: function(result) {
-      console.log('Success! Created!');
-      console.log(result);
+      if (result.table.station) {
+        gon.currentStation = result.station;
+      }
     }
   });
 };
