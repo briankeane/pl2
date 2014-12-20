@@ -35,8 +35,8 @@
               var correspondingDiv = '*[data-key="' + result.table.unprocessed_key + '"]';
               
               if (result.table.error === "song_already_exists") {
-                $(correspondingDiv).attr("data-songId", result.table.song.id);
                 markAsAlreadyUploaded(correspondingDiv);
+                $(correspondingDiv + ' .addToMyStationButton').attr("data-songId", result.table.song.id);
               } else if ((result.table.error === "no_title_in_tags") ||
                         (result.table.error === "no_artist_in_tags") ||
                         (result.table.error === "no_echonest_match_found")) {

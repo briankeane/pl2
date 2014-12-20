@@ -7,7 +7,6 @@ $(document).ready(function() {
                     spinFrequency: 'Medium' });
       $(this).addClass('disabled');
       $(this).text('Song Added');
-      
     }
   });
 });

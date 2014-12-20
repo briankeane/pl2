@@ -103,7 +103,7 @@ var createSpinPerWeekListItem = function(data) {
                           spins_per_week: data.spinFrequency }),
     success: function(result) {
       if (result.table.station) {
-        gon.currentStation = result.station;
+        gon.currentStation = result.table.station;
       }
     }
   });
