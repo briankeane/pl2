@@ -174,6 +174,44 @@ var webAudioStationPlayer = function(attrs) {
     });
   };
 
+  var updateAudioQueue = function() {
+      
+    // create callback for ajax request
+    var callback = function(result) {
+      console.log(result);
+      var newSong = {};
+
+      // reformat response for js
+      if (result.type != 'CommercialBlock') {
+        result.artist = result.audio_block.artist;
+        result.title = result.audio_block.title;
+      }
+
+      self.audioQueue.push(result);
+      var index = self.audioQueue.length - 1;
+      loadAudio(result.key);
+
+      // if commercials follow that spin
+      if (result["commercials_follow?"]) {
+        getCommercialBlockForBroadcast(result.currentPosition);
+      }
+      
+      // make recursive calls until audioQueue is filled
+      if (self.audioQueue.length < 4) {
+        updateAudioQueue();
+      }
+    };
+      
+    // get the newest spin
+    var spinInfo = {};
+    spinInfo.currentPosition = self.audioQueue[self.audioQueue.length - 1].currentPosition + 1;
+    spinInfo.lastCurrentPosition = spinInfo.currentPosition;
+    spinInfo.stationId = self.stationId;
+    
+    getSpinByCurrentPosition(spinInfo, callback);
+
+  };
+
   var advanceSpin = function() {
     console.log('advancing spin...');
 
@@ -186,46 +224,16 @@ var webAudioStationPlayer = function(attrs) {
 
     self.audioQueue[0].source.start(0); 
 
+    self.updateAudioQueue();
     // set the next advance
     var msTillAdvanceSpin = (self.audioQueue[1].airtime_in_ms - Date.now());
     setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
 
-    if (self.audioQueue.length<4) { 
-      
-      // create callback for ajax request
-      var updateQueue = function(result) {
-        console.log(result);
-        var newSong = {};
+    // report the listen
+    self.reportListen();
 
-        // reformat response for js
-        if (result.type != 'CommercialBlock') {
-          result.artist = result.audio_block.artist;
-          result.title = result.audio_block.title;
-        }
-
-        self.audioQueue.push(result);
-        var index = self.audioQueue.length - 1;
-        loadAudio(result.key);
-
-        // if commercials follow that spin
-        if (result["commercials_follow?"]) {
-          getCommercialBlockForBroadcast(result.currentPosition);
-        }
-        return result;
-      };
-        
-      // get the newest spin
-      var spinInfo = {};
-      spinInfo.currentPosition = self.audioQueue[self.audioQueue.length - 1].currentPosition + 1;
-      spinInfo.lastCurrentPosition = spinInfo.currentPosition;
-      spinInfo.stationId = self.stationId;
-      
-      getSpinByCurrentPosition(spinInfo, updateQueue);
-      
-      // report the listen
-      self.reportListen();
-      $(document).trigger('spinAdvanced');
-    }
+    $(document).trigger('spinAdvanced');
+    
   };
 
   this.reportListen = function() {

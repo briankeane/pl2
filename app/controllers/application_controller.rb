@@ -30,7 +30,7 @@ class ApplicationController < ActionController::Base
       case
       when spin.is_a?(PL::CommercialBlock)
         obj[:type] = 'CommercialBlock'
-        obj[:key] = 'http://s3-us-west-2.amazonaws.com/playolacommercialblocks/' + spin.key
+        obj[:key] = 'http://commercialblocks.playola.fm/' + spin.key
       when spin.audio_block.is_a?(PL::Song)
         obj[:type] = 'Song'
         obj[:key] = 'http://songs.playola.fm/' + spin.audio_block.key
@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
         obj[:id] = spin.audio_block.id
       when spin.audio_block.is_a?(PL::Commentary)
         obj[:type] = 'Commentary'
-        obj[:key] = 'http://s3-us-west-2.amazonaws.com/playolacommentaries/' + spin.audio_block.key
+        obj[:key] = 'http://commentaries.playola.fm/' + spin.audio_block.key
       end
 
       obj[:currentPosition] = spin.current_position

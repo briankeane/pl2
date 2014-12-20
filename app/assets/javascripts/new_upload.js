@@ -228,8 +228,8 @@
       $(correspondingDiv + ' .status').text('Already Uploaded');
       $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
       $(correspondingDiv + ' .processing-icon').addClass('hide');
-      $(correspondingDiv + ' .status').text('Info Needed');
-      $(correspondingDiv + ' .status').append('<button class="addToMyStationButton tiny button">Add to my Station</button>');
+      $(correspondingDiv + ' .status').after('<button class="addToMyStationButton tiny button">Add to my Station</button>');
+      $(correspondingDiv).addClass('four-item-li');
     };
 
     var markAsAdded = function(correspondingDiv) {

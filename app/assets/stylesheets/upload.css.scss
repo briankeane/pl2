@@ -85,9 +85,26 @@ fieldset legend {
 }
 
 #uploaded-song-list {
+
   .alert-box.success {
     background-color: $successful-upload;
     border-color: $successful-upload-border;
+    .filename {
+      width: 39%;
+    }
+    .status {
+      width: 20%;
+      margin-left: 13px;
+    }
+    .addToMyStationButton {
+      display: inline-block;
+      margin-top: 1.0px;
+      width: 25%;
+      float: left;
+      margin-left: 35px;
+      line-height: 100%;
+      padding-top: .5em;
+    }
   }
   .alert-box {
     height: 25px;
@@ -111,12 +128,43 @@ fieldset legend {
     .status.button {
       float: none;
       color: white;
+
+    }
+    .addToMyStation {
+      padding-top: 0.125rem;
+      display: inline-block;
+      margin-top: 1.0px;
+      width: 25%;
+      float: left;
+      margin-left: 35px;
     }
     .processing-icon {
       height: 20px;
       width: 20px;
       float: right;
       margin-right: 9px;
+    }
+  }
+}
+
+#uploaded-song-list{
+  &.four-item-li {
+    &.alert-box {
+      .filename {
+        width: 39%;
+
+      }
+      .status {
+        width: 20%;
+        margin-left: 13px;
+      }
+      .addToMyStation {
+        display: inline-block;
+        margin-top: 1.0px;
+        width: 25%;
+        float: left;
+        margin-left: 35px;
+      }
     }
   }
 }
