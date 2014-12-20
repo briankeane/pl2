@@ -56,6 +56,7 @@
                 $(correspondingDiv + ' .status').text('File is Encrypted');
               } else if (!result.table.error) {
                 markAsAdded(correspondingDiv);
+                $(correspondingDiv + ' .addToMyStationButton').attr("data-songId", result.table.song.id);
               }
             },
             error : function(error) {
@@ -234,10 +235,12 @@
 
     var markAsAdded = function(correspondingDiv) {
       $(correspondingDiv).addClass("success");
-      $(correspondingDiv + ' .status').text('Song has been Added');
+      $(correspondingDiv + ' .status').text('Added');
       $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
       $(correspondingDiv + ' .processing-icon').addClass('hide');
       $(correspondingDiv + ' .status').removeClass('button');
+      $(correspondingDiv + ' .status').after('<button class="addToMyStationButton tiny button">Add to my Station</button>');
+      $(correspondingDiv).addClass('four-item-li');
     };
 
     var markAsProcessing = function(correspondingDiv) {
