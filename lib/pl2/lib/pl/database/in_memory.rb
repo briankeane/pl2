@@ -789,6 +789,10 @@ module PL
         end
         followers
       end
+
+      def delete_preset(attrs)
+        @presets[attrs[:user_id]].delete(attrs[:station_id])
+      end
       ######################
       #  Listening Session #
       ######################

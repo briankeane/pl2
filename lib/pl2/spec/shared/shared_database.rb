@@ -915,6 +915,19 @@ shared_examples 'a badass database' do
       expect(db.get_followers(3).include?(3)).to eq(false)
       expect(db.get_followers(2).include?(4)).to eq(false)
     end
+
+    it 'deletes a preset' do
+      entry1 = db.store_preset({ user_id: 1, station_id: 2 })
+      entry2 = db.store_preset({ user_id: 2, station_id: 2 })
+      entry3 = db.store_preset({ user_id: 3, station_id: 2 })
+      entry4 = db.store_preset({ user_id: 4, station_id: 3 })
+      expect(db.get_followers(2).size).to eq(3)
+      db.delete_preset({ user_id: 1, station_id: 2 })
+      expect(db.get_followers(2).size).to eq(2)
+      expect(db.get_followers(2).include?(1)).to eq(false)
+      expect(db.get_followers(2).size).to eq(2)
+      expect(db.get_presets(1).include?(2)).to eq(false)
+    end
   end
 
 

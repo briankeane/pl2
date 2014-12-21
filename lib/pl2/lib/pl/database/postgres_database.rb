@@ -993,6 +993,12 @@ module PL
         end
         presets_id_array
       end
+
+      def delete_preset(attrs)
+        preset = Preset.where("user_id = ? and station_id = ?", attrs[:user_id], attrs[:station_id])[0]
+        preset.destroy if preset
+      end
+
       
       ########################
       #  Listening Sessions  #
