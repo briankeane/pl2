@@ -25,13 +25,6 @@ module PL
         return failure :file_is_encrypted
       end
       
-      # return failure if song exists
-      if PL.db.song_exists?({ artist: tags[:artist], title: tags[:title], album: tags[:album] })
-        ash.delete_unprocessed_song(key)
-        song = PL.db.get_songs_by_title_and_artist({ artist: tags[:artist], title: tags[:title] })[0]
-        return failure(:song_already_exists, { tags: tags, key: key, song: song })
-      end
-
       # return failure if tags incomplete
       case 
       when !tags[:title] || tags[:title].strip.size == 0
@@ -39,6 +32,14 @@ module PL
       when !tags[:artist] || tags[:artist].strip.size == 0
         return failure(:no_artist_in_tags, {tags: tags, key: key })
       end
+      
+      # return failure if song exists
+      if PL.db.song_exists?({ artist: tags[:artist], title: tags[:title], album: tags[:album] })
+        ash.delete_unprocessed_song(key)
+        song = PL.db.get_songs_by_title_and_artist({ artist: tags[:artist], title: tags[:title] })[0]
+        return failure(:song_already_exists, { tags: tags, key: key, song: song })
+      end
+
 
       #perform conversion if necessary
       case 
