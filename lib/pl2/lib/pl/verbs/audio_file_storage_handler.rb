@@ -1,10 +1,22 @@
 require 'aws-sdk'
+require 'i18n'
 
 module PL
   class AudioFileStorageHandler
 
     def initialize
       @s3 = AWS::S3.new
+    end
+
+    def clean_characters(attrs)
+      attrs.each do |k, v| 
+        if v.is_a?(String) && (k != :key)
+          attrs[k] = I18n.transliterate(v)
+        else
+          attrs[k] = v
+        end
+      end
+      attrs
     end
 
     def grab_audio(audio_block)
@@ -104,13 +116,19 @@ module PL
     def update_stored_song_metadata(attrs)
       bucket = @s3.buckets[S3['SONGS_BUCKET']]
 
-      aws_song_object = bucket.objects[attrs[:key]]
-      aws_song_object.metadata[:pl_title] = attrs[:title] if attrs[:title]
-      aws_song_object.metadata[:pl_artist] = attrs[:artist] if attrs[:artist]
-      aws_song_object.metadata[:pl_album] = attrs[:album] if attrs[:album]
-      aws_song_object.metadata[:pl_duration] = attrs[:duration] if attrs[:duration]
-      aws_song_object.metadata[:pl_echonest_id] = attrs[:echonest_id] if attrs[:echonest_id]
+      begin
+        aws_song_object = bucket.objects[attrs[:key]]
 
+        attrs = self.clean_characters(attrs)
+        aws_song_object.metadata[:pl_title] = attrs[:title] if attrs[:title]
+        aws_song_object.metadata[:pl_artist] = attrs[:artist] if attrs[:artist]
+        aws_song_object.metadata[:pl_album] = attrs[:album] if attrs[:album]
+        aws_song_object.metadata[:pl_duration] = attrs[:duration] if attrs[:duration]
+        aws_song_object.metadata[:pl_echonest_id] = attrs[:echonest_id] if attrs[:echonest_id]
+      rescue AWS::S3::Errors::SignatureDoesNotMatch
+        puts "Signature Does not match error"
+        retry
+      end
     end
 
     def get_stored_song_metadata(key)

@@ -156,12 +156,18 @@ module PL
     end
 
     def get_echonest_info(attrs) # takes title and artist
-      song_list = Echowrap.song_search({ combined: { 
-                                            artist: (attrs[:artist] ||= ''), 
-                                            title: (attrs[:title] ||= '')
-                                          }, 
-                                          results: 10 
-                                        })
+      begin
+        song_list = Echowrap.song_search({ combined: { 
+                                              artist: (attrs[:artist] ||= ''), 
+                                              title: (attrs[:title] ||= '')
+                                            }, 
+                                            results: 10 
+                                          })
+      rescue Echowrap::Error
+        puts "timeout error... retrying"
+        retry
+      end
+
       echo_tags = song_list[0].attrs
 
 
@@ -199,10 +205,14 @@ module PL
       echo_tags[:title_match_rating] = jarow.getDistance(attrs[:title].downcase, echo_tags[:title].downcase)
 
       # grab genre tags
-      echo_tags[:genres] = Echowrap.artist_profile({ :name => echo_tags[:artist], 
+      begin
+        echo_tags[:genres] = Echowrap.artist_profile({ :name => echo_tags[:artist], 
                                         :bucket => 'genre' 
                                         }).attrs[:genres].map { |x| x[:name] } # returns an array of strings
-
+      rescue Echowrap::Error
+        puts "timeout error... retrying"
+        retry
+      end
 
 
 

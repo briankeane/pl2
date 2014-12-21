@@ -174,6 +174,7 @@ namespace :db do
 
       puts "   match: " + echonest_info[:artist_match_rating].round(3).to_s + (' ' * (50 - echonest_info[:artist_match_rating].round(3).to_s.size)) + echonest_info[:title_match_rating].round(3).to_s
       
+      puts "song number : " + (i + 1).to_s
       if finalized_info[:echonest_id] == nil
         puts "ECHONEST_ID NOT UPDATED"
       end
