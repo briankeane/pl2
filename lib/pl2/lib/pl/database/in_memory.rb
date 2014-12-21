@@ -32,6 +32,8 @@ module PL
         @listening_session_counter = 200
         @genre_id_counter = 150
         @genres = {}
+        @presets = {}
+        @presets_counter = 150
       end
 
       ##############
@@ -763,6 +765,17 @@ module PL
         end
       end
 
+      #####################
+      #  Twitter Friends  #
+      #####################
+      def store_preset(attrs)
+      end
+
+      def get_presets(user_id)
+      end
+
+      def get_followers(station_id)
+      end
       ######################
       #  Listening Session #
       ######################

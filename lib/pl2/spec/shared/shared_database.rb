@@ -883,6 +883,43 @@ shared_examples 'a badass database' do
     end
   end
 
+  #####################
+  #  Twitter Friends  #
+  #####################
+  describe 'presets' do
+    it 'creates a preset' do
+      entry = db.store_preset({ user_id: 1, station_id: 2 })
+      expect(db.get_presets(1).to eq(2))
+    end
+
+    it 'gets a users presets' do
+      entry1 = db.store_preset({ user_id: 1, station_id: 2 })
+      entry2 = db.store_preset({ user_id: 1, station_id: 3 })
+      entry3 = db.store_preset({ user_id: 1, station_id: 4 })
+      entry4 = db.store_preset({ user_id: 2, station_id: 5 })
+      expect(db.get_presets(1).size).to eq(3)
+      expect(db.get_presets(2).size).to eq(1)
+      expect(db.get_presets(1).include?(1)).to eq(true)
+      expect(db.get_presets(1).include?(5)).to eq(false)
+      expect(db.get_presets(2).include?(5)).to eq(true)
+    end
+
+    it 'gets a stations followers' do
+      entry1 = db.store_preset({ user_id: 1, station_id: 2 })
+      entry2 = db.store_preset({ user_id: 2, station_id: 2 })
+      entry3 = db.store_preset({ user_id: 3, station_id: 2 })
+      entry4 = db.store_preset({ user_id: 4, station_id: 3 })
+      expect(db.get_followers(2).size).to eq(3)
+      expect(db.get_followers(2).include?(3)).to eq(true)
+      expect(db.get_followers(3).include?(4)).to eq(true)
+      expect(db.get_followers(3).include?(3)).to eq(false)
+      expect(db.get_followers(2).include?(3)).to eq(false)
+    end
+  end
+
+
+
+
   ######################
   #  Listening Session #
   ######################
