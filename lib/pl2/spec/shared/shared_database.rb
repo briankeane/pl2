@@ -884,7 +884,7 @@ shared_examples 'a badass database' do
   end
 
   #####################
-  #  Twitter Friends  #
+  #      Presets      #
   #####################
   describe 'presets' do
     it 'creates a preset' do
@@ -916,8 +916,6 @@ shared_examples 'a badass database' do
       expect(db.get_followers(2).include?(4)).to eq(false)
     end
   end
-
-
 
 
   ######################

@@ -100,6 +100,11 @@ module PL
         belongs_to :station
       end
 
+      class Preset < ActiveRecord::Base
+        belongs_to :user
+        belongs_to :station
+      end
+
       class ListeningSession < ActiveRecord::Base
         belongs_to :station
         belongs_to :user
@@ -959,6 +964,34 @@ module PL
         else
           return station_ids.sort
         end
+      end
+
+      #####################
+      #      Presets      #
+      #####################
+      def store_preset(attrs)
+        # create the preset if it doesn't already exist
+        if !Preset.exists?({ user_id: attrs[:user_id], station_id: attrs[:station_id] })
+          Preset.create({ user_id: attrs[:user_id], station_id: attrs[:station_id] })
+        end
+      end
+
+      def get_presets(user_id)
+        presets = Preset.where("user_id = ?", user_id)
+        presets_id_array = []
+        presets.each do |preset|
+          presets_id_array << preset.station_id
+        end
+        presets_id_array
+      end
+
+      def get_followers(station_id)
+        presets = Preset.where("station_id = ?", station_id)
+        presets_id_array = []
+        presets.each do |preset|
+          presets_id_array << preset.user_id
+        end
+        presets_id_array
       end
       
       ########################

@@ -4,5 +4,6 @@ class CreatePresetsTable < ActiveRecord::Migration
     create_table(:presets) do |t|
       t.integer :user_id
       t.integer :station_id
+    end
   end
 end
