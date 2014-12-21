@@ -766,15 +766,28 @@ module PL
       end
 
       #####################
-      #  Twitter Friends  #
+      #      Presets      #
       #####################
       def store_preset(attrs)
+        # create the setting if it doesn't exist
+        @presets[attrs[:user_id]] = [] if !@presets[attrs[:user_id]]
+
+        # add the preset if it doesn't already exist
+        @presets[attrs[:user_id]] << attrs[:station_id] if !@presets[attrs[:user_id]].include?(attrs[:station_id])
       end
 
       def get_presets(user_id)
+        @presets[user_id] || []
       end
 
       def get_followers(station_id)
+        followers = []
+        @presets.each do |k,v|
+          if v.include?(station_id)
+            followers << k
+          end
+        end
+        followers
       end
       ######################
       #  Listening Session #
