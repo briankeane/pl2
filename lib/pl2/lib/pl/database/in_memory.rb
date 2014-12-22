@@ -768,7 +768,7 @@ module PL
       #####################
       #      Presets      #
       #####################
-      def store_preset(attrs)
+      def create_preset(attrs)
         # create the setting if it doesn't exist
         @presets[attrs[:user_id]] = [] if !@presets[attrs[:user_id]]
 

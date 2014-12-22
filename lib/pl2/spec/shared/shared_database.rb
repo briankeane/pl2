@@ -888,15 +888,15 @@ shared_examples 'a badass database' do
   #####################
   describe 'presets' do
     it 'creates a preset' do
-      entry = db.store_preset({ user_id: 1, station_id: 2 })
+      entry = db.create_preset({ user_id: 1, station_id: 2 })
       expect(db.get_presets(1)).to eq([2])
     end
 
     it 'gets a users presets' do
-      entry1 = db.store_preset({ user_id: 1, station_id: 2 })
-      entry2 = db.store_preset({ user_id: 1, station_id: 3 })
-      entry3 = db.store_preset({ user_id: 1, station_id: 4 })
-      entry4 = db.store_preset({ user_id: 2, station_id: 5 })
+      entry1 = db.create_preset({ user_id: 1, station_id: 2 })
+      entry2 = db.create_preset({ user_id: 1, station_id: 3 })
+      entry3 = db.create_preset({ user_id: 1, station_id: 4 })
+      entry4 = db.create_preset({ user_id: 2, station_id: 5 })
       expect(db.get_presets(1).size).to eq(3)
       expect(db.get_presets(2).size).to eq(1)
       expect(db.get_presets(1).include?(2)).to eq(true)
@@ -905,10 +905,10 @@ shared_examples 'a badass database' do
     end
 
     it 'gets a stations followers' do
-      entry1 = db.store_preset({ user_id: 1, station_id: 2 })
-      entry2 = db.store_preset({ user_id: 2, station_id: 2 })
-      entry3 = db.store_preset({ user_id: 3, station_id: 2 })
-      entry4 = db.store_preset({ user_id: 4, station_id: 3 })
+      entry1 = db.create_preset({ user_id: 1, station_id: 2 })
+      entry2 = db.create_preset({ user_id: 2, station_id: 2 })
+      entry3 = db.create_preset({ user_id: 3, station_id: 2 })
+      entry4 = db.create_preset({ user_id: 4, station_id: 3 })
       expect(db.get_followers(2).size).to eq(3)
       expect(db.get_followers(2).include?(3)).to eq(true)
       expect(db.get_followers(3).include?(4)).to eq(true)
@@ -917,10 +917,10 @@ shared_examples 'a badass database' do
     end
 
     it 'deletes a preset' do
-      entry1 = db.store_preset({ user_id: 1, station_id: 2 })
-      entry2 = db.store_preset({ user_id: 2, station_id: 2 })
-      entry3 = db.store_preset({ user_id: 3, station_id: 2 })
-      entry4 = db.store_preset({ user_id: 4, station_id: 3 })
+      entry1 = db.create_preset({ user_id: 1, station_id: 2 })
+      entry2 = db.create_preset({ user_id: 2, station_id: 2 })
+      entry3 = db.create_preset({ user_id: 3, station_id: 2 })
+      entry4 = db.create_preset({ user_id: 4, station_id: 3 })
       expect(db.get_followers(2).size).to eq(3)
       db.delete_preset({ user_id: 1, station_id: 2 })
       expect(db.get_followers(2).size).to eq(2)

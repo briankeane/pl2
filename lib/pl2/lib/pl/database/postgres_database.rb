@@ -969,7 +969,7 @@ module PL
       #####################
       #      Presets      #
       #####################
-      def store_preset(attrs)
+      def create_preset(attrs)
         # create the preset if it doesn't already exist
         if !Preset.exists?({ user_id: attrs[:user_id], station_id: attrs[:station_id] })
           Preset.create({ user_id: attrs[:user_id], station_id: attrs[:station_id] })
