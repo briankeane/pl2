@@ -5,11 +5,12 @@
         <div class="listens-station small-4 columns">
           <h1 class="listens-title">@<%= @listen_user.twitter %></h1>
           <img id="listens-pic" src="<%= @listen_user.profile_image_url %>" />
-          
+
           <% if @current_user_presets.include?(@current_station.id) %>
-            <button class='addToMyPresets add' data-stationId="<%= @listen_station.id %>">Add Station to My Presets</button>
-          <% else %>
             <button class='addToMyPresets remove' data-stationId="<%= @listen_station.id %>">Remove From Presets</button>
+
+          <% else %>
+            <button class='addToMyPresets add' data-stationId="<%= @listen_station.id %>">Add Station to My Presets</button>
           <% end %>
         </div>
 
