@@ -1,6 +1,6 @@
 (function(){
   if ($('body.stations.show').length) {
-  
+    
     var updateNowPlaying = function() {
       // clear the previous class
       $('#nowPlayingList .nowPlaying').removeClass('song');

@@ -4,6 +4,8 @@ class StationsController < ApplicationController
   def index
     @current_station = current_station
     @top_stations = PL::GetTopStations.run().top_stations
+    presets = PL.db.get_presets(current_user.id)
+    @preset_stations = presets.map { |station_id| PL.db.get_station(station_id) }
   end
 
   def show
@@ -17,9 +19,14 @@ class StationsController < ApplicationController
     # load audioQueue array
     gon.audioQueue = get_audio_queue(@listen_station.id)
 
+    @current_station = current_station
     gon.currentStation = current_station
     gon.stationId = @listen_station.id
 
+    @current_user = current_user
+    gon.currentUser = current_user
+    @current_user_presets = PL.db.get_presets(current_user.id)
+    gon.currentUserPresets = @current_user_presets
     # grab the 10 most recent songs
     @log = PL.db.get_recent_log_entries({ station_id: @listen_station.id, count: 30 })
     @log.shift  # get rid of now_playing

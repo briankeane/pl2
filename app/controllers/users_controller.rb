@@ -17,6 +17,16 @@ class UsersController < ApplicationController
   def show
   end
 
+  def create_preset
+    result = PL::CreatePreset.run({ user_id: current_user.id, station_id: params[:station_id].to_i })
+    render :json => result
+  end
+
+  def delete_preset
+    result = PL::DeletePreset.run({ user_id: current_user.id, station_id: params[:station_id].to_i })
+    render :json => result
+  end
+
   def report_listener
     result = PL::ReportListener.run({ station_id: params[:stationId],
                                       user_id: current_user.id })
