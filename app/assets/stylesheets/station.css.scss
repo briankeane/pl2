@@ -8,7 +8,7 @@
 body .wall-without-mic-image {
   height: 100%;
   width: 100%;
-  background-image: url('../images/just_background.jpg');
+  background-image: url('http://static.playola.fm/just_background.jpg');
   background-size: cover;
   background-repeat: repeat-y;
 }
@@ -271,11 +271,11 @@ fieldset {
     width: 4%;
     float: left;
     background-size: cover;
-    background-image: url('../images/sound.png');
+    background-image: url('http://static.playola.fm/sound.png');
     height: 25px;
     &.muted {
       height: 25px;
-      background-image: url('../images/mute.png');
+      background-image: url('http://static.playola.fm//mute.png');
     }
   }
   .timeRemaining {
