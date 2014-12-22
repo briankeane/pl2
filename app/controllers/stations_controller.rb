@@ -126,9 +126,17 @@ class StationsController < ApplicationController
     result = PL::CreateStation.run({ user_id: current_user.id,
                                      spins_per_week: spins_per_week })
 
+
     current_station.generate_playlist(Time.now + (24*60*60))
 
     @first_visit = true
+
+    @current_user = current_user
+    gon.currentUser = current_user
+    @current_user_presets = PL.db.get_presets(current_user.id)
+    gon.currentUserPresets = @current_user_presets
+    presets = PL.db.get_presets(current_user.id)
+    @preset_stations = presets.map { |station_id| PL.db.get_station(station_id) }
 
     @top_stations = PL::GetTopStations.run().top_stations
     render stations_index_path
