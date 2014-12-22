@@ -310,7 +310,8 @@ var webAudioStationPlayer = function(attrs) {
                 source.start(0,(Date.now() - self.audioQueue[0].airtime_in_ms)/1000);
                 $(document).trigger('playerStarted');
               } else {   // advance time passed during loading
-                self.audioQueue.shift();
+                
+                self.justPlayed = self.audioQueue.shift();
                 loadAudio(self.audioQueue[0].key);
                 $(document).trigger('spinAdvanced');
               }
