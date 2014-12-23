@@ -198,7 +198,7 @@ class StationsController < ApplicationController
      # format time
     commercial_block_as_hash["airtimeForDisplay"] = time_formatter(commercial_block_as_hash[:airtime].in_time_zone(current_station.timezone))
     commercial_block_as_hash["currentPosition"] = commercial_block_as_hash[:current_position]
-    commercial_block_as_hash["key"] = "https://s3-us-west-2.amazonaws.com/playolacommercialblocks/" + commercial_block_as_hash[:key]
+    commercial_block_as_hash["key"] = "http//:commentaries.playola.fm/" + commercial_block_as_hash[:key]
     render :json => commercial_block_as_hash  
   end
 
@@ -298,7 +298,7 @@ class StationsController < ApplicationController
       spin_as_hash["key"] = 'http://songs.playola.fm/' + result.spin.audio_block.key
       spin_as_hash["type"] = "Song"
     elsif result.spin.audio_block.is_a?(PL::Commentary)
-      spin_as_hash["key"] = 'http://s3-us-west-2.amazonaws.com/playolacommentaries/' + result.spin.audio_block.key
+      spin_as_hash["key"] = 'http://commentaries.playola.fm/' + result.spin.audio_block.key
       spin_as_hash["type"] = "Commentary"
     end
 

@@ -60,7 +60,7 @@
                 <% else %>
                   <li class='commentary' data-currentPosition="<%= spin.current_position %>">
                     <span class='songlist-title'>Commentary</span>
-                    <span class="songlist-artist"><audio controls src="https://s3-us-west-2.amazonaws.com/playolacommentaries/<%=spin.audio_block.key %>"</audio></span>
+                    <span class="songlist-artist"><audio controls src="http://commentaries.playola.fm/<%=spin.audio_block.key %>"</audio></span>
                     <span class="songlist-airtime"><%= time_formatter(spin.airtime) %></span>
                     <a href="#" class="close" title="delete">×</a>
                   </li>
