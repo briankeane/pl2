@@ -193,12 +193,12 @@ class StationsController < ApplicationController
     result = PL::GetCommercialBlockForBroadcast.run({ station_id: params[:stationId].to_i,
                                               current_position: params[:currentPosition].to_i })
      
-     commercial_block_as_hash = result.commercial_block.to_hash   
+    commercial_block_as_hash = result.commercial_block.to_hash   
     
      # format time
     commercial_block_as_hash["airtimeForDisplay"] = time_formatter(commercial_block_as_hash[:airtime].in_time_zone(current_station.timezone))
     commercial_block_as_hash["currentPosition"] = commercial_block_as_hash[:current_position]
-    commercial_block_as_hash["key"] = "http//:commentaries.playola.fm/" + commercial_block_as_hash[:key]
+    commercial_block_as_hash["key"] = "http://commercialblocks.playola.fm/" + commercial_block_as_hash[:key]
     render :json => commercial_block_as_hash  
   end
 
