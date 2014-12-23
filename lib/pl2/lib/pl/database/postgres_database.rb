@@ -365,6 +365,9 @@ module PL
       end
 
       def get_songs_by_title_and_artist(attrs)
+        attrs[:title] = "" if !attrs[:title]
+        attrs[:artist] = "" if !attrs[:artist]
+        
         ar_songs = Song.where(["LOWER(title) = ? and LOWER(artist) = ?", attrs[:title].downcase, attrs[:artist].downcase])
         songs = ar_songs.map { |song| song.to_pl }
         songs

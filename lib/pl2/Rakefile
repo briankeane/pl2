@@ -45,7 +45,24 @@ namespace :db do
   task :clear_listening_sessions => [:load_app] do
     puts 'Clearing ListeningSessions...'
     PL.db.destroy_all_listening_sessions
-  end 
+  end
+
+  task :update_keys => [:load_app] do
+    ash = PL::AudioFileStorageHandler.new
+    all_songs = ash.get_all_songs
+    puts "updating_keys..."
+    all_songs.each_with_index do |stored_song, i|
+      db_song = PL.db.get_songs_by_title_and_artist({ title: stored_song.title,
+                                                      artist: stored_song.artist })[0]
+      if db_song && (db_song.key != stored_song.key)
+        PL.db.update_song({ id: db_song.id,
+                            key: stored_song.key })
+        puts i.to_s + ": " + stored_song.key
+      else
+        puts stored_song.key + ": unchanged"
+      end
+    end
+  end
 
   task :load_genres => [:load_app] do
     sp = PL::SongProcessor.new
