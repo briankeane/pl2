@@ -1,3 +1,5 @@
+require 'grape'
+
 module API
   class Root < Grape::API
     prefix "api"

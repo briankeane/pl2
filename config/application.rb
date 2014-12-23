@@ -15,8 +15,10 @@ Bundler.require(*Rails.groups)
 
 module Web
   class Application < Rails::Application
+    # for Grape api
     config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
     config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
@@ -34,7 +36,6 @@ module Web
         FILEPICKER_KEYS = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/filepicker_config.yml")[::Rails.env]
     end
     config.filepicker_rails.api_key = FILEPICKER_KEYS['API_KEY']
-  # for Grape api
   end
 end
 
