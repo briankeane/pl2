@@ -32,5 +32,9 @@ module Web
         FILEPICKER_KEYS = YAML.load_file("#{::Rails.root}/lib/pl2/secrets/filepicker_config.yml")[::Rails.env]
     end
     config.filepicker_rails.api_key = FILEPICKER_KEYS['API_KEY']
+  # for Grape api
+  config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
+  config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
   end
 end
+

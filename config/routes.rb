@@ -1,4 +1,8 @@
+
 Rails.application.routes.draw do
+  
+  # mount the api
+  mount API::Root => "/" 
   
   get 'stations/add_spin'
 
