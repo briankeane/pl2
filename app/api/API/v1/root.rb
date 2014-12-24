@@ -6,9 +6,9 @@ module API
       #error_format :json
 
       # load the rest of the API
-      mount V1::Auth
-      mount V1::Users
-      mount V1::Songs
+      mount API::V1::Auth
+      mount API::V1::Users
+      mount API::V1::Songs
     end
   end
 end
