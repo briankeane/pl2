@@ -14,7 +14,6 @@ module PL
     class PostgresDatabase
 
       def initialize(env)
-        
         config_path = File.join(File.dirname(__FILE__), '../../../db/config.yml')
         db_config = YAML.load ERB.new(File.read config_path).result
         print "  -- USING: #{env} - #{YAML.load_file(config_path)[env]}"  
