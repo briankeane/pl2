@@ -2,6 +2,9 @@ module API
   module V1 
     class Auth < Grape::API
       # /api/auth
+      version "v1"
+      format :json
+      
       resource :auth do
 
         #

@@ -2,6 +2,9 @@ module API
   module V1
     class Songs < Grape::API
       # /api/users
+      version "v1"
+      format :json
+      
       resource :songs do
 
         desc 'Returns pong'

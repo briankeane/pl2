@@ -1,7 +1,9 @@
 module API
   module V1
     class Users < Grape::API
-      # /api/users
+      version "v1"
+      format :json
+      
       resource :users do
 
         #
