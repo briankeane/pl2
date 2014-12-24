@@ -12,6 +12,9 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'bootstrap-sass', '3.1.1'
 gem 'compass-rails'
 
+gem 'grape', '~> 0.9.0'
+gem 'grape-swagger'
+
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
@@ -45,5 +48,3 @@ gem 'capistrano-bundler', '~> 1.1.2'
 gem 'capistrano-rails', '~> 1.1.1'
 gem 'capistrano-rvm', github: "capistrano/rvm"
 
-gem 'grape', '~> 0.9.0'
-gem 'grape-swagger'
