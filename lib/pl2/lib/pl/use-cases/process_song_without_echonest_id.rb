@@ -6,6 +6,7 @@ module PL
     def run(attrs)
       ash = PL::AudioFileStorageHandler.new
       sp = PL::SongProcessor.new
+      ac = PL::AudioConverter.new
 
       temp_song_file = ash.get_unprocessed_song_audio(attrs[:key])
       extension = File.extname(temp_song_file)
