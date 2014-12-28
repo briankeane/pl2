@@ -40,6 +40,9 @@ describe 'process_song_without_echonest_id' do
     end
   end
 
+  xit 'processes an mp4 and adds it to the library' do
+  end
+
   after(:all) do
     s3 = AWS::S3.new
     bucket = s3.buckets[S3['UNPROCESSED_SONGS']]

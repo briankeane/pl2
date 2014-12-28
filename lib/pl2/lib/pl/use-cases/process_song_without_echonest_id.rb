@@ -8,6 +8,16 @@ module PL
       sp = PL::SongProcessor.new
 
       temp_song_file = ash.get_unprocessed_song_audio(attrs[:key])
+      extension = File.extname(temp_song_file)
+
+      # get tags
+      case
+      when (extension == '.mp3') || (extension == '.wav')
+        tags = sp.get_id3_tags(temp_song_file)
+
+      when (extension == '.mp4') || (extension == '.m4a') || (extension == '.m4p')
+        tags = sp.get_id4_tags(temp_song_file)
+      end
       
       id3_tags = sp.get_id3_tags(temp_song_file)
 
@@ -36,6 +46,12 @@ module PL
 
       if PL.db.song_exists?(id3_tags)
         return failure :song_already_exists
+      end
+
+      #perform conversion if necessary
+      case 
+      when (extension == '.mp4') || (extension == '.m4a') || (extension == '.m4p')
+        temp_song_file = File.open(ac.mp4_to_mp3(temp_song_file.path))
       end
 
       # process the file
