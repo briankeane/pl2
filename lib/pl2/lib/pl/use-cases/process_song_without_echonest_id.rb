@@ -58,8 +58,6 @@ module PL
 
       ash.delete_unprocessed_song(attrs[:key])
 
-      temp_song_file.unlink
-
       return success :song => song
       
     end
