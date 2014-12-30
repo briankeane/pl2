@@ -2,6 +2,7 @@ class StationsController < ApplicationController
   include ApplicationHelper
   
   def index
+    return redirect_to welcome_home_path unless signed_in?
     return redirect_to station_new_path unless current_station
     @current_station = current_station
     @top_stations = PL::GetTopStations.run().top_stations
@@ -10,6 +11,7 @@ class StationsController < ApplicationController
   end
 
   def show
+    return redirect_to welcome_home_path unless signed_in?
     return redirect_to station_new_path unless current_station
     # grab info for view
     @listen_station = PL.db.get_station(params[:id].to_i)
@@ -37,6 +39,7 @@ class StationsController < ApplicationController
   end
 
   def dj_booth
+    return redirect_to welcome_home_path unless signed_in?
     return redirect_to station_new_path unless current_station
 
     result = PL::GetProgram.run({ station_id: current_station.id })
@@ -65,6 +68,7 @@ class StationsController < ApplicationController
   end
 
   def song_manager
+    return redirect_to welcome_home_path unless signed_in?
     return redirect_to station_new_path unless current_station
 
     @spins_per_week = {}
@@ -75,6 +79,7 @@ class StationsController < ApplicationController
   end
 
   def new
+    return redirect_to welcome_home_path unless signed_in?
     @songs = PL.db.get_all_songs
 
     # tell the browser whether or not to collect the user info
