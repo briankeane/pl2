@@ -63,7 +63,7 @@ module PL
 
       # trim silences
       trimmed_file_path = file_path.gsub('.','trimmed.')
-      system('sox ' + file_path + ' ' + trimmed_file_path + ' silence 1 0.1 0.1% reverse silence 1 0.1 0.1% reverse')
+      system('sox ' + file_path + ' ' + trimmed_file_path + ' silence 2 0.1 0.1% reverse silence 2 0.1 0.1% reverse')
       system('cp ' + trimmed_file_path + ' ' + file_path)
       system('rm -rf ' + trimmed_file_path)
 

@@ -2,6 +2,7 @@ class StationsController < ApplicationController
   include ApplicationHelper
   
   def index
+    return redirect_to station_new_path unless current_station
     @current_station = current_station
     @top_stations = PL::GetTopStations.run().top_stations
     presets = PL.db.get_presets(current_user.id)
@@ -9,6 +10,7 @@ class StationsController < ApplicationController
   end
 
   def show
+    return redirect_to station_new_path unless current_station
     # grab info for view
     @listen_station = PL.db.get_station(params[:id].to_i)
     @listen_user = PL.db.get_user(@listen_station.user_id)
@@ -63,9 +65,7 @@ class StationsController < ApplicationController
   end
 
   def song_manager
-    if !current_station
-      return redirect_to station_new_path
-    end
+    return redirect_to station_new_path unless current_station
 
     @spins_per_week = {}
     current_station.spins_per_week.each { |k,v| @spins_per_week[PL.db.get_song(k)] = v }

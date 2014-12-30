@@ -38,4 +38,21 @@ body {
   font-size: 3em;
 }
 
+.addToMyStation, .addToMyStationButton, .addToMyPresets {
+  background-color: $primary;
+  &.disabled {
+    background-color: $primary;
+    opacity: 0.7;
+    
+    &:hover {
+      background-color: $primary;
+      opacity: 0.5;
+    }
+  }
+
+  &:hover {
+    background-color: $primary;
+    opacity: 0.5;
+  }
+}
 
