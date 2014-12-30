@@ -12,7 +12,8 @@ body .mic-image-inverse {
   width: 100%;
   background-image: url('http://static.playola.fm/just_background.jpg');
   background-size: cover;
-  background-repeat: none;
+  background-repeat: repeat-y;
+  display: inline-table;
 }
 
 body {

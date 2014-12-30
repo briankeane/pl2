@@ -11,6 +11,7 @@ body .wall-without-mic-image {
   background-image: url('http://static.playola.fm/just_background.jpg');
   background-size: cover;
   background-repeat: repeat-y;
+  display: inline-table;
 }
 
 #getUserInfoModal, #getStationInfoModal {

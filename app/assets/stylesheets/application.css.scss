@@ -48,11 +48,21 @@ body {
       background-color: $primary;
       opacity: 0.5;
     }
+
+    &:focus {
+      outline-color: $darker-item-border;
+      background-color: $primary;
+    }
   }
 
   &:hover {
     background-color: $primary;
     opacity: 0.5;
+  }
+
+  &:focus {
+    outline-color: $darker-item-border;
+    background-color: $primary;
   }
 }
 
