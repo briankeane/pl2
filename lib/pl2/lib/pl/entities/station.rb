@@ -167,7 +167,21 @@ module PL
         end
       end
 
+      # load recently_played_song_ids
       recently_played_song_ids = []
+      recently_played = current_playlist.last(20).reverse
+
+      # if some or all previous spins are in the log, get them
+      if recently_played.size < 20
+        recently_played.concat(PL.db.get_recent_log_entries({ station_id: @id, count: (20 - recently_played.size) }))
+      end
+
+      recently_played.each do |log_entry|
+        if (log_entry.audio_block.is_a?(PL::Song)) && (recently_played_song_ids.size < 10)
+          recently_played_song_ids.push(log_entry.audio_block_id)
+        end
+      end
+      
       spins = []
 
       while time_tracker < playlist_end_time
@@ -423,7 +437,7 @@ module PL
 
       # if it's out of range try extending the playlist
       if playlist.size == 0
-        self.generate_playlist
+        self.generate_playlist(attrs[:end_time])
 
         playlist = PL.db.get_partial_playlist({ start_time: attrs[:start_time], end_time: attrs[:end_time], station_id: @id })
 
