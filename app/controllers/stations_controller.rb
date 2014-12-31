@@ -197,6 +197,11 @@ class StationsController < ApplicationController
   def get_commercial_block_for_broadcast
     result = PL::GetCommercialBlockForBroadcast.run({ station_id: params[:stationId].to_i,
                                               current_position: params[:currentPosition].to_i })
+
+    if !result.success?
+      puts result
+      render :json => result
+    end
      
     commercial_block_as_hash = result.commercial_block.to_hash   
     

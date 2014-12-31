@@ -626,8 +626,15 @@ module PL
       end
 
       def delete_spin(id)
-        ar_spin = Spin.find(id).destroy
-        ar_spin.to_pl
+        if Spin.exists?(id)
+          ar_spin = Spin.find(id).destroy
+        end
+        
+        if ar_spin
+          return ar_spin.to_pl
+        else
+          return nil
+        end
       end
 
       def update_spin(attrs)
