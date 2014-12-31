@@ -61,6 +61,12 @@
             },
             error : function(error) {
               console.log(error);
+              var correspondingDiv = '*[data-key="' + result.table.unprocessed_key + '"]';
+
+              $(correspondingDiv).addClass('error');
+              $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
+              $(correspondingDiv + ' .processing-icon').addClass('hide');
+              $(correspondingDiv + ' .status').text('Error: Please Try Again');
             }
         });
 
