@@ -224,7 +224,11 @@ var webAudioStationPlayer = function(attrs) {
 
     self.audioQueue[0].source.start(0); 
 
-    updateAudioQueue();
+    // grab the new songs if necessary
+    if (self.audioQueue.length<3) {
+      updateAudioQueue();
+    }
+
     // set the next advance
     var msTillAdvanceSpin = (self.audioQueue[1].airtime_in_ms - Date.now());
     setTimeout(function() { advanceSpin(); }, msTillAdvanceSpin);
