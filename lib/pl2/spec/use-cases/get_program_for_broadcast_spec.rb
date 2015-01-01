@@ -48,6 +48,14 @@ describe 'GetProgramForBroadcast' do
       expect(result.program[0]).to be_a(PL::CommercialBlock)
     end
 
+    it 'returns 4 spins if the 3rd one is a commercial_block' do
+      Timecop.travel(Time.local(2014,5,9, 10,53))
+      result = PL::GetProgramForBroadcast.run({ station_id: @station.id })
+      binding.pry
+      expect(result.success?).to eq(true)
+      expect(result.program.size).to eq(4)
+    end
+
     after(:all) do
       Timecop.return
     end

@@ -14,7 +14,7 @@ module PL
       else
 
         # just use the next 3 spins unless last one is a commercial
-        if program[2].is_a?(PL::CommercialBlock)
+        if program[2].commercials_follow?
           program = program.take(4)
         else
           program = program.take(3)

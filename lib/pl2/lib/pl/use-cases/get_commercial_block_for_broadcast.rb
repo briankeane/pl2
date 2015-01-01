@@ -9,6 +9,7 @@ module PL
       end
 
       if (attrs[:current_position] - station.now_playing.current_position) > 5
+        binding.pry
         return failure :commercial_not_scheduled_yet
       end
 
