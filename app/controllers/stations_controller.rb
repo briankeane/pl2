@@ -199,7 +199,6 @@ class StationsController < ApplicationController
                                               current_position: params[:currentPosition].to_i })
 
     if !result.success?
-      puts result
       render :json => result
     end
      

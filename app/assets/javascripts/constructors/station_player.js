@@ -197,7 +197,7 @@ var webAudioStationPlayer = function(attrs) {
       }
       
       // make recursive calls until audioQueue is filled
-      if (self.audioQueue.length < 4) {
+      if (self.audioQueue.length < 3) {
         updateAudioQueue();
       }
     };
