@@ -86,13 +86,7 @@
               <label for="onlyMySongs">My Songs Only</label>
             </div> 
 
-            <ul id="all-songs-source-list">
-              <% @all_songs.each do |song| %>
-                <li data-searchString= "<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" data-isOnStation = <%= (current_station.spins_per_week.has_key?(song.id)).to_s %>>
-                  <span class="songlist-title"><%= song.title %></span>
-                  <span class="songlist-artist"><%= song.artist %></span>
-                </li>
-              <% end %> 
+            <ul id="catalog-list">
             </ul>
           </div>
           <div class="content" id="record">
@@ -142,7 +136,7 @@
     <p>Remove a song from the queue by clicking on the 'x'.</p>
   </li>
 
-  <li data-id="all-songs-source-list" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;">
+  <li data-id="catalog-list" data-button="Next" data-prev-text="Prev" data-options="tip_location:top;">
     <h4>Catalogue</h4>
     <p>Search our catalogue of songs here.  You can add any song to the queue by dragging it in with your mouse.</p>
   </li>

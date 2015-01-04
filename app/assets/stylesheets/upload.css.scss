@@ -30,7 +30,7 @@ body {
   height: 281px;
 }
 
-#uploaded-song-list, #catalog-list, #all-songs-source-list {
+#uploaded-song-list, #catalog-list {
   background: white;
   overflow-y: scroll;
 }
@@ -38,7 +38,7 @@ body {
 #drop-pane {
   height: 350px;
 }
-#catalog-list, #all-songs-source-list {
+#catalog-list {
   margin: 0;
   height: 320px;
 

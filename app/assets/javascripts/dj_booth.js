@@ -54,20 +54,11 @@
     gon.player.startPlayer();
 
     $('#searchbox').keyup(function(event) {
-      var searchText = $('#searchbox').val();
-      searchSonglist(searchText, ['#all-songs-source-list']);
-      if ($('#onlyMySongs').is(':checked')) {
-        hideOutsideSongs();
-      }
+      updateCatalogList();
     });
 
     $('#onlyMySongs').on('click', function() {
-      if ($(this).is(':checked')) {
-        hideOutsideSongs();
-      } else {
-        var searchText = $('#searchbox').val();
-        searchSonglist(searchText, ['#all-songs-source-list']);
-      }
+      updateCatalogList();
     });
 
     $('#recording').sortable({
@@ -75,13 +66,13 @@
                             connectWith: '#station-list'              
     });
 
-    $('#all-songs-source-list').sortable({ 
+    $('#catalog-list').sortable({ 
       connectWith: '#station-list',
       helper: 'clone',
       widgets: ['zebra'],
       cancel: ".disabled",
       stop: function(event, ui) {
-        $('#all-songs-source-list').sortable('cancel');
+        $('#catalog-list').sortable('cancel');
       },
       start: function(event, ui) {
         ui.item.type = 'song';
@@ -89,7 +80,7 @@
     });
 
     $('#station-list').sortable({
-      connectWith: '#all-songs-source-list',
+      connectWith: '#catalog-list',
       items: "li:not(.disabled)",
       start: function(event, ui) {
         ui.item.startPos = ui.item.index();
@@ -157,7 +148,7 @@
           $(ui.item).after(html);
 
           // then cancel so the original song item remains in the master list
-          $('#all-songs-source-list').sortable('cancel');
+          $('#catalog-list').sortable('cancel');
 
           // disable list until results come back
           $('#station-list').sortable('disable');
@@ -243,7 +234,7 @@
 
     // refresh page on wake from sleep
     onWakeFromSleep(function() {
-      location = location;
+      // location = location;          // disabled
     });
 
     // ********************************************
@@ -331,7 +322,8 @@
                   '</span><a href="#" class="close" title="delete">×</a></li>';
       return html;
     };
-     // *******************************************
+    
+    // *******************************************
     // *               renderCommentary           *
     // *                                          *
     // *  -- takes a spinInfo object and returns  *
@@ -372,6 +364,48 @@
                   '</span><span class="songlist-artist"></span>' +
                   '<span class="songlist-airtime">' + spinInfo.airtimeForDisplay + '</span></li>';
       return html;
+    };
+
+    // ********************************************
+    // *             updateCatalogList            *
+    // *                                          *
+    // *  -- updates the catalog list             *
+    // ********************************************
+    var updateCatalogList = function() {
+      var searchText = $('#searchbox').val();
+        
+      if ($('#onlyMySongs').is(':checked')) {
+        $('#catalog-list').empty();
+
+        // if searchText is empty, set flag
+        var emptyFlag = false;
+        if(searchText.trim() === '') {
+          emptyFlag = true;
+          var searchTextArray = [];
+        } else {
+          emptyFlag = false;
+          searchTextArray = searchText.trim().split(' ');
+        }
+
+        gon.songsInRotation.forEach(function(song) {
+          var includeSong = true;
+          if (!emptyFlag) {
+            includeSong = true;
+            searchTextArray.forEach(function(word) {
+              // if word is not included in either song or artist
+              if (!(new RegExp(word, "i")).test(song.artist + ' ' + song.title)) {
+                includeSong = false;
+              }
+            });
+          }
+
+          if (includeSong) {
+            $('#catalog-list').append(renderCatalogLi(song));     
+          }
+        });
+      } else {
+        searchSonglist(searchText);
+      }
     };
 
 
@@ -529,12 +563,13 @@
   };
 
   var hideOutsideSongs = function() {
-    $('#all-songs-source-list li').each( function(index) {
+    $('#catalog-list li').each( function(index) {
       if ($(this).attr('data-isOnStation') != 'true') {
         $(this).hide();
       }
     });
   };
+
 
   var appendNextSpin = function() {
     var nextCurrentPosition = parseInt($('#station-list').attr('data-lastCurrentPosition')) + 1;

@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   # mount the api
   #mount API::Root => "/"
   
@@ -52,6 +51,6 @@ Rails.application.routes.draw do
 
   # sessions_controller paths
   get '/auth/twitter/callback', to: 'sessions#create_with_twitter'
-
+  get 'songs/get_songs_by_keywords',                    to: 'songs#get_songs_by_keywords',                  via: 'get'
 
 end

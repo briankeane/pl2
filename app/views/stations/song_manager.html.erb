@@ -45,13 +45,6 @@
         <input type="text" id="searchbox" />
 
         <ul id="catalog-list">
-            <% @all_songs.each do |song| %>
-              <li data-searchString= "<%= song.title + ' ' + song.artist %>" data-id="<%= song.id %>" data-echonest_id="<%= song.echonest_id %>" data-artist="<%= song.artist %>" data-title="<%= song.title %>">
-                <span class="songlist-title"><%= song.title %></span>
-                <span class="songlist-artist"><%= song.artist %></span>
-              </li>
-            <% end %>
-          </table> 
         </ul>
       </fieldset>
     </div>

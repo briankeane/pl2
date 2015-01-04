@@ -63,6 +63,9 @@ class StationsController < ApplicationController
     gon.audioQueue = get_audio_queue(current_station.id)
     gon.stationId = current_station.id
     gon.stationId = current_station.id
+
+    songsInRotation = current_station.spins_per_week.keys.map { |id| PL.db.get_song(id) }
+    gon.songsInRotation = songsInRotation.sort_by { |song| [song.artist, song.title] }
     
     @all_songs = PL.db.get_all_songs
   end
