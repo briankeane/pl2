@@ -212,6 +212,13 @@ shared_examples 'a badass database' do
       expect(songlist[2].title).to eq("Bar Nights")
     end
 
+    it "gets a list of songs by keywords" do
+      songlist = db.get_songs_by_keywords("Bar kea")
+      expect(songlist.size).to eq(3)
+      expect(songlist.first.title).to eq("Bar Brights")
+      expect(songlist.last.title).to eq("Bar Nights")
+    end
+
     it 'gets a list of songs by artist and title' do
       songlist = db.get_songs_by_title_and_artist({ artist: 'Bob Dylan',
                                                     title: 'Bar First' })

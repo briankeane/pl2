@@ -161,6 +161,26 @@ module PL
                                         ab.artist.match(/^#{artist}/) }.sort_by { |x| x.title }
       end
 
+      def get_songs_by_keywords(search_string)
+        # if the search_string is blank, return an empty array
+        if search_string.strip.size == 0
+          return []
+        end
+
+        song_list = self.get_all_songs
+        keywords = search_string.split(" ")
+
+        keywords.each do |word|
+
+          # delete any songs that do not contain the string in either case
+          song_list.delete_if { |song| !(song.artist.match(/#{word}/i)) &&
+                                          !(song.title.match(/#{word}/i)) }
+        end
+
+        return song_list
+
+      end
+
       def get_songs_by_title_and_artist(attrs)
         songs = @audio_blocks.values.select { |song| song.is_a?(PL::Song) && 
                                               song.title.downcase == attrs[:title].downcase &&
