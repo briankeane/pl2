@@ -349,6 +349,29 @@ module PL
         songs
       end
 
+      def get_songs_by_keywords(search_string)
+        # return a blank array if search_string is blank
+        if search_string.strip.size == 0
+          return []
+        end
+
+        # build query
+        keywords = search_string.split(" ")
+
+        conditions = []
+        values = {}
+
+        keywords.each_with_index do |keyword,i|
+          argument_key = "keyword#{i}".to_sym
+          conditions << "(artist ILIKE :#{argument_key} OR title ILIKE :#{argument_key})"
+          values[argument_key] = "%#{keyword}%"
+        end
+
+        ar_songs = Song.where(conditions.join(' AND '), values).order('artist ASC, title ASC')
+        songs = ar_songs.each { |ar_song| ar_song.to_pl }
+        songs
+      end
+
       def get_all_songs
         ar_songs = Song.all.order('artist ASC, title ASC')
 
