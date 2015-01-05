@@ -14,14 +14,16 @@
         contentType: 'application/json',
         data: { searchString: searchString },
         success: function(result){
-          var renderedSongs = result.map(function(song) {
-            return renderCatalogLi(song);
-          });
-          
-          $('#catalog-list').empty();
-          renderedSongs.forEach(function(song) {
-            $('#catalog-list').append(song);
-          });
+          if ($('#searchbox').val() == searchString) {
+            var renderedSongs = result.map(function(song) {
+              return renderCatalogLi(song);
+            });
+            
+            $('#catalog-list').empty();
+            renderedSongs.forEach(function(song) {
+              $('#catalog-list').append(song);
+            });
+          }
         }
       });
     }
