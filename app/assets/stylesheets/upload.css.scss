@@ -53,8 +53,22 @@ body {
   li:nth-child(odd) {
     background-color: $lighter-item;
   }
+  .songlist-title {
+    display: inline-block;
+    width: 60%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    line-height: 100%;
+    padding: 2px;
+  }
   .songlist-artist {
-    float: right;
+    display: inline-block;
+    width: 40%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-align: right;
+    line-height: 100%;
+    padding: 2px;
   }
 }
 
