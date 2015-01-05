@@ -39,7 +39,6 @@ class SessionsController < ApplicationController
     # Store their twitter friends
     PL::StoreTwitterFriendStations.run({ user_id: current_user.id, friend_twitter_uids: client.friend_ids.attrs[:ids].map { |id| id.to_s } })
 
-
     if result.new_user
       redirect_to station_new_path
     else

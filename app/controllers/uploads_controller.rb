@@ -4,8 +4,6 @@ class UploadsController < ApplicationController
     @filepicker_api_key = FILEPICKER_KEYS['API_KEY']
     
     gon.currentStation = current_station
-    result = PL::GetAllSongs.run
-    @all_songs = result.all_songs
   end
 
   def process_song

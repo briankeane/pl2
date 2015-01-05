@@ -4,6 +4,7 @@ class StationsController < ApplicationController
   def index
     return redirect_to root_path unless signed_in?
     return redirect_to station_new_path unless current_station
+    
     @current_station = current_station
     @top_stations = PL::GetTopStations.run().top_stations
     presets = PL.db.get_presets(current_user.id)
@@ -13,6 +14,7 @@ class StationsController < ApplicationController
   def show
     return redirect_to root_path unless signed_in?
     return redirect_to station_new_path unless current_station
+    
     # grab info for view
     @listen_station = PL.db.get_station(params[:id].to_i)
     @listen_user = PL.db.get_user(@listen_station.user_id)
@@ -31,6 +33,7 @@ class StationsController < ApplicationController
     gon.currentUser = current_user
     @current_user_presets = PL.db.get_presets(current_user.id)
     gon.currentUserPresets = @current_user_presets
+    
     # grab the 10 most recent songs
     @log = PL.db.get_recent_log_entries({ station_id: @listen_station.id, count: 30 })
     @log.shift  # get rid of now_playing
@@ -42,32 +45,30 @@ class StationsController < ApplicationController
     return redirect_to root_path unless signed_in?
     return redirect_to station_new_path unless current_station
 
+    # grab the current program
     result = PL::GetProgram.run({ station_id: current_station.id })
     @program = result.program unless !result.success?
 
-    # remove 'now playing' from program
-    @program.shift
+    @program.shift  # (to remove now_playing)
     
     # format for local station time
     @program.each do |spin|
       spin.airtime = spin.airtime.in_time_zone(current_station.timezone)
     end
 
-    # set first_current_position if commercial block is first
+    # set first_current_position
     if @program.last.is_a?(PL::CommercialBlock)
       @first_current_position = @program[1].current_position
     else
       @first_current_position = @program[0].current_position
     end
 
+    # store info for player
     gon.audioQueue = get_audio_queue(current_station.id)
-    gon.stationId = current_station.id
     gon.stationId = current_station.id
 
     songsInRotation = current_station.spins_per_week.keys.map { |id| PL.db.get_song(id) }
     gon.songsInRotation = songsInRotation.sort_by { |song| [song.artist, song.title] }
-    
-    @all_songs = PL.db.get_all_songs
   end
 
   def song_manager
@@ -76,23 +77,20 @@ class StationsController < ApplicationController
 
     @spins_per_week = {}
     current_station.spins_per_week.each { |k,v| @spins_per_week[PL.db.get_song(k)] = v }
-
-    all_songs_result = PL::GetAllSongs.run()
-    @all_songs = all_songs_result.all_songs
   end
 
   def new
     return redirect_to root_path unless signed_in?
     @songs = PL.db.get_all_songs
 
-    # tell the browser whether or not to collect the user info
+    # tell the browser whether or not user info is complete
     if current_user.gender && current_user.birth_year && current_user.zipcode
       @user_info_complete = true
     else
       @user_info_complete = false
     end
 
-    # tell the browser whether or not to collect the station info
+    # tell the browser whether or not station info is complete
     if !current_station
       @station_info_complete = false
     end
@@ -138,7 +136,6 @@ class StationsController < ApplicationController
     current_station.generate_playlist(Time.now + (24*60*60))
 
     @first_visit = true
-
     @current_user = current_user
     gon.currentUser = current_user
     @current_user_presets = PL.db.get_presets(current_user.id)
@@ -191,7 +188,8 @@ class StationsController < ApplicationController
   def delete_spin_frequency
     result = PL::DeleteSpinFrequency.run({ station_id: current_station.id,
                                               song_id: params[:song_id] })
-    # update station
+    
+    # update station in memory
     @current_station = result.station unless !result.success?
 
     render :json => result
@@ -207,14 +205,14 @@ class StationsController < ApplicationController
      
     commercial_block_as_hash = result.commercial_block.to_hash   
     
-     # format time
+    # format time
     commercial_block_as_hash["airtimeForDisplay"] = time_formatter(commercial_block_as_hash[:airtime].in_time_zone(current_station.timezone))
     commercial_block_as_hash["currentPosition"] = commercial_block_as_hash[:current_position]
     commercial_block_as_hash["key"] = "http://commercialblocks.playola.fm/" + commercial_block_as_hash[:key]
     render :json => commercial_block_as_hash  
   end
 
-    def move_spin
+  def move_spin
     result = PL::MoveSpin.run({ new_position: params[:newPosition],
                                 old_position: params[:oldPosition],
                                 station_id: current_station.id })
@@ -240,7 +238,6 @@ class StationsController < ApplicationController
     end
 
     render :json => result
-
   end
 
   def insert_song
@@ -285,7 +282,7 @@ class StationsController < ApplicationController
                                                                             starting_current_position: result.min_position,
                                                                             ending_current_position: result.max_position })
     
-    # format estimated_air_times
+    # format air_times
     result.new_program.map! do |spin|
       spin_as_hash = spin.to_hash
       if spin_as_hash[:airtime]
