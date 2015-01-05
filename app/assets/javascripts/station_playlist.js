@@ -60,6 +60,8 @@
                                 },
                                 receive: function(event, ui) {
                                   var data = $(ui.item).data();
+                                  data.title = $(ui.item).find('.songlist-title').text();
+                                  data.artist = $(ui.item).find('.songlist-artist').text();
                                   var html = buildSpinPerWeekListItem(data);
                                   data.spinFrequency = 'Medium';
 

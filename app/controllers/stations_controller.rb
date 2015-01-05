@@ -75,6 +75,7 @@ class StationsController < ApplicationController
     return redirect_to root_path unless signed_in?
     return redirect_to station_new_path unless current_station
 
+    gon.current_station = current_station
     @spins_per_week = {}
     current_station.spins_per_week.each { |k,v| @spins_per_week[PL.db.get_song(k)] = v }
   end
