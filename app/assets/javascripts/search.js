@@ -6,7 +6,9 @@
   // *    lists to search                                     *
   // **********************************************************
   searchSonglist = function(searchString, listArray) { 
-    if (searchString.trim() != '') {
+    if (searchString.trim() === ''){
+      $('#catalog-list').empty();
+    } else {
       $.ajax({
         type: 'GET',
         dataType: 'json',
