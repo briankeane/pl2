@@ -90,36 +90,27 @@
 
 
   <div class="row top-row">
-    <div class="small-8 small-offset-4 columns">
-      <div class="row">
-        <div class="small-8 columns">
-          <h1 class="title">Upload Songs</h1>
+    <h1 class="headline">Upload Songs</h1>
+    <p class="sub-headline">Help us by adding to our catalog.  Once you upload a song, anyone can play it.</p>
+    <div class="row">
+      <div id="filepicker-drop">Drop Songs Here
+      <span id="meter"></span></div>
+    </div>
+    <div class="row">
+      <div class="small-6 columns">
+        <h4 class="small-headline">Your Uploads</h4>
+        <p class="sub-headline">Check the Status of Your Uploads</p>
+        <div id="uploaded-song-list">
         </div>
       </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="small-5 columns">
-      <fieldset id="catalog-fieldset">
-        <legend>Current Catalog</legend>
-        <label for="searchbox">Search Text:</label>
-        <input type="text" id="searchbox" />
+    <div class="small-6 columns centered">
+      <h4 class="small-headline">Our Catalog</h4>
+      <p class="sub-headline">See if a song is already in our catalog</p>
+      <input type="text" id="searchbox" placeholder="Search Text" />
 
-        <ul id="catalog-list">
-        </ul>
-      </fieldset>
+      <ul id="catalog-list">
+      </ul>
     </div>
-    <div class="small-7 columns">
-      <fieldset>
-        <legend>Uploads</legend>
-        <div class="row">
-          <input id="filepicker" type="filepicker-dragdrop" data-fp-drag-class="small-9 columns drag-area" data-fp-extensions=".mp3,.wav,.m4a,.m4p" data-fp-button-class="small-2 column button filepicker-button" data-fp-multiple="true" data-fp-button-text="Pick Mp3s" data-fp-drag-text="Or Drop Them Here" data-fp-services="COMPUTER, DROPBOX, GMAIL" data-fp-store-location="S3"/>
-        </div>
-        <div class="row">
-          <div id="uploaded-song-list">
-          </div>
-        </div>
-      </fieldset>
-    </div>
+
   </div>
 </div>

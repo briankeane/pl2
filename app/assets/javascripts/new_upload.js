@@ -6,73 +6,98 @@
 
     $(document).foundation('alert','events');
 
-    $('#filepicker').on('change', function(e) {
-      var uploadedSongs = e.originalEvent.fpfiles;
+    filepicker.makeDropPane($('#filepicker-drop')[0], {
+      extensions:".mp3,.wav,.m4a,.m4p",
+      multiple:"true",
+      text:"Drop songs here. You can even drag them straight from itunes.",
+      location:"S3",
+      dragEnter: function() {
+        $('#filepicker-drop').html("FEED ME!").css({
+          'backgroundColor': "#E0E0E0",
+          'border': "1px solid #000",
+          'font-size': '25px'
+        });
+      },
+      dragLeave: function() {
+        $("#filepicker-drop").html("Drop Songs Here").css({
+          'backgroundColor': "#F6F6F6",
+          'border': "1px dashed #666",
+          'font-size': "15px"
+        });
+      },
+      onProgress: function(percentage) {
+        $("#filepicker-drop").text("Uploading ("+percentage+"%)");
+      },
+      onError: function(type, message) {
+        $("#filepicker-drop").text(message);
+      },
+      onSuccess: function(blobs) {
 
-      console.log(e);
+        var uploadedSongs = blobs;
+
+        for (var i=0; i<uploadedSongs.length; i++) {
+          var html = '<div data-alert data-key="' + uploadedSongs[i].key + 
+                      '" data-filename="' + uploadedSongs[i].filename + 
+                      '" class="alert-box"><div class="filename">' + 
+                      uploadedSongs[i].filename + 
+                      '</div><div class="status">processing....</div>' +
+                      '<img src="/images/processing_icon.gif" class="processing-icon" /></div>';
+          $('#uploaded-song-list').append(html);
+        }
 
 
-      for (var i=0; i<uploadedSongs.length; i++) {
-        var html = '<div data-alert data-key="' + uploadedSongs[i].key + 
-                    '" data-filename="' + uploadedSongs[i].filename + 
-                    '" class="alert-box"><div class="filename">' + 
-                    uploadedSongs[i].filename + 
-                    '</div><div class="status">processing....</div>' +
-                    '<img src="/images/processing_icon.gif" class="processing-icon" /></div>';
-        $('#uploaded-song-list').append(html);
-      }
+        for (var i=0; i<uploadedSongs.length; i++) {
+          $.ajax({
+              type: "POST",
+              dataType: "json",
+              url: '/upload/process_song',
+              contentType: 'application/json',
+              data: JSON.stringify(uploadedSongs[i]),
+              success: function(result) {
+                console.log(result);
+                var correspondingDiv = '*[data-key="' + result.table.unprocessed_key + '"]';
+                
+                if (result.table.error === "song_already_exists") {
+                  markAsAlreadyUploaded(correspondingDiv);
+                  $(correspondingDiv + ' .addToMyStationButton').attr("data-songId", result.table.song.id);
+                } else if ((result.table.error === "no_title_in_tags") ||
+                          (result.table.error === "no_artist_in_tags") ||
+                          (result.table.error === "no_echonest_match_found")) {
+                  $(correspondingDiv).addClass("error");
+                  $(correspondingDiv + ' .status').text('Info Needed');
+                  $(correspondingDiv + ' .status').addClass('tiny button');
+                  $(correspondingDiv).attr("data-error", result.table.error);
+                  $(correspondingDiv).attr("data-title", result.table.tags.title);
+                  $(correspondingDiv).attr("data-artist", result.table.tags.artist);
+                  $(correspondingDiv).attr("data-album", result.table.tags.album);
+                  $(correspondingDiv + ' .processing-icon').addClass('hide');
+                } else if (result.table.error === 'file_is_encrypted') {
+                  $(correspondingDiv).addClass('error');
+                  $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
+                  $(correspondingDiv + ' .status').text('Info Needed');
+                  $(correspondingDiv + ' .processing-icon').addClass('hide');
+                  $(correspondingDiv + ' .status').text('File is Encrypted');
+                } else if (!result.table.error) {
+                  markAsAdded(correspondingDiv);
+                  $(correspondingDiv + ' .addToMyStationButton').attr("data-songId", result.table.song.id);
+                }
+              },
+              error : function(error) {
+                console.log(error);
+                var correspondingDiv = '*[data-key="' + result.table.unprocessed_key + '"]';
 
-
-      for (var i=0; i<uploadedSongs.length; i++) {
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: '/upload/process_song',
-            contentType: 'application/json',
-            data: JSON.stringify(uploadedSongs[i]),
-            success: function(result) {
-              console.log(result);
-              var correspondingDiv = '*[data-key="' + result.table.unprocessed_key + '"]';
-              
-              if (result.table.error === "song_already_exists") {
-                markAsAlreadyUploaded(correspondingDiv);
-                $(correspondingDiv + ' .addToMyStationButton').attr("data-songId", result.table.song.id);
-              } else if ((result.table.error === "no_title_in_tags") ||
-                        (result.table.error === "no_artist_in_tags") ||
-                        (result.table.error === "no_echonest_match_found")) {
-                $(correspondingDiv).addClass("error");
-                $(correspondingDiv + ' .status').text('Info Needed');
-                $(correspondingDiv + ' .status').addClass('tiny button');
-                $(correspondingDiv).attr("data-error", result.table.error);
-                $(correspondingDiv).attr("data-title", result.table.tags.title);
-                $(correspondingDiv).attr("data-artist", result.table.tags.artist);
-                $(correspondingDiv).attr("data-album", result.table.tags.album);
-                $(correspondingDiv + ' .processing-icon').addClass('hide');
-              } else if (result.table.error === 'file_is_encrypted') {
                 $(correspondingDiv).addClass('error');
                 $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
-                $(correspondingDiv + ' .status').text('Info Needed');
                 $(correspondingDiv + ' .processing-icon').addClass('hide');
-                $(correspondingDiv + ' .status').text('File is Encrypted');
-              } else if (!result.table.error) {
-                markAsAdded(correspondingDiv);
-                $(correspondingDiv + ' .addToMyStationButton').attr("data-songId", result.table.song.id);
+                $(correspondingDiv + ' .status').text('Error: Please Try Again');
               }
-            },
-            error : function(error) {
-              console.log(error);
-              var correspondingDiv = '*[data-key="' + result.table.unprocessed_key + '"]';
+          });
+        }  //endfor        
+      } 
+    });
 
-              $(correspondingDiv).addClass('error');
-              $(correspondingDiv).prepend('<a href="#" class="close">&times;</a>');
-              $(correspondingDiv + ' .processing-icon').addClass('hide');
-              $(correspondingDiv + ' .status').text('Error: Please Try Again');
-            }
-        });
+    $('#filepicker').on('change', function(e) {
 
-      }  //endfor
-
-      console.log(e);
     });
     
     $('#uploaded-song-list').on('click', '.status.tiny.button', function(event) {

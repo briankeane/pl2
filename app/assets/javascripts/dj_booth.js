@@ -79,6 +79,11 @@
       }
     });
 
+    // disable first two lis
+    $('#station-list li:nth-child(1), li:nth-child(2)').addClass('disabled');
+    $('#station-list li:nth-child(1), li:nth-child(2)').removeClass('ui-sortable-handle');
+    $('#station-list li:nth-child(1), li:nth-child(2)').find('.close').remove();
+
     $('#station-list').sortable({
       connectWith: '#catalog-list',
       items: "li:not(.disabled)",
@@ -231,6 +236,7 @@
     $('.muteButton').click(function() {
       toggleStationMute();
     });
+
 
     // refresh page on wake from sleep
     onWakeFromSleep(function() {
@@ -506,6 +512,14 @@
     // if the station is live, advance #station-list
     if (parseInt($('#station-list li').attr('data-currentPosition')) === gon.audioQueue[0].currentPosition)  {
       $('#station-list li').first().remove();
+
+      // disable first two elements
+      $('#station-list li:nth-child(1), li:nth-child(2)').addClass('disabled');
+      $('#station-list li:nth-child(1), li:nth-child(2)').removeClass('ui-sortable-handle');
+      $('#station-list li:nth-child(1), li:nth-child(2)').find('.close').remove();
+      $('#station-list').sortable({
+        items: "li:not(.disabled)"
+      });
       appendNextSpin();
     }
   };

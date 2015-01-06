@@ -28,6 +28,9 @@ body .wall-without-mic-image {
 }
 
 #catalog-list {
+  &.onDjBoothPage {
+    height: 323px;
+  }
   li {
     list-style-type: none;
     -webkit-touch-callout: none;
@@ -43,6 +46,16 @@ body .wall-without-mic-image {
   }
 }
 
+#onlyMySongs {
+  float: right;
+  margin: 5px 5px 0px 5px;
+}
+
+#onlyMySongs-label {
+  float:right;
+  margin-bottom: 2px;
+}
+
 #why {
   line-height: 100%;
   margin-bottom: 10px;
@@ -52,7 +65,8 @@ body .wall-without-mic-image {
   margin-left: auto;
 }
 
-fieldset {
+dd a:focus {
+  outline: 0;
 }
 
 #spinsPerWeekList {
@@ -92,13 +106,25 @@ fieldset {
 }
 
 #station-list {
+  height: 340px;
+  background: rgba(0,0,0,0);
+  font-size: 0.9rem;
+  height: 360px;
+  overflow-y: scroll;
+  margin: 0;
+
+  li:nth-child(-n+2) {
+    //background: rgba(0,0,0,0.2);
+    opacity: 0.5;
+  }
   li {
     //transition: all 0.2s ease-out;
     margin: 2px 0 2px 0;
     background-color: $darker-item;
     overflow-x: hidden;
     list-style-type: none;
-    border: 1px solid $darker-item-border;
+    box-sizing: border-box;
+    padding: 9px 15px;
 
     select {
       height: 100%;
@@ -178,54 +204,49 @@ fieldset {
    user-select: none;
   }
 
-  font-size: 0.9rem;
-  background: $lighter-item;
-  height: 360px;
-  overflow-y: scroll;
-  margin: 0;
 }
 
-#nowPlayingFieldset {
-  margin-bottom: 0px;
-  padding-bottom: 0px;
 
-  #nowPlayingList {
-    list-style: none;
-    overflow: hidden;
-    
-    .nowPlaying {
-      background-color: $darker-item;
-      min-height: 77px;
-      border: black solid 1px;
-      padding-left: 6px;
-      padding-right: 6px;
-      display: table;
-      width: 100%;
-    }
+#nowPlayingList {
+  list-style: none;
+  overflow: hidden;
+  
+  .nowPlaying {
+    background-color: $darker-item;
+    min-height: 77px;
+    border: black solid 1px;
+    padding-left: 6px;
+    padding-right: 6px;
+    display: table;
+    width: 85%;
+    margin-right: auto;
+    margin-left: auto;
+  }
 
-    .title {
-      color: black;
-      font-size: .9em;
-      float: left;
-      width: 50%;
-      font-weight: bold;
-      line-height: 100%;
-      padding: 5px;
-    }
+  .title {
+    color: black;
+    font-size: .9em;
+    float: left;
+    width: 50%;
+    font-weight: bold;
+    line-height: 100%;
+    padding: 5px;
+    vertical-align: center;
+  }
 
-    .artist {
-      float: right;
-      width: 50%;
-      text-align: right;
-      line-height: 100%;
-      padding: 5px;
-    }
+  .artist {
+    float: right;
+    width: 50%;
+    text-align: right;
+    line-height: 100%;
+    padding: 5px;
+    vertical-align: center;
+  }
 
-    .progress {
-      float: right;
-      width: 100%;
-      margin-bottom: 0;
-    }
+  .progress {
+    float: right;
+    width: 100%;
+    margin-bottom: 0;
   }
 }
 
@@ -233,8 +254,8 @@ fieldset {
   max-width: 90%
 }
 
-#catalog-fieldset {
-  .tabs {
+#catalogAndRecordPanel {
+  &.tabs {
     width: 100%;
     dd {
       width: 50%;

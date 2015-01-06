@@ -10,7 +10,7 @@ $successful-upload-border: #adc7ac;
 body .mic-image-inverse {
   height: 100%;
   width: 100%;
-  background-image: url('http://static.playola.fm/just_background.jpg');
+  background-image: url('http://static.playola.fm/green_background.jpg');
   background-size: cover;
   background-repeat: repeat-y;
   display: inline-table;
@@ -20,7 +20,22 @@ body {
   margin-top: 45px;
 }
 
+.headline {
+  text-align: center;
+  font-family: "tungsten light";
+  font-size: 50px;
+}
 
+.sub-headline {
+  text-align: center;
+  font-size: 19px;
+  font-family: "roboto-regular";
+  color: grey;
+}
+
+.small-headline {
+  text-align: center;
+}
 
 .reveal-modal h1 {
   text-align: center;
@@ -40,26 +55,32 @@ body {
 }
 #catalog-list {
   margin: 0;
-  height: 320px;
+  height: 167px;
+  background: rgba(0,0,0,0.05);
+  margin-bottom: 33px;
 
   li {
     font-size: .9rem;
+    list-style-type: none;
+    position: relative;
+    width: 100%;
+    float: left;
+    clear: both;
+    margin: 0 0 2px 0;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 9px 15px;
   }
 
-  li:nth-child(even) {
-    background-color: $darker-item;
-  }
-
-  li:nth-child(odd) {
-    background-color: $lighter-item;
-  }
   .songlist-title {
     display: inline-block;
     width: 60%;
     text-overflow: ellipsis;
     overflow: hidden;
-    line-height: 100%;
     padding: 2px;
+    vertical-align: middle;
+    line-height: 100%;
+
   }
   .songlist-artist {
     display: inline-block;
@@ -67,8 +88,11 @@ body {
     text-overflow: ellipsis;
     overflow: hidden;
     text-align: right;
-    line-height: 100%;
     padding: 2px;
+    display: inline-block;
+    width: 40%;
+    padding: 2px;
+    vertical-align: middle;
   }
 }
 
@@ -82,6 +106,18 @@ fieldset legend {
 
 .drag-area{
   height: 69px;
+}
+
+#filepicker-drop {
+  width: 54%;
+  text-align: center;
+  padding: 20px;
+  background-color: #F6F6F6;
+  border: 1px dashed #666;
+  border-radius: 6px;
+  margin-bottom: 35px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 .filepicker-button {
@@ -102,6 +138,8 @@ fieldset legend {
 }
 
 #uploaded-song-list {
+  background: rgba(0,0,0,0.05);
+  height: 220px;
 
   .alert-box.success {
     background-color: $successful-upload;
