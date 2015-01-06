@@ -169,7 +169,9 @@
               // update new lastCurrentPosition on the DOM
               $('#station-list').attr('data-lastCurrentPosition', result.table.max_position);
 
-              $('#station-list').sortable('enable');
+              $('#station-list').sortable({
+                items: "li:not(.disabled)"
+              });
             }
           });
 
@@ -215,7 +217,9 @@
               $('#station-list').attr('data-lastCurrentPosition', result.table.max_position);
 
               // reactivate station-list
-              $('#station-list').sortable('enable');
+              $('#station-list').sortable({
+                items: "li:not(.disabled)"
+              });
             }
           }).done(function(data) {
             console.log(data);
@@ -514,9 +518,9 @@
       $('#station-list li').first().remove();
 
       // disable first two elements
-      $('#station-list li:nth-child(1), li:nth-child(2)').addClass('disabled');
-      $('#station-list li:nth-child(1), li:nth-child(2)').removeClass('ui-sortable-handle');
-      $('#station-list li:nth-child(1), li:nth-child(2)').find('.close').remove();
+      $('#station-list li:nth-child(1), #station-list li:nth-child(2)').addClass('disabled');
+      $('#station-list li:nth-child(1), #station-list li:nth-child(2)').removeClass('ui-sortable-handle');
+      $('#station-list li:nth-child(1), #station-list li:nth-child(2)').find('.close').remove();
       $('#station-list').sortable({
         items: "li:not(.disabled)"
       });
@@ -570,7 +574,9 @@
             $('#station-list').attr('data-lastCurrentPosition', oldLastCurrentPosition - 1);
 
             refreshScheduleList(result.table);
-            $('#station-list').sortable('enable');
+            $('#station-list').sortable({
+              items: "li:not(.disabled)"
+            });
             appendNextSpin();
           }
     });

@@ -143,14 +143,20 @@ fieldset legend {
 
   .alert-box.success {
     background-color: $successful-upload;
-    border-color: $successful-upload-border;
+    font-family: inherit;
+
     .filename {
       width: 39%;
+      color: black;
+      line-height: 100%;
     }
     .status {
       width: 20%;
       margin-left: 13px;
+      color: black;
+      line-height: 100%;
     }
+
     .addToMyStationButton {
       display: inline-block;
       margin-top: 1.0px;
@@ -159,17 +165,21 @@ fieldset legend {
       margin-left: 35px;
       line-height: 100%;
       padding-top: .5em;
-      color: $primary;
+      color: white;
+      vertical-align: middle;
     }
   }
   .alert-box {
-    height: 25px;
-    line-height: 1em;
-    margin-bottom: 5px;
-    background-color: $darker-item;
-    color: black;
-    border-color: black;
-    padding: 0 0 0 0;
+    margin: 2px 0 2px 0;
+    background-color: #E9D4C3;
+    overflow-x: hidden;
+    list-style-type: none;
+    box-sizing: border-box;
+    padding: 9px 15px;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+
     .filename {
       width: 55%;
       float: left;
@@ -177,14 +187,22 @@ fieldset legend {
       line-height: 100%;
       padding-top: 5px;
       padding-left: 5px;
+      vertical-align: middle;
+      color: black;
     }
     .alert-box.success {
       background-color: $lighter-item;
+      color: black;
+      vertical-align: middle;
     }
     .status.button {
       float: none;
-      color: white;
-
+      color: black;
+    }
+    .status {
+      color: black;
+      vertical-align: middle;
+      line-height: 100%;
     }
     .addToMyStation {
       padding-top: 0.125rem;
@@ -193,6 +211,7 @@ fieldset legend {
       width: 25%;
       float: left;
       margin-left: 35px;
+      color: white;
     }
     .processing-icon {
       height: 20px;
