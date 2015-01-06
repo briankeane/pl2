@@ -195,10 +195,12 @@ fieldset {
     
     .nowPlaying {
       background-color: $darker-item;
-      height: 77px;
+      min-height: 77px;
       border: black solid 1px;
       padding-left: 6px;
       padding-right: 6px;
+      display: table;
+      width: 100%;
     }
 
     .title {
@@ -207,12 +209,16 @@ fieldset {
       float: left;
       width: 50%;
       font-weight: bold;
+      line-height: 100%;
+      padding: 5px;
     }
 
     .artist {
       float: right;
       width: 50%;
       text-align: right;
+      line-height: 100%;
+      padding: 5px;
     }
 
     .progress {

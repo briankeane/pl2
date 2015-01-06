@@ -61,18 +61,24 @@ function formatAirtimeFromMS(milliseconds) {
   var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
   var airtime = new Date(milliseconds);
+  
   var hour = airtime.getHours();
+  var ampm = "";
+  if (hour < 12) {
+    var ampm = "AM";
+  } else {
+    var ampm = "PM";
+    hour = hour - 12;
+  }
+  
   var min = airtime.getMinutes();
   if (min < 10) {
     min = "0" + min;
   }
+  
   var secs = airtime.getSeconds();
-  var ampm = ""
-  if (hour < 12) {
-    ampm = "AM";
-  } else {
-    ampm = "PM";
-    hour = hour - 12;
+  if (secs < 10) {
+    secs = "0" + secs;
   }
   var date = airtime.getDate();
   var month = months[airtime.getMonth()];
