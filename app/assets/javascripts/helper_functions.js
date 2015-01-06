@@ -57,6 +57,30 @@ function formatSongFromMS(milliseconds) {
   }
 }
 
+function formatAirtimeFromMS(milliseconds) {
+  var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  var airtime = new Date(milliseconds);
+  var hour = airtime.getHours();
+  var min = airtime.getMinutes();
+  if (min < 10) {
+    min = "0" + min;
+  }
+  var secs = airtime.getSeconds();
+  var ampm = ""
+  if (hour < 12) {
+    ampm = "AM";
+  } else {
+    ampm = "PM";
+    hour = hour - 12;
+  }
+  var date = airtime.getDate();
+  var month = months[airtime.getMonth()];
+
+  var airtimeForDisplay = month + " " + date + ", " + hour + ":" + min + ":" + secs + " " + ampm;
+  return airtimeForDisplay;
+}
+
 
 // *********************************************
 // *          getSpinByCurrentPosition         *
@@ -64,7 +88,7 @@ function formatSongFromMS(milliseconds) {
 // *  -- spinInfo: lastCurrentPosition,        *
 // *               currentPosition,            *
 // *               stationId,                  *
-// *               stationId                  *
+// *               stationId                   *
 // *********************************************
 var getSpinByCurrentPosition = function(spinInfo, callback) {
   $.ajax({

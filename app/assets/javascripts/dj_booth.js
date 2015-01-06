@@ -585,7 +585,7 @@
       $('#station-list').attr('data-lastCurrentPosition', oldLastCurrentPosition + 1);
 
       if (result["commercials_follow?"] === true) {
-        var html = renderCommercialBlock({ airtime: (result.airtime_in_ms + 3*60*1000) });
+        var html = renderCommercialBlock({ airtimeForDisplay: formatAirtimeFromMS(result.airtime_in_ms + result.audio_block.duration) });
         $('#station-list').append(html); 
       }
     };
