@@ -14,6 +14,11 @@ body .wall-without-mic-image {
   display: inline-table;
 }
 
+.brown-background {
+  background-image: image-url('brown_background.jpg');
+  height: 500px;
+}
+
 #getUserInfoModal, #getStationInfoModal {
   text-align: center;
 }
@@ -69,40 +74,57 @@ dd a:focus {
   outline: 0;
 }
 
+#catalog-list {
+  &.song-manager-page {
+    height: 307px;
+  }
+}
+
 #spinsPerWeekList {
+  background: rgba(0,0,0,0);
+  font-size: 0.9rem;
+  height: 360px;
+  overflow-y: scroll;
+  margin: 0;
+  line-height: 100%;
+
   li {
-    transition: all 0.2s ease-out;
-    margin: 2px 0 2px 0;
     background-color: $darker-item;
-    overflow-x: hidden;
+    font-size: .9rem;
     list-style-type: none;
-    border: 1px solid $darker-item-border;
+    position: relative;
+    width: 100%;
+    float: left;
+    clear: both;
+    margin: 0 0 2px 0;
+    box-sizing: border-box;
+    padding: 9px 15px;
 
     select {
       height: 100%;
-      width: 65px;
+      width: 90px;
       border: 0;
       padding: 0;
-      margin: 0 3px 0 0;
-      float: right;
+      margin: 5px 3px 0 0;
+      float: left;
       background-color: $lighter-item;
       font-size: 0.7em;
     }
     .songlist-artist {
       float: left;
       overflow-x: hidden;
+      width: 35%;
     }
     .songlist-title {
       float: left;
-      width: 50%;
+      width: 35%;
       overflow-x: hidden;
     }
+    .close {
+      width: 5%;
+      float: right;
+    }
   }
-  font-size: 0.9rem;
-  background: $lighter-item;
-  height: 360px;
-  overflow-y: scroll;
-  margin: 0;
 }
 
 #station-list {

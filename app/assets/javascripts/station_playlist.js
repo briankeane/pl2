@@ -79,6 +79,13 @@
       $(this).remove();
     });
 
+    $('#spinsPerWeekList').on('click', 'li .close', function() {
+      var data = $(this).parent().data();
+      deleteSpinPerWeekListItem(data);
+      $("#catalog-list").find("[data-id='" + data.id + "']").removeClass('disabled');
+      $(this).parent().remove();
+    });
+
     $('#spinsPerWeekList').on('change', 'li .rotationSelect', function() {
       var data = { spinFrequency: $(this).val(),
                     id: $(this).parent().data().id };
@@ -110,6 +117,7 @@
                     '<option value="Medium" selected>Medium</option>' +
                     '<option value="Light">Light</option>' +
                   '/<select>' + 
+                  '<a href="#" class="close" title="delete">×</a>' + 
                   '</li>';
       return html;
     };

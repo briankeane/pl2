@@ -1,54 +1,54 @@
 <div class='mic-image-inverse'>
   <div class="row top-row">
-    <div class="small-8 small-offset-4 columns">
-      <div class="row headline">
-          <h1 class="title">Station Playlist</h1>
-      </div>
-    </div>
+    <h1 class="headline">Station Settings</h1>
+    <p class="sub-headline"></p>
   </div>
   <div class="row">
-    <div class="small-6 columns">
-      <fieldset id='spinsPerWeekFieldset'>
-        <legend>Your Station's Song List</legend>
-        <ul id="spinsPerWeekList">
-          <% @spins_per_week.each do |spin| %>
-            <li data-searchString= "<%= spin[0].title + ' ' + spin[0].artist %>" data-id="<%=spin[0].id%>">
-              <span class="songlist-title"><%=spin[0].title %></span>
-              <span class="songlist-artist"><%=spin[0].artist %></span>
-              
-              <% case %>
-              <% when spin[1] <= (PL::MEDIUM_ROTATION + PL::LIGHT_ROTATION)/2 %>
-                <% rotationLevel = 'Light' %>
-              <% when spin[1] <= (PL::HEAVY_ROTATION + PL::MEDIUM_ROTATION)/2 %>
-                <% rotationLevel = 'Medium' %>
-              <% else %>
-                <% rotationLevel = 'Heavy' %>
-              <% end %>
+    <div class="small-7 columns">
+      <h4 class="small-headline">Your Songs</h4>
+      <p class="sub-headline">These are the songs that will automatically play when you're not around.</p>
+      <ul id="spinsPerWeekList">
+        <% @spins_per_week.each do |spin| %>
+          <li data-searchString= "<%= spin[0].title + ' ' + spin[0].artist %>" data-id="<%=spin[0].id%>">
+            <span class="songlist-title"><%=spin[0].title %></span>
+            <span class="songlist-artist"><%=spin[0].artist %></span>
+            
+            <% case %>
+            <% when spin[1] <= (PL::MEDIUM_ROTATION + PL::LIGHT_ROTATION)/2 %>
+              <% rotationLevel = 'Light' %>
+            <% when spin[1] <= (PL::HEAVY_ROTATION + PL::MEDIUM_ROTATION)/2 %>
+              <% rotationLevel = 'Medium' %>
+            <% else %>
+              <% rotationLevel = 'Heavy' %>
+            <% end %>
 
-              <select id="selectBox<%=spin[0].id%>" class="rotationSelect">
-                <option value='Heavy' <%='selected' unless (rotationLevel != 'Heavy')%>>Heavy</option>
-                <option value='Medium' <%='selected' unless (rotationLevel != 'Medium')%>>Medium</option>
-                <option value='Light' <%='selected' unless (rotationLevel != 'Light')%>>Light</option>
-              </select>
+            <select id="selectBox<%=spin[0].id%>" class="rotationSelect">
+              <option value='Heavy' <%='selected' unless (rotationLevel != 'Heavy')%>>Heavy</option>
+              <option value='Medium' <%='selected' unless (rotationLevel != 'Medium')%>>Medium</option>
+              <option value='Light' <%='selected' unless (rotationLevel != 'Light')%>>Light</option>
+            </select>
 
-            </li>
-          <% end %> 
-        </ul>
-        <button id='resetStation'>Reset Station</button>
+            <a href="#" class="close" title="delete">×</a>
 
-      </fieldset>
+          </li>
+        <% end %> 
+      </ul>
+
     </div>
-    <div class="small-6 columns">
-      <fieldset id="catalog-fieldset">
-        <legend>All Playola Songs</legend>
-        <label for="searchbox">Search Text:</label>
-        <input type="text" id="searchbox" />
+    <div class="small-5 columns">
+      <h4 class="small-headline">Songs</h4>
+      <p class="sub-headline">Search our Catalog</p>  
+      <input type="text" id="searchbox" placeholder="Enter Title and/or Artist Here"/>
 
-        <ul id="catalog-list">
-        </ul>
-      </fieldset>
+      <ul id="catalog-list" class="song-manager-page">
+      </ul>
+
     </div>
   </div>
+</div>
+
+<div class="brown-background">
+  <button id='resetStation'>Reset Station</button>
 </div>
 
 <!-- JOYRIDE -->
