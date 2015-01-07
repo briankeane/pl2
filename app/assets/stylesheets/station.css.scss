@@ -28,6 +28,10 @@ body .wall-without-mic-image {
   border: 2px solid $microphone-red;
 }
 
+.nowPlaying .progress .meter {
+  background-color: #0E5050;
+}
+
 #getStationInfoModal .button {
   height: 69px;
 }

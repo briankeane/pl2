@@ -95,8 +95,14 @@
         
         // return if order did not change
         if (ui.item.startPos == ui.item.index()) {
+          $('#station-list').sortable('disable');
+          $('#station-list').sortable({
+            items: "li:not(.disabled)"
+          });
+          $('#station-list').disableSelection();
           $('#station-list').sortable('enable');
-          return; }
+          return; 
+        }
 
         // create an array with just the spin current_ids
         var currentPositions = [];
@@ -112,8 +118,10 @@
         // if they just moved around a commercial, cancel it
         if (!movePositionData.moved) {
           $('#station-list').sortable('cancel');
+          $('#station-list').sortable('disable');
           $('#station-list .commercialBlock').addClass('disabled');
-          //$('#station-list').disableSelection();
+          $('#station-list').disableSelection();
+          $('#station-list').sortable('enable');
           return;
         }
         // disable list until request has come back
