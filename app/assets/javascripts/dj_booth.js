@@ -94,7 +94,9 @@
         $('#station-list .commercialBlock').removeClass('disabled');
         
         // return if order did not change
-        if (ui.item.startPos == ui.item.index()) {return; }
+        if (ui.item.startPos == ui.item.index()) {
+          $('#station-list').sortable('enable');
+          return; }
 
         // create an array with just the spin current_ids
         var currentPositions = [];
