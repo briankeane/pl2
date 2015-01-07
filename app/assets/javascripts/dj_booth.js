@@ -168,10 +168,6 @@
               refreshScheduleList(result.table);
               // update new lastCurrentPosition on the DOM
               $('#station-list').attr('data-lastCurrentPosition', result.table.max_position);
-
-              $('#station-list').sortable({
-                items: "li:not(.disabled)"
-              });
               $('#station-list').sortable('enable');
             }
           });
