@@ -172,6 +172,7 @@
               $('#station-list').sortable({
                 items: "li:not(.disabled)"
               });
+              $('#station-list').sortable('enable');
             }
           });
 
