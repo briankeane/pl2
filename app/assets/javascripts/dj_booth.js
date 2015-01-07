@@ -227,6 +227,7 @@
               $('#station-list').sortable({
                 items: "li:not(.disabled)"
               });
+              $('#station-list').sortable('enable');
             }
           }).done(function(data) {
             console.log(data);
@@ -584,6 +585,7 @@
             $('#station-list').sortable({
               items: "li:not(.disabled)"
             });
+            $('#station-list').sortable('enable');
             appendNextSpin();
           }
     });
