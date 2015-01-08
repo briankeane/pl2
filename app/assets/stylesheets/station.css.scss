@@ -65,8 +65,10 @@ body .wall-without-mic-image {
     transition:         transform .35s ease-out;
 
     .overlay-twitter-handle {
+      overflow: hidden;
       color: white;
       font-family: "roboto";
+      font-size: 24px;
       -webkit-transform: translateY( -webkit-calc(-100% - 10px) );
       transform: translateY( calc(-100% - 10px) );
 
@@ -351,12 +353,12 @@ dd a:focus {
 }
 #findStationsPanel {
   &.tabs {
-    width: 60%;
+    width: 70%;
     margin-right: auto;
     margin-left: auto;
   }
   dd {
-    width: 31%;
+    width: 22%;
     margin: 0 5px 0 5px;
     
     &.active {
