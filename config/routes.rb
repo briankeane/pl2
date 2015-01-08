@@ -48,6 +48,7 @@ Rails.application.routes.draw do
   match '/stations/remove_spin',                        to: 'stations#remove_spin',                         via: 'delete'
   match '/stations/reset_station',                      to: 'stations#reset_station',                       via: 'put'
   match '/stations/:id',                                to: 'stations#show',                                via: 'get'
+  match '/stations/now_playing',            to: 'stations#now_playing',                         via: 'get'
 
   # sessions_controller paths
   get '/auth/twitter/callback', to: 'sessions#create_with_twitter'

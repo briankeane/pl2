@@ -352,6 +352,7 @@ dd a:focus {
   max-width: 90%
 }
 #findStationsPanel {
+
   &.tabs {
     width: 70%;
     margin-right: auto;
@@ -372,6 +373,21 @@ dd a:focus {
       font-family: "roboto";
       font-size: 14px;
     }
+  }
+}
+
+.tabs-content {
+  * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  *:focus {
+    outline: none;
   }
 }
 

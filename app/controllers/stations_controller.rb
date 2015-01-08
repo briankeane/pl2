@@ -315,6 +315,10 @@ class StationsController < ApplicationController
     render :json => spin_as_hash
   end
 
+  def get_now_playing
+    now_playing = PL.db.get_station(params[:station_id]).now_playing
+    render :json => now_playing
+  end
 
   def remove_spin
     result = PL::RemoveSpin.run({ station_id: current_station.id,
