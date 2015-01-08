@@ -19,113 +19,76 @@
     <% end %>
 <% end %>
 <!-- End Modal -->
+
+
 <div class="mic-image-inverse">
-  <div class="row top-row">
 
-    <div class="container small-6 columns">
+  <h1 class="headline">Listen</h1>
+  
 
-      <div class="small-12 columns">
-        <fieldset id="friend-stations">
-          <legend>Your Twitter Friends:</legend>
+  <dl class="tabs" id="findStationsPanel" data-tab>
+    <dd class="active"><a href="#twitter-friends">Your Twitter Friends</a></dd>
+    <dd><a href="#top-stations">Top Stations</a></dd>
+    <dd><a href="#search-stations">Search</a></dd>
+  </dl>
 
-          <ul id="twitter-friends">
+  <div class="tabs-content">
 
-            <% twitter_friends_stations.each do |station| %>
+    <div class="content active" id="twitter-friends">
+      <div class="row small-9">
+        <% twitter_friends_stations.each do |station| %>
+          <a href="/stations/<%= station.id %>">
+            <article class="top-station station-square small-6 medium-3">
+              <img class="twitter-pic" src="<%= station.user.profile_image_url %>" />
+              <div class="overlay">
+              <h3 class="overlay-twitter-handle">@<%= station.user.twitter %></h3>
 
-              <li class="twitter-friend">
-                <img class="twitter-pic" src="<%= station.user.profile_image_url %>" />
+              <h3 class="overlay-now-playing-label">Now Playing:</h3>
 
-                <a href="/stations/<%= station.id %>"<span class="twitter-handle">@<%= station.user.twitter %></span></a>
-                <span class="twitter-now-playing">
-                  <span class="now-playing-label">Now Playing:</span>
+              <% if station.now_playing.is_commercial_block %>
+                <p class="now-playing-title"><b>Commercial Block</b></p>
 
-                  <% if station.now_playing.is_commercial_block %>
-                    <span class="now-playing-title"><b>Commercial Block</b></span>
+              <% else %>
 
-                  <% else %>
-
-                   <span class="now-playing-title"><%= station.now_playing.audio_block.title || 'Commercial Break' %></span>
-                    <span class="now-playing-artist"><%= station.now_playing.audio_block.artist || '' %></span>
-                  </span>
-
-                <% end %>
-              </li>
-            <% end %> 
-
-
-
-          </ul>
-        </fieldset>
-      </div>
-      <div class="small-12 columns">
-        <fieldset id="top-stations-list">
-          <legend>Top Playola Stations:</legend>
-
-          <ul id="top-stations">
-
-            <% @top_stations.each do |station| %>
-
-              <li class="top-stations twitter-friends">
-                <img class="twitter-pic" src="<%= station.user.profile_image_url %>" />
-
-                <a href="/stations/<%= station.id %>"<span class="twitter-handle">@<%= station.user.twitter %></span></a>
-                <span class="twitter-now-playing">
-                  <span class="now-playing-label">Now Playing:</span>
-
-                  <% if station.now_playing.is_commercial_block %>
-                    <span class="now-playing-title"><b>Commercial Block</b></span>
-
-                  <% else %>
-
-                   <span class="now-playing-title"><%= station.now_playing.audio_block.title || 'Commercial Break' %></span>
-                    <span class="now-playing-artist"><%= station.now_playing.audio_block.artist || '' %></span>
-                  </span>
-
-                <% end %>
-              </li>
-            <% end %> 
-
-
-
-          </ul>
-        </fieldset>
+                <p class="now-playing-title"><%= station.now_playing.audio_block.title || 'Commercial Break' %></p>
+                <p class="now-playing-artist"><%= station.now_playing.audio_block.artist || '' %></p>
+              <% end %>
+              </div>
+            </article>
+          </a>
+        <% end %>
       </div>
     </div>
-        
-    <div class="small-6 columns">
-      <fieldset id="presets-fieldset">
-         <legend>Your Presets:</legend>
 
-          <ul id="presets">
+    <div class="content" id="top-stations">
+      <div class="row small-9">
+        <% @top_stations.each do |station| %>
+          <a href="/stations/<%= station.id %>">
+            <article class="top-station station-square small-6 medium-3">
+              <img class="twitter-pic" src="<%= station.user.profile_image_url %>" />
+              <div class="overlay">
+              <h3 class="overlay-twitter-handle">@<%= station.user.twitter %></h3>
 
-            <% @preset_stations.each do |station| %>
+              <h3 class="overlay-now-playing-label">Now Playing:</h3>
 
-              <li class="presets twitter-friends">
-                <img class="twitter-pic" src="<%= station.user.profile_image_url %>" />
+              <% if station.now_playing.is_commercial_block %>
+                <p class="now-playing-title"><b>Commercial Block</b></p>
 
-                <a href="/stations/<%= station.id %>"<span class="twitter-handle">@<%= station.user.twitter %></span></a>
-                <span class="twitter-now-playing">
-                  <span class="now-playing-label">Now Playing:</span>
+              <% else %>
 
-                  <% if station.now_playing.is_commercial_block %>
-                    <span class="now-playing-title"><b>Commercial Block</b></span>
-
-                  <% else %>
-
-                   <span class="now-playing-title"><%= station.now_playing.audio_block.title || 'Commercial Break' %></span>
-                    <span class="now-playing-artist"><%= station.now_playing.audio_block.artist || '' %></span>
-                  </span>
-
-                <% end %>
-              </li>
-            <% end %> 
-
-
-
-          </ul>
-      </fieldset>
+                <p class="now-playing-title"><%= station.now_playing.audio_block.title || 'Commercial Break' %></p>
+                <p class="now-playing-artist"><%= station.now_playing.audio_block.artist || '' %></p>
+              <% end %>
+              </div>
+            </article>
+          </a>
+        <% end %>
+      </div>
     </div>
 
+    <div class="content" id="search-stations">
+      <h1 class="headline">Coming Soon</h1>
     </div>
+
   </div>
 </div>
