@@ -25,6 +25,12 @@ body .wall-without-mic-image {
   transform: translateZ(0);
   display: inline-block;
   margin-top: 45px;
+  &.medium-3 {
+    width: 24%;
+  }
+  &.small-6 {
+    width: 48%;
+  }
 
   &::before {
     content: ' ';
