@@ -26,7 +26,7 @@
         });
       },
       onProgress: function(percentage) {
-        $("#filepicker-drop").text("Uploading ("+percentage+"%)");
+        $("#filepicker-drop").text("Uploading ("+Math.round(percentage)+"%)");
       },
       onError: function(type, message) {
         $("#filepicker-drop").text(message);
