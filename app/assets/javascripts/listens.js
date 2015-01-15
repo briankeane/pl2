@@ -8,8 +8,13 @@
 
     var updateStationSquare = function(spin) {
       var spinLiSelector = '*[data-id="' + spin.station_id +'"]'
+      if (spin.is_commercial_block) {
+        $(spinLiSelector).find('.now-playing-title').text('Commercial Block');
+        $(spinLiSelector).find('.now-playing-artist').text('');
+      } else {
       $(spinLiSelector).find('.now-playing-title').text(spin.audio_block.title);
       $(spinLiSelector).find('.now-playing-artist').text(spin.audio_block.artist);
+      }
     }
 
     var updateNowPlayingCallback = function(spin) {
