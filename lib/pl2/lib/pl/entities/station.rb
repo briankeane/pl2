@@ -505,9 +505,20 @@ module PL
                                                           starting_current_position: attrs[:starting_current_position],
                                                           ending_current_position: attrs[:ending_current_position] })
       
-      # return an empty array if no spins are found
+      # if no spins are found, extend the schedule if it's close enough
       if playlist.size == 0
-        return []
+        # if it's within 10, extend the playlist 2 hrs
+        if (last_accurate_current_position - attrs[:ending_current_position]).abs > 10
+          generate_playlist(self.end_time + (60*60*2))
+          playlist = PL.db.get_playlist_by_current_positions({ station_id: @id,
+                                                          starting_current_position: attrs[:starting_current_position],
+                                                          ending_current_position: attrs[:ending_current_position] })
+        end
+
+        # if the playlist is still empty, return a blank array
+        if playlist.size == 0
+          return []
+        end
       end
 
       playlist_with_commercial_blocks = []

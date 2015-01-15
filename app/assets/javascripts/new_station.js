@@ -39,94 +39,42 @@
   });
  
   $('#userInfo').on('submit valid invalid', function(e) {
-      e.stopPropagation();
-      e.preventDefault();
-      if (e.type === 'valid') {
-        var birth_year = $('#date_year').val();
-        var zipcode = $('#zipcode').val();
-        var gender;
-        if ($('#gender').val() === 'male') {
-          gender = 'male';
-        } else {
-          gender = 'female';
+    e.stopPropagation();
+    e.preventDefault();
+    if (e.type === 'valid') {
+      var birth_year = $('#date_year').val();
+      var zipcode = $('#zipcode').val();
+      var gender;
+      if ($('#gender').val() === 'male') {
+        gender = 'male';
+      } else {
+        gender = 'female';
+      }
+      
+      var userInfo = {
+        birth_year: birth_year,
+        zipcode: zipcode,
+        gender: gender,
+        _method: 'post'
+      };
+
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url:'/users/update',
+        contentType: 'application/json',
+        data: JSON.stringify(userInfo),
+        success: function(obj) {
+          console.log(obj);
+          $('#getUserInfoModal').foundation('reveal', 'close');
+          $('#getStationInfoModal').foundation('reveal', 'open');
+
         }
-        
-        var userInfo = {
-          birth_year: birth_year,
-          zipcode: zipcode,
-          gender: gender,
-          _method: 'post'
-        };
-
-        $.ajax({
-          type: "POST",
-          dataType: "json",
-          url:'/users/update',
-          contentType: 'application/json',
-          data: JSON.stringify(userInfo),
-          success: function(obj) {
-            console.log(obj);
-            $('#getUserInfoModal').foundation('reveal', 'close');
-            $('#getStationInfoModal').foundation('reveal', 'open');
-
-          }
-        });
-      } 
-    });
-
-// OLD STUFF FROM HERE DOWN
-  $('#heavy').sortable();
-  $('#all-songs-list').sortable({ connectWith: ["#heavy", "#medium", "#light"],
-                            dropOnEmpty: true });
-  $('#heavy').sortable({ connectWith: ["#all-songs-list", "#medium", "#light"],
-                          dropOnEmpty: true,
-                          receive: function(event, ui) {
-                              addToRotation(event, ui);
-                            },
-                            remove: function(event, ui) {
-                              deleteFromRotation(event, ui);
-                            }  });
-  $('#medium').sortable({ connectWith: ["#heavy", "#all-songs-list", "#light"],
-                            dropOnEmpty: true,
-                            receive: function(event, ui) {
-                              addToRotation(event, ui);
-                            },
-                            remove: function(event, ui) {
-                              deleteFromRotation(event, ui);
-                            }
-                        });
-  $('#light').sortable({   connectWith: ["#heavy", "#medium", "#all-songs-list"],
-                            dropOnEmpty: true,
-
-                            receive: function(event, ui) {
-                              addToRotation(event, ui);
-                            },
-
-                            remove: function(event, ui) {
-                              deleteFromRotation(event, ui);
-                            }
-
-                            });
-  $('#searchText').keyup(function() {
-    var allListElements = $('li');
-    var fullList = $('#all-songs-list li');
-    var searchString = $('#searchText').val().toLowerCase();
-
-    for (var i=0; i<fullList.length; i++) {
-      var attr = fullList.eq(i).attr('data-searchString');
-      if  (typeof attr !== 'undefined' && attr !== false) {
-        var targetString = fullList.eq(i).attr("data-searchString").toLowerCase();
-
-        if (targetString.indexOf(searchString) == -1) {
-          fullList.eq(i).hide();
-        } else {
-          fullList.eq(i).show();
-        }
-
-      }  // endif
-    }  //endfor
-
+      });
+    } 
   });
+
+
 
 
   $('#create').on('click', function() {

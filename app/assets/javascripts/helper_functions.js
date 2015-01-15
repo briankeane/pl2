@@ -158,3 +158,14 @@ var onWakeFromSleep = function(callback) {
   }, 2000);
 };
 
+var getNowPlaying = function(stationId, callback) {
+  $.ajax({
+    type: 'GET',
+    dataType: 'json',
+    url: '/stations/get_now_playing',
+    contentType: 'application/json',
+    data: { stationId: stationId },
+    success: callback
+  });
+}
+

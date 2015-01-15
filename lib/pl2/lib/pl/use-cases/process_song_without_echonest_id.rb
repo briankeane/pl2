@@ -40,7 +40,7 @@ module PL
 
       if tags_to_fix.size > 0
         tags_to_fix[:song_file] = temp_song_file
-        sp.write_tags(tags_to_fix)
+        sp.write_id3_tags(tags_to_fix)
       end
 
       if PL.db.song_exists?(tags)

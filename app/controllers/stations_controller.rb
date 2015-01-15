@@ -9,6 +9,7 @@ class StationsController < ApplicationController
     @top_stations = PL::GetTopStations.run().top_stations
     presets = PL.db.get_presets(current_user.id)
     @preset_stations = presets.map { |station_id| PL.db.get_station(station_id) }
+    gon.stationLists = { presetStations: @preset_stations, topStations: @top_stations }
   end
 
   def show

@@ -44,7 +44,7 @@ describe 'audio_converter' do
     expect(duration).to eq(29231)
     trimmed_file_path = @ac.trim_silence('spec/test_files/silence_on_ends_copy.mp3')
     duration = sp.get_id3_tags('spec/test_files/silence_on_ends_copy.mp3')[:duration]
-    expect(File.size('spec/test_files/silence_on_ends_copy.mp3')).to eq(225048)
+    expect(File.size('spec/test_files/silence_on_ends_copy.mp3')).to eq(221704)
 
     after_tags = sp.get_id3_tags(File.open('spec/test_files/silence_on_ends_copy.mp3'))
     expect(after_tags[:artist]).to eq('artist')

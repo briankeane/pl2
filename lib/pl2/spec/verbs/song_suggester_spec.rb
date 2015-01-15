@@ -25,7 +25,6 @@ describe 'song_suggester' do
                             duration: song.duration,
                             echonest_id: song.echonest_id })
       end
-
       playlist = @ss.get_suggestions('Rachel Loy')
       expect(playlist.size > 0).to eq(true)
       expect(playlist[0].title).to be_a(String)
