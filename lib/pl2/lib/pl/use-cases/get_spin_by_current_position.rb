@@ -19,7 +19,6 @@ module PL
         end
       end
 
-      
       # 'touch' the audio-block so they are not passed to js as nil
       spin.audio_block unless spin.is_a?(CommercialBlock)
 

@@ -27,6 +27,7 @@
 
       // if advance has already passed, update again now
       if (msTillAdvance < 0) {
+        console.log(spin);
         console.log('msTillAdvance < 0!');
         console.log('endtime: ' + new Date(endTime));
         console.log('now: ' + new Date());
