@@ -22,7 +22,7 @@
       updateStationSquare(spin);
 
       // schedule next lookup
-      var endTime = spin.airtime_in_ms + spin.audio_block.duration;
+      var endTime = spin.airtime_in_ms + spin.duration;
       var msTillAdvance = (endTime - Date.now());
 
       // if advance has already passed, update again now
