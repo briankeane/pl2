@@ -65,7 +65,7 @@
       <div class="row small-9">
         <% @top_stations.each do |station| %>
           <a href="/stations/<%= station.id %>">
-            <article class="top-station station-square small-6 medium-3">
+            <article data-id="<%= station.id %>" class="top-station station-square small-6 medium-3">
               <img class="twitter-pic" src="<%= station.user.profile_image_url %>" />
               <div class="overlay">
               <h3 class="overlay-twitter-handle">@<%= station.user.twitter %></h3>

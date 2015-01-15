@@ -162,9 +162,9 @@ var getNowPlaying = function(stationId, callback) {
   $.ajax({
     type: 'GET',
     dataType: 'json',
-    url: '/stations/get_now_playing',
+    url: '/stations/now_playing',
     contentType: 'application/json',
-    data: { stationId: stationId },
+    data: { station_id: stationId },
     success: callback
   });
 }

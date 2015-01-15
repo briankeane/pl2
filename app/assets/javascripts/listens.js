@@ -6,19 +6,44 @@
       $('#firstSongNotificationModal').foundation('reveal', 'open');
     }
 
+    var updateStationSquare = function(spin) {
+      var spinLiSelector = '*[data-id="' + spin.station_id +'"]'
+      $(spinLiSelector).find('.now-playing-title').text(spin.audio_block.title);
+      $(spinLiSelector).find('.now-playing-artist').text(spin.audio_block.artist);
+    }
+
+    var updateNowPlayingCallback = function(spin) {
+      // update station-square
+      updateStationSquare(spin);
+
+      // schedule next lookup
+      var endTime = spin.airtime_in_ms + spin.audio_block.duration;
+      var msTillAdvance = (endTime - Date.now());
+
+      // if advance has already passed, update again now
+      if (msTillAdvance < 0) {
+        getNowPlaying(spin.station_id, updateNowPlayingCallback);
+      } else {
+        setTimeout(function() { 
+          getNowPlaying(spin.station_id, updateNowPlayingCallback); 
+        }, msTillAdvance);
+      }
+    }
+
     // set up stations to continually get nowPlaying
     for (list in gon.stationLists) {
       if(gon.stationLists.hasOwnProperty(list)) {
         for (station in list) {
           if (gon.stationLists[list].hasOwnProperty(station)) {
-            getNowPlaying(gon.stationLists[list][station].id, function(result) {
-
-            });
+            getNowPlaying(gon.stationLists[list][station].id, updateNowPlayingCallback);            
           }
         }
       }
     };
 
+
+
   }
+
 
 }());

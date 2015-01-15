@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   match 'users/update',                                 to: 'users#update',                                 via: 'post'
   match 'users/report_listener',                        to: 'users#report_listener',                        via: 'put'
   match 'users/create_preset',                          to: 'users#create_preset',                          via: 'post'
-  match 'users/delete_preset',                                 to: 'users#delete_preset',                          via: 'delete'
+  match 'users/delete_preset',                          to: 'users#delete_preset',                          via: 'delete'
   match 'uploads/new',                                  to: 'uploads#new',                                  via: 'get'
   match 'upload/process_song',                          to: 'uploads#process_song',                         via: 'post'
   match 'upload/process_song_without_echonest_id',      to: 'uploads#process_song_without_echonest_id',     via: 'post'
@@ -47,8 +47,8 @@ Rails.application.routes.draw do
   match '/stations/get_spin_by_current_position',       to: 'stations#get_spin_by_current_position',        via: 'get'
   match '/stations/remove_spin',                        to: 'stations#remove_spin',                         via: 'delete'
   match '/stations/reset_station',                      to: 'stations#reset_station',                       via: 'put'
+  match '/stations/now_playing',                        to: 'stations#get_now_playing',                     via: 'get'
   match '/stations/:id',                                to: 'stations#show',                                via: 'get'
-  match '/stations/now_playing',            to: 'stations#now_playing',                         via: 'get'
 
   # sessions_controller paths
   get '/auth/twitter/callback', to: 'sessions#create_with_twitter'
