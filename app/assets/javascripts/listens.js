@@ -5,7 +5,7 @@
     if ($('#firstSongNotificationModal').attr('data-first-visit') === 'true') {
       $('#firstSongNotificationModal').foundation('reveal', 'open');
     }
-    alert('hi');
+
     // set up stations to continually get nowPlaying
     for (list in gon.stationLists) {
       if(gon.stationLists.hasOwnProperty(list)) {
