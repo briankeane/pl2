@@ -31,7 +31,7 @@
         console.log('msTillAdvance < 0!');
         console.log('endtime: ' + new Date(endTime));
         console.log('now: ' + new Date());
-        getNowPlaying(spin.station_id, updateNowPlayingCallback);
+        //getNowPlaying(spin.station_id, updateNowPlayingCallback);
       } else {
         setTimeout(function() { 
           getNowPlaying(spin.station_id, updateNowPlayingCallback); 
