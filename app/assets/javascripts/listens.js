@@ -28,6 +28,8 @@
       // if advance has already passed, update again now
       if (msTillAdvance < 0) {
         console.log('msTillAdvance < 0!');
+        console.log('endtime: ' + new Date(endtime));
+        console.log('now: ' + Date.now());
         getNowPlaying(spin.station_id, updateNowPlayingCallback);
       } else {
         setTimeout(function() { 
