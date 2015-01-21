@@ -7,7 +7,7 @@
 module PL
   class CommercialBlockFactory
     def construct_block(attrs)
-      
+      binding.pry
       # if no commercial has aired yet or it's cycled through all commercial_blocks
       if !attrs[:station].last_commercial_block_aired || attrs[:station].last_commercial_block_aired >= PL::FINAL_COMMERCIAL_BLOCK
         this_commercial_block = 1
