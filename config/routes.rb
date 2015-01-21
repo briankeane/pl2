@@ -1,4 +1,10 @@
 Dir["#{File.dirname(__FILE__)}/../app/api/API/V1/*.rb"].each { |f| load(f) }
+require_relative '../app/api/API/V1/auth.rb'
+require_relative '../app/api/API/V1/songs.rb'
+require_relative '../app/api/API/V1/users.rb'
+require_relative '../app/api/API/V1/root.rb'
+
+
 require_relative '../app/api/API/root.rb'
 
 Rails.application.routes.draw do
