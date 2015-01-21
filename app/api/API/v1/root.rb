@@ -1,3 +1,7 @@
+require_relative 'auth.rb'
+require_relative 'songs.rb'
+require_relative 'users.rb'
+
 module API
   module V1
     class Root < Grape::API
