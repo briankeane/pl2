@@ -299,7 +299,13 @@ class StationsController < ApplicationController
   def get_spin_by_current_position
     result = PL::GetSpinByCurrentPosition.run({ station_id: params["stationId"].to_i,
                                                 current_position: params["currentPosition"].to_i })
+    
+    if !spin_as_hash
+      return :json => result
+    end
+    
     spin_as_hash = result.spin.to_hash
+
 
     # format time
     spin_as_hash["airtimeForDisplay"] = time_formatter(spin_as_hash[:airtime].in_time_zone(current_station.timezone))
