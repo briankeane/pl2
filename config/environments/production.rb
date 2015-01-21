@@ -1,4 +1,7 @@
 Rails.application.configure do
+  
+  config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
+  config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
   # Settings specified here will take precedence over those in config/application.rb.
   # Code is not reloaded between requests.
   config.cache_classes = true
