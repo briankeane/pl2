@@ -1,5 +1,5 @@
 require_relative '../app/api/API/root.rb'
-Dir["#{File.dirname(__FILE__)}/../app/api/API/**/*.rb"].each { |f| load(f) }
+Dir["#{File.dirname(__FILE__)}/../app/api/API/V1/*.rb"].each { |f| load(f) }
 
 Rails.application.routes.draw do
   # mount the api
