@@ -300,10 +300,10 @@ class StationsController < ApplicationController
     result = PL::GetSpinByCurrentPosition.run({ station_id: params["stationId"].to_i,
                                                 current_position: params["currentPosition"].to_i })
     
-    if !spin_as_hash
+    if result.spin
       return :json => result
     end
-    
+
     spin_as_hash = result.spin.to_hash
 
 
