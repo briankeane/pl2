@@ -301,7 +301,7 @@ class StationsController < ApplicationController
                                                 current_position: params["currentPosition"].to_i })
     
     if !result.spin
-      return :json => result
+      render :json => result
     end
 
     spin_as_hash = result.spin.to_hash
