@@ -1,3 +1,5 @@
+require_relative '../app/api/API/root.rb'
+
 Rails.application.routes.draw do
   # mount the api
   mount API::Root => "/"
