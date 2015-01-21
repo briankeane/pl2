@@ -304,22 +304,22 @@ class StationsController < ApplicationController
       render :json => result
     #end
 
-    spin_as_hash = result.spin.to_hash
+    # spin_as_hash = result.spin.to_hash
 
 
-    # format time
-    spin_as_hash["airtimeForDisplay"] = time_formatter(spin_as_hash[:airtime].in_time_zone(current_station.timezone))
-    spin_as_hash["currentPosition"] = spin_as_hash[:current_position]
+    # # format time
+    # spin_as_hash["airtimeForDisplay"] = time_formatter(spin_as_hash[:airtime].in_time_zone(current_station.timezone))
+    # spin_as_hash["currentPosition"] = spin_as_hash[:current_position]
 
-    if result.spin.audio_block.is_a?(PL::Song)
-      spin_as_hash["key"] = 'http://songs.playola.fm/' + result.spin.audio_block.key
-      spin_as_hash["type"] = "Song"
-    elsif result.spin.audio_block.is_a?(PL::Commentary)
-      spin_as_hash["key"] = 'http://commentaries.playola.fm/' + result.spin.audio_block.key
-      spin_as_hash["type"] = "Commentary"
-    end
+    # if result.spin.audio_block.is_a?(PL::Song)
+    #   spin_as_hash["key"] = 'http://songs.playola.fm/' + result.spin.audio_block.key
+    #   spin_as_hash["type"] = "Song"
+    # elsif result.spin.audio_block.is_a?(PL::Commentary)
+    #   spin_as_hash["key"] = 'http://commentaries.playola.fm/' + result.spin.audio_block.key
+    #   spin_as_hash["type"] = "Commentary"
+    # end
 
-    render :json => spin_as_hash
+    # render :json => spin_as_hash
   end
 
   def get_now_playing
