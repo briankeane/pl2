@@ -33,6 +33,8 @@
         console.log('now: ' + new Date());
         //getNowPlaying(spin.station_id, updateNowPlayingCallback);
       } else {
+        console.log('endtime: ' + new Date(endTime));
+        console.log('now: ' + new Date());
         setTimeout(function() { 
           getNowPlaying(spin.station_id, updateNowPlayingCallback); 
         }, msTillAdvance);

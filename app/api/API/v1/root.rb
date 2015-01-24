@@ -1,6 +1,7 @@
 require_relative 'auth.rb'
 require_relative 'songs.rb'
 require_relative 'users.rb'
+require_relative 'stations.rb'
 
 module API
   module V1
@@ -13,6 +14,7 @@ module API
       mount API::V1::Auth
       mount API::V1::Users
       mount API::V1::Songs
+      mount API::V1::Stations
     end
   end
 end

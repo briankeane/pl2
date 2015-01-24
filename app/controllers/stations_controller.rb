@@ -325,7 +325,7 @@ class StationsController < ApplicationController
   def get_now_playing
     now_playing = PL.db.get_station(params[:station_id]).now_playing
     expires_now
-    render :json => now_playing
+    render :json => now_playing.to_hash
   end
 
   def remove_spin

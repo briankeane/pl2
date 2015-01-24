@@ -12,9 +12,9 @@ module API
           { message: 'pong' }
         end
 
-        desc "Return a status."
+        desc "Return Song Info"
         params do
-          requires :id, type: Integer, desc: "Status id."
+          requires :id, type: Integer, desc: "Song Info"
         end
         route_param :id do
           get do
