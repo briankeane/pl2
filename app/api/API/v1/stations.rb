@@ -1,3 +1,5 @@
+require_relative 'helpers/api_helpers.rb'
+
 module API
   module V1
     class Stations < Grape::API
@@ -53,6 +55,34 @@ module API
           else
             return result.error
           end
+        end
+
+        desc 'Gets a Spin by Current Position'
+        get :get_spin_by_current_position do
+          result = PL::GetSpinByCurrentPosition.run({ station_id: params["stationId"].to_i,
+                                                current_position: params["currentPosition"].to_i })
+    
+          if !result.spin
+            return result
+          end
+
+          spin_as_hash = result.spin.to_hash
+
+          current_station = PL.db.get_station(params["stationId"].to_i)
+
+          # format time
+          spin_as_hash["airtimeForDisplay"] = ApiHelpers.time_formatter(spin_as_hash[:airtime].in_time_zone(current_station.timezone))
+          spin_as_hash["currentPosition"] = spin_as_hash[:current_position]
+
+          if result.spin.audio_block.is_a?(PL::Song)
+            spin_as_hash["key"] = 'http://songs.playola.fm/' + result.spin.audio_block.key
+            spin_as_hash["type"] = "Song"
+          elsif result.spin.audio_block.is_a?(PL::Commentary)
+            spin_as_hash["key"] = 'http://commentaries.playola.fm/' + result.spin.audio_block.key
+            spin_as_hash["type"] = "Commentary"
+          end
+
+          spin_as_hash
         end
 
         desc "Return a status."
