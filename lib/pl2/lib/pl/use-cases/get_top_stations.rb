@@ -2,7 +2,12 @@ module PL
   class GetTopStations < UseCase
     def run(attrs={})
       stations = PL.db.get_all_stations
-      stations.each { |station| station.average_daily_listeners }
+      
+      # touch average_daily_listeners and user so they show up
+      stations.each do |station| 
+        station.average_daily_listeners
+        station.user
+      end
       stations.sort! { |station| station.average_daily_listeners }
       return success :top_stations => stations[0..19]
     end
