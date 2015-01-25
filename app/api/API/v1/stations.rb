@@ -21,8 +21,10 @@ module API
             when spin.is_a?(PL::CommercialBlock)
               obj[:type] = 'CommercialBlock'
               obj[:key] = 'http://commercialblocks.playola.fm/' + spin.key
+              obj[:filename] = spin.key
             when spin.audio_block.is_a?(PL::Song)
               obj[:type] = 'Song'
+              obj[:filename] = spin.audio_block.key
               obj[:key] = 'http://songs.playola.fm/' + spin.audio_block.key
               obj[:artist] = spin.audio_block.artist
               obj[:title] = spin.audio_block.title
@@ -30,6 +32,7 @@ module API
             when spin.audio_block.is_a?(PL::Commentary)
               obj[:type] = 'Commentary'
               obj[:key] = 'http://commentaries.playola.fm/' + spin.audio_block.key
+              obj[:filename] = spin.audio_block.key
             end
 
             obj[:currentPosition] = spin.current_position
