@@ -75,7 +75,7 @@ namespace :db do
     puts "count = " + all_stored_songs.count.to_s
 
     [all_stored_songs[0]].each_with_index do |stored_song, i|
-      print "\rFixing song #{i + 1} of #{stored_song_keys.count}"
+      print "\rFixing song #{i + 1} of #{all_stored_songs.count}"
       db_songs = PL.db.get_songs_by_title_and_artist({ title: stored_song.title,
                                                       artist: stored_song.artist })
       db_song = db_songs.select { |song| song.key == key }
