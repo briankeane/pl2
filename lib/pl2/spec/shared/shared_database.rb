@@ -187,15 +187,15 @@ shared_examples 'a badass database' do
   describe 'song retrieval tests' do
     before do
       @song1 = db.create_song({ title: "Bar Lights", artist: "Brian Keane", duration: 226000,
-                                   key: 'ThisIsAKey.mp3', echonest_id: 'THISISANENID' })
+                                   key: 'ThisIsAKey1.mp3', echonest_id: 'THISISANENID' })
       @song2 = db.create_song({ title: "Bar Nights", artist: "Brian Keane", duration: 226000,
-                                   key: 'ThisIsAKey.mp3', echonest_id: 'THISISANENID2' })
+                                   key: 'ThisIsAKey2.mp3', echonest_id: 'THISISANENID2' })
       @song3 = db.create_song({ title: "Bar Brights", artist: "Brian Keane", duration: 226000,
-                                   key: 'ThisIsAKey.mp3', echonest_id: 'THISISANENID3' })
+                                   key: 'ThisIsAKey3.mp3', echonest_id: 'THISISANENID3' })
       @song4 = db.create_song({ title: "Bar First", artist: "Bob Dylan", duration: 226000,
-                                   key: 'ThisIsAKey.mp3', echonest_id: 'THISISANENID4'})
+                                   key: 'ThisIsAKey4.mp3', echonest_id: 'THISISANENID4'})
       @song5 = db.create_song({ title: "Hell", artist: "Bob Dylan", duration: 226000,
-                                   key: 'ThisIsAKey.mp3', echonest_id: 'THISISANENID5' })
+                                   key: 'ThisIsAKey5.mp3', echonest_id: 'THISISANENID5' })
     end
 
     it "gets a list of songs by title" do
@@ -232,6 +232,12 @@ shared_examples 'a badass database' do
 
     it 'gets a song by its echonest_id' do
       expect(db.get_song_by_echonest_id(@song1.echonest_id).id).to eq(@song1.id)
+    end
+
+    it 'gets a song by its key' do
+      expect(db.get_song_by_key(@song1.key).id).to eq(@song1.id)
+      expect(db.get_song_by_key(@song2.key).id).to eq(@song2.id)
+      expect(db.get_song_by_key(@song3.key).id).to eq(@song3.id)
     end
     
     it "returns a list of all songs in the database in the proper order" do

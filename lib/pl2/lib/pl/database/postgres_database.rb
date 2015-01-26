@@ -398,6 +398,16 @@ module PL
         
         ar_song.to_pl
       end
+
+      def get_song_by_key(key)
+        ar_song = Song.find_by('key = ?', key)
+
+        if !ar_song
+          return nil
+        end
+
+        ar_song.to_pl
+      end
       #################
       # Commentaries  #
       #################

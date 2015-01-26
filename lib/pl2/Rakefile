@@ -76,12 +76,10 @@ namespace :db do
 
     all_stored_songs.each_with_index do |stored_song, i|
       print "\rFixing song #{i + 1} of #{all_stored_songs.count}"
-      db_songs = PL.db.get_songs_by_title_and_artist({ title: stored_song.title,
-                                                      artist: stored_song.artist })
-      db_song = db_songs.select { |song| song.key == stored_song.key }
+      db_song = PL.db.get_song_by_key(stored_song.key)
       
-      if db_song.count == 0
-        puts "Error on song #{i}, key: #{song.key}... Song not found in db"
+      if !db_song
+        puts "Error on song #{i}, key: #{stored_song.key}... Song not found in db"
       else
         db_song = db_song[0]
         old_key = db_song.key
