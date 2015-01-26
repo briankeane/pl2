@@ -97,6 +97,7 @@ namespace :db do
         end
       end
     end
+  end
 
 
   task :load_genres => [:load_app] do
