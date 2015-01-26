@@ -64,6 +64,41 @@ namespace :db do
     end
   end
 
+  task :fix_keys => [:load_app] do
+    s3 = AWS::S3.new
+    bucket = @s3.buckets[S3['SONGS_BUCKET']]
+    
+    stored_song_keys = bucket.objects.collect(&:key)
+
+    puts "fixing keys..."
+
+    stored_song_keys[0].each_with_index do |key, i|
+      print "\rFixing song #{i + 1} of #{stored_song_keys.count}"
+      db_songs = PL.db.get_songs_by_title_and_artist({ title: stored_song.title,
+                                                      artist: stored_song.artist })
+      db_song = db_songs.select { |song| song.key == key }
+      
+      if !db_song.size == 0
+        puts "Error on song #{i}, key: #{song.key}... Song not found in db"
+      else
+        db_song = db_song[0]
+        old_key = db_song.key
+        new_key = old_key.gsub(' ', '-').gsub('_','-').gsub(/[^a-zA-Z0-9\-\.]/, '')
+
+        if !new_key == old_key
+          PL.db.update_song({ id: db_song.id, key: new_key })
+
+          # get song and copy it
+          s3_song_file = bucket.objects[key]
+          bucket.objects[new_key].copy_from(old_key)
+          bucket.objects.delete(old_key)
+        else
+          puts 'key ok'
+        end
+      end
+    end
+
+
   task :load_genres => [:load_app] do
     sp = PL::SongProcessor.new
     songs = PL.db.get_all_songs

@@ -100,6 +100,7 @@ module PL
       artist_for_key = attrs[:artist].gsub(/\p{^Alnum}/, '')
 
       new_key = ('_pl_' + ('0' * (7 - next_key_value.to_s.size)) +  next_key_value.to_s + '_' + artist_for_key + '_' + title_for_key + '.mp3')
+                    .gsub(' ', '-').gsub('_','-').gsub(/[^a-zA-Z0-9\-\.]/, '')
 
       song_file = File.open(attrs[:song_file])
       song_file.binmode
