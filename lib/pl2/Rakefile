@@ -65,15 +65,16 @@ namespace :db do
   end
 
   task :fix_keys => [:load_app] do
+    ash = PL::AudioFileStorageHandler.new
+    all_stored_songs = ash.get_all_songs
+
     s3 = AWS::S3.new
     bucket = s3.buckets[S3['SONGS_BUCKET']]
-    
-    stored_song_keys = bucket.objects.collect(&:key)
 
     puts "fixing keys..."
-    puts "count = " + stored_song_keys.count.to_s
+    puts "count = " + all_stored_songs.count.to_s
 
-    [stored_song_keys[0]].each_with_index do |key, i|
+    [all_stored_songs[0]].each_with_index do |stored_song, i|
       print "\rFixing song #{i + 1} of #{stored_song_keys.count}"
       db_songs = PL.db.get_songs_by_title_and_artist({ title: stored_song.title,
                                                       artist: stored_song.artist })
@@ -86,11 +87,10 @@ namespace :db do
         old_key = db_song.key
         new_key = old_key.gsub(' ', '-').gsub('_','-').gsub(/[^a-zA-Z0-9\-\.]/, '')
 
-        if !new_key == old_key
+        if new_key != old_key
           PL.db.update_song({ id: db_song.id, key: new_key })
 
           # get song and copy it
-          s3_song_file = bucket.objects[key]
           bucket.objects[new_key].copy_from(old_key)
           bucket.objects.delete(old_key)
         else
