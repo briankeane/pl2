@@ -66,7 +66,7 @@ namespace :db do
 
   task :fix_keys => [:load_app] do
     s3 = AWS::S3.new
-    bucket = @s3.buckets[S3['SONGS_BUCKET']]
+    bucket = s3.buckets[S3['SONGS_BUCKET']]
     
     stored_song_keys = bucket.objects.collect(&:key)
 
