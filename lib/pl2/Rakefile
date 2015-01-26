@@ -81,7 +81,6 @@ namespace :db do
       if !db_song
         puts "Error on song #{i}, key: #{stored_song.key}... Song not found in db"
       else
-        db_song = db_song[0]
         old_key = db_song.key
         new_key = old_key.gsub(' ', '-').gsub('_','-').gsub(/[^a-zA-Z0-9\-\.]/, '')
 
