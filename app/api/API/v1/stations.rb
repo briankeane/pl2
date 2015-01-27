@@ -29,6 +29,8 @@ module API
               obj[:artist] = spin.audio_block.artist
               obj[:title] = spin.audio_block.title
               obj[:id] = spin.audio_block.id
+              obj[:albumArtworkUrl] = spin.audio_block.album_artwork_url
+              obj[:itunesTrackViewUrl] = spin.audio_block.itunes_track_view_url
             when spin.audio_block.is_a?(PL::Commentary)
               obj[:type] = 'Commentary'
               obj[:key] = 'http://commentaries.playola.fm/' + spin.audio_block.key
