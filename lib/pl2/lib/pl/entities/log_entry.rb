@@ -9,7 +9,11 @@ module PL
     end
 
     def estimated_end_time
-    	airtime + @duration/1000
+    	if @duration
+        return airtime + @duration/1000
+      else
+        return airtime + audio_block.duration/1000
+      end
     end
 
     def audio_block
