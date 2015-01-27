@@ -112,7 +112,11 @@ module API
         end
         route_param :id do
           get do
-            PL.db.get_station(params[:id])
+            station = PL.db.get_station(params[:id])
+
+            # 'touch' user so it shows up
+            station.user
+            station
           end
         end
 
