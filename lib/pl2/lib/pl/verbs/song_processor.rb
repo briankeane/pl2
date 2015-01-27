@@ -276,8 +276,8 @@ module PL
       matches = JSON.parse(res.body)["results"]
       jarow = FuzzyStringMatch::JaroWinkler.create( :native )
       matches.each do |match|
-        artist_match = jarow.getDistance(attrs[:artist].downcase, (match["artistName"].downcase || ''))
-        title_match = jarow.getDistance(attrs[:title].downcase, (match["trackName"].downcase || ''))
+        artist_match = jarow.getDistance(attrs[:artist].downcase, ((match["artistName"] || '').downcase))
+        title_match = jarow.getDistance(attrs[:title].downcase, ((match["trackName"] || '').downcase))
         if (artist_match > 0.9) && (title_match > 0.9)
           return { album_artwork_url: match["artworkUrl100"].gsub('100','600'),
                     itunes_track_view_url: match["trackViewUrl"] }
