@@ -5,6 +5,7 @@ require 'echowrap'
 require 'fuzzystringmatch'
 require 'aws-sdk'
 require 'net/http'
+require 'i18n'
 
 
 module PL
@@ -263,6 +264,8 @@ module PL
     end
 
     def get_itunes_info(attrs)
+      attrs[:artist] = I18n.transliterate(attrs[:artist])
+      attrs[:title] = I18n.transliterate(attrs[:title])
       uri = URI.parse('https://itunes.apple.com') + ('search?term=' + (attrs[:artist] + '+' + attrs[:title]).gsub(' ', '+'))
       res = Net::HTTP.get_response(uri)
       http = Net::HTTP.new(uri.host, uri.port)
