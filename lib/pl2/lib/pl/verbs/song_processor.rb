@@ -4,6 +4,7 @@ require 'taglib'
 require 'echowrap'
 require 'fuzzystringmatch'
 require 'aws-sdk'
+require 'net/http'
 
 
 module PL
@@ -41,6 +42,11 @@ module PL
         return false
       end
 
+      # grab the artwork if it exists
+      artwork_url = self.get_album_artwork_link({ title: tags[:title],
+                                                  artist: tags[:artist] })
+
+
       # Store the song
       handler = PL::AudioFileStorageHandler.new
       key = handler.store_song({ song_file: song_file,
@@ -57,9 +63,11 @@ module PL
                                 title: tags[:title],
                                 duration: tags[:duration],
                                 key: key,
-                                echonest_id: echo_tags[:echonest_id] 
+                                echonest_id: echo_tags[:echonest_id],
+                                album_artwork_url: artwork_url
                                 })
       
+
 
       # Add to Echonest
       song_pool = SongPoolHandler.new
@@ -248,6 +256,26 @@ module PL
                                 echonest_id: song.id } }
 
       song_list
+    end
+
+    def get_album_artwork_link(attrs)
+      uri = URI.parse('https://itunes.apple.com') + ('search?term=' + (attrs[:artist] + '+' + attrs[:title]).gsub(' ', '+'))
+      res = Net::HTTP.get_response(uri)
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      req = Net::HTTP::Get.new(uri.request_uri)
+      res = http.request(req)
+      matches = JSON.parse(res.body)["results"]
+      jarow = FuzzyStringMatch::JaroWinkler.create( :native )
+      matches.each do |match|
+        artist_match = jarow.getDistance(attrs[:artist].downcase, match["artistName"].downcase)
+        title_match = jarow.getDistance(attrs[:title].downcase, match["trackName"].downcase)
+        if (artist_match > 0.9) && (title_match > 0.9)
+          return match["artworkUrl100"].gsub('100','600')
+        end
+      end
+      return nil
     end
   end
 end
