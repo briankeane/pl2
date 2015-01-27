@@ -43,8 +43,11 @@ module PL
       end
 
       # grab the artwork if it exists
-      artwork_url = self.get_album_artwork_link({ title: tags[:title],
-                                                  artist: tags[:artist] })
+      itunes_info = self.get_itunes_info({ title: tags[:title],
+                                          artist: tags[:artist] })
+      if !itunes_info
+        itunes_info = {}
+      end
 
 
       # Store the song
@@ -64,7 +67,8 @@ module PL
                                 duration: tags[:duration],
                                 key: key,
                                 echonest_id: echo_tags[:echonest_id],
-                                album_artwork_url: artwork_url
+                                album_artwork_url: itunes_info[:album_artwork_url],
+                                itunes_track_view_url: itunes_info[:itunes_track_view_url]
                                 })
       
 
@@ -258,7 +262,7 @@ module PL
       song_list
     end
 
-    def get_album_artwork_link(attrs)
+    def get_itunes_info(attrs)
       uri = URI.parse('https://itunes.apple.com') + ('search?term=' + (attrs[:artist] + '+' + attrs[:title]).gsub(' ', '+'))
       res = Net::HTTP.get_response(uri)
       http = Net::HTTP.new(uri.host, uri.port)
@@ -272,10 +276,12 @@ module PL
         artist_match = jarow.getDistance(attrs[:artist].downcase, match["artistName"].downcase)
         title_match = jarow.getDistance(attrs[:title].downcase, match["trackName"].downcase)
         if (artist_match > 0.9) && (title_match > 0.9)
-          return match["artworkUrl100"].gsub('100','600')
+          return { album_artwork_url: match["artworkUrl100"].gsub('100','600'),
+                    itunes_track_view_url: match["trackViewUrl"] }
         end
       end
       return nil
     end
+
   end
 end

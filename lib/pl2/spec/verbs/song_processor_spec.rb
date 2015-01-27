@@ -16,6 +16,7 @@ describe 'SongProcessor' do
         song = @song_processor.add_song_to_system(mp3_file)
         expect(song.title).to eq('Even If It Breaks Your Heart')
         expect(song.album_artwork_url).to eq('http://a1.mzstatic.com/us/r30/Music/99/bf/52/mzi.fokfkzrh.600x600-75.jpg')
+        expect(song.itunes_track_view_url).to eq('https://itunes.apple.com/us/album/even-if-it-breaks-your-heart/id331662336?i=331662495&uo=4')
         echonest_info = @song_processor.get_echonest_info(artist: 'Will Hoge', title: 'Even If It Breaks Your Heart')
         
         # sometimes echonest answers with duplicate record
@@ -135,10 +136,11 @@ describe 'SongProcessor' do
     end
   end
 
-  it 'gets album artwork link' do
-    match = @song_processor.get_album_artwork_link({ artist: 'Miranda Lambert',
+  it 'gets itunes info' do
+    match = @song_processor.get_itunes_info({ artist: 'Miranda Lambert',
                                                       title: 'Little Red Wagon' })
-    expect(match).to eq('http://a1.mzstatic.com/us/r30/Music/v4/e5/22/a0/e522a052-63eb-d71e-7fbd-ccff670a399d/886444518710.600x600-75.jpg')
+    expect(match[:album_artwork_url]).to eq('http://a1.mzstatic.com/us/r30/Music/v4/e5/22/a0/e522a052-63eb-d71e-7fbd-ccff670a399d/886444518710.600x600-75.jpg')
+    expect(match[:itunes_track_view_url]).to eq('https://itunes.apple.com/us/album/little-red-wagon/id849069497?i=849069513&uo=4')
 
   end
 end

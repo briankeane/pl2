@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150127131548) do
+ActiveRecord::Schema.define(version: 20150127140022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20150127131548) do
     t.integer  "current_position"
     t.datetime "airtime"
     t.string   "album_artwork_url"
+    t.string   "itunes_track_view_url"
   end
 
   create_table "commercial_links", force: true do |t|

@@ -1,6 +1,6 @@
 module PL
   class Song < Entity
-    attr_accessor :id, :artist, :title, :album, :duration, :album_artwork_url
+    attr_accessor :id, :artist, :title, :album, :duration, :album_artwork_url, :itunes_track_view_url
     attr_accessor :key, :created_at, :updated_at, :audio_file, :echonest_id
 
     def initialize(attrs)

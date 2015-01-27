@@ -97,17 +97,18 @@ namespace :db do
     end
   end
 
-  task :load_artwork => [:load_app] do
+  task :load_itunes_info => [:load_app] do
     sp = PL::SongProcessor.new
     songs = PL.db.get_all_songs
     songs.each_with_index do |song, i|
-      if !song.album_artwork_url
+      if (!song.album_artwork_url || !song.itunes_track_view_url)
         print("Song #{i}: " + song.title + '... ')
-        artwork_link = sp.get_album_artwork_link({ artist: song.artist, title: song.title })
+        itunes_info = sp.get_itunes_info({ artist: song.artist, title: song.title })
         
-        if artwork_link
+        if itunes_info
           puts("found")
-          PL.db.update_song({ id: song.id, album_artwork_url: artwork_link })
+          PL.db.update_song({ id: song.id, album_artwork_url: itunes_info[:album_artwork_url],
+                            itunes_track_view_url: itunes_info[:itunes_track_view_url] })
         else
           puts("NO MATCH")
         end
