@@ -160,7 +160,11 @@ module PL
       total = all_s3_objects.count
       puts
 
+      
+
+
       all_s3_objects.each_with_index do |s3_object, i|
+        if i >= 1000
         print "\rSong #{i + 1} of #{total}"
         song = Song.new({ artist: s3_object.metadata[:pl_artist],
                           title: s3_object.metadata[:pl_title],
@@ -169,6 +173,7 @@ module PL
                           echonest_id: s3_object.metadata[:pl_echonest_id],
                           key: s3_object.key })
         songs << song
+      end
       end
       return songs
     end
