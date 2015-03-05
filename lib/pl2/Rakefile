@@ -26,6 +26,25 @@ task :sandbox => [:load_app] do
   puts ''
 end
 
+task :backup_storage_remotely => [:load_app] do
+  ash = PL::AudioFileStorageHandler.new
+  all_stored_songs = ash.get_all_songs
+
+  s3 = AWS::S3.new
+  
+  backup_bucket = s3.buckets['playolasongsbackup']
+  original_bucket = s3.buckets['playolasongs']
+
+  all_stored_songs.each_with_index do |song, i|
+    from_obj = original_bucket.objects[song.key]
+    to_obj = backup_bucket[song.key]
+    from_obj.copy_to(to_obj)
+    print "\rBacking Up Song#{i + 1} of #{all_songs.count}"
+  end
+end
+
+
+
 namespace :db do
   task :migrate do
     puts "Migrating database"
