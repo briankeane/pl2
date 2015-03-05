@@ -9,7 +9,7 @@ module PL
         station.user
       end
       stations.sort! { |station| station.average_daily_listeners }
-      return success :top_stations => stations[0..19]
+      return success :top_stations => stations
     end
   end
 end

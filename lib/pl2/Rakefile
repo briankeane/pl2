@@ -35,11 +35,13 @@ task :backup_storage_remotely => [:load_app] do
   backup_bucket = s3.buckets['playolasongsbackup']
   original_bucket = s3.buckets['playolasongs']
 
+  puts
+
   all_stored_songs.each_with_index do |song, i|
     from_obj = original_bucket.objects[song.key]
-    to_obj = backup_bucket[song.key]
+    to_obj = backup_bucket.objects[song.key]
     from_obj.copy_to(to_obj)
-    print "\rBacking Up Song#{i + 1} of #{all_songs.count}"
+    print "\rBacking Up Song#{i + 1} of #{all_stored_songs.count}"
   end
 end
 
